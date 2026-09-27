@@ -1,0 +1,70 @@
+// Schema Prisma universel pour développement local (SQLite) et compatibilité fluide
+// Pour basculer vers PostgreSQL en production, voir prisma/schema.postgresql.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Participant {
+  id              String   @id @default(cuid())
+  firstName       String
+  lastName        String
+  email           String
+  phone           String
+  country         String
+  city            String
+  numberOfGuests  Int      @default(1)
+  ticketType      String   @default("STANDARD") // STANDARD ou VIP
+  source          String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  tickets Ticket[]
+
+  @@index([email])
+}
+
+model Ticket {
+  id            String    @id @default(cuid())
+  ticketNumber  String    @unique // ex: CN-2026-000001
+  qrToken       String    @unique // Token cryptographique sécurisé (sans PII)
+  ticketType    String    @default("STANDARD") // STANDARD ou VIP
+  status        String    @default("VALID") // VALID, USED, CANCELLED
+  scannedAt     DateTime?
+  scannedBy     String?
+
+  participantId String
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([qrToken])
+  @@index([ticketNumber])
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String
+  salt         String
+  role         String   @default("STAFF") // ADMIN ou STAFF
+  createdAt    DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  status    String   @default("NEW")
+  createdAt DateTime @default(now())
+}
