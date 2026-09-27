@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, Montserrat } from "next/font/google";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -41,10 +39,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={`${bebasNeue.variable} ${montserrat.variable}`}>
-      <body className="font-body flex min-h-screen flex-col bg-cn-blue-night text-cn-white antialiased">
-        <Navbar />
-        <main className="flex-1 pt-16">{children}</main>
-        <Footer />
+      <body className="font-body min-h-screen bg-cn-blue-night text-cn-white antialiased">
+        {children}
       </body>
     </html>
   );

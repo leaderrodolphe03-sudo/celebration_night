@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { Play, Download, Image as ImageIcon, Video, FileText, ArrowRight } from "lucide-react";
+import MediaDownloadButton from "@/components/media/MediaDownloadButton";
 
 export const metadata: Metadata = {
   title: "Médias & Ressources — CÉLÉBRATION NIGHT 2026",
@@ -213,14 +214,7 @@ export default function MediasPage() {
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={() => alert(`Téléchargement de « ${item.title} » en cours...`)}
-                className="inline-flex items-center justify-center gap-2 rounded-md border border-white/20 bg-white/5 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#F5B900] hover:text-[#111111] hover:border-[#F5B900] transition-colors"
-              >
-                <Download size={14} />
-                Télécharger
-              </button>
+              <MediaDownloadButton title={item.title} />
             </div>
           ))}
         </div>

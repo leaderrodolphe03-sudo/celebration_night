@@ -167,7 +167,48 @@ function getInitialDatabase(): DatabaseSchema {
   };
 }
 
-class StorageEngine {
+export interface DatabaseRepository {
+  createRegistration(data: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    country: string;
+    city: string;
+    numberOfGuests: number;
+    ticketType: TicketType;
+    source?: string;
+  }): { participant: Participant; tickets: Ticket[] };
+
+  getTicketByNumber(ticketNumber: string): { ticket: Ticket; participant: Participant } | null;
+  getTicketByToken(qrToken: string): { ticket: Ticket; participant: Participant } | null;
+  findTicketsByEmailOrPhone(query: string): { participant: Participant; tickets: Ticket[] }[];
+  scanTicket(tokenOrNumber: string, scannedBy?: string): ScanResult;
+  getDashboardStats(): {
+    totalParticipants: number;
+    totalTickets: number;
+    scannedTickets: number;
+    pendingTickets: number;
+    attendanceRate: number;
+    standardTickets: number;
+    vipTickets: number;
+    recentParticipants: any[];
+    recentScans: any[];
+  };
+  getParticipants(search?: string, ticketType?: string): (Participant & { tickets: Ticket[] })[];
+  getTickets(search?: string, status?: string, ticketType?: string): (Ticket & { participant?: Participant })[];
+  authenticate(email: string, password: string): AdminUser | null;
+  getAdminUserById(id: string): AdminUser | null;
+  addContactMessage(data: {
+    name: string;
+    email: string;
+    phone?: string;
+    subject: string;
+    message: string;
+  }): ContactMessage;
+}
+
+class StorageEngine implements DatabaseRepository {
   private cache: DatabaseSchema | null = null;
 
   private load(): DatabaseSchema {

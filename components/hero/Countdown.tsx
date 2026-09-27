@@ -14,19 +14,20 @@ function getTimeLeft(target: Date) {
 
 export default function Countdown({ targetDate }: { targetDate: string }) {
   const target = new Date(targetDate);
+  const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState(() => getTimeLeft(target));
 
   useEffect(() => {
+    setMounted(true);
     const id = setInterval(() => setTime(getTimeLeft(target)), 1000);
     return () => clearInterval(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [targetDate]);
 
   const units: Array<[string, number]> = [
-    ["Jours", time.jours],
-    ["Heures", time.heures],
-    ["Min", time.minutes],
-    ["Sec", time.secondes],
+    ["Jours", mounted ? time.jours : 0],
+    ["Heures", mounted ? time.heures : 0],
+    ["Min", mounted ? time.minutes : 0],
+    ["Sec", mounted ? time.secondes : 0],
   ];
 
   return (

@@ -29,14 +29,9 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Ne pas afficher la navbar publique sur les pages d'administration
-  if (pathname?.startsWith("/admin")) {
-    return null;
-  }
-
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+      className={`fixed top-0 z-50 w-full transition-all duration-300 print:hidden ${
         scrolled
           ? "bg-[#17165A]/90 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-xl border-b border-[#F5B900]/25"
           : "bg-gradient-to-b from-[#17165A]/95 via-[#17165A]/60 to-transparent"

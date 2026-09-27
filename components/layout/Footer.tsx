@@ -1,18 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Youtube, Facebook, Instagram, ShieldCheck, Mail, MapPin, Calendar, Clock, Ticket } from "lucide-react";
 import { CelebrationNightLogo, HagiazoLogo } from "./Logos";
 import { EVENT } from "@/lib/event-config";
 
 export default function Footer() {
-  const pathname = usePathname();
-
-  if (pathname?.startsWith("/admin")) {
-    return null;
-  }
-
   return (
     <footer className="border-t border-white/10 bg-[#111111] text-cn-white print:hidden">
       {/* Bannière supérieure de contact rapide */}

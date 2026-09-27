@@ -2,3 +2,9 @@ node_modules
 .next
 .env
 .env*.local
+
+# Persistance locale & bases de données
+data/
+*.db
+*.db-journal
+*.sqlite
