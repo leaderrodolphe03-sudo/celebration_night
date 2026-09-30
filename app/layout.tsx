@@ -39,7 +39,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={`${bebasNeue.variable} ${montserrat.variable}`}>
-      <body className="font-body min-h-screen bg-cn-blue-night text-cn-white antialiased">
+      <body className="font-body min-h-screen bg-cn-ember-dark text-cn-white antialiased">
         {children}
       </body>
     </html>

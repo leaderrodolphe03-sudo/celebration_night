@@ -87,8 +87,8 @@ export default function TicketPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#17165A] text-white flex flex-col items-center justify-center p-6 text-center">
-        <div className="h-12 w-12 rounded-full border-4 border-[#F5B900] border-t-transparent animate-spin mb-4" />
+      <div className="min-h-screen bg-[#0A0304] text-white flex flex-col items-center justify-center p-6 text-center">
+        <div className="h-12 w-12 rounded-full border-4 border-[#E5252A] border-t-transparent animate-spin mb-4" />
         <p className="font-heading text-xl uppercase tracking-wider text-cn-gray-300">
           Chargement de votre billet officiel...
         </p>
@@ -98,7 +98,7 @@ export default function TicketPage() {
 
   if (error || !data) {
     return (
-      <div className="min-h-screen bg-[#17165A] text-white flex flex-col items-center justify-center p-6 text-center">
+      <div className="min-h-screen bg-[#0A0304] text-white flex flex-col items-center justify-center p-6 text-center">
         <div className="h-16 w-16 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center mb-4">
           <AlertTriangle size={32} />
         </div>
@@ -110,7 +110,7 @@ export default function TicketPage() {
         </p>
         <Link
           href="/mon-billet"
-          className="mt-6 rounded-md bg-[#F5B900] px-6 py-3 font-body text-xs font-bold uppercase tracking-wider text-[#111111]"
+          className="mt-6 rounded-md bg-gradient-to-r from-[#B71C1C] to-[#E5252A] px-6 py-3 font-body text-xs font-bold uppercase tracking-wider text-white shadow-lg"
         >
           Rechercher un autre billet
         </Link>
@@ -122,7 +122,7 @@ export default function TicketPage() {
   const isValid = data.ticket.status === "VALID";
 
   return (
-    <div className="min-h-screen bg-[#17165A] text-white py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#0A0304] text-white py-12 px-4 sm:px-6 lg:px-8">
       {/* Barre d'action supérieure (masquée à l'impression) */}
       <div className="print:hidden mx-auto max-w-3xl mb-8 flex flex-wrap items-center justify-between gap-4">
         <Link
@@ -136,17 +136,38 @@ export default function TicketPage() {
         <div className="flex items-center gap-3">
           <button
             type="button"
+            onClick={async () => {
+              try {
+                const { renderBadgeToDataUrl, downloadDataUrl } = await import("@/lib/badge-canvas");
+                const dataUrl = await renderBadgeToDataUrl({
+                  fullName: `${data.participant.firstName} ${data.participant.lastName}`,
+                  ticketNumber: data.ticket.ticketNumber,
+                  qrToken: data.ticket.ticketNumber,
+                });
+                downloadDataUrl(dataUrl, `badge-carre-${data.ticket.ticketNumber}.png`);
+              } catch (e) {
+                console.error(e);
+              }
+            }}
+            className="inline-flex items-center gap-2 rounded-md border border-[#F5B900]/40 bg-[#F5B900]/10 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#FFD84A] hover:bg-[#F5B900]/20 transition-colors"
+          >
+            <Download size={14} className="text-[#FFD84A]" />
+            <span>Pass Carré J&apos;y Serai (HD)</span>
+          </button>
+
+          <button
+            type="button"
             onClick={handleDownloadQr}
             className="inline-flex items-center gap-2 rounded-md border border-white/20 bg-white/5 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-white hover:bg-white/10 transition-colors"
           >
             <Download size={14} className="text-[#F5B900]" />
-            <span>QR Code PNG</span>
+            <span>QR Code</span>
           </button>
 
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex items-center gap-2 rounded-md bg-[#F5B900] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#FFD84A] shadow-lg transition-transform hover:scale-105"
+            className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-[#B71C1C] via-[#E5252A] to-[#F5B900] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg transition-transform hover:scale-105"
           >
             <Printer size={15} />
             <span>Imprimer le Billet</span>
@@ -155,12 +176,12 @@ export default function TicketPage() {
       </div>
 
       {/* BILLET OFFICIEL HAUTE FIDÉLITÉ (Imprimable et affichable) */}
-      <div className="mx-auto max-w-3xl overflow-hidden rounded-3xl border-2 border-[#F5B900]/60 bg-[#111111] shadow-[0_20px_60px_rgba(0,0,0,0.6)] print:border-black print:shadow-none print:m-0 print:w-full">
+      <div className="mx-auto max-w-3xl overflow-hidden rounded-3xl border-2 border-[#E5252A]/50 bg-[#140507] shadow-[0_20px_60px_rgba(0,0,0,0.8)] print:border-black print:shadow-none print:m-0 print:w-full">
         {/* Bandeau d'en-tête du billet */}
         <div className={`p-6 sm:p-8 relative ${
           isVip
-            ? "bg-gradient-to-r from-[#38217F] via-[#5A35A8] to-[#17165A] border-b-2 border-[#F5B900]"
-            : "bg-gradient-to-r from-[#17165A] via-[#38217F] to-[#111111] border-b border-white/10"
+            ? "bg-gradient-to-r from-[#24080C] via-[#3B0E14] to-[#0A0304] border-b-2 border-[#E5252A]"
+            : "bg-gradient-to-r from-[#140507] via-[#24080C] to-[#0A0304] border-b border-white/10"
         }`}>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex flex-col gap-1">
@@ -179,8 +200,8 @@ export default function TicketPage() {
               <span
                 className={`rounded-full px-4 py-1 text-xs font-bold uppercase tracking-wider ${
                   isVip
-                    ? "bg-[#F5B900] text-[#111111] shadow-lg"
-                    : "bg-[#38217F] text-[#FFD84A] border border-white/20"
+                    ? "bg-[#E5252A] text-white shadow-lg"
+                    : "bg-[#24080C] text-[#FFD84A] border border-white/20"
                 }`}
               >
                 {isVip ? "★ Pass Partenaire VIP" : "Pass Standard"}
@@ -193,7 +214,7 @@ export default function TicketPage() {
         </div>
 
         {/* Corps du Billet : Données Participant + QR Code */}
-        <div className="p-6 sm:p-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#17165A]/40">
+        <div className="p-6 sm:p-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#0A0304]/60">
           {/* Colonne Informations (7 colonnes) */}
           <div className="md:col-span-7 space-y-6">
             <div>
@@ -227,7 +248,7 @@ export default function TicketPage() {
               </div>
               <div className="col-span-2">
                 <span className="text-cn-gray-500 uppercase tracking-wider block flex items-center gap-1">
-                  <MapPin size={13} className="text-[#F5B900]" /> Lieu du Rassemblement
+                  <MapPin size={13} className="text-[#E5252A]" /> Lieu du Rassemblement
                 </span>
                 <span className="font-semibold text-white text-sm mt-0.5 block">
                   Palais des Congrès / Grande Halle de Célébration (Abidjan)
@@ -242,13 +263,13 @@ export default function TicketPage() {
           </div>
 
           {/* Colonne QR Code (5 colonnes) */}
-          <div className="md:col-span-5 flex flex-col items-center text-center justify-center p-6 rounded-2xl bg-white text-[#111111] shadow-2xl">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#17165A] mb-2">
+          <div className="md:col-span-5 flex flex-col items-center text-center justify-center p-6 rounded-2xl bg-white text-[#0A0304] shadow-2xl">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#B71C1C] mb-2">
               Pass de Contrôle Unique
             </span>
 
             {/* Image du QR Code généré dynamiquement */}
-            <div className="p-2 border-2 border-dashed border-[#17165A]/30 rounded-xl">
+            <div className="p-2 border-2 border-dashed border-[#B71C1C]/30 rounded-xl">
               <img
                 src={data.qrCodeDataUrl}
                 alt={`QR Code Billet ${data.ticket.ticketNumber}`}
@@ -256,7 +277,7 @@ export default function TicketPage() {
               />
             </div>
 
-            <p className="mt-3 font-mono text-xs font-bold text-[#17165A] tracking-wider">
+            <p className="mt-3 font-mono text-xs font-bold text-[#0A0304] tracking-wider">
               {data.ticket.ticketNumber}
             </p>
 

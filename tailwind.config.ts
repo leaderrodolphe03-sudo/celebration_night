@@ -6,17 +6,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "cn-blue-night": "#17165A",
-        "cn-purple-deep": "#38217F",
-        "cn-purple": "#5A35A8",
-        "cn-blue": "#3159C8",
+        // Nouvelle palette Sacrée : Braise, Flamme, Or, Noir profond (remplace l'ancien bleu)
+        "cn-ember-dark": "#0A0304",
+        "cn-ember": "#140507",
+        "cn-burgundy": "#24080C",
+        "cn-red-crimson": "#B71C1C",
+        "cn-red-flame": "#E5252A",
         "cn-gold": "#F5B900",
         "cn-gold-light": "#FFD84A",
         "cn-white": "#FFFFFF",
-        "cn-black": "#111111",
+        "cn-black": "#0A0304",
         "cn-gray-100": "#F5F5F7",
         "cn-gray-300": "#E5E5EA",
         "cn-gray-500": "#77777F",
+        // Aliases de compatibilité rétroactive remappés vers la charte braise/feu (aucun bleu)
+        "cn-blue-night": "#0A0304",
+        "cn-purple-deep": "#1E070B",
+        "cn-purple": "#3B0E14",
+        "cn-blue": "#D32F2F",
       },
       fontFamily: {
         heading: ["var(--font-bebas)", "sans-serif"],

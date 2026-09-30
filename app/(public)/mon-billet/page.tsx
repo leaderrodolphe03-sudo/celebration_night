@@ -51,22 +51,22 @@ export default function MonBilletPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#17165A] text-white py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#0A0304] text-white py-16 px-4 sm:px-6 lg:px-8">
       {/* Halo d'ambiance */}
       <div
         aria-hidden
-        className="pointer-events-none absolute top-12 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#38217F]/60 blur-[130px]"
+        className="pointer-events-none absolute top-12 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#E5252A]/20 blur-[130px]"
       />
 
       <div className="relative mx-auto max-w-2xl text-center">
-        <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#F5B900]">
+        <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#FFD84A]">
           Espace Participant
         </span>
         <h1 className="mt-3 font-heading text-4xl sm:text-6xl uppercase tracking-wider text-white">
           Retrouver Mon Billet
         </h1>
         <p className="mt-3 font-body text-sm sm:text-base text-cn-gray-300 max-w-xl mx-auto">
-          Entrez votre numéro de billet (ex: <code className="text-[#F5B900]">CN-2026-000001</code>),
+          Entrez votre numéro de billet (ex: <code className="text-[#FFD84A]">CN-2026-000001</code>),
           votre adresse email ou votre téléphone pour afficher et télécharger votre QR Code d&apos;entrée.
         </p>
 
@@ -79,7 +79,7 @@ export default function MonBilletPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Numéro CN-2026-..., email ou téléphone"
-              className="w-full rounded-md border border-white/20 bg-white/5 px-4 py-4 pl-11 text-sm text-white placeholder-cn-gray-500 focus:border-[#F5B900] focus:outline-none focus:ring-1 focus:ring-[#F5B900]"
+              className="w-full rounded-md border border-white/20 bg-white/5 px-4 py-4 pl-11 text-sm text-white placeholder-cn-gray-500 focus:border-[#E5252A] focus:outline-none focus:ring-1 focus:ring-[#E5252A]"
             />
             <Search
               size={18}
@@ -90,7 +90,7 @@ export default function MonBilletPage() {
           <button
             type="submit"
             disabled={loading}
-            className="rounded-md bg-[#F5B900] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-[#111111] hover:bg-[#FFD84A] shadow-xl transition-all disabled:opacity-50"
+            className="rounded-md bg-gradient-to-r from-[#B71C1C] via-[#E5252A] to-[#F5B900] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-white hover:opacity-95 shadow-xl transition-all disabled:opacity-50"
           >
             {loading ? "Recherche..." : "Rechercher"}
           </button>
@@ -107,14 +107,14 @@ export default function MonBilletPage() {
         {/* Résultats */}
         {results && results.length > 0 && (
           <div className="mt-10 space-y-4 text-left">
-            <h3 className="font-heading text-xl uppercase tracking-wide text-[#F5B900]">
+            <h3 className="font-heading text-xl uppercase tracking-wide text-[#FFD84A]">
               {results.length} Billet(s) Trouvé(s) :
             </h3>
 
             {results.map((ticket, idx) => (
               <div
                 key={idx}
-                className="rounded-2xl border border-white/10 bg-[#111111]/70 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-[#F5B900]/50 transition-all shadow-xl"
+                className="rounded-2xl border border-white/10 bg-[#140507]/90 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-[#E5252A]/50 transition-all shadow-xl"
               >
                 <div>
                   <div className="flex items-center gap-2">
@@ -124,8 +124,8 @@ export default function MonBilletPage() {
                     <span
                       className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
                         ticket.ticketType === "VIP"
-                          ? "bg-[#F5B900] text-[#111111]"
-                          : "bg-[#38217F] text-[#FFD84A]"
+                          ? "bg-[#E5252A] text-white"
+                          : "bg-[#24080C] text-[#FFD84A] border border-[#E5252A]/30"
                       }`}
                     >
                       {ticket.ticketType}

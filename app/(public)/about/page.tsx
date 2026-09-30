@@ -57,15 +57,15 @@ const MILESTONES = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#17165A] text-white">
+    <div className="min-h-screen bg-[#0A0304] text-white">
       {/* Hero Section */}
       <section className="relative overflow-hidden px-4 pt-20 pb-16 sm:px-6 lg:px-8 text-center">
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#5A35A8]/40 blur-[120px]"
+          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#E5252A]/25 blur-[120px]"
         />
         <div className="relative mx-auto max-w-4xl">
-          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#F5B900]">
+          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#FFD84A]">
             Notre Vision & Histoire
           </p>
           <h1 className="mt-4 font-heading text-5xl sm:text-7xl uppercase tracking-wider text-white">
@@ -82,7 +82,7 @@ export default function AboutPage() {
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#38217F]/80 px-4 py-1.5 text-xs font-semibold text-[#FFD84A] border border-[#5A35A8]">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#24080C]/90 px-4 py-1.5 text-xs font-semibold text-[#FFD84A] border border-[#E5252A]/40 shadow-sm">
               <Shield size={14} /> Le Sens de Hagiazo
             </span>
             <h2 className="font-heading text-3xl sm:text-4xl uppercase tracking-wide">
@@ -97,21 +97,21 @@ export default function AboutPage() {
             <p className="font-body text-base text-cn-gray-300 leading-relaxed">
               Nous croyons que la musique n&apos;est pas une fin en soi, mais un véhicule puissant pour
               introduire le peuple de Dieu dans sa présence glorieuse. Chaque mélodie, chaque accord et
-              chaque parole chantée lors de <strong className="text-[#F5B900]">CÉLÉBRATION NIGHT</strong> découle
+              chaque parole chantée lors de <strong className="text-[#FFD84A]">CÉLÉBRATION NIGHT</strong> découle
               d&apos;un temps de prière et d&apos;intimité spirituelle.
             </p>
             <div className="pt-2">
               <Link
                 href="/inscription"
-                className="inline-flex items-center gap-2 rounded-md bg-[#F5B900] px-6 py-3.5 font-body text-xs font-bold uppercase tracking-widest text-[#111111] shadow-lg hover:bg-[#FFD84A] transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-[#B71C1C] via-[#E5252A] to-[#F5B900] px-6 py-3.5 font-body text-xs font-bold uppercase tracking-widest text-white shadow-lg hover:opacity-95 transition-all hover:scale-105"
               >
                 Participer à l&apos;événement <ArrowRight size={16} />
               </Link>
             </div>
           </div>
 
-          <div className="relative rounded-2xl border border-white/10 bg-gradient-to-br from-[#38217F]/60 to-[#17165A] p-8 lg:p-10 shadow-2xl backdrop-blur-sm">
-            <div className="absolute -top-4 -right-4 rounded-xl bg-[#F5B900] px-4 py-2 text-xs font-bold uppercase text-[#111111] shadow-lg">
+          <div className="relative rounded-2xl border border-white/10 bg-gradient-to-br from-[#24080C] to-[#140507] p-8 lg:p-10 shadow-2xl backdrop-blur-sm">
+            <div className="absolute -top-4 -right-4 rounded-xl bg-[#E5252A] px-4 py-2 text-xs font-bold uppercase text-white shadow-lg">
               Édition 2026
             </div>
             <h3 className="font-heading text-2xl uppercase tracking-wide text-white">
@@ -126,7 +126,7 @@ export default function AboutPage() {
                 "Accès gratuit sur inscription avec billet numérique officiel",
               ].map((item, idx) => (
                 <li key={idx} className="flex items-start gap-3">
-                  <CheckCircle2 size={18} className="text-[#F5B900] shrink-0 mt-0.5" />
+                  <CheckCircle2 size={18} className="text-[#FFD84A] shrink-0 mt-0.5" />
                   <span className="font-body text-sm text-cn-gray-300 leading-snug">{item}</span>
                 </li>
               ))}
@@ -136,7 +136,7 @@ export default function AboutPage() {
       </section>
 
       {/* 4 Valeurs fondamentales */}
-      <section className="bg-[#111111]/60 border-y border-white/10 px-4 py-20 sm:px-6 lg:px-8">
+      <section className="bg-[#140507]/90 border-y border-white/10 px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="font-heading text-3xl sm:text-4xl uppercase tracking-wide text-white">
@@ -153,9 +153,9 @@ export default function AboutPage() {
               return (
                 <div
                   key={idx}
-                  className="rounded-xl border border-white/10 bg-[#17165A]/80 p-6 transition-all hover:-translate-y-1 hover:border-[#F5B900]/50"
+                  className="rounded-xl border border-white/10 bg-[#0A0304] p-6 transition-all hover:-translate-y-1 hover:border-[#E5252A]/50 shadow-md"
                 >
-                  <div className="h-12 w-12 rounded-lg bg-[#38217F] border border-[#5A35A8] flex items-center justify-center text-[#F5B900]">
+                  <div className="h-12 w-12 rounded-lg bg-[#24080C] border border-[#E5252A]/40 flex items-center justify-center text-[#FFD84A]">
                     <Icon size={22} />
                   </div>
                   <h3 className="mt-5 font-heading text-xl uppercase tracking-wide text-white">
@@ -191,8 +191,8 @@ export default function AboutPage() {
               }`}
             >
               <div className="md:w-1/2">
-                <div className="rounded-xl border border-white/10 bg-[#38217F]/40 p-6 backdrop-blur-sm">
-                  <span className="font-heading text-2xl text-[#F5B900] tracking-wider">
+                <div className="rounded-xl border border-white/10 bg-[#140507] p-6 backdrop-blur-sm">
+                  <span className="font-heading text-2xl text-[#FFD84A] tracking-wider">
                     {item.year}
                   </span>
                   <h3 className="mt-1 font-heading text-xl uppercase tracking-wide text-white">
@@ -203,14 +203,14 @@ export default function AboutPage() {
                   </p>
                 </div>
               </div>
-              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 h-8 w-8 rounded-full border-4 border-[#17165A] bg-[#F5B900] flex items-center justify-center" />
+              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 h-8 w-8 rounded-full border-4 border-[#0A0304] bg-[#E5252A] flex items-center justify-center shadow-lg" />
               <div className="hidden md:block md:w-1/2" />
             </div>
           ))}
         </div>
 
         {/* Bannière finale */}
-        <div className="mt-20 rounded-2xl bg-gradient-to-r from-[#38217F] to-[#5A35A8] border border-[#F5B900]/40 p-8 sm:p-12 text-center shadow-2xl">
+        <div className="mt-20 rounded-2xl bg-gradient-to-r from-[#24080C] via-[#140507] to-[#0A0304] border border-[#E5252A]/40 p-8 sm:p-12 text-center shadow-2xl">
           <h3 className="font-heading text-3xl sm:text-5xl uppercase tracking-wide text-white">
             Écrivez cette page avec nous
           </h3>

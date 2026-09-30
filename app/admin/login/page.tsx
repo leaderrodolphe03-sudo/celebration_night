@@ -50,11 +50,11 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#17165A] text-white flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#0A0304] text-white flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
       {/* Halo lumineux */}
       <div
         aria-hidden
-        className="pointer-events-none absolute top-12 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#38217F]/60 blur-[130px]"
+        className="pointer-events-none absolute top-12 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#E5252A]/20 blur-[130px]"
       />
 
       <div className="relative w-full max-w-md">
@@ -63,7 +63,7 @@ export default function AdminLoginPage() {
           <Link href="/" className="inline-block">
             <CelebrationNightLogo />
           </Link>
-          <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-[#38217F] border border-[#5A35A8] px-3 py-1 text-xs font-semibold text-[#FFD84A]">
+          <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-[#24080C] border border-[#E5252A]/40 px-3 py-1 text-xs font-semibold text-[#FFD84A]">
             <ShieldCheck size={14} />
             <span>Portail de Gestion & Scanner d&apos;Entrées</span>
           </div>

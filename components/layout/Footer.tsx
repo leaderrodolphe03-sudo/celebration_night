@@ -7,9 +7,9 @@ import { EVENT } from "@/lib/event-config";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#111111] text-cn-white print:hidden">
+    <footer className="border-t border-white/10 bg-[#0A0304] text-cn-white print:hidden">
       {/* Bannière supérieure de contact rapide */}
-      <div className="border-b border-white/5 bg-[#17165A]/40 py-6 px-4 sm:px-6 lg:px-8">
+      <div className="border-b border-white/10 bg-[#140507]/90 py-6 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-4 text-xs text-cn-gray-300">
           <div className="flex items-center gap-2">
             <Calendar size={15} className="text-[#F5B900]" />
@@ -45,7 +45,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="YouTube HAGIAZO"
-                className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-cn-gray-300 transition-colors hover:bg-[#F5B900] hover:text-[#111111]"
+                className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-cn-gray-300 transition-colors hover:bg-[#E5252A] hover:text-white"
               >
                 <Youtube size={17} />
               </a>
@@ -54,7 +54,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Facebook HAGIAZO"
-                className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-cn-gray-300 transition-colors hover:bg-[#F5B900] hover:text-[#111111]"
+                className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-cn-gray-300 transition-colors hover:bg-[#E5252A] hover:text-white"
               >
                 <Facebook size={17} />
               </a>
@@ -63,7 +63,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Instagram HAGIAZO"
-                className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-cn-gray-300 transition-colors hover:bg-[#F5B900] hover:text-[#111111]"
+                className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-cn-gray-300 transition-colors hover:bg-[#E5252A] hover:text-white"
               >
                 <Instagram size={17} />
               </a>
@@ -82,23 +82,23 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-[#F5B900] transition-colors">
-                  À propos d&apos;HAGIAZO
-                </Link>
-              </li>
-              <li>
-                <Link href="/programme" className="hover:text-[#F5B900] transition-colors">
-                  Programme de la soirée
-                </Link>
-              </li>
-              <li>
-                <Link href="/artistes" className="hover:text-[#F5B900] transition-colors">
-                  Artistes & Conducteurs
+                <Link href="/notre-histoire" className="hover:text-[#F5B900] transition-colors">
+                  Notre Histoire
                 </Link>
               </li>
               <li>
                 <Link href="/medias" className="hover:text-[#F5B900] transition-colors">
                   Médias & Galerie
+                </Link>
+              </li>
+              <li>
+                <Link href="/worship-session" className="hover:text-[#F5B900] transition-colors">
+                  Worship session
+                </Link>
+              </li>
+              <li>
+                <Link href="/soutenir" className="hover:text-[#F5B900] transition-colors">
+                  Soutenir l&apos;Événement
                 </Link>
               </li>
             </ul>
@@ -107,12 +107,12 @@ export default function Footer() {
           {/* Colonne 4 : Expérience & Réflexion */}
           <div>
             <h3 className="font-heading text-lg uppercase tracking-wider text-[#F5B900]">
-              Immersion
+              Partenaires & Contact
             </h3>
             <ul className="mt-4 flex flex-col gap-2.5 text-sm text-cn-gray-300 font-medium">
               <li>
-                <Link href="/worship-session" className="hover:text-[#F5B900] transition-colors">
-                  Worship Session
+                <Link href="/soutenir" className="hover:text-[#F5B900] transition-colors">
+                  Devenir Partenaire ou Sponsor
                 </Link>
               </li>
               <li>
@@ -122,12 +122,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/contact" className="hover:text-[#F5B900] transition-colors">
-                  Lieu & Accès
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-[#F5B900] transition-colors">
-                  Foire aux questions (FAQ)
+                  Foire aux questions & Contact
                 </Link>
               </li>
             </ul>

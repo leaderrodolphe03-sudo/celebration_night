@@ -144,7 +144,7 @@ export default function AdminParticipantsPage() {
           <select
             value={ticketTypeFilter}
             onChange={(e) => setTicketTypeFilter(e.target.value)}
-            className="rounded-md border border-white/15 bg-[#17165A] px-4 py-2.5 text-xs font-semibold text-white focus:border-[#F5B900] focus:outline-none"
+            className="rounded-md border border-white/15 bg-[#0A0304] px-4 py-2.5 text-xs font-semibold text-white focus:border-[#E5252A] focus:outline-none"
           >
             <option value="ALL">Toutes les catégories</option>
             <option value="STANDARD">Pass Standard</option>
@@ -161,7 +161,7 @@ export default function AdminParticipantsPage() {
         </div>
 
         {/* Tableau des participants */}
-        <div className="rounded-2xl border border-white/10 bg-[#17165A]/40 overflow-hidden shadow-2xl">
+        <div className="rounded-2xl border border-white/10 bg-[#0A0304]/60 overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
@@ -200,8 +200,8 @@ export default function AdminParticipantsPage() {
                         <span
                           className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase ${
                             p.ticketType === "VIP"
-                              ? "bg-[#F5B900] text-[#111111]"
-                              : "bg-[#38217F] text-[#FFD84A]"
+                              ? "bg-[#E5252A] text-white"
+                              : "bg-[#24080C] text-[#FFD84A] border border-[#E5252A]/30"
                           }`}
                         >
                           {p.ticketType}

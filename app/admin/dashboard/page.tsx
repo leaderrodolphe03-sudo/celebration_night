@@ -148,10 +148,10 @@ export default function AdminDashboardPage() {
         {/* CARTES D'INDICATEURS CLÉS (KPIs) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
           {/* Participants */}
-          <div className="rounded-2xl border border-white/10 bg-[#17165A]/80 p-5 shadow-xl">
+          <div className="rounded-2xl border border-white/10 bg-[#140507]/90 p-5 shadow-xl">
             <div className="flex items-center justify-between text-cn-gray-400">
               <span className="text-[11px] font-bold uppercase tracking-wider">Participants</span>
-              <div className="h-8 w-8 rounded-lg bg-[#38217F] flex items-center justify-center text-[#FFD84A]">
+              <div className="h-8 w-8 rounded-lg bg-[#24080C] border border-[#E5252A]/30 flex items-center justify-center text-[#FFD84A]">
                 <Users size={16} />
               </div>
             </div>
@@ -162,10 +162,10 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Billets Générés */}
-          <div className="rounded-2xl border border-white/10 bg-[#17165A]/80 p-5 shadow-xl">
+          <div className="rounded-2xl border border-white/10 bg-[#140507]/90 p-5 shadow-xl">
             <div className="flex items-center justify-between text-cn-gray-400">
               <span className="text-[11px] font-bold uppercase tracking-wider">Billets Émis</span>
-              <div className="h-8 w-8 rounded-lg bg-[#38217F] flex items-center justify-center text-[#F5B900]">
+              <div className="h-8 w-8 rounded-lg bg-[#24080C] border border-[#E5252A]/30 flex items-center justify-center text-[#FFD84A]">
                 <Ticket size={16} />
               </div>
             </div>
@@ -206,10 +206,10 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Taux de présence */}
-          <div className="rounded-2xl border border-white/10 bg-[#38217F]/60 p-5 shadow-xl">
+          <div className="rounded-2xl border border-white/10 bg-[#24080C]/80 p-5 shadow-xl">
             <div className="flex items-center justify-between text-[#FFD84A]">
               <span className="text-[11px] font-bold uppercase tracking-wider">Affluence</span>
-              <div className="h-8 w-8 rounded-lg bg-[#5A35A8] flex items-center justify-center text-[#F5B900]">
+              <div className="h-8 w-8 rounded-lg bg-[#0A0304] border border-[#E5252A]/30 flex items-center justify-center text-[#FFD84A]">
                 <TrendingUp size={16} />
               </div>
             </div>
@@ -218,7 +218,7 @@ export default function AdminDashboardPage() {
             </p>
             <div className="mt-2 h-1.5 w-full rounded-full bg-black/40 overflow-hidden">
               <div
-                className="h-full bg-[#F5B900] transition-all duration-500"
+                className="h-full bg-gradient-to-r from-[#E5252A] to-[#FFD84A] transition-all duration-500"
                 style={{ width: `${Math.min(100, stats?.attendanceRate || 0)}%` }}
               />
             </div>
@@ -228,7 +228,7 @@ export default function AdminDashboardPage() {
         {/* SECTIONS BASSES : DERNIÈRES INSCRIPTIONS & DERNIERS SCANS */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Dernières Inscriptions (7 colonnes) */}
-          <div className="lg:col-span-7 rounded-2xl border border-white/10 bg-[#17165A]/40 p-6 shadow-xl">
+          <div className="lg:col-span-7 rounded-2xl border border-white/10 bg-[#0A0304]/60 p-6 shadow-xl">
             <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
               <h2 className="font-heading text-xl uppercase tracking-wide text-white">
                 Dernières Inscriptions
@@ -268,8 +268,8 @@ export default function AdminDashboardPage() {
                         <span
                           className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase ${
                             p.ticketType === "VIP"
-                              ? "bg-[#F5B900] text-[#111111]"
-                              : "bg-[#38217F] text-[#FFD84A]"
+                              ? "bg-[#E5252A] text-white"
+                              : "bg-[#24080C] text-[#FFD84A] border border-[#E5252A]/30"
                           }`}
                         >
                           {p.ticketType}
@@ -295,7 +295,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Derniers Scans En Direct (5 colonnes) */}
-          <div className="lg:col-span-5 rounded-2xl border border-white/10 bg-[#17165A]/40 p-6 shadow-xl">
+          <div className="lg:col-span-5 rounded-2xl border border-white/10 bg-[#0A0304]/60 p-6 shadow-xl">
             <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
               <h2 className="font-heading text-xl uppercase tracking-wide text-white flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />

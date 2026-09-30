@@ -61,15 +61,15 @@ const ARTISTS = [
 
 export default function ArtistesPage() {
   return (
-    <div className="min-h-screen bg-[#17165A] text-white">
+    <div className="min-h-screen bg-[#0A0304] text-white">
       {/* Hero Header */}
       <section className="relative overflow-hidden px-4 pt-20 pb-16 sm:px-6 lg:px-8 text-center">
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#38217F]/60 blur-[130px]"
+          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#E5252A]/20 blur-[130px]"
         />
         <div className="relative mx-auto max-w-4xl">
-          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#F5B900]">
+          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#FFD84A]">
             Une programmation d&apos;exception
           </p>
           <h1 className="mt-4 font-heading text-5xl sm:text-7xl uppercase tracking-wider text-white">
@@ -88,21 +88,21 @@ export default function ArtistesPage() {
           {ARTISTS.map((artist, idx) => (
             <div
               key={idx}
-              className="group rounded-2xl border border-white/10 bg-[#111111]/50 p-6 sm:p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#F5B900]/60 hover:shadow-[0_12px_36px_rgba(245,185,0,0.15)] flex flex-col justify-between"
+              className="group rounded-2xl border border-white/10 bg-[#140507]/90 p-6 sm:p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#E5252A]/60 hover:shadow-[0_12px_36px_rgba(229,37,42,0.25)] flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between gap-2">
-                  <span className="rounded-full bg-[#38217F] border border-[#5A35A8] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#FFD84A]">
+                  <span className="rounded-full bg-[#24080C] border border-[#E5252A]/40 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#FFD84A]">
                     {artist.badge}
                   </span>
                   <div className="flex items-center gap-1 text-xs text-cn-gray-500">
-                    <MapPin size={12} className="text-[#F5B900]" />
+                    <MapPin size={12} className="text-[#FFD84A]" />
                     <span>{artist.origin}</span>
                   </div>
                 </div>
 
                 {/* Nom et rôle */}
-                <h2 className="mt-5 font-heading text-3xl uppercase tracking-wide text-white group-hover:text-[#F5B900] transition-colors">
+                <h2 className="mt-5 font-heading text-3xl uppercase tracking-wide text-white group-hover:text-[#FFD84A] transition-colors">
                   {artist.name}
                 </h2>
                 <p className="font-body text-xs font-semibold uppercase tracking-wider text-cn-gray-300 mt-1">
@@ -117,7 +117,7 @@ export default function ArtistesPage() {
 
               {/* Titres / Répertoire */}
               <div className="mt-6 pt-5 border-t border-white/10">
-                <span className="flex items-center gap-1.5 text-xs font-semibold text-[#F5B900] uppercase tracking-wider">
+                <span className="flex items-center gap-1.5 text-xs font-semibold text-[#FFD84A] uppercase tracking-wider">
                   <Music size={14} /> Chants & Interventions
                 </span>
                 <div className="mt-2 flex flex-wrap gap-2">
@@ -136,7 +136,7 @@ export default function ArtistesPage() {
         </div>
 
         {/* CTA Billetterie */}
-        <div className="mt-20 rounded-2xl bg-gradient-to-r from-[#38217F] to-[#17165A] border border-[#F5B900]/40 p-8 sm:p-12 text-center shadow-2xl">
+        <div className="mt-20 rounded-2xl bg-gradient-to-r from-[#24080C] via-[#140507] to-[#0A0304] border border-[#E5252A]/40 p-8 sm:p-12 text-center shadow-2xl">
           <h3 className="font-heading text-3xl sm:text-5xl uppercase tracking-wide text-white">
             Vivez cette expérience musicale unique
           </h3>
@@ -147,7 +147,7 @@ export default function ArtistesPage() {
           <div className="mt-8 flex justify-center">
             <Link
               href="/inscription"
-              className="inline-flex items-center gap-2 rounded-md bg-[#F5B900] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-[#111111] shadow-xl hover:bg-[#FFD84A] transition-all hover:scale-105"
+              className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-[#B71C1C] via-[#E5252A] to-[#F5B900] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-white shadow-xl hover:opacity-95 transition-all hover:scale-105"
             >
               Obtenir mon pass d&apos;accès <ArrowRight size={16} />
             </Link>

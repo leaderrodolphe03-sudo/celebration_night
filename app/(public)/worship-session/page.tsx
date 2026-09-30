@@ -115,15 +115,15 @@ export default function WorshipSessionPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#17165A] text-white">
+    <div className="min-h-screen bg-[#0A0304] text-white">
       {/* Hero Header */}
       <section className="relative overflow-hidden px-4 pt-20 pb-16 sm:px-6 lg:px-8 text-center">
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#38217F]/60 blur-[130px]"
+          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#E5252A]/20 blur-[130px]"
         />
         <div className="relative mx-auto max-w-4xl">
-          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#F5B900]">
+          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#FFD84A]">
             Immersion Musicale & Spirituelle
           </p>
           <h1 className="mt-4 font-heading text-5xl sm:text-7xl uppercase tracking-wider text-white">
@@ -141,7 +141,7 @@ export default function WorshipSessionPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Liste des chants (Colonne gauche) */}
           <div className="lg:col-span-5 space-y-3">
-            <h2 className="font-heading text-2xl uppercase tracking-wide text-[#F5B900] mb-4 flex items-center gap-2">
+            <h2 className="font-heading text-2xl uppercase tracking-wide text-[#FFD84A] mb-4 flex items-center gap-2">
               <Music size={20} /> Répertoire Officiel
             </h2>
 
@@ -153,8 +153,8 @@ export default function WorshipSessionPage() {
                   onClick={() => togglePlay(song.id)}
                   className={`cursor-pointer rounded-xl border p-4 sm:p-5 transition-all ${
                     isCurrent
-                      ? "border-[#F5B900] bg-gradient-to-r from-[#38217F] to-[#17165A] shadow-[0_4px_20px_rgba(245,185,0,0.15)]"
-                      : "border-white/10 bg-[#111111]/40 hover:bg-white/5"
+                      ? "border-[#E5252A] bg-gradient-to-r from-[#24080C] to-[#140507] shadow-[0_4px_20px_rgba(229,37,42,0.25)]"
+                      : "border-white/10 bg-[#140507]/60 hover:bg-white/5"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-3">
@@ -164,8 +164,8 @@ export default function WorshipSessionPage() {
                         aria-label={`Écouter ${song.title}`}
                         className={`h-10 w-10 rounded-full flex items-center justify-center shrink-0 ${
                           isCurrent && isPlaying
-                            ? "bg-[#F5B900] text-[#111111]"
-                            : "bg-white/10 text-white hover:bg-[#F5B900] hover:text-[#111111]"
+                            ? "bg-[#E5252A] text-white"
+                            : "bg-white/10 text-white hover:bg-[#E5252A] hover:text-white"
                         }`}
                       >
                         {isCurrent && isPlaying ? (
@@ -192,12 +192,12 @@ export default function WorshipSessionPage() {
 
           {/* Lecteur / Détail du chant sélectionné (Colonne droite) */}
           <div className="lg:col-span-7">
-            <div className="rounded-2xl border border-white/10 bg-[#111111]/60 p-6 sm:p-8 backdrop-blur-md">
+            <div className="rounded-2xl border border-white/10 bg-[#140507]/90 p-6 sm:p-8 backdrop-blur-md">
               {/* Carte lecteur audio simulé haute fidélité */}
-              <div className="rounded-xl border border-white/10 bg-gradient-to-r from-[#17165A] to-[#38217F] p-5 sm:p-6 mb-8">
+              <div className="rounded-xl border border-white/10 bg-gradient-to-r from-[#24080C] to-[#0A0304] p-5 sm:p-6 mb-8">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
-                    <span className="text-[11px] font-bold uppercase tracking-widest text-[#F5B900]">
+                    <span className="text-[11px] font-bold uppercase tracking-widest text-[#FFD84A]">
                       En lecture audio
                     </span>
                     <h3 className="font-heading text-2xl uppercase tracking-wide text-white mt-1">
@@ -211,7 +211,7 @@ export default function WorshipSessionPage() {
                   <button
                     type="button"
                     onClick={() => setIsPlaying(!isPlaying)}
-                    className="self-start sm:self-auto flex items-center gap-2 rounded-full bg-[#F5B900] px-5 py-2.5 font-body text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#FFD84A] shadow-lg transition-transform hover:scale-105"
+                    className="self-start sm:self-auto flex items-center gap-2 rounded-full bg-gradient-to-r from-[#B71C1C] via-[#E5252A] to-[#F5B900] px-5 py-2.5 font-body text-xs font-bold uppercase tracking-wider text-white shadow-lg transition-transform hover:scale-105"
                   >
                     {isPlaying ? <Pause size={16} /> : <Play size={16} />}
                     <span>{isPlaying ? "En pause" : "Écouter l'extrait"}</span>
@@ -235,10 +235,10 @@ export default function WorshipSessionPage() {
               </div>
 
               {/* Verset Biblique d'ancrage */}
-              <div className="rounded-xl border border-[#F5B900]/30 bg-[#38217F]/30 p-4 sm:p-5 mb-8">
+              <div className="rounded-xl border border-[#E5252A]/30 bg-[#24080C]/50 p-4 sm:p-5 mb-8">
                 <div className="flex items-start gap-3">
-                  <BookOpen size={18} className="text-[#F5B900] shrink-0 mt-0.5" />
-                  <p className="text-xs sm:text-sm font-medium italic text-cn-gold-light leading-relaxed">
+                  <BookOpen size={18} className="text-[#FFD84A] shrink-0 mt-0.5" />
+                  <p className="text-xs sm:text-sm font-medium italic text-[#FFD84A] leading-relaxed">
                     {activeSong.bibleVerse}
                   </p>
                 </div>

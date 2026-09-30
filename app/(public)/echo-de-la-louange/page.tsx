@@ -57,15 +57,15 @@ const ARTICLES = [
 
 export default function EchoDeLaLouangePage() {
   return (
-    <div className="min-h-screen bg-[#17165A] text-white">
+    <div className="min-h-screen bg-[#0A0304] text-white">
       {/* Hero Header */}
       <section className="relative overflow-hidden px-4 pt-20 pb-16 sm:px-6 lg:px-8 text-center">
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#38217F]/60 blur-[130px]"
+          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#E5252A]/20 blur-[130px]"
         />
         <div className="relative mx-auto max-w-4xl">
-          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#F5B900]">
+          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#FFD84A]">
             Édification & Méditation
           </p>
           <h1 className="mt-4 font-heading text-5xl sm:text-7xl uppercase tracking-wider text-white">
@@ -84,10 +84,10 @@ export default function EchoDeLaLouangePage() {
         {ARTICLES.filter((a) => a.highlight).map((article, idx) => (
           <div
             key={idx}
-            className="mb-14 rounded-2xl border border-[#F5B900]/40 bg-gradient-to-br from-[#38217F]/90 via-[#17165A] to-[#111111] p-8 sm:p-12 shadow-2xl relative overflow-hidden group"
+            className="mb-14 rounded-2xl border border-[#E5252A]/40 bg-gradient-to-br from-[#24080C] via-[#140507] to-[#0A0304] p-8 sm:p-12 shadow-2xl relative overflow-hidden group"
           >
             <div className="flex flex-wrap items-center gap-3 text-xs">
-              <span className="rounded-full bg-[#F5B900] px-3 py-1 font-bold uppercase tracking-wider text-[#111111]">
+              <span className="rounded-full bg-[#E5252A] px-3 py-1 font-bold uppercase tracking-wider text-white">
                 À la une
               </span>
               <span className="text-[#FFD84A] font-semibold">{article.category}</span>
@@ -101,7 +101,7 @@ export default function EchoDeLaLouangePage() {
               </span>
             </div>
 
-            <h2 className="mt-6 font-heading text-3xl sm:text-5xl uppercase tracking-wide text-white group-hover:text-[#F5B900] transition-colors">
+            <h2 className="mt-6 font-heading text-3xl sm:text-5xl uppercase tracking-wide text-white group-hover:text-[#FFD84A] transition-colors">
               {article.title}
             </h2>
 
@@ -111,11 +111,11 @@ export default function EchoDeLaLouangePage() {
 
             <div className="mt-8 flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/10">
               <div className="flex items-center gap-2 text-xs text-cn-gray-300">
-                <User size={15} className="text-[#F5B900]" />
+                <User size={15} className="text-[#FFD84A]" />
                 <span className="font-semibold">{article.author}</span>
               </div>
 
-              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#F5B900] group-hover:translate-x-1 transition-transform">
+              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#FFD84A] group-hover:translate-x-1 transition-transform">
                 Lire l&apos;article complet <ArrowRight size={15} />
               </span>
             </div>
@@ -127,17 +127,17 @@ export default function EchoDeLaLouangePage() {
           {ARTICLES.filter((a) => !a.highlight).map((article, idx) => (
             <div
               key={idx}
-              className="rounded-2xl border border-white/10 bg-[#111111]/50 p-6 sm:p-8 flex flex-col justify-between hover:border-[#F5B900]/50 transition-all hover:-translate-y-1"
+              className="rounded-2xl border border-white/10 bg-[#140507]/90 p-6 sm:p-8 flex flex-col justify-between hover:border-[#E5252A]/50 transition-all hover:-translate-y-1 shadow-md"
             >
               <div>
                 <div className="flex items-center justify-between text-xs text-cn-gray-500 mb-4">
-                  <span className="font-semibold text-[#F5B900] uppercase tracking-wider text-[11px]">
+                  <span className="font-semibold text-[#FFD84A] uppercase tracking-wider text-[11px]">
                     {article.category}
                   </span>
                   <span>{article.readTime}</span>
                 </div>
 
-                <h3 className="font-heading text-2xl uppercase tracking-wide text-white hover:text-[#F5B900] transition-colors">
+                <h3 className="font-heading text-2xl uppercase tracking-wide text-white hover:text-[#FFD84A] transition-colors">
                   {article.title}
                 </h3>
 
@@ -155,8 +155,8 @@ export default function EchoDeLaLouangePage() {
         </div>
 
         {/* Appel à Témoignages */}
-        <div className="mt-20 rounded-2xl border border-white/10 bg-[#38217F]/40 p-8 sm:p-12 text-center backdrop-blur-sm">
-          <HeartHandshake className="mx-auto text-[#F5B900]" size={36} />
+        <div className="mt-20 rounded-2xl border border-white/10 bg-[#24080C]/70 p-8 sm:p-12 text-center backdrop-blur-sm shadow-xl">
+          <HeartHandshake className="mx-auto text-[#FFD84A]" size={36} />
           <h3 className="mt-4 font-heading text-3xl sm:text-4xl uppercase tracking-wide text-white">
             Avez-vous un témoignage à partager ?
           </h3>
@@ -167,7 +167,7 @@ export default function EchoDeLaLouangePage() {
           <div className="mt-6">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-md border border-[#F5B900] px-6 py-3 font-body text-xs font-bold uppercase tracking-widest text-[#F5B900] hover:bg-[#F5B900] hover:text-[#111111] transition-colors"
+              className="inline-flex items-center gap-2 rounded-md border border-[#E5252A] px-6 py-3 font-body text-xs font-bold uppercase tracking-widest text-[#FFD84A] hover:bg-[#E5252A] hover:text-white transition-colors"
             >
               Écrire à l&apos;équipe éditoriale
             </Link>

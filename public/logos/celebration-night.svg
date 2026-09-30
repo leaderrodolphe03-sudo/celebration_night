@@ -6,14 +6,14 @@
       <stop offset="100%" stop-color="#D49A00" />
     </linearGradient>
     <linearGradient id="cn-ray" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="#5A35A8" stop-opacity="0" />
+      <stop offset="0%" stop-color="#E5252A" stop-opacity="0" />
       <stop offset="100%" stop-color="#F5B900" stop-opacity="0.8" />
     </linearGradient>
   </defs>
 
   <!-- Emblème stylisé : Étoile / Flamme de célébration -->
   <g transform="translate(10, 8)">
-    <circle cx="26" cy="26" r="24" fill="#38217F" fill-opacity="0.5" stroke="#F5B900" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <circle cx="26" cy="26" r="24" fill="#24080C" fill-opacity="0.8" stroke="#E5252A" stroke-width="1.5" stroke-dasharray="3 3"/>
     <!-- Rayons d'adoration -->
     <path d="M26 4 L29 20 L45 26 L29 32 L26 48 L23 32 L7 26 L23 20 Z" fill="url(#cn-gold-grad)"/>
     <circle cx="26" cy="26" r="4" fill="#FFFFFF"/>

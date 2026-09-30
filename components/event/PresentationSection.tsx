@@ -20,7 +20,7 @@ export default function PresentationSection() {
       </div>
 
       {/* Photographie officielle du Chœur et de l'Adoration Live */}
-      <div className="relative mx-auto mt-12 overflow-hidden rounded-3xl border-2 border-[#F5B900]/40 shadow-[0_20px_60px_rgba(0,0,0,0.7)] group">
+      <div className="relative mx-auto mt-12 overflow-hidden rounded-3xl border-2 border-[#E5252A]/40 shadow-[0_20px_60px_rgba(0,0,0,0.8)] group">
         <div className="relative aspect-[16/9] w-full">
           <Image
             src="/images/worship-bg.jpg"
@@ -29,13 +29,13 @@ export default function PresentationSection() {
             className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
           />
           {/* Dégradé de fusion textuel en bas */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-[#111111]/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0304] via-[#0A0304]/40 to-transparent" />
         </div>
 
         {/* Légende intégrée sur la photo */}
         <div className="absolute bottom-0 inset-x-0 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="space-y-1">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#38217F]/80 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#FFD84A] border border-[#5A35A8]">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#24080C]/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#FFD84A] border border-[#E5252A]/40 shadow-md">
               <Sparkles size={12} /> HAGIAZO Live Worship
             </span>
             <h3 className="font-heading text-2xl sm:text-3xl uppercase tracking-wider text-white">
@@ -48,7 +48,7 @@ export default function PresentationSection() {
 
           <Link
             href="/worship-session"
-            className="self-start sm:self-auto inline-flex items-center gap-2 rounded-md bg-[#F5B900] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#FFD84A] shadow-lg transition-transform hover:scale-105"
+            className="self-start sm:self-auto inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-[#B71C1C] via-[#E5252A] to-[#F5B900] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white hover:opacity-95 shadow-lg transition-transform hover:scale-105"
           >
             <span>Découvrir les chants</span>
             <ArrowRight size={14} />

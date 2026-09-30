@@ -308,10 +308,10 @@ export default function AdminScannerPage() {
           <div
             className={`rounded-3xl p-6 sm:p-10 border-2 shadow-2xl text-center animate-in zoom-in-95 duration-200 ${
               lastScannedResult.status === "VALID"
-                ? "bg-gradient-to-b from-emerald-950 via-[#111111] to-[#17165A] border-emerald-400 shadow-[0_0_60px_rgba(52,211,153,0.35)]"
+                ? "bg-gradient-to-b from-emerald-950 via-[#0A0304] to-[#0A0304] border-emerald-400 shadow-[0_0_60px_rgba(52,211,153,0.35)]"
                 : lastScannedResult.status === "ALREADY_USED"
-                ? "bg-gradient-to-b from-amber-950 via-[#111111] to-[#17165A] border-amber-400 shadow-[0_0_60px_rgba(251,191,36,0.35)]"
-                : "bg-gradient-to-b from-red-950 via-[#111111] to-[#17165A] border-red-500 shadow-[0_0_60px_rgba(239,68,68,0.35)]"
+                ? "bg-gradient-to-b from-amber-950 via-[#0A0304] to-[#0A0304] border-amber-400 shadow-[0_0_60px_rgba(251,191,36,0.35)]"
+                : "bg-gradient-to-b from-red-950 via-[#0A0304] to-[#0A0304] border-red-500 shadow-[0_0_60px_rgba(239,68,68,0.35)]"
             }`}
           >
             {/* Statut 1 : BILLET VALIDE */}
@@ -503,7 +503,7 @@ export default function AdminScannerPage() {
         )}
 
         {/* SAISIE MANUELLE DE SECOURS (Numéro CN-2026-...) */}
-        <div className="rounded-2xl border border-white/10 bg-[#17165A]/50 p-6 backdrop-blur-md">
+        <div className="rounded-2xl border border-white/10 bg-[#0A0304]/80 p-6 backdrop-blur-md">
           <div className="flex items-center gap-2 mb-3">
             <Keyboard size={18} className="text-[#F5B900]" />
             <h3 className="font-heading text-xl uppercase tracking-wide text-white">

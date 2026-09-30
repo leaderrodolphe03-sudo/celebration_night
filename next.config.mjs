@@ -7,12 +7,22 @@ const nextConfig = {
     return [
       {
         source: "/hagiazo",
-        destination: "/about",
+        destination: "/notre-histoire",
+        permanent: true,
+      },
+      {
+        source: "/about",
+        destination: "/notre-histoire",
         permanent: true,
       },
       {
         source: "/informations",
         destination: "/contact",
+        permanent: true,
+      },
+      {
+        source: "/programme",
+        destination: "/notre-histoire",
         permanent: true,
       },
     ];

@@ -32,19 +32,19 @@ export default function Countdown({ targetDate }: { targetDate: string }) {
 
   return (
     <div
-      className="grid w-full max-w-sm grid-cols-4 gap-2 rounded-md bg-white/5 p-2 backdrop-blur-md"
+      className="grid w-full max-w-md grid-cols-4 gap-2.5 rounded-xl border border-white/15 bg-[#140507]/90 p-2.5 backdrop-blur-md shadow-xl"
       role="timer"
       aria-label="Compte à rebours avant Célébration Night"
     >
       {units.map(([label, value]) => (
         <div
           key={label}
-          className="flex flex-col items-center justify-center rounded-sm bg-white/5 py-2"
+          className="flex flex-col items-center justify-center rounded-lg border border-white/10 bg-white/5 py-2.5"
         >
-          <span className="font-heading text-2xl leading-none text-cn-gold">
+          <span className="font-heading text-2xl sm:text-3xl leading-none text-[#FFD84A] drop-shadow-[0_2px_8px_rgba(245,185,0,0.4)]">
             {String(value).padStart(2, "0")}
           </span>
-          <span className="mt-1 font-body text-[10px] uppercase tracking-wider text-cn-gray-300">
+          <span className="mt-1 font-body text-[10px] font-bold uppercase tracking-wider text-[#E5E5EA]">
             {label}
           </span>
         </div>

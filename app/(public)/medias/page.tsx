@@ -32,29 +32,40 @@ const VIDEOS = [
 
 const PHOTO_GALLERY = [
   {
-    title: "Chœur en adoration",
+    title: "Grand Chœur HAGIAZO en Adoration",
     category: "Scène Live",
+    src: "/images/gallery/photo-1.jpg",
     aspect: "col-span-1 md:col-span-2",
   },
   {
-    title: "Jeunesse fervente",
-    category: "Public",
-    aspect: "col-span-1",
-  },
-  {
-    title: "Section rythmique & cuivres",
+    title: "Section Rythmique & Claviers",
     category: "Musiciens",
+    src: "/images/gallery/photo-2.jpg",
     aspect: "col-span-1",
   },
   {
-    title: "Temps d'intercession communautaire",
-    category: "Prière",
+    title: "Assemblée les mains levées vers le ciel",
+    category: "Ferveur",
+    src: "/images/gallery/photo-3.jpg",
+    aspect: "col-span-1",
+  },
+  {
+    title: "Chantre soliste en intimité spirituelle",
+    category: "Louange",
+    src: "/images/gallery/photo-4.jpg",
     aspect: "col-span-1 md:col-span-2",
   },
   {
-    title: "Explosion de joie & drapeaux",
-    category: "Célébration",
+    title: "Section Percussions & Batterie",
+    category: "Énergie Sacrée",
+    src: "/images/gallery/photo-5.jpg",
     aspect: "col-span-1",
+  },
+  {
+    title: "Prière d'Intercession Communautaire",
+    category: "Intercession",
+    src: "/images/gallery/photo-6.jpg",
+    aspect: "col-span-1 md:col-span-2",
   },
 ];
 
@@ -81,15 +92,15 @@ const DOWNLOADS = [
 
 export default function MediasPage() {
   return (
-    <div className="min-h-screen bg-[#17165A] text-white">
+    <div className="min-h-screen bg-[#0A0304] text-white">
       {/* Hero Header */}
       <section className="relative overflow-hidden px-4 pt-20 pb-16 sm:px-6 lg:px-8 text-center">
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#38217F]/60 blur-[130px]"
+          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#E5252A]/20 blur-[130px]"
         />
         <div className="relative mx-auto max-w-4xl">
-          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#F5B900]">
+          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#FFD84A]">
             Images & Extraits
           </p>
           <h1 className="mt-4 font-heading text-5xl sm:text-7xl uppercase tracking-wider text-white">
@@ -106,7 +117,7 @@ export default function MediasPage() {
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between border-b border-white/10 pb-4">
           <div className="flex items-center gap-2">
-            <Video className="text-[#F5B900]" size={22} />
+            <Video className="text-[#FFD84A]" size={22} />
             <h2 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide">
               Extraits & Teasers
             </h2>
@@ -117,23 +128,23 @@ export default function MediasPage() {
           {VIDEOS.map((vid, idx) => (
             <div
               key={idx}
-              className="group rounded-2xl border border-white/10 bg-[#111111]/60 overflow-hidden backdrop-blur-sm transition-all hover:border-[#F5B900]/60 hover:-translate-y-1"
+              className="group rounded-2xl border border-white/10 bg-[#140507]/90 overflow-hidden backdrop-blur-sm transition-all hover:border-[#E5252A]/60 hover:-translate-y-1 shadow-md"
             >
               {/* Vignette vidéo élégante */}
-              <div className="relative h-48 bg-gradient-to-br from-[#38217F] to-[#17165A] flex items-center justify-center">
-                <div className="h-16 w-16 rounded-full bg-[#F5B900] text-[#111111] flex items-center justify-center shadow-2xl transition-transform group-hover:scale-110">
-                  <Play size={26} className="fill-[#111111] ml-1" />
+              <div className="relative h-48 bg-gradient-to-br from-[#24080C] to-[#0A0304] flex items-center justify-center">
+                <div className="h-16 w-16 rounded-full bg-gradient-to-r from-[#B71C1C] via-[#E5252A] to-[#F5B900] text-white flex items-center justify-center shadow-2xl transition-transform group-hover:scale-110">
+                  <Play size={26} className="fill-white ml-1" />
                 </div>
-                <span className="absolute bottom-3 right-3 rounded bg-black/70 px-2 py-0.5 text-[11px] font-semibold text-white">
+                <span className="absolute bottom-3 right-3 rounded bg-black/80 px-2 py-0.5 text-[11px] font-semibold text-white">
                   {vid.duration}
                 </span>
-                <span className="absolute top-3 left-3 rounded-full bg-[#38217F] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#FFD84A] border border-white/10">
+                <span className="absolute top-3 left-3 rounded-full bg-[#24080C] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#FFD84A] border border-[#E5252A]/40">
                   {vid.tag}
                 </span>
               </div>
 
               <div className="p-6">
-                <h3 className="font-heading text-xl uppercase tracking-wide text-white group-hover:text-[#F5B900] transition-colors">
+                <h3 className="font-heading text-xl uppercase tracking-wide text-white group-hover:text-[#FFD84A] transition-colors">
                   {vid.title}
                 </h3>
                 <p className="mt-2 text-xs text-cn-gray-300 leading-relaxed">
@@ -146,10 +157,10 @@ export default function MediasPage() {
       </section>
 
       {/* Galerie Photos */}
-      <section className="bg-[#111111]/50 border-y border-white/10 px-4 py-16 sm:px-6 lg:px-8">
+      <section className="bg-[#140507]/90 border-y border-white/10 px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-center gap-2 border-b border-white/10 pb-4">
-            <ImageIcon className="text-[#F5B900]" size={22} />
+            <ImageIcon className="text-[#FFD84A]" size={22} />
             <h2 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide">
               Instantanés de Ferveur
             </h2>
@@ -159,14 +170,20 @@ export default function MediasPage() {
             {PHOTO_GALLERY.map((photo, idx) => (
               <div
                 key={idx}
-                className={`${photo.aspect} relative h-64 rounded-2xl border border-white/10 overflow-hidden bg-gradient-to-tr from-[#38217F]/80 via-[#17165A] to-[#5A35A8]/50 p-6 flex flex-col justify-end group`}
+                className={`${photo.aspect} relative h-72 rounded-2xl border-2 border-white/15 overflow-hidden bg-[#140507] p-6 flex flex-col justify-end group shadow-xl hover:border-[#F5B900] transition-all`}
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={photo.src}
+                  alt={photo.title}
+                  className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                 <div className="relative z-10">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#F5B900]">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#FFD84A]">
                     {photo.category}
                   </span>
-                  <h3 className="font-heading text-2xl uppercase tracking-wide text-white">
+                  <h3 className="font-heading text-2xl uppercase tracking-wide text-white group-hover:text-[#FFD84A] transition-colors">
                     {photo.title}
                   </h3>
                 </div>
@@ -197,7 +214,7 @@ export default function MediasPage() {
               className="rounded-xl border border-white/10 bg-[#111111]/40 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-[#F5B900]/40 transition-colors"
             >
               <div className="flex items-start gap-4">
-                <div className="h-10 w-10 rounded-lg bg-[#38217F] border border-[#5A35A8] flex items-center justify-center text-[#F5B900] shrink-0 mt-0.5">
+                <div className="h-10 w-10 rounded-lg bg-[#24080C] border border-[#E5252A]/40 flex items-center justify-center text-[#FFD84A] shrink-0 mt-0.5">
                   <FileText size={20} />
                 </div>
                 <div>

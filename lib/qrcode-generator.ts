@@ -11,7 +11,7 @@ export async function generateQrCodeDataUrl(token: string): Promise<string> {
       margin: 2,
       width: 400,
       color: {
-        dark: "#17165A", // Bleu nuit de la charte CÉLÉBRATION NIGHT
+        dark: "#0A0304", // Noir braise profonde de la nouvelle charte CÉLÉBRATION NIGHT
         light: "#FFFFFF",
       },
     });
@@ -32,7 +32,7 @@ export async function generateQrCodeSvg(token: string): Promise<string> {
       errorCorrectionLevel: "H",
       margin: 2,
       color: {
-        dark: "#17165A",
+        dark: "#0A0304",
         light: "#FFFFFF",
       },
     });

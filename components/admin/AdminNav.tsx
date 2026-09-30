@@ -50,7 +50,7 @@ export default function AdminNav({ user }: AdminNavProps) {
           <Link href="/admin/dashboard" className="flex items-center">
             <CelebrationNightLogo />
           </Link>
-          <span className="hidden sm:inline-flex items-center gap-1 rounded bg-[#38217F] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#FFD84A] border border-[#5A35A8]">
+          <span className="hidden sm:inline-flex items-center gap-1 rounded bg-[#24080C] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#FFD84A] border border-[#E5252A]/40">
             <Shield size={12} />
             {user?.role === "ADMIN" ? "Super Admin" : "Staff Contrôle"}
           </span>

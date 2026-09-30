@@ -3,20 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --cn-blue-night: #17165a;
-  --cn-purple-deep: #38217f;
-  --cn-purple: #5a35a8;
-  --cn-blue: #3159c8;
+  --cn-ember-dark: #0a0304;
+  --cn-ember: #140507;
+  --cn-burgundy: #24080c;
+  --cn-red-crimson: #b71c1c;
+  --cn-red-flame: #e5252a;
 
   --cn-gold: #f5b900;
   --cn-gold-light: #ffd84a;
 
   --cn-white: #ffffff;
-  --cn-black: #111111;
+  --cn-black: #0a0304;
 
   --cn-gray-100: #f5f5f7;
   --cn-gray-300: #e5e5ea;
   --cn-gray-500: #77777f;
+
+  /* Aliases de compatibilite CSS */
+  --cn-blue-night: #0a0304;
+  --cn-purple-deep: #1e070b;
+  --cn-purple: #3b0e14;
+  --cn-blue: #d32f2f;
 
   --radius-sm: 8px;
   --radius-md: 16px;
@@ -29,8 +36,53 @@ html {
 }
 
 body {
-  background-color: var(--cn-blue-night);
+  background-color: var(--cn-ember-dark);
   color: var(--cn-white);
+  overflow-x: hidden;
+}
+
+/* Animations de defilement continu (Marquee cartes du Hero) */
+@keyframes marquee-vertical {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes marquee-vertical-reverse {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes marquee-horizontal {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical 26s linear infinite;
+}
+
+.animate-marquee-vertical-reverse {
+  animation: marquee-vertical-reverse 30s linear infinite;
+}
+
+.animate-marquee-horizontal {
+  animation: marquee-horizontal 22s linear infinite;
+}
+
+.pause-hover:hover {
+  animation-play-state: paused;
 }
 
 /* Focus visible partout pour l'accessibilite (section 36 du brief) */

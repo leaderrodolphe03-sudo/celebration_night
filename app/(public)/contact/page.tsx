@@ -83,15 +83,15 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#17165A] text-white">
+    <div className="min-h-screen bg-[#0A0304] text-white">
       {/* Hero Header */}
       <section className="relative overflow-hidden px-4 pt-20 pb-16 sm:px-6 lg:px-8 text-center">
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#38217F]/60 blur-[130px]"
+          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#E5252A]/20 blur-[130px]"
         />
         <div className="relative mx-auto max-w-4xl">
-          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#F5B900]">
+          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#FFD84A]">
             Une équipe à votre écoute
           </p>
           <h1 className="mt-4 font-heading text-5xl sm:text-7xl uppercase tracking-wider text-white">
@@ -120,7 +120,7 @@ export default function ContactPage() {
 
             <div className="rounded-2xl border border-white/10 bg-[#111111]/50 p-6 space-y-5 backdrop-blur-sm">
               <div className="flex items-start gap-4">
-                <div className="h-10 w-10 rounded-lg bg-[#38217F] border border-[#5A35A8] flex items-center justify-center text-[#F5B900] shrink-0">
+                <div className="h-10 w-10 rounded-lg bg-[#24080C] border border-[#E5252A]/40 flex items-center justify-center text-[#FFD84A] shrink-0">
                   <MapPin size={20} />
                 </div>
                 <div>
@@ -136,7 +136,7 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="h-10 w-10 rounded-lg bg-[#38217F] border border-[#5A35A8] flex items-center justify-center text-[#F5B900] shrink-0">
+                <div className="h-10 w-10 rounded-lg bg-[#24080C] border border-[#E5252A]/40 flex items-center justify-center text-[#FFD84A] shrink-0">
                   <Mail size={20} />
                 </div>
                 <div>
@@ -152,7 +152,7 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="h-10 w-10 rounded-lg bg-[#38217F] border border-[#5A35A8] flex items-center justify-center text-[#F5B900] shrink-0">
+                <div className="h-10 w-10 rounded-lg bg-[#24080C] border border-[#E5252A]/40 flex items-center justify-center text-[#FFD84A] shrink-0">
                   <Phone size={20} />
                 </div>
                 <div>
@@ -167,8 +167,8 @@ export default function ContactPage() {
             </div>
 
             {/* Note Accès & Transports */}
-            <div className="rounded-2xl border border-[#F5B900]/30 bg-[#38217F]/30 p-6">
-              <h3 className="font-heading text-xl uppercase tracking-wide text-[#F5B900]">
+            <div className="rounded-2xl border border-[#E5252A]/30 bg-[#140507]/90 p-6 shadow-md">
+              <h3 className="font-heading text-xl uppercase tracking-wide text-[#FFD84A]">
                 Transports & Parking
               </h3>
               <p className="mt-2 text-xs text-cn-gray-300 leading-relaxed">
@@ -253,7 +253,7 @@ export default function ContactPage() {
                     <select
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full rounded-md border border-white/15 bg-[#17165A] px-4 py-3 text-sm text-white focus:border-[#F5B900] focus:outline-none focus:ring-1 focus:ring-[#F5B900]"
+                      className="w-full rounded-md border border-white/15 bg-[#0A0304] px-4 py-3 text-sm text-white focus:border-[#E5252A] focus:outline-none focus:ring-1 focus:ring-[#E5252A]"
                     >
                       <option value="Renseignement Général">Renseignement Général</option>
                       <option value="Problème Billetterie">Question sur mon Billet / QR Code</option>
@@ -274,14 +274,14 @@ export default function ContactPage() {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Détaillez votre question ou votre proposition..."
-                    className="w-full rounded-md border border-white/15 bg-white/5 px-4 py-3 text-sm text-white placeholder-cn-gray-500 focus:border-[#F5B900] focus:outline-none focus:ring-1 focus:ring-[#F5B900]"
+                    className="w-full rounded-md border border-white/15 bg-white/5 px-4 py-3 text-sm text-white placeholder-cn-gray-500 focus:border-[#E5252A] focus:outline-none focus:ring-1 focus:ring-[#E5252A]"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 rounded-md bg-[#F5B900] py-4 text-xs font-bold uppercase tracking-widest text-[#111111] hover:bg-[#FFD84A] shadow-xl transition-all disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#B71C1C] via-[#E5252A] to-[#F5B900] py-4 text-xs font-bold uppercase tracking-widest text-white hover:opacity-95 shadow-xl transition-all disabled:opacity-50"
                 >
                   {loading ? (
                     <span>Envoi en cours...</span>
@@ -299,14 +299,14 @@ export default function ContactPage() {
       </section>
 
       {/* Foire Aux Questions (FAQ) */}
-      <section className="bg-[#111111]/50 border-t border-white/10 px-4 py-20 sm:px-6 lg:px-8">
+      <section className="bg-[#140507]/90 border-t border-white/10 px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl">
           <div className="text-center mb-12">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-[#F5B900]">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[#FFD84A]">
               Réponses Rapides
             </span>
             <h2 className="mt-2 font-heading text-3xl sm:text-4xl uppercase tracking-wide text-white flex items-center justify-center gap-2">
-              <HelpCircle className="text-[#F5B900]" size={28} />
+              <HelpCircle className="text-[#FFD84A]" size={28} />
               Foire Aux Questions
             </h2>
           </div>
@@ -317,12 +317,12 @@ export default function ContactPage() {
               return (
                 <div
                   key={idx}
-                  className="rounded-xl border border-white/10 bg-[#17165A]/80 overflow-hidden transition-colors"
+                  className="rounded-xl border border-white/10 bg-[#0A0304] overflow-hidden transition-colors shadow-md"
                 >
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full flex items-center justify-between p-5 text-left font-body text-sm font-semibold text-white hover:text-[#F5B900]"
+                    className="w-full flex items-center justify-between p-5 text-left font-body text-sm font-semibold text-white hover:text-[#FFD84A]"
                   >
                     <span>{faq.q}</span>
                     {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
