@@ -1,11 +1,12 @@
 # Photos de l'édition 2025
 
-Déposez ici les photos de la soirée (JPG, PNG ou WebP). Elles apparaissent
-automatiquement dans la galerie, les archives et sur l'accueil.
+Crédit photo : Regis L'Œil Artistique.
 
-- L'ordre d'affichage suit le nom du fichier : `01-...`, `02-...`
-- Le nom sert de description pour l'accessibilité :
-  `03-moment-de-priere-a-genoux.jpg` → « Moment de priere a genoux »
-- Format conseillé : 2000 px de large maximum, 4:3 de préférence.
+Les photos de ce dossier (JPG, PNG ou WebP) apparaissent automatiquement dans
+la galerie, les archives et sur l'accueil.
 
-Crédit photo de l'édition 2025 : Regis L'Œil Artistique.
+- **Ordre** : celui des noms de fichiers (`01-…`, `02-…`). La photo `01` est
+  mise en avant en grand.
+- **Descriptions** : dans `legendes.json` (nom du fichier → texte lu par les
+  lecteurs d'écran). Pensez à y ajouter une ligne pour chaque nouvelle photo ;
+  sinon le nom du fichier sert de description.
