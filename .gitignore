@@ -8,3 +8,9 @@ data/
 *.db
 *.db-journal
 *.sqlite
+
+# Tests
+/coverage
+/playwright-report
+/test-results
+*.tsbuildinfo

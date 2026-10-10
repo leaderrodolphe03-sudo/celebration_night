@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Aucune image distante autorisee pour l'instant : un joker "**" ouvre
+  // l'optimiseur d'images a n'importe quel domaine (GHSA-9g9p-9gw9-jx7f).
+  // Ajouter ici le domaine Supabase Storage une fois le projet cree.
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "**" }],
+    remotePatterns: [],
   },
   async redirects() {
     return [

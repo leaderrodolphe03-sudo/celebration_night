@@ -5,10 +5,10 @@ import { EVENT } from "@/lib/event-config";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { ticketNumber: string } }
+  { params }: { params: Promise<{ ticketNumber: string }> }
 ) {
   try {
-    const rawNumber = params.ticketNumber;
+    const { ticketNumber: rawNumber } = await params;
     if (!rawNumber) {
       return NextResponse.json({ error: "Numéro de billet manquant" }, { status: 400 });
     }

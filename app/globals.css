@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ------------------------------------------------------------------
+   Systeme de design CELEBRATION NIGHT 2026 (voir docs/ARCHITECTURE.md § 4)
+   Jetons semantiques au format shadcn/ui (HSL sans hsl()).
+   Contrastes mesures sur --background : foreground 18.7:1, muted 8.4:1,
+   primary (or) 11.3:1. --stage et --violet (3.5 et 4.0:1) sont reserves
+   aux halos et decors, jamais au texte.
+   Les anciennes variables --cn-* restent en place jusqu'a la refonte des pages.
+   ------------------------------------------------------------------ */
+:root {
+  --background: 247 43% 4%;
+  --foreground: 252 100% 98%;
+  --card: 248 32% 9%;
+  --card-foreground: 252 100% 98%;
+  --popover: 248 32% 9%;
+  --popover-foreground: 252 100% 98%;
+  --primary: 45 100% 48%;
+  --primary-foreground: 247 43% 4%;
+  --secondary: 251 27% 20%;
+  --secondary-foreground: 252 100% 98%;
+  --muted: 251 27% 14%;
+  --muted-foreground: 252 20% 70%;
+  --accent: 47 100% 65%;
+  --accent-foreground: 247 43% 4%;
+  --destructive: 354 100% 65%;
+  --destructive-foreground: 247 43% 4%;
+  --success: 153 69% 51%;
+  --border: 251 27% 20%;
+  --input: 251 27% 20%;
+  --ring: 45 100% 48%;
+  --radius: 0.75rem;
+
+  /* Lumieres de scene (decor uniquement) */
+  --stage: 235 100% 62%;
+  --violet: 264 100% 62%;
+  --flame: 16 100% 56%;
+}
+
 :root {
   --cn-ember-dark: #0a0304;
   --cn-ember: #140507;

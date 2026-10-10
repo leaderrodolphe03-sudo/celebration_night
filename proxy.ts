@@ -1,9 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { getAuthSecret } from "@/lib/env";
 
 const SESSION_COOKIE_NAME = "celebration_admin_session";
-const SECRET_KEY =
-  process.env.AUTH_SECRET ||
-  "celebration-night-hagiazo-super-secret-key-2026-phase1-4";
+
 
 function base64UrlToUint8Array(base64url: string): Uint8Array {
   const base64 = base64url.replace(/-/g, "+").replace(/_/g, "/");
@@ -35,7 +34,7 @@ async function verifySessionTokenEdge(token: string): Promise<boolean> {
     const encoder = new TextEncoder();
     const key = await crypto.subtle.importKey(
       "raw",
-      encoder.encode(SECRET_KEY),
+      encoder.encode(getAuthSecret()),
       { name: "HMAC", hash: "SHA-256" },
       false,
       ["sign"]
@@ -64,7 +63,7 @@ async function verifySessionTokenEdge(token: string): Promise<boolean> {
   }
 }
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Protection des routes d'administration sauf /admin/login

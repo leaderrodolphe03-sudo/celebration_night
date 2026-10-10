@@ -1,9 +1,8 @@
 import crypto from "crypto";
+import { getAuthSecret } from "./env";
 import { AdminRole } from "./types";
 
-const SECRET_KEY =
-  process.env.AUTH_SECRET ||
-  "celebration-night-hagiazo-super-secret-key-2026-phase1-4";
+
 
 /**
  * Hache un mot de passe en utilisant scrypt et un sel cryptographique aléatoire.
@@ -66,7 +65,7 @@ export function createSessionToken(data: Omit<SessionData, "expiresAt">, duratio
 
   const payloadBase64 = Buffer.from(JSON.stringify(payload)).toString("base64url");
   const signature = crypto
-    .createHmac("sha256", SECRET_KEY)
+    .createHmac("sha256", getAuthSecret())
     .update(payloadBase64)
     .digest("base64url");
 
@@ -82,7 +81,7 @@ export function verifySessionToken(token: string): SessionData | null {
     if (!payloadBase64 || !signature) return null;
 
     const expectedSignature = crypto
-      .createHmac("sha256", SECRET_KEY)
+      .createHmac("sha256", getAuthSecret())
       .update(payloadBase64)
       .digest("base64url");
 

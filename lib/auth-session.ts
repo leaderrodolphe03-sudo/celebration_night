@@ -9,7 +9,7 @@ export const SESSION_COOKIE_NAME = "celebration_admin_session";
  * Récupère les données de session de l'administrateur ou du staff connecté.
  */
 export async function getSessionUser(): Promise<SessionData | null> {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const sessionCookie = cookieStore.get(SESSION_COOKIE_NAME);
   if (!sessionCookie || !sessionCookie.value) {
     return null;
