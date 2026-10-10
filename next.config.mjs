@@ -8,26 +8,8 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      {
-        source: "/hagiazo",
-        destination: "/notre-histoire",
-        permanent: true,
-      },
-      {
-        source: "/about",
-        destination: "/notre-histoire",
-        permanent: true,
-      },
-      {
-        source: "/informations",
-        destination: "/contact",
-        permanent: true,
-      },
-      {
-        source: "/programme",
-        destination: "/notre-histoire",
-        permanent: true,
-      },
+      { source: "/hagiazo", destination: "/a-propos", permanent: true },
+      { source: "/informations", destination: "/contact", permanent: true },
     ];
   },
 };

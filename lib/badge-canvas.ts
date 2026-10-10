@@ -100,19 +100,19 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
   ctx.fillStyle = "#FFD84A";
   ctx.font = "bold 24px Montserrat, sans-serif";
   ctx.letterSpacing = "6px";
-  ctx.fillText("HAGIAZO MINISTRY PRÉSENTE", SIZE / 2, 95);
+  ctx.fillText("GÉNÉRATION ASAPH", SIZE / 2, 95);
 
   // Titre événementiel : CÉLÉBRATION NIGHT
   ctx.fillStyle = "#FFFFFF";
   ctx.font = "900 76px 'Bebas Neue', Montserrat, sans-serif";
   ctx.letterSpacing = "4px";
-  ctx.fillText("CÉLÉBRATION NIGHT", SIZE / 2, 175);
+  ctx.fillText("CELEBRATION NIGHT 2026", SIZE / 2, 175);
 
   // Date et lieu
   ctx.fillStyle = "#E5E5EA";
   ctx.font = "600 22px Montserrat, sans-serif";
   ctx.letterSpacing = "3px";
-  const dateVenue = `${data.dateLabel || "SAMEDI 14 NOVEMBRE 2026"} • ${data.venueLabel || "ABIDJAN"}`;
+  const dateVenue = `${data.dateLabel || "VENDREDI 13 NOVEMBRE 2026"} • ${data.venueLabel || "COTONOU"}`;
   ctx.fillText(dateVenue.toUpperCase(), SIZE / 2, 215);
 
   // 5. Zone centrale : Photo du participant
@@ -274,7 +274,7 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
   ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
   ctx.font = "500 16px Montserrat, sans-serif";
   ctx.letterSpacing = "2px";
-  ctx.fillText("#CelebrationNight2026 • #HagiazoMinistry • www.celebrationnight.org", SIZE / 2, SIZE - 48);
+  ctx.fillText("#CelebrationNight2026 • #GenerationAsaph • #Haguiazo", SIZE / 2, SIZE - 48);
 
   return canvas.toDataURL("image/png");
 }

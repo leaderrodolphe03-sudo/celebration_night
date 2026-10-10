@@ -18,7 +18,7 @@
 | Date | Vendredi 13 novembre 2026 | Validé |
 | Horaire | À partir de 20h, « jusqu'à l'aube si possible » | Heure de fin à confirmer |
 | Lieu | Terrain du CEG Sainte Rita (Cotonou) | **À confirmer** administrativement et techniquement |
-| Groupe musical associé | Haguiazo | Orthographe à confirmer (voir § 12) |
+| Groupe musical associé | Haguiazo | Orthographe officielle confirmée |
 | Organisation | Département de la Jeunesse — Église Évangélique Internationale Foursquare (EEIF), Paroisse de Sikècodji, « Temple des Leaders » | D'après les affiches 2025 et le dossier |
 | Budget prévisionnel | 3 518 000 FCFA | À consolider — **usage interne uniquement**, jamais affiché publiquement |
 
@@ -220,7 +220,7 @@ Chaque étape est validée par l'organisation avant la suivante. Aucune suppress
 
 ## 12. Points à clarifier avec l'organisation
 
-1. **Orthographe du groupe** : « Haguiazo » (cahier des charges), « Hagiazo » (code existant, adresse email de contact) — quelle est la forme officielle ?
+1. ~~**Orthographe du groupe**~~ : **Haguiazo** (confirmé par l'organisation).
 2. **Lieu** : confirmation administrative du terrain du CEG Sainte Rita et adresse exacte à publier.
 3. **Horaires** : 20h (dossier) ; heure de fin et programme détaillé.
 4. **Intervenants** : liste officiellement confirmée et photos autorisées.

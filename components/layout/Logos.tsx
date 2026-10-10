@@ -1,35 +1,26 @@
 import Image from "next/image";
 
 /**
- * Ces deux composants pointent vers des assets externes prevus dans
- * /public/logos/. Tant que les fichiers officiels ne sont pas fournis,
- * un repli textuel fidele a la charte (Bebas Neue) est affiche pour que
- * l'interface reste utilisable — voir section 6/7 du brief : ne jamais
- * inventer de logo officiel.
+ * Logos utilises par le billet imprimable. Le logo CELEBRATION NIGHT est le
+ * fichier officiel de /public/media/official/. Le groupe Haguiazo n'a pas
+ * encore fourni de logo : on affiche son nom, sans jamais inventer de visuel.
  */
 
 export function CelebrationNightLogo({ className = "" }: { className?: string }) {
   return (
     <span className={`flex items-center gap-2 ${className}`}>
       <LogoImageOrFallback
-        src="/logos/celebration-night.svg"
-        alt="Célébration Night"
+        src="/media/official/logo-celebration-night.webp"
+        alt="CELEBRATION NIGHT"
         fallback="CÉLÉBRATION NIGHT"
       />
     </span>
   );
 }
 
+// Aucun logo officiel du groupe n'a encore ete fourni : affichage textuel.
 export function HagiazoLogo({ className = "" }: { className?: string }) {
-  return (
-    <span className={`flex items-center gap-2 ${className}`}>
-      <LogoImageOrFallback
-        src="/logos/hagiazo-ministry.svg"
-        alt="HAGIAZO Ministry"
-        fallback="HAGIAZO Ministry"
-      />
-    </span>
-  );
+  return <span className={`font-heading text-2xl uppercase tracking-widest text-[#FFD84A] ${className}`}>Haguiazo</span>;
 }
 
 function LogoImageOrFallback({

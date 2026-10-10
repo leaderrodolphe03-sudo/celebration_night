@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { EVENT } from "@/lib/event-config";
 import { Search, Ticket, ArrowRight, AlertCircle, Sparkles, QrCode } from "lucide-react";
 
 interface TicketSummary {
@@ -39,7 +40,9 @@ export default function MonBilletPage() {
       }
 
       if (!data.tickets || data.tickets.length === 0) {
-        setError("Aucun billet ne correspond à cette recherche. Vérifiez l'orthographe ou le numéro.");
+        setError(
+          "Aucun billet ne correspond à cette recherche. Vérifiez l'orthographe ou le numéro."
+        );
       } else {
         setResults(data.tickets);
       }
@@ -51,27 +54,28 @@ export default function MonBilletPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0304] text-white py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#0A0304] px-4 py-16 text-white sm:px-6 lg:px-8">
       {/* Halo d'ambiance */}
       <div
         aria-hidden
-        className="pointer-events-none absolute top-12 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#E5252A]/20 blur-[130px]"
+        className="pointer-events-none absolute left-1/2 top-12 h-96 w-96 -translate-x-1/2 rounded-full bg-[#E5252A]/20 blur-[130px]"
       />
 
       <div className="relative mx-auto max-w-2xl text-center">
         <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#FFD84A]">
           Espace Participant
         </span>
-        <h1 className="mt-3 font-heading text-4xl sm:text-6xl uppercase tracking-wider text-white">
+        <h1 className="mt-3 font-heading text-4xl uppercase tracking-wider text-white sm:text-6xl">
           Retrouver Mon Billet
         </h1>
-        <p className="mt-3 font-body text-sm sm:text-base text-cn-gray-300 max-w-xl mx-auto">
-          Entrez votre numéro de billet (ex: <code className="text-[#FFD84A]">CN-2026-000001</code>),
-          votre adresse email ou votre téléphone pour afficher et télécharger votre QR Code d&apos;entrée.
+        <p className="mx-auto mt-3 max-w-xl font-body text-sm text-cn-gray-300 sm:text-base">
+          Entrez votre numéro de billet (ex: <code className="text-[#FFD84A]">CN-2026-000001</code>
+          ), votre adresse email ou votre téléphone pour afficher et télécharger votre QR Code
+          d&apos;entrée.
         </p>
 
         {/* Formulaire de recherche */}
-        <form onSubmit={handleSearch} className="mt-8 flex flex-col sm:flex-row gap-3">
+        <form onSubmit={handleSearch} className="mt-8 flex flex-col gap-3 sm:flex-row">
           <div className="relative flex-1">
             <input
               type="text"
@@ -90,7 +94,7 @@ export default function MonBilletPage() {
           <button
             type="submit"
             disabled={loading}
-            className="rounded-md bg-gradient-to-r from-[#B71C1C] via-[#E5252A] to-[#F5B900] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-white hover:opacity-95 shadow-xl transition-all disabled:opacity-50"
+            className="rounded-md bg-gradient-to-r from-[#B71C1C] via-[#E5252A] to-[#F5B900] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-white shadow-xl transition-all hover:opacity-95 disabled:opacity-50"
           >
             {loading ? "Recherche..." : "Rechercher"}
           </button>
@@ -98,7 +102,7 @@ export default function MonBilletPage() {
 
         {/* Message d'erreur */}
         {error && (
-          <div className="mt-6 rounded-xl border border-red-500/40 bg-red-950/60 p-4 text-xs text-red-200 flex items-center gap-3 text-left">
+          <div className="mt-6 flex items-center gap-3 rounded-xl border border-red-500/40 bg-red-950/60 p-4 text-left text-xs text-red-200">
             <AlertCircle size={18} className="shrink-0 text-red-400" />
             <span>{error}</span>
           </div>
@@ -114,18 +118,18 @@ export default function MonBilletPage() {
             {results.map((ticket, idx) => (
               <div
                 key={idx}
-                className="rounded-2xl border border-white/10 bg-[#140507]/90 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-[#E5252A]/50 transition-all shadow-xl"
+                className="flex flex-col justify-between gap-4 rounded-2xl border border-white/10 bg-[#140507]/90 p-5 shadow-xl transition-all hover:border-[#E5252A]/50 sm:flex-row sm:items-center sm:p-6"
               >
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-heading text-2xl text-white tracking-wider">
+                    <span className="font-heading text-2xl tracking-wider text-white">
                       {ticket.ticketNumber}
                     </span>
                     <span
                       className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
                         ticket.ticketType === "VIP"
                           ? "bg-[#E5252A] text-white"
-                          : "bg-[#24080C] text-[#FFD84A] border border-[#E5252A]/30"
+                          : "border border-[#E5252A]/30 bg-[#24080C] text-[#FFD84A]"
                       }`}
                     >
                       {ticket.ticketType}
@@ -133,17 +137,19 @@ export default function MonBilletPage() {
                   </div>
 
                   <p className="mt-1 text-xs text-cn-gray-300">
-                    Titulaire : <strong className="text-white">{ticket.participantName}</strong> ({ticket.email})
+                    Titulaire : <strong className="text-white">{ticket.participantName}</strong> (
+                    {ticket.email})
                   </p>
 
-                  <span className="mt-1 inline-block text-[11px] font-mono text-emerald-400">
-                    Statut : {ticket.status === "VALID" ? "✓ Actif pour le 14 Novembre" : "Scanné"}
+                  <span className="mt-1 inline-block font-mono text-[11px] text-emerald-400">
+                    Statut :{" "}
+                    {ticket.status === "VALID" ? `✓ Valable le ${EVENT.dateLabel}` : "Scanné"}
                   </span>
                 </div>
 
                 <Link
                   href={`/billet/${encodeURIComponent(ticket.ticketNumber)}`}
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-[#F5B900] px-5 py-3 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#FFD84A] transition-all"
+                  className="inline-flex items-center justify-center gap-2 rounded-md bg-[#F5B900] px-5 py-3 text-xs font-bold uppercase tracking-wider text-[#111111] transition-all hover:bg-[#FFD84A]"
                 >
                   <QrCode size={16} />
                   <span>Ouvrir mon Billet</span>
@@ -155,7 +161,7 @@ export default function MonBilletPage() {
         )}
 
         {/* CTA Pas encore inscrit ? */}
-        <div className="mt-14 pt-8 border-t border-white/10">
+        <div className="mt-14 border-t border-white/10 pt-8">
           <p className="text-xs text-cn-gray-500">
             Vous n&apos;avez pas encore de billet pour CÉLÉBRATION NIGHT ?
           </p>

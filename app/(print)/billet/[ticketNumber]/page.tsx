@@ -243,7 +243,7 @@ export default function TicketPage() {
                   <Clock size={13} className="text-[#F5B900]" /> Heure
                 </span>
                 <span className="font-semibold text-white text-sm mt-0.5 block">
-                  {data.event.timeLabel} (Accès 17h30)
+                  {data.event.timeLabel}
                 </span>
               </div>
               <div className="col-span-2">
@@ -251,7 +251,7 @@ export default function TicketPage() {
                   <MapPin size={13} className="text-[#E5252A]" /> Lieu du Rassemblement
                 </span>
                 <span className="font-semibold text-white text-sm mt-0.5 block">
-                  Palais des Congrès / Grande Halle de Célébration (Abidjan)
+                  {data.event.venue}
                 </span>
               </div>
             </div>

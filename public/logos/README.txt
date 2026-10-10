@@ -1,1 +1,2 @@
-Deposez ici celebration-night.svg et hagiazo-ministry.svg (assets officiels).
+Logos officiels : voir public/media/official/ (logo CELEBRATION NIGHT).
+Deposer ici le logo du groupe Haguiazo lorsqu'il sera fourni.

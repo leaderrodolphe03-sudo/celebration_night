@@ -64,13 +64,13 @@ export default function SquareBadge({
       {/* 1. En-tête : Titre & Organisation */}
       <div className="relative z-10 text-center">
         <span className="font-body text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFD84A] block">
-          HAGIAZO MINISTRY PRÉSENTE
+          GÉNÉRATION ASAPH
         </span>
         <h3 className="mt-1 font-heading text-3xl sm:text-5xl uppercase tracking-wider text-white drop-shadow-md leading-none">
-          CÉLÉBRATION NIGHT
+          CELEBRATION NIGHT 2026
         </h3>
         <p className="mt-1 font-body text-[10px] sm:text-xs font-semibold tracking-wider text-cn-gray-300 uppercase">
-          {EVENT.dateLabel} • {EVENT.timeLabel} • ABIDJAN
+          {EVENT.dateLabel} • {EVENT.timeLabel} • {EVENT.city}
         </p>
       </div>
 

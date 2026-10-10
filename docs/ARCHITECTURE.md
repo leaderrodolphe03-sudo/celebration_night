@@ -17,7 +17,7 @@ Le dépôt contient déjà une application Next.js fonctionnelle (vitrine, inscr
 | Génération de badge / billet imprimable | Contenu codé en dur → tables administrables |
 | Bebas Neue + Montserrat | Palette « braise » rouge → palette nuit / or / lumières de scène |
 
-Le contenu inventé (date du 14 novembre, Abidjan, artistes non prévus, programme 18h) sera remplacé par les données du dossier à l'étape 4.
+Étape 4 réalisée : le contenu inventé (14 novembre, Abidjan, artistes non prévus, programme 18h, billets VIP, coordonnées +225, FAQ) a été remplacé par les données du dossier, centralisées dans `lib/content.ts`. Les images générées et les composants orphelins ont été supprimés.
 
 ## 2. Stack
 
@@ -105,6 +105,9 @@ Nuit de concert gospel : fond nuit profond, **or** comme couleur d'action et de 
 - Budget : aucune animation ne bloque l'affichage du texte principal (LCP).
 
 ### Médias remplaçables
+- `public/media/official/` : logo et affiches officielles (voir `public/media/README.md`).
+- `public/media/editions/<année>/` : photos de chaque soirée, **affichées automatiquement** dans la galerie, les archives et l'accueil (`lib/gallery.ts`).
+
 Chaque visuel occupe un **emplacement nommé** (`media.slot` : `hero`, `logo-principal`, `affiche-officielle`…). L'organisation remplace un fichier depuis l'administration sans toucher au code. En l'absence de fichier, un visuel neutre s'affiche.
 
 ## 5. Données et sécurité
@@ -145,7 +148,9 @@ Vérifié par `tests/db/run.sh` sur un PostgreSQL local : 11 contrôles, dont **
 
 ## 7. Dette connue (traitée aux étapes 4 à 6)
 
-- 21 erreurs ESLint dans les pages existantes (`any`, `setState` dans `useEffect`) : ces pages seront réécrites.
+- Erreurs ESLint restantes dans les pages admin et billet (`any`, `setState` dans `useEffect`) : réécrites aux étapes 5 et 6. Les pages publiques sont propres.
+- Limiteur de débit en mémoire (`lib/rate-limit.ts`) : propre à chaque instance, à remplacer par un stockage partagé sur Vercel.
+- Les numéros de billet sont séquentiels (`CN-2026-000001`) et la page `/billet/[numéro]` affiche le nom du participant : il faut exiger un secret (jeton) dans l'URL à l'étape 5.
 - L'ancienne auth (`lib/auth-session.ts`, `lib/crypto-security.ts`, `proxy.ts`) et `lib/db/storage.ts` restent actives jusqu'au branchement de Supabase. Le secret de session n'a plus de valeur par défaut en production.
 - Les comptes de démonstration créés par `lib/db/storage.ts` disparaîtront avec ce stockage.
 - `prisma/` n'est plus la cible (remplacé par les migrations Supabase) ; à retirer après accord.

@@ -3,13 +3,14 @@ import { defineConfig, devices } from "@playwright/test";
 // En environnement cloud, Chromium est preinstalle : PW_CHROMIUM_PATH permet
 // de l'utiliser sans telecharger de navigateur.
 const executablePath = process.env.PW_CHROMIUM_PATH || undefined;
+const baseURL = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
 
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: true,
   retries: process.env.CI ? 1 : 0,
   use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000",
+    baseURL,
     trace: "on-first-retry",
   },
   projects: [
@@ -18,7 +19,7 @@ export default defineConfig({
   ],
   webServer: {
     command: "npm run build && npm run start",
-    url: "http://localhost:3000",
+    url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 240_000,
   },

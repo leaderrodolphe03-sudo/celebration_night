@@ -1,33 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 import { storage } from "@/lib/db/storage";
-
-const ContactSchema = z.object({
-  name: z.string().min(2, "Le nom est requis"),
-  email: z.string().email("Adresse email invalide"),
-  phone: z.string().optional(),
-  subject: z.string().min(3, "L'objet est requis"),
-  message: z.string().min(10, "Le message doit comporter au moins 10 caractères"),
-});
+import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { ContactSchema } from "@/lib/validation/contact";
 
 export async function POST(req: NextRequest) {
+  if (!rateLimit(`contact:${clientIp(req.headers)}`, 5, 10 * 60_000)) {
+    return NextResponse.json(
+      { error: "Trop de messages envoyés. Réessayez plus tard." },
+      { status: 429 }
+    );
+  }
+
+  let body: unknown;
   try {
-    const body = await req.json();
-    const parsed = ContactSchema.safeParse(body);
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Requête invalide." }, { status: 400 });
+  }
 
-    if (!parsed.success) {
-      return NextResponse.json(
-        { error: "Veuillez vérifier les informations saisies.", details: parsed.error.flatten().fieldErrors },
-        { status: 400 }
-      );
-    }
+  const parsed = ContactSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      {
+        error: "Veuillez vérifier les informations saisies.",
+        details: parsed.error.flatten().fieldErrors,
+      },
+      { status: 400 }
+    );
+  }
 
-    storage.addContactMessage(parsed.data);
+  const { website, ...data } = parsed.data;
+  if (website) {
+    // Robot : on repond comme si tout allait bien, sans rien enregistrer.
+    return NextResponse.json({ success: true });
+  }
 
-    return NextResponse.json({
-      success: true,
-      message: "Votre message a bien été envoyé. L'équipe HAGIAZO vous répondra sous peu.",
-    });
+  try {
+    storage.addContactMessage({ ...data, phone: data.phone || undefined });
+    return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Erreur API contact:", error);
     return NextResponse.json(
