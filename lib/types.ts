@@ -15,6 +15,8 @@ export interface Participant {
   numberOfGuests: number;
   ticketType: TicketType;
   source?: string | null;
+  /** Empreinte SHA-256 de la cle d'acces aux billets (jamais la cle elle-meme). */
+  accessKeyHash?: string | null;
   createdAt: string;
   updatedAt: string;
 }

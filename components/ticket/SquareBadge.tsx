@@ -24,7 +24,8 @@ export default function SquareBadge({
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
 
   useEffect(() => {
-    const tokenToEncode = qrToken || ticketNumber || "CN-2026-VALIDE";
+    // QR d'invitation (lien d'inscription), jamais un billet d'entree.
+    const tokenToEncode = qrToken || "/inscription";
     QRCode.toDataURL(tokenToEncode, {
       errorCorrectionLevel: "H",
       margin: 1,
@@ -115,7 +116,7 @@ export default function SquareBadge({
         <div className="space-y-1 text-left">
           <div className="inline-flex items-center gap-1.5 rounded-full bg-[#F5B900]/15 border border-[#F5B900]/40 px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#FFD84A]">
             <Sparkles size={11} />
-            <span>Pass Officiel Participant</span>
+            <span>Je participe</span>
           </div>
 
           <h4 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide text-white leading-tight line-clamp-1">
@@ -123,9 +124,9 @@ export default function SquareBadge({
           </h4>
 
           <div className="flex flex-wrap items-center gap-x-2 text-[10px] sm:text-xs text-cn-gray-300 font-mono">
-            <span>N° {ticketNumber}</span>
+            <span>#GenerationAsaph</span>
             <span className="text-emerald-400 font-semibold flex items-center gap-1">
-              <CheckCircle2 size={12} /> Entrée Confirmée
+              <CheckCircle2 size={12} /> Rejoins-moi !
             </span>
           </div>
         </div>
@@ -137,7 +138,7 @@ export default function SquareBadge({
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={qrDataUrl}
-                alt={`QR code pour le billet ${ticketNumber}`}
+                alt="QR code vers la page d'inscription"
                 className="h-16 w-16 sm:h-20 sm:w-20"
               />
             ) : (
@@ -147,7 +148,7 @@ export default function SquareBadge({
             )}
           </div>
           <span className="mt-1 block text-[8px] font-bold uppercase tracking-wider text-cn-gray-400">
-            Pass à scanner
+            Inscris-toi
           </span>
         </div>
       </div>

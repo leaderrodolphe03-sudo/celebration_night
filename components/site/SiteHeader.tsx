@@ -32,7 +32,7 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/50 bg-background/75 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 print:hidden border-b border-border/50 bg-background/75 backdrop-blur-xl">
       <a
         href="#contenu"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground"

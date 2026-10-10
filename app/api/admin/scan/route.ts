@@ -25,6 +25,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Un QR code officiel contient un jeton aleatoire, jamais un numero de
+    // billet : les numeros se suivent et seraient faciles a falsifier.
+    // Le numero n'est accepte qu'en saisie manuelle par un agent.
+    if (body.manual !== true && /^CN-/i.test(tokenOrNumber.trim())) {
+      return NextResponse.json({
+        status: "INVALID",
+        message: "QR code non officiel : il contient un numéro de billet au lieu du code sécurisé.",
+      });
+    }
+
     const scannerAgent = session.name || session.email;
     const result = storage.scanTicket(tokenOrNumber, scannerAgent);
 

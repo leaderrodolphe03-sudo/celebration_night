@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { storage } from "@/lib/db/storage";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { CapacityReachedError, registrations } from "@/lib/registrations";
 import { RegistrationSchema } from "@/lib/validation/registration";
 
-// Stockage provisoire (lib/db/storage) : sera remplace par Supabase a l'etape 5.
 export async function POST(req: NextRequest) {
   if (!rateLimit(`inscription:${clientIp(req.headers)}`, 10, 10 * 60_000)) {
     return NextResponse.json(
@@ -12,14 +11,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: unknown;
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: "Requête invalide." }, { status: 400 });
-  }
-
-  const parsed = RegistrationSchema.safeParse(body);
+  const parsed = RegistrationSchema.safeParse(await req.json().catch(() => null));
   if (!parsed.success) {
     return NextResponse.json(
       {
@@ -30,37 +22,22 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const data = parsed.data;
-  if (data.website) {
+  const { firstName, lastName, phone, email, city, seats, heardFrom, website } = parsed.data;
+  const input = { firstName, lastName, phone, email, city, seats, heardFrom };
+  if (website) {
     return NextResponse.json({ error: "Requête refusée." }, { status: 400 });
   }
 
   try {
-    const { participant, tickets } = storage.createRegistration({
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      phone: data.phone,
-      country: "Non précisé",
-      city: data.city,
-      numberOfGuests: data.seats,
-      ticketType: "STANDARD",
-      source: data.heardFrom,
-    });
-
+    const { accessKey, ticketNumbers } = await registrations.create(input);
     return NextResponse.json(
-      {
-        success: true,
-        participant: {
-          firstName: participant.firstName,
-          numberOfGuests: participant.numberOfGuests,
-        },
-        primaryTicket: { ticketNumber: tickets[0].ticketNumber },
-        allTickets: tickets.map((t) => ({ ticketNumber: t.ticketNumber })),
-      },
-      { status: 201 }
+      { cle: accessKey, ticketNumbers },
+      { status: 201, headers: { "Cache-Control": "no-store" } }
     );
   } catch (error) {
+    if (error instanceof CapacityReachedError) {
+      return NextResponse.json({ error: error.message }, { status: 409 });
+    }
     console.error("Erreur API inscription:", error);
     return NextResponse.json(
       { error: "Une erreur interne est survenue lors de l'inscription." },

@@ -78,19 +78,15 @@ export function RegistrationForm() {
       body: JSON.stringify(values),
     }).catch(() => null);
     const data = await res?.json().catch(() => null);
-    if (!res?.ok || !data?.primaryTicket) {
+    if (!res?.ok || !data?.cle) {
       setServerError(
         data?.error ??
           "Impossible d'enregistrer l'inscription. Vérifiez votre connexion et réessayez."
       );
       return;
     }
-    const params = new URLSearchParams({
-      ticketNumber: data.primaryTicket.ticketNumber,
-      name: `${values.firstName} ${values.lastName}`,
-      count: String(values.seats),
-    });
-    router.push(`/confirmation?${params}`);
+    // La cle passe dans le fragment (#) : elle n'est jamais envoyee au serveur.
+    router.push(`/mes-billets?nouveau=1#cle=${data.cle}`);
   };
 
   return (

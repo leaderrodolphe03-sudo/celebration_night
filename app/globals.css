@@ -236,3 +236,11 @@ body {
   }
 }
 
+
+/* Impression des billets : fond blanc, encre noire. */
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+}

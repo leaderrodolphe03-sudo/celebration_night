@@ -61,6 +61,33 @@ test("parcours d'inscription complet jusqu'a la confirmation", async ({ page }) 
   await page.getByRole("button", { name: "Ajouter une place" }).click();
   await page.getByRole("checkbox").check();
   await page.getByRole("button", { name: /Confirmer mon inscription/ }).click();
-  await expect(page).toHaveURL(/\/confirmation\?ticketNumber=CN-2026-\d{6}/);
-  await expect(page).toHaveURL(/count=2/);
+  await expect(page).toHaveURL(/\/mes-billets\?nouveau=1#cle=[A-Za-z0-9_-]{43}$/);
+  await expect(page.getByText("Inscription confirmée")).toBeVisible();
+  await expect(page.getByRole("img", { name: /QR code du billet CN-2026-\d{6}/ })).toHaveCount(2);
+
+  // Sans la cle, les billets ne s'affichent pas.
+  await page.goto("/mes-billets");
+  await expect(page.getByRole("heading", { name: "Lien incomplet" })).toBeVisible();
+
+  // Retrouver ses billets par telephone + nom genere un nouveau lien.
+  await page.goto("/mon-billet");
+  await page.locator("#recover-phone").fill("0100000000");
+  await page.locator("#recover-name").fill("TEST");
+  await page.getByRole("button", { name: /Retrouver mes billets/ }).click();
+  await expect(page).toHaveURL(/\/mes-billets#cle=[A-Za-z0-9_-]{43}$/);
+  await expect(page.getByRole("img", { name: /QR code du billet/ })).toHaveCount(2);
+});
+
+test("les billets ne sont pas accessibles par simple numero", async ({ request }) => {
+  expect((await request.get("/api/ticket/CN-2026-000001")).status()).toBe(404);
+  const res = await request.post("/api/billets", { data: { cle: "a".repeat(43) } });
+  expect(res.status()).toBe(404);
+  const body = await res.text();
+  expect(body).not.toContain("svg");
+});
+
+test("le scanner refuse un QR code contenant un numero de billet", async ({ request }) => {
+  // Sans session admin : refuse d'emblee.
+  const res = await request.post("/api/admin/scan", { data: { tokenOrNumber: "CN-2026-000001" } });
+  expect(res.status()).toBe(401);
 });

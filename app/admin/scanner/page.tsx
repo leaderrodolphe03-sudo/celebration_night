@@ -224,7 +224,7 @@ export default function AdminScannerPage() {
   }, [cameraActive, scanning, lastScannedResult]);
 
   // Traitement et validation d'un code scanné ou saisi
-  const handleProcessCode = async (tokenOrNumber: string) => {
+  const handleProcessCode = async (tokenOrNumber: string, manual = false) => {
     if (scanning) return;
     setScanning(true);
 
@@ -232,7 +232,7 @@ export default function AdminScannerPage() {
       const res = await fetch("/api/admin/scan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tokenOrNumber: tokenOrNumber.trim() }),
+        body: JSON.stringify({ tokenOrNumber: tokenOrNumber.trim(), manual }),
       });
 
       const data: ScanResult = await res.json();
@@ -258,7 +258,7 @@ export default function AdminScannerPage() {
   const handleManualSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!manualCode.trim()) return;
-    handleProcessCode(manualCode.trim());
+    handleProcessCode(manualCode.trim(), true);
     setManualCode("");
   };
 

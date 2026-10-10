@@ -146,11 +146,29 @@ Vérifié par `tests/db/run.sh` sur un PostgreSQL local : 11 contrôles, dont **
 | `PGURL=… tests/db/run.sh` | tests SQL/RLS sur une base **jetable** |
 | `npm run format` | formatage Prettier |
 
-## 7. Dette connue (traitée aux étapes 4 à 6)
+## 6 bis. Inscriptions et billets (étape 5)
 
-- Erreurs ESLint restantes dans les pages admin et billet (`any`, `setState` dans `useEffect`) : réécrites aux étapes 5 et 6. Les pages publiques sont propres.
+- `lib/registrations/` : interface `RegistrationStore`, implémentée par le fichier local
+  (`local.ts`, développement) et par Supabase (`supabase.ts`). Le choix est automatique selon la
+  présence des clés Supabase.
+- Clé personnelle de 256 bits par inscription, transmise dans le **fragment** d'URL
+  (`/mes-billets#cle=…`) : jamais envoyée au serveur par le navigateur, absente des journaux et des
+  référents. Seule son empreinte SHA-256 est stockée.
+- `POST /api/billets` (clé dans le corps) renvoie les billets ; `POST /api/billets/retrouver`
+  (téléphone + nom) régénère une clé. Les anciennes routes `/api/ticket/*`, qui exposaient nom,
+  email et QR code par simple numéro, ont été supprimées.
+- SQL (`supabase/migrations/20261011000000_registrations.sql`) : `create_registration` verrouille
+  l'édition pour un contrôle de capacité fiable sous concurrence, et numérote les billets via une
+  séquence ; `get_registration_by_key`, `rotate_registration_key`. Réservées au `service_role`.
+- Scanner : un QR code contenant un numéro de billet est refusé ; le numéro n'est accepté qu'en
+  saisie manuelle.
+
+## 7. Dette connue (étape 6)
+
+- Erreurs ESLint restantes dans les pages admin (`any`, `setState` dans `useEffect`) : réécrites à l'étape 6.
 - Limiteur de débit en mémoire (`lib/rate-limit.ts`) : propre à chaque instance, à remplacer par un stockage partagé sur Vercel.
-- Les numéros de billet sont séquentiels (`CN-2026-000001`) et la page `/billet/[numéro]` affiche le nom du participant : il faut exiger un secret (jeton) dans l'URL à l'étape 5.
-- L'ancienne auth (`lib/auth-session.ts`, `lib/crypto-security.ts`, `proxy.ts`) et `lib/db/storage.ts` restent actives jusqu'au branchement de Supabase. Le secret de session n'a plus de valeur par défaut en production.
+- L'ancienne auth (`lib/auth-session.ts`, `lib/crypto-security.ts`, `proxy.ts`) et `lib/db/storage.ts` restent actives jusqu'au branchement de Supabase Auth. Le secret de session n'a plus de valeur par défaut en production.
 - Les comptes de démonstration créés par `lib/db/storage.ts` disparaîtront avec ce stockage.
+- Le badge « J'y serai » (`components/ticket/`) garde l'ancienne palette rouge : à harmoniser.
+- Envoi du billet par email / WhatsApp / SMS : en attente du choix de l'organisation.
 - `prisma/` n'est plus la cible (remplacé par les migrations Supabase) ; à retirer après accord.

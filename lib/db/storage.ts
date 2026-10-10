@@ -178,7 +178,13 @@ export interface DatabaseRepository {
     numberOfGuests: number;
     ticketType: TicketType;
     source?: string;
+    accessKeyHash?: string;
   }): { participant: Participant; tickets: Ticket[] };
+
+  findByAccessKeyHash(hash: string): { participant: Participant; tickets: Ticket[] } | null;
+  setAccessKeyHash(participantId: string, hash: string): void;
+  listParticipants(): Participant[];
+  countActiveTickets(): number;
 
   getTicketByNumber(ticketNumber: string): { ticket: Ticket; participant: Participant } | null;
   getTicketByToken(qrToken: string): { ticket: Ticket; participant: Participant } | null;
@@ -252,6 +258,7 @@ class StorageEngine implements DatabaseRepository {
     numberOfGuests: number;
     ticketType: TicketType;
     source?: string;
+    accessKeyHash?: string;
   }): { participant: Participant; tickets: Ticket[] } {
     const db = this.load();
 
@@ -269,6 +276,7 @@ class StorageEngine implements DatabaseRepository {
       numberOfGuests: data.numberOfGuests,
       ticketType: data.ticketType,
       source: data.source?.trim() || null,
+      accessKeyHash: data.accessKeyHash ?? null,
       createdAt: now,
       updatedAt: now,
     };
@@ -303,6 +311,30 @@ class StorageEngine implements DatabaseRepository {
     this.save();
 
     return { participant, tickets: generatedTickets };
+  }
+
+  public findByAccessKeyHash(hash: string): { participant: Participant; tickets: Ticket[] } | null {
+    const db = this.load();
+    const participant = db.participants.find((p) => p.accessKeyHash === hash);
+    if (!participant) return null;
+    return { participant, tickets: db.tickets.filter((t) => t.participantId === participant.id) };
+  }
+
+  public setAccessKeyHash(participantId: string, hash: string): void {
+    const db = this.load();
+    const participant = db.participants.find((p) => p.id === participantId);
+    if (!participant) return;
+    participant.accessKeyHash = hash;
+    participant.updatedAt = new Date().toISOString();
+    this.save();
+  }
+
+  public listParticipants(): Participant[] {
+    return this.load().participants;
+  }
+
+  public countActiveTickets(): number {
+    return this.load().tickets.filter((t) => t.status !== "CANCELLED").length;
   }
 
   public getTicketByNumber(ticketNumber: string): { ticket: Ticket; participant: Participant } | null {

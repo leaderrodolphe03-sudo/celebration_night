@@ -44,6 +44,11 @@ export const EVENT = {
   venue: "Terrain du CEG Sainte Rita",
   city: "Cotonou",
   venueConfirmed: false,
+  /**
+   * Nombre maximum de places (billets). null = pas de limite tant que
+   * l'organisation ne l'a pas fixe (reference logistique : 500 a 650 chaises).
+   */
+  capacity: null as number | null,
 } as const;
 
 export const VISION =

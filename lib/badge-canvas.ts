@@ -213,7 +213,7 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
   ctx.fillStyle = "#FFD84A";
   ctx.font = "bold 15px Montserrat, sans-serif";
   ctx.letterSpacing = "2px";
-  ctx.fillText("BILLET PARTICIPANT OFFICIEL", 90, bottomY + 24);
+  ctx.fillText("JE PARTICIPE", 90, bottomY + 24);
 
   // Nom complet en grand
   ctx.fillStyle = "#FFFFFF";
@@ -228,12 +228,12 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
   ctx.fillStyle = "#A1A1AA";
   ctx.font = "600 20px Montserrat, sans-serif";
   ctx.letterSpacing = "1.5px";
-  ctx.fillText(`N° ${data.ticketNumber || "CN-2026-VALIDE"}`, 75, bottomY + 130);
+  ctx.fillText("#GenerationAsaph", 75, bottomY + 130);
 
   ctx.fillStyle = "#34D399";
   ctx.font = "bold 16px Montserrat, sans-serif";
   ctx.letterSpacing = "1px";
-  ctx.fillText("● ENTRÉE GRATUITE CONFIRMÉE", 75, bottomY + 165);
+  ctx.fillText("● REJOINS-MOI !", 75, bottomY + 165);
 
   // Zone droite : QR Code individuel officiel
   const qrSize = 200;
@@ -250,7 +250,9 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
   ctx.stroke();
 
   // Rendu du QR code dans le canvas
-  const qrDataUrl = await QRCode.toDataURL(data.qrToken || data.ticketNumber || "CN-2026-OFFICIAL", {
+  // Ce badge est fait pour etre partage : son QR code renvoie vers la page
+  // d'inscription, jamais vers un billet d'entree.
+  const qrDataUrl = await QRCode.toDataURL(data.qrToken, {
     errorCorrectionLevel: "H",
     margin: 1,
     width: qrSize,
@@ -267,7 +269,7 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
   ctx.fillStyle = "#E5E5EA";
   ctx.font = "600 13px Montserrat, sans-serif";
   ctx.letterSpacing = "1px";
-  ctx.fillText("SCANNEZ À L'ENTRÉE", qrX + qrSize / 2, qrY + qrSize + 28);
+  ctx.fillText("INSCRIS-TOI AUSSI", qrX + qrSize / 2, qrY + qrSize + 28);
 
   // Pied de page légal / Hashtag
   ctx.textAlign = "center";

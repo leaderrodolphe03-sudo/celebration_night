@@ -4,7 +4,7 @@ import { EVENT, MEDIA, NAV_LINKS } from "@/lib/content";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border/60 bg-card/40">
+    <footer className="border-t border-border/60 bg-card/40 print:hidden">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <Image
