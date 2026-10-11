@@ -57,21 +57,21 @@ const ARTICLES = [
 
 export default function EchoDeLaLouangePage() {
   return (
-    <div className="min-h-screen bg-[#0A0304] text-white">
+    <div className="min-h-screen bg-[#080808] text-white">
       {/* Hero Header */}
-      <section className="relative overflow-hidden px-4 pt-20 pb-16 sm:px-6 lg:px-8 text-center">
+      <section className="relative overflow-hidden px-4 pt-24 pb-16 sm:px-6 lg:px-8 text-center">
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#E5252A]/20 blur-[130px]"
+          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#F59E0B]/10 blur-[130px]"
         />
         <div className="relative mx-auto max-w-4xl">
-          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#FFD84A]">
-            Édification & Méditation
+          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#F59E0B]">
+            Édification &amp; Méditation
           </p>
           <h1 className="mt-4 font-heading text-5xl sm:text-7xl uppercase tracking-wider text-white">
             L&apos;Écho de la Louange
           </h1>
-          <p className="mt-4 font-body text-base sm:text-lg text-cn-gray-300 max-w-2xl mx-auto">
+          <p className="mt-4 font-body text-base sm:text-lg text-[#BFB89E] max-w-2xl mx-auto">
             Le magazine spirituel de HAGIAZO Ministry. Pensées théologiques, conseils pour chantres
             et témoignages authentiques d&apos;impact.
           </p>
@@ -84,38 +84,38 @@ export default function EchoDeLaLouangePage() {
         {ARTICLES.filter((a) => a.highlight).map((article, idx) => (
           <div
             key={idx}
-            className="mb-14 rounded-2xl border border-[#E5252A]/40 bg-gradient-to-br from-[#24080C] via-[#140507] to-[#0A0304] p-8 sm:p-12 shadow-2xl relative overflow-hidden group"
+            className="mb-14 rounded-2xl border border-[#F59E0B]/30 bg-gradient-to-b from-[#17110E] via-[#120E0A] to-[#0A0806] p-8 sm:p-12 shadow-2xl relative overflow-hidden group"
           >
             <div className="flex flex-wrap items-center gap-3 text-xs">
-              <span className="rounded-full bg-[#E5252A] px-3 py-1 font-bold uppercase tracking-wider text-white">
+              <span className="rounded-md bg-[#F59E0B] px-3 py-1 font-bold uppercase tracking-wider text-[#080808]">
                 À la une
               </span>
-              <span className="text-[#FFD84A] font-semibold">{article.category}</span>
-              <span className="text-cn-gray-500">•</span>
-              <span className="text-cn-gray-300 flex items-center gap-1">
-                <Calendar size={13} /> {article.date}
+              <span className="text-[#FCD34D] font-semibold">{article.category}</span>
+              <span className="text-[#7D7560]">•</span>
+              <span className="text-[#BFB89E] flex items-center gap-1">
+                <Calendar size={13} className="text-[#F59E0B]" /> {article.date}
               </span>
-              <span className="text-cn-gray-500">•</span>
-              <span className="text-cn-gray-300 flex items-center gap-1">
-                <Clock size={13} /> {article.readTime}
+              <span className="text-[#7D7560]">•</span>
+              <span className="text-[#BFB89E] flex items-center gap-1">
+                <Clock size={13} className="text-[#F59E0B]" /> {article.readTime}
               </span>
             </div>
 
-            <h2 className="mt-6 font-heading text-3xl sm:text-5xl uppercase tracking-wide text-white group-hover:text-[#FFD84A] transition-colors">
+            <h2 className="mt-6 font-heading text-3xl sm:text-5xl uppercase tracking-wide text-white group-hover:text-[#FCD34D] transition-colors">
               {article.title}
             </h2>
 
-            <p className="mt-4 font-body text-sm sm:text-base leading-relaxed text-cn-gray-300 max-w-3xl">
+            <p className="mt-4 font-body text-sm sm:text-base leading-relaxed text-[#BFB89E] max-w-3xl">
               {article.excerpt}
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/10">
-              <div className="flex items-center gap-2 text-xs text-cn-gray-300">
-                <User size={15} className="text-[#FFD84A]" />
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/8">
+              <div className="flex items-center gap-2 text-xs text-[#EDE8DC]">
+                <User size={15} className="text-[#F59E0B]" />
                 <span className="font-semibold">{article.author}</span>
               </div>
 
-              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#FFD84A] group-hover:translate-x-1 transition-transform">
+              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#F59E0B] group-hover:translate-x-1 transition-transform">
                 Lire l&apos;article complet <ArrowRight size={15} />
               </span>
             </div>
@@ -127,26 +127,26 @@ export default function EchoDeLaLouangePage() {
           {ARTICLES.filter((a) => !a.highlight).map((article, idx) => (
             <div
               key={idx}
-              className="rounded-2xl border border-white/10 bg-[#140507]/90 p-6 sm:p-8 flex flex-col justify-between hover:border-[#E5252A]/50 transition-all hover:-translate-y-1 shadow-md"
+              className="rounded-2xl border border-white/8 bg-[#120E0A] p-6 sm:p-8 flex flex-col justify-between hover:border-[#F59E0B]/50 transition-all hover:-translate-y-1 shadow-xl"
             >
               <div>
-                <div className="flex items-center justify-between text-xs text-cn-gray-500 mb-4">
-                  <span className="font-semibold text-[#FFD84A] uppercase tracking-wider text-[11px]">
+                <div className="flex items-center justify-between text-xs text-[#7D7560] mb-4">
+                  <span className="font-semibold text-[#F59E0B] uppercase tracking-wider text-[11px]">
                     {article.category}
                   </span>
                   <span>{article.readTime}</span>
                 </div>
 
-                <h3 className="font-heading text-2xl uppercase tracking-wide text-white hover:text-[#FFD84A] transition-colors">
+                <h3 className="font-heading text-2xl uppercase tracking-wide text-white hover:text-[#FCD34D] transition-colors">
                   {article.title}
                 </h3>
 
-                <p className="mt-3 text-xs leading-relaxed text-cn-gray-300 font-body">
+                <p className="mt-3 text-xs leading-relaxed text-[#BFB89E] font-body">
                   {article.excerpt}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-cn-gray-500">
+              <div className="mt-6 pt-4 border-t border-white/8 flex items-center justify-between text-xs text-[#7D7560]">
                 <span>{article.author}</span>
                 <span>{article.date}</span>
               </div>
@@ -155,19 +155,19 @@ export default function EchoDeLaLouangePage() {
         </div>
 
         {/* Appel à Témoignages */}
-        <div className="mt-20 rounded-2xl border border-white/10 bg-[#24080C]/70 p-8 sm:p-12 text-center backdrop-blur-sm shadow-xl">
-          <HeartHandshake className="mx-auto text-[#FFD84A]" size={36} />
+        <div className="mt-20 rounded-2xl border border-[#F59E0B]/30 bg-gradient-to-b from-[#17110E] to-[#120E0A] p-8 sm:p-12 text-center backdrop-blur-sm shadow-xl">
+          <HeartHandshake className="mx-auto text-[#F59E0B]" size={36} />
           <h3 className="mt-4 font-heading text-3xl sm:text-4xl uppercase tracking-wide text-white">
             Avez-vous un témoignage à partager ?
           </h3>
-          <p className="mt-2 text-sm text-cn-gray-300 max-w-xl mx-auto">
+          <p className="mt-2 text-sm text-[#BFB89E] max-w-xl mx-auto">
             Dieu a-t-il touché votre vie lors d&apos;un rassemblement ou par un chant de HAGIAZO ?
             Votre témoignage peut fortifier la foi de milliers de jeunes.
           </p>
           <div className="mt-6">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-md border border-[#E5252A] px-6 py-3 font-body text-xs font-bold uppercase tracking-widest text-[#FFD84A] hover:bg-[#E5252A] hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 rounded-sm border border-[#F59E0B]/40 px-6 py-3 font-body text-xs font-bold uppercase tracking-widest text-[#FCD34D] hover:bg-[#F59E0B] hover:text-[#080808] transition-all"
             >
               Écrire à l&apos;équipe éditoriale
             </Link>
@@ -177,3 +177,4 @@ export default function EchoDeLaLouangePage() {
     </div>
   );
 }
+

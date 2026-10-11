@@ -61,55 +61,55 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
     throw new Error("Impossible d'initialiser le contexte Canvas 2D.");
   }
 
-  // 1. Fond principal dégradé bordeaux / braise profonde
+  // 1. Fond principal dégradé obsidienne / terre brûlée ambrée
   const bgGrad = ctx.createLinearGradient(0, 0, SIZE, SIZE);
-  bgGrad.addColorStop(0, "#0A0304");
-  bgGrad.addColorStop(0.35, "#24080C");
-  bgGrad.addColorStop(0.7, "#140507");
-  bgGrad.addColorStop(1, "#0A0304");
+  bgGrad.addColorStop(0, "#080808");
+  bgGrad.addColorStop(0.35, "#1A140E");
+  bgGrad.addColorStop(0.7, "#120E0A");
+  bgGrad.addColorStop(1, "#080808");
   ctx.fillStyle = bgGrad;
   ctx.fillRect(0, 0, SIZE, SIZE);
 
-  // 2. Halos d'ambiance lumineux (rouge flamme et ambre sacré)
+  // 2. Halos d'ambiance lumineux (or solaire et braise ambrée)
   const glowTop = ctx.createRadialGradient(SIZE / 2, 80, 20, SIZE / 2, 80, 520);
-  glowTop.addColorStop(0, "rgba(229, 37, 42, 0.35)");
-  glowTop.addColorStop(0.6, "rgba(183, 28, 28, 0.15)");
+  glowTop.addColorStop(0, "rgba(234, 88, 12, 0.35)");
+  glowTop.addColorStop(0.6, "rgba(245, 158, 11, 0.15)");
   glowTop.addColorStop(1, "rgba(0, 0, 0, 0)");
   ctx.fillStyle = glowTop;
   ctx.fillRect(0, 0, SIZE, SIZE);
 
   const glowGold = ctx.createRadialGradient(SIZE - 120, SIZE - 120, 10, SIZE - 120, SIZE - 120, 400);
-  glowGold.addColorStop(0, "rgba(245, 185, 0, 0.2)");
+  glowGold.addColorStop(0, "rgba(245, 158, 11, 0.25)");
   glowGold.addColorStop(1, "rgba(0, 0, 0, 0)");
   ctx.fillStyle = glowGold;
   ctx.fillRect(0, 0, SIZE, SIZE);
 
-  // 3. Cadre extérieur esthétique avec bordure or & bordeaux
+  // 3. Cadre extérieur esthétique avec bordure or & obsidienne
   ctx.lineWidth = 14;
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
+  ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
   roundRect(ctx, 32, 32, SIZE - 64, SIZE - 64, 48);
   ctx.stroke();
 
   ctx.lineWidth = 3;
-  ctx.strokeStyle = "#F5B900";
+  ctx.strokeStyle = "#F59E0B";
   roundRect(ctx, 42, 42, SIZE - 84, SIZE - 84, 40);
   ctx.stroke();
 
   // 4. En-tête : Organisation & Logo
   ctx.textAlign = "center";
-  ctx.fillStyle = "#FFD84A";
+  ctx.fillStyle = "#FCD34D";
   ctx.font = "bold 24px Montserrat, sans-serif";
   ctx.letterSpacing = "6px";
   ctx.fillText("HAGIAZO MINISTRY PRÉSENTE", SIZE / 2, 95);
 
   // Titre événementiel : CÉLÉBRATION NIGHT
-  ctx.fillStyle = "#FFFFFF";
+  ctx.fillStyle = "#EDE8DC";
   ctx.font = "900 76px 'Bebas Neue', Montserrat, sans-serif";
   ctx.letterSpacing = "4px";
   ctx.fillText("CÉLÉBRATION NIGHT", SIZE / 2, 175);
 
   // Date et lieu
-  ctx.fillStyle = "#E5E5EA";
+  ctx.fillStyle = "#BFB89E";
   ctx.font = "600 22px Montserrat, sans-serif";
   ctx.letterSpacing = "3px";
   const dateVenue = `${data.dateLabel || "SAMEDI 14 NOVEMBRE 2026"} • ${data.venueLabel || "ABIDJAN"}`;
@@ -127,7 +127,7 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
   ctx.shadowOffsetY = 15;
 
   // Cadre blanc épais style poster / polaroid haut de gamme
-  ctx.fillStyle = "#FFFFFF";
+  ctx.fillStyle = "#EDE8DC";
   roundRect(ctx, photoX - 10, photoY - 10, photoSize + 20, photoSize + 20, 28);
   ctx.fill();
   ctx.restore();
@@ -158,7 +158,7 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
 
   // Bordure dorée intérieure sur la photo
   ctx.lineWidth = 4;
-  ctx.strokeStyle = "#F5B900";
+  ctx.strokeStyle = "#F59E0B";
   roundRect(ctx, photoX, photoY, photoSize, photoSize, 20);
   ctx.stroke();
 
@@ -170,14 +170,14 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
   ctx.rotate((-8 * Math.PI) / 180);
 
   // Ombre du macaron
-  ctx.shadowColor = "rgba(229, 37, 42, 0.6)";
+  ctx.shadowColor = "rgba(245, 158, 11, 0.5)";
   ctx.shadowBlur = 24;
 
   // Fond du macaron
   const stampGrad = ctx.createLinearGradient(-110, -35, 110, 35);
-  stampGrad.addColorStop(0, "#B71C1C");
-  stampGrad.addColorStop(0.5, "#E5252A");
-  stampGrad.addColorStop(1, "#F5B900");
+  stampGrad.addColorStop(0, "#EA580C");
+  stampGrad.addColorStop(0.5, "#F59E0B");
+  stampGrad.addColorStop(1, "#FCD34D");
   ctx.fillStyle = stampGrad;
   roundRect(ctx, -110, -32, 220, 64, 16);
   ctx.fill();
@@ -189,7 +189,7 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
 
   // Texte du macaron
   ctx.shadowBlur = 0;
-  ctx.fillStyle = "#FFFFFF";
+  ctx.fillStyle = "#080808";
   ctx.font = "900 32px 'Bebas Neue', Montserrat, sans-serif";
   ctx.textAlign = "center";
   ctx.letterSpacing = "2px";
@@ -202,21 +202,21 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
   ctx.textAlign = "left";
 
   // Badge catégorie
-  ctx.fillStyle = "rgba(245, 185, 0, 0.15)";
+  ctx.fillStyle = "rgba(245, 158, 11, 0.2)";
   roundRect(ctx, 75, bottomY, 240, 38, 8);
   ctx.fill();
   ctx.lineWidth = 1.5;
-  ctx.strokeStyle = "rgba(245, 185, 0, 0.4)";
+  ctx.strokeStyle = "rgba(245, 158, 11, 0.4)";
   roundRect(ctx, 75, bottomY, 240, 38, 8);
   ctx.stroke();
 
-  ctx.fillStyle = "#FFD84A";
+  ctx.fillStyle = "#FCD34D";
   ctx.font = "bold 15px Montserrat, sans-serif";
   ctx.letterSpacing = "2px";
   ctx.fillText("BILLET PARTICIPANT OFFICIEL", 90, bottomY + 24);
 
   // Nom complet en grand
-  ctx.fillStyle = "#FFFFFF";
+  ctx.fillStyle = "#EDE8DC";
   ctx.font = "800 44px 'Bebas Neue', Montserrat, sans-serif";
   ctx.letterSpacing = "2px";
   const nameToDisplay = data.fullName.trim() || "PARTICIPANT OFFICIEL";
@@ -225,7 +225,7 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
   ctx.fillText(truncatedName.toUpperCase(), 75, bottomY + 90);
 
   // Numéro de billet et statut
-  ctx.fillStyle = "#A1A1AA";
+  ctx.fillStyle = "#BFB89E";
   ctx.font = "600 20px Montserrat, sans-serif";
   ctx.letterSpacing = "1.5px";
   ctx.fillText(`N° ${data.ticketNumber || "CN-2026-VALIDE"}`, 75, bottomY + 130);
@@ -245,7 +245,7 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
   roundRect(ctx, qrX - 10, qrY - 10, qrSize + 20, qrSize + 20, 16);
   ctx.fill();
   ctx.lineWidth = 3;
-  ctx.strokeStyle = "#F5B900";
+  ctx.strokeStyle = "#F59E0B";
   roundRect(ctx, qrX - 10, qrY - 10, qrSize + 20, qrSize + 20, 16);
   ctx.stroke();
 
@@ -255,7 +255,7 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
     margin: 1,
     width: qrSize,
     color: {
-      dark: "#0A0304",
+      dark: "#080808",
       light: "#FFFFFF",
     },
   });
@@ -264,7 +264,7 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
 
   // Légende sous le QR
   ctx.textAlign = "center";
-  ctx.fillStyle = "#E5E5EA";
+  ctx.fillStyle = "#BFB89E";
   ctx.font = "600 13px Montserrat, sans-serif";
   ctx.letterSpacing = "1px";
   ctx.fillText("SCANNEZ À L'ENTRÉE", qrX + qrSize / 2, qrY + qrSize + 28);
@@ -287,20 +287,20 @@ function drawDefaultPhoto(
   fullName: string
 ) {
   const grad = ctx.createLinearGradient(x, y, x + size, y + size);
-  grad.addColorStop(0, "#24080C");
-  grad.addColorStop(0.5, "#B71C1C");
-  grad.addColorStop(1, "#140507");
+  grad.addColorStop(0, "#1F1710");
+  grad.addColorStop(0.5, "#2A1F16");
+  grad.addColorStop(1, "#120E0A");
   ctx.fillStyle = grad;
   ctx.fillRect(x, y, size, size);
 
   // Initiale
   const initial = (fullName.trim()[0] || "C").toUpperCase();
-  ctx.fillStyle = "#FFD84A";
+  ctx.fillStyle = "#FCD34D";
   ctx.font = "bold 140px 'Bebas Neue', Montserrat, sans-serif";
   ctx.textAlign = "center";
   ctx.fillText(initial, x + size / 2, y + size / 2 + 50);
 
-  ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+  ctx.fillStyle = "rgba(237, 232, 220, 0.85)";
   ctx.font = "bold 18px Montserrat, sans-serif";
   ctx.letterSpacing = "2px";
   ctx.fillText("PHOTO PARTICIPANT", x + size / 2, y + size - 35);

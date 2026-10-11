@@ -1,162 +1,139 @@
 "use client";
 
 import Link from "next/link";
-import { Youtube, Facebook, Instagram, ShieldCheck, Mail, MapPin, Calendar, Clock, Ticket } from "lucide-react";
+import { Youtube, Facebook, Instagram, ShieldCheck, Mail, MapPin, Calendar, Ticket, ArrowRight } from "lucide-react";
 import { CelebrationNightLogo, HagiazoLogo } from "./Logos";
 import { EVENT } from "@/lib/event-config";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#0A0304] text-cn-white print:hidden">
-      {/* Bannière supérieure de contact rapide */}
-      <div className="border-b border-white/10 bg-[#140507]/90 py-6 px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-4 text-xs text-cn-gray-300">
-          <div className="flex items-center gap-2">
-            <Calendar size={15} className="text-[#F5B900]" />
-            <span>{EVENT.dateLabel} à {EVENT.timeLabel}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <MapPin size={15} className="text-[#F5B900]" />
-            <span>Palais des Congrès / Grande Salle de Célébration</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Mail size={15} className="text-[#F5B900]" />
-            <span>contact@celebrationnight.org</span>
-          </div>
+    <footer className="bg-[#0F0B07] border-t border-white/8 text-cn-white print:hidden">
+
+      {/* Bande supérieure info rapide */}
+      <div className="border-b border-white/6 px-5 py-5 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-4 text-xs text-[#7D7560]">
+          <span className="flex items-center gap-2">
+            <Calendar size={14} className="text-[#F59E0B]" />
+            {EVENT.dateLabel} à {EVENT.timeLabel}
+          </span>
+          <span className="flex items-center gap-2">
+            <MapPin size={14} className="text-[#F59E0B]" />
+            Palais des Congrès — Grande Salle
+          </span>
+          <span className="flex items-center gap-2">
+            <Mail size={14} className="text-[#F59E0B]" />
+            contact@celebrationnight.org
+          </span>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
-          {/* Colonne 1 & 2 : Présentation et Ministère */}
-          <div className="lg:col-span-2 flex flex-col gap-4">
+
+          {/* Identité */}
+          <div className="lg:col-span-2 flex flex-col gap-5">
             <CelebrationNightLogo />
-            <div className="mt-2">
-              <HagiazoLogo className="opacity-90" />
-            </div>
-            <p className="mt-2 text-sm leading-relaxed text-cn-gray-300 max-w-md">
-              « CÉLÉBRATION NIGHT » est un rassemblement d&apos;adoration contemporaine,
-              de ferveur et de louange porté par HAGIAZO Ministry. Une expérience spirituelle et
-              musicale d&apos;excellence pour une jeunesse consacrée et unie.
+            <HagiazoLogo className="opacity-80" />
+            <p className="text-sm leading-relaxed text-[#7D7560] max-w-sm">
+              Un rassemblement d&apos;adoration contemporaine, de ferveur et de louange
+              porté par HAGIAZO Ministry pour une jeunesse consacrée.
             </p>
-            <div className="mt-3 flex items-center gap-4">
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="YouTube HAGIAZO"
-                className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-cn-gray-300 transition-colors hover:bg-[#E5252A] hover:text-white"
-              >
-                <Youtube size={17} />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Facebook HAGIAZO"
-                className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-cn-gray-300 transition-colors hover:bg-[#E5252A] hover:text-white"
-              >
-                <Facebook size={17} />
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Instagram HAGIAZO"
-                className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-cn-gray-300 transition-colors hover:bg-[#E5252A] hover:text-white"
-              >
-                <Instagram size={17} />
-              </a>
+            <div className="flex items-center gap-2.5 mt-1">
+              {[
+                { href: "https://youtube.com",   icon: Youtube,   label: "YouTube HAGIAZO" },
+                { href: "https://facebook.com",  icon: Facebook,  label: "Facebook HAGIAZO" },
+                { href: "https://instagram.com", icon: Instagram, label: "Instagram HAGIAZO" },
+              ].map(({ href, icon: Icon, label }) => (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="h-9 w-9 flex items-center justify-center border border-white/8 text-[#7D7560] transition-all hover:border-[#F59E0B]/40 hover:text-[#F59E0B] hover:bg-[#1A1108]"
+                >
+                  <Icon size={16} />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Colonne 3 : Navigation principale */}
+          {/* L'Événement */}
           <div>
-            <h3 className="font-heading text-lg uppercase tracking-wider text-[#F5B900]">
+            <h3 className="font-heading text-base uppercase tracking-wider text-white mb-4">
               L&apos;Événement
             </h3>
-            <ul className="mt-4 flex flex-col gap-2.5 text-sm text-cn-gray-300 font-medium">
-              <li>
-                <Link href="/" className="hover:text-[#F5B900] transition-colors">
-                  Accueil
-                </Link>
-              </li>
-              <li>
-                <Link href="/notre-histoire" className="hover:text-[#F5B900] transition-colors">
-                  Notre Histoire
-                </Link>
-              </li>
-              <li>
-                <Link href="/medias" className="hover:text-[#F5B900] transition-colors">
-                  Médias & Galerie
-                </Link>
-              </li>
-              <li>
-                <Link href="/worship-session" className="hover:text-[#F5B900] transition-colors">
-                  Worship session
-                </Link>
-              </li>
-              <li>
-                <Link href="/soutenir" className="hover:text-[#F5B900] transition-colors">
-                  Soutenir l&apos;Événement
-                </Link>
-              </li>
+            <ul className="space-y-2.5 text-sm text-[#7D7560]">
+              {[
+                { href: "/",              label: "Accueil" },
+                { href: "/notre-histoire", label: "Notre Histoire" },
+                { href: "/medias",         label: "Médias & Galerie" },
+                { href: "/soutenir",       label: "Soutenir l'Événement" },
+              ].map(({ href, label }) => (
+                <li key={href}>
+                  <Link href={href} className="hover:text-white transition-colors">
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Colonne 4 : Expérience & Réflexion */}
+          {/* Partenaires */}
           <div>
-            <h3 className="font-heading text-lg uppercase tracking-wider text-[#F5B900]">
-              Partenaires & Contact
+            <h3 className="font-heading text-base uppercase tracking-wider text-white mb-4">
+              Partenaires
             </h3>
-            <ul className="mt-4 flex flex-col gap-2.5 text-sm text-cn-gray-300 font-medium">
+            <ul className="space-y-2.5 text-sm text-[#7D7560]">
               <li>
-                <Link href="/soutenir" className="hover:text-[#F5B900] transition-colors">
-                  Devenir Partenaire ou Sponsor
+                <Link href="/soutenir" className="hover:text-white transition-colors">
+                  Devenir Partenaire
                 </Link>
               </li>
               <li>
-                <Link href="/echo-de-la-louange" className="hover:text-[#F5B900] transition-colors">
+                <Link href="/echo-de-la-louange" className="hover:text-white transition-colors">
                   L&apos;Écho de la Louange
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-[#F5B900] transition-colors">
-                  Foire aux questions & Contact
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  FAQ & Contact
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Colonne 5 : Billetterie & Accès Organisateur */}
+          {/* Billetterie */}
           <div>
-            <h3 className="font-heading text-lg uppercase tracking-wider text-[#F5B900]">
+            <h3 className="font-heading text-base uppercase tracking-wider text-white mb-4">
               Billetterie
             </h3>
-            <ul className="mt-4 flex flex-col gap-2.5 text-sm text-cn-gray-300 font-medium">
+            <ul className="space-y-3 text-sm">
               <li>
                 <Link
                   href="/inscription"
-                  className="inline-flex items-center gap-1.5 font-bold text-[#F5B900] hover:underline"
+                  className="group inline-flex items-center gap-2 font-semibold text-[#F59E0B] hover:text-[#FCD34D] transition-colors"
                 >
-                  <span>→ Réserver ma place</span>
+                  <Ticket size={13} />
+                  <span>Réserver ma place</span>
+                  <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
                 </Link>
               </li>
               <li>
                 <Link
                   href="/mon-billet"
-                  className="inline-flex items-center gap-1.5 hover:text-[#F5B900] transition-colors"
+                  className="flex items-center gap-2 text-[#7D7560] hover:text-white transition-colors"
                 >
-                  <Ticket size={14} className="text-[#F5B900]" />
+                  <Ticket size={13} />
                   <span>Retrouver mon billet</span>
                 </Link>
               </li>
-              <li className="pt-4 border-t border-white/10">
+              <li className="pt-3 border-t border-white/6">
                 <Link
                   href="/admin/login"
-                  className="inline-flex items-center gap-1.5 text-xs text-cn-gray-500 hover:text-white transition-colors"
+                  className="flex items-center gap-1.5 text-xs text-[#403C32] hover:text-[#7D7560] transition-colors"
                 >
-                  <ShieldCheck size={14} className="text-emerald-400" />
+                  <ShieldCheck size={13} className="text-emerald-600" />
                   <span>Portail Admin & Scanner</span>
                 </Link>
               </li>
@@ -164,13 +141,12 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Ligne inférieure de copyright */}
-        <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cn-gray-500">
+        {/* Copyright */}
+        <div className="mt-14 pt-8 border-t border-white/6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#403C32]">
           <p>© {new Date().getFullYear()} HAGIAZO Ministry. Tous droits réservés.</p>
-          <p className="flex items-center gap-2">
-            <span>Style contemporain et excellence spirituelle</span>
-            <span>•</span>
-            <span className="text-[#F5B900]">CÉLÉBRATION NIGHT 2026</span>
+          <p>
+            Style contemporain et excellence spirituelle ·{" "}
+            <span className="text-[#D97706]">CÉLÉBRATION NIGHT 2026</span>
           </p>
         </div>
       </div>

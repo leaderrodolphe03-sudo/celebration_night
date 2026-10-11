@@ -118,10 +118,10 @@ export default function BadgeGenerator({
             onClick={() => fileInputRef.current?.click()}
             className={`cursor-pointer rounded-2xl border-2 border-dashed p-6 text-center transition-all ${
               dragOver
-                ? "border-[#F5B900] bg-[#F5B900]/10 scale-[1.01]"
+                ? "border-[#F59E0B] bg-[#F59E0B]/10 scale-[1.01]"
                 : photoUrl
-                ? "border-[#E5252A]/50 bg-[#140507] hover:border-[#F5B900]"
-                : "border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10"
+                ? "border-[#F59E0B]/50 bg-[#120E0A] hover:border-[#F59E0B]"
+                : "border-white/20 bg-white/5 hover:border-[#F59E0B]/40 hover:bg-[#120E0A]/40"
             }`}
           >
             <input
@@ -133,20 +133,20 @@ export default function BadgeGenerator({
             />
 
             <div className="flex flex-col items-center gap-3">
-              <div className="h-14 w-14 rounded-full bg-[#24080C] border border-[#E5252A]/40 flex items-center justify-center text-[#FFD84A] shadow-inner">
+              <div className="h-14 w-14 rounded-full bg-[#1F1710] border border-[#F59E0B]/40 flex items-center justify-center text-[#FCD34D] shadow-inner">
                 {photoUrl ? <Check size={26} className="text-emerald-400" /> : <Upload size={24} />}
               </div>
 
               <div>
-                <p className="font-heading text-xl uppercase tracking-wide text-white">
+                <p className="font-heading text-xl uppercase tracking-wide text-[#EDE8DC]">
                   {photoUrl ? "Changer ma photo" : "Ajoute ta photo pour le badge"}
                 </p>
-                <p className="mt-1 font-body text-xs text-cn-gray-300">
+                <p className="mt-1 font-body text-xs text-[#BFB89E]">
                   {photoUrl
                     ? "Cliquez ou glissez une autre photo pour la remplacer"
                     : "Glissez votre photo ici ou cliquez pour parcourir votre galerie"}
                 </p>
-                <span className="mt-2 inline-block text-[10px] uppercase font-bold tracking-wider text-[#FFD84A]">
+                <span className="mt-2 inline-block text-[10px] uppercase font-bold tracking-wider text-[#FCD34D]">
                   JPG, PNG • Portrait recommandé
                 </span>
               </div>
@@ -167,11 +167,11 @@ export default function BadgeGenerator({
                 type="button"
                 onClick={handleDownload}
                 disabled={isGenerating}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#B71C1C] via-[#E5252A] to-[#F5B900] bg-[length:200%_auto] hover:bg-right px-6 py-4 font-body text-xs font-extrabold uppercase tracking-widest text-white shadow-[0_4px_25px_rgba(229,37,42,0.45)] transition-all hover:scale-[1.02] disabled:opacity-60"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-6 py-4 font-body text-xs font-black uppercase tracking-widest text-[#080808] shadow-[0_4px_25px_rgba(245,158,11,0.35)] transition-all hover:scale-[1.02] disabled:opacity-60"
               >
                 {isGenerating ? (
                   <>
-                    <RefreshCw size={16} className="animate-spin text-white" />
+                    <RefreshCw size={16} className="animate-spin text-[#080808]" />
                     <span>Génération du badge HD en cours...</span>
                   </>
                 ) : (
@@ -187,7 +187,7 @@ export default function BadgeGenerator({
               <button
                 type="button"
                 onClick={() => setPhotoUrl(null)}
-                className="w-full py-2 font-body text-xs font-semibold text-cn-gray-400 hover:text-white transition-colors uppercase tracking-wider"
+                className="w-full py-2 font-body text-xs font-semibold text-[#BFB89E] hover:text-[#EDE8DC] transition-colors uppercase tracking-wider"
               >
                 Retirer la photo
               </button>
@@ -195,8 +195,8 @@ export default function BadgeGenerator({
           </div>
 
           {/* Conseil de partage */}
-          <div className="rounded-xl border border-white/10 bg-[#0A0304]/80 p-4 text-xs text-cn-gray-300 space-y-1">
-            <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[#FFD84A]">
+          <div className="rounded-xl border border-[#F59E0B]/20 bg-[#080808]/90 p-4 text-xs text-[#BFB89E] space-y-1">
+            <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[#FCD34D]">
               <Sparkles size={14} />
               <span>Badge viral pour les réseaux</span>
             </div>

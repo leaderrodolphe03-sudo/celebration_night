@@ -43,14 +43,14 @@ export default function AdminNav({ user }: AdminNavProps) {
   ];
 
   return (
-    <header className="border-b border-white/10 bg-[#111111]/90 backdrop-blur-md sticky top-0 z-40">
+    <header className="border-b border-white/10 bg-[#0D0A08]/95 backdrop-blur-md sticky top-0 z-40">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo & Badge */}
         <div className="flex items-center gap-3">
           <Link href="/admin/dashboard" className="flex items-center">
             <CelebrationNightLogo />
           </Link>
-          <span className="hidden sm:inline-flex items-center gap-1 rounded bg-[#24080C] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#FFD84A] border border-[#E5252A]/40">
+          <span className="hidden sm:inline-flex items-center gap-1 rounded bg-[#1F1710] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#FCD34D] border border-[#F59E0B]/40">
             <Shield size={12} />
             {user?.role === "ADMIN" ? "Super Admin" : "Staff Contrôle"}
           </span>
@@ -68,11 +68,11 @@ export default function AdminNav({ user }: AdminNavProps) {
                 className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-colors ${
                   item.highlight
                     ? isActive
-                      ? "bg-[#F5B900] text-[#111111] font-bold"
-                      : "bg-[#F5B900]/20 text-[#FFD84A] border border-[#F5B900]/40 hover:bg-[#F5B900] hover:text-[#111111]"
+                      ? "bg-gradient-to-r from-[#EA580C] to-[#F59E0B] text-[#080808] font-black"
+                      : "bg-[#F59E0B]/15 text-[#FCD34D] border border-[#F59E0B]/40 hover:bg-[#F59E0B] hover:text-[#080808]"
                     : isActive
-                    ? "bg-white/10 text-[#F5B900]"
-                    : "text-cn-gray-300 hover:bg-white/5 hover:text-white"
+                    ? "bg-white/10 text-[#FCD34D]"
+                    : "text-[#BFB89E] hover:bg-white/5 hover:text-[#EDE8DC]"
                 }`}
               >
                 <Icon size={15} />

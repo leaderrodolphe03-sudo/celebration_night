@@ -9,7 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/programme",
     "/artistes",
     "/medias",
-    "/worship-session",
     "/echo-de-la-louange",
     "/contact",
     "/inscription",

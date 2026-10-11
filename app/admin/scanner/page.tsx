@@ -308,10 +308,10 @@ export default function AdminScannerPage() {
           <div
             className={`rounded-3xl p-6 sm:p-10 border-2 shadow-2xl text-center animate-in zoom-in-95 duration-200 ${
               lastScannedResult.status === "VALID"
-                ? "bg-gradient-to-b from-emerald-950 via-[#0A0304] to-[#0A0304] border-emerald-400 shadow-[0_0_60px_rgba(52,211,153,0.35)]"
+                ? "bg-gradient-to-b from-emerald-950 via-[#080808] to-[#080808] border-emerald-400 shadow-[0_0_60px_rgba(52,211,153,0.35)]"
                 : lastScannedResult.status === "ALREADY_USED"
-                ? "bg-gradient-to-b from-amber-950 via-[#0A0304] to-[#0A0304] border-amber-400 shadow-[0_0_60px_rgba(251,191,36,0.35)]"
-                : "bg-gradient-to-b from-red-950 via-[#0A0304] to-[#0A0304] border-red-500 shadow-[0_0_60px_rgba(239,68,68,0.35)]"
+                ? "bg-gradient-to-b from-amber-950 via-[#080808] to-[#080808] border-amber-400 shadow-[0_0_60px_rgba(251,191,36,0.35)]"
+                : "bg-gradient-to-b from-red-950 via-[#080808] to-[#080808] border-red-500 shadow-[0_0_60px_rgba(239,68,68,0.35)]"
             }`}
           >
             {/* Statut 1 : BILLET VALIDE */}
@@ -503,16 +503,16 @@ export default function AdminScannerPage() {
         )}
 
         {/* SAISIE MANUELLE DE SECOURS (Numéro CN-2026-...) */}
-        <div className="rounded-2xl border border-white/10 bg-[#0A0304]/80 p-6 backdrop-blur-md">
+        <div className="rounded-2xl border border-white/10 bg-[#120E0A]/90 p-6 backdrop-blur-md">
           <div className="flex items-center gap-2 mb-3">
-            <Keyboard size={18} className="text-[#F5B900]" />
-            <h3 className="font-heading text-xl uppercase tracking-wide text-white">
+            <Keyboard size={18} className="text-[#FCD34D]" />
+            <h3 className="font-heading text-xl uppercase tracking-wide text-[#EDE8DC]">
               Saisie Manuelle d&apos;Urgence
             </h3>
           </div>
-          <p className="text-xs text-cn-gray-400 mb-4">
+          <p className="text-xs text-[#BFB89E] mb-4">
             Si l&apos;écran du smartphone du participant est cassé ou déchargé, tapez directement
-            le numéro de billet officiel (ex: <code className="text-[#F5B900]">CN-2026-000001</code>).
+            le numéro de billet officiel (ex: <code className="text-[#FCD34D]">CN-2026-000001</code>).
           </p>
 
           <form onSubmit={handleManualSubmit} className="flex gap-2">
@@ -521,12 +521,12 @@ export default function AdminScannerPage() {
               value={manualCode}
               onChange={(e) => setManualCode(e.target.value)}
               placeholder="CN-2026-000001"
-              className="flex-1 rounded-md border border-white/15 bg-white/5 px-4 py-3 text-xs uppercase font-mono text-white placeholder-cn-gray-500 focus:border-[#F5B900] focus:outline-none"
+              className="flex-1 rounded-md border border-white/15 bg-white/5 px-4 py-3 text-xs uppercase font-mono text-[#EDE8DC] placeholder-[#BFB89E]/40 focus:border-[#F59E0B] focus:outline-none"
             />
             <button
               type="submit"
               disabled={scanning || !manualCode.trim()}
-              className="rounded-md bg-[#F5B900] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#FFD84A] transition-all disabled:opacity-50"
+              className="rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-6 py-3 text-xs font-black uppercase tracking-wider text-[#080808] hover:brightness-110 transition-all disabled:opacity-50"
             >
               Valider
             </button>

@@ -16,7 +16,6 @@ Application web professionnelle complète pour l'événement **« CÉLÉBRATION 
 - **Programme (`/programme`)** : Chronogramme détaillé heure par heure (18h00 à minuit) de l'accueil à la clôture triomphale, avec consignes de sécurité et d'accès.
 - **Artistes & Chantres (`/artistes`)** : Fiches des ministres de louange invités, chorales polyphoniques et orateurs (Collectif HAGIAZO Worship, Pasteur Jean-Marc Yao, Déborah Lukalu, David Okyere, etc.).
 - **Médias (`/medias`)** : Teasers vidéo, galerie photos immersive et kit média téléchargeable pour les églises partenaires (affiches HD, visuels réseaux sociaux, dossier de presse).
-- **Worship Session (`/worship-session`)** : Lecteur audio interactif avec playlists des chants originaux (*Hagiazo Live*, *Brûle en moi*, *Yahweh Règne*, *Sainteté*), paroles complètes (lyrics), partitions et méditations bibliques.
 - **L’Écho de la Louange (`/echo-de-la-louange`)** : Espace magazine et blog spirituel avec articles théologiques sur l'adoration africaine contemporaine et témoignages authentiques.
 - **Contact & FAQ (`/contact`)** : Formulaire de contact fonctionnel avec validation Zod, plan d'accès, transports, permanence téléphonique/WhatsApp et FAQ interactive.
 

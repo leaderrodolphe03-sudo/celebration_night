@@ -2,32 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ================================================================
+   CELEBRATION NIGHT — Design System
+   Palette : Or chaud · Ambre · Noir de scène · Blanc éclat
+   Inspirée des photos réelles : lumières de scène dorées,
+   tissus kente orangés, fumée ambrée, nuit profonde africaine
+================================================================ */
+
 :root {
-  --cn-ember-dark: #0a0304;
-  --cn-ember: #140507;
-  --cn-burgundy: #24080c;
-  --cn-red-crimson: #b71c1c;
-  --cn-red-flame: #e5252a;
+  /* Fonds */
+  --cn-black:      #080808;   /* Noir de scène absolu */
+  --cn-dark:       #0F0B07;   /* Brun-noir très profond */
+  --cn-deep:       #1A1108;   /* Brun obscur chaud */
+  --cn-ground:     #261808;   /* Terre brûlée profonde */
 
-  --cn-gold: #f5b900;
-  --cn-gold-light: #ffd84a;
+  /* Or et ambre — couleurs dominantes des photos */
+  --cn-amber:      #D97706;   /* Ambre vif */
+  --cn-gold:       #F59E0B;   /* Or chaud principal */
+  --cn-gold-light: #FCD34D;   /* Or clair */
+  --cn-gold-pale:  #FEF3C7;   /* Or très pâle */
+  --cn-fire:       #EA580C;   /* Orange feu — scène */
+  --cn-ember:      #B45309;   /* Braise */
 
-  --cn-white: #ffffff;
-  --cn-black: #0a0304;
+  /* Blanc et gris */
+  --cn-white:      #FFFFFF;
+  --cn-off-white:  #FAF7F2;   /* Blanc chaud légèrement ivoire */
+  --cn-gray-100:   #EDE8DC;
+  --cn-gray-300:   #BFB89E;
+  --cn-gray-500:   #7D7560;
+  --cn-gray-700:   #403C32;
 
-  --cn-gray-100: #f5f5f7;
-  --cn-gray-300: #e5e5ea;
-  --cn-gray-500: #77777f;
+  /* Rayons */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
 
-  /* Aliases de compatibilite CSS */
-  --cn-blue-night: #0a0304;
-  --cn-purple-deep: #1e070b;
-  --cn-purple: #3b0e14;
-  --cn-blue: #d32f2f;
-
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
+  /* Rétrocompat */
+  --cn-ember-dark:   #080808;
+  --cn-red-flame:    #D97706;
+  --cn-red-crimson:  #B45309;
+  --cn-gold-glow:    #F59E0B;
+  --cn-gray-400:     #9C9380;
+  --cn-blue-night:   #080808;
+  --cn-purple-deep:  #1A1108;
+  --cn-purple:       #261808;
+  --cn-blue:         #D97706;
+  --cn-burgundy:     #261808;
+  --cn-navy:         #0F0B07;
+  --cn-night:        #0F0B07;
+  --cn-night-deep:   #080808;
 }
 
 html {
@@ -36,79 +59,77 @@ html {
 }
 
 body {
-  background-color: var(--cn-ember-dark);
+  background-color: var(--cn-black);
   color: var(--cn-white);
   overflow-x: hidden;
 }
 
-/* Animations de defilement continu (Marquee cartes du Hero) */
+/* ── Marquee animations ── */
 @keyframes marquee-vertical {
-  0% {
-    transform: translateY(0%);
-  }
-  100% {
-    transform: translateY(-50%);
-  }
+  0%   { transform: translateY(0%); }
+  100% { transform: translateY(-50%); }
 }
-
 @keyframes marquee-vertical-reverse {
-  0% {
-    transform: translateY(-50%);
-  }
-  100% {
-    transform: translateY(0%);
-  }
+  0%   { transform: translateY(-50%); }
+  100% { transform: translateY(0%); }
 }
-
 @keyframes marquee-horizontal {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
 }
 
-.animate-marquee-vertical {
-  animation: marquee-vertical 26s linear infinite;
+.animate-marquee-vertical         { animation: marquee-vertical 26s linear infinite; }
+.animate-marquee-vertical-reverse { animation: marquee-vertical-reverse 30s linear infinite; }
+.animate-marquee-horizontal       { animation: marquee-horizontal 22s linear infinite; }
+.pause-hover:hover                 { animation-play-state: paused; }
+
+/* ── Pulse or ── */
+@keyframes gold-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+  50%       { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
 }
 
-.animate-marquee-vertical-reverse {
-  animation: marquee-vertical-reverse 30s linear infinite;
-}
-
-.animate-marquee-horizontal {
-  animation: marquee-horizontal 22s linear infinite;
-}
-
-.pause-hover:hover {
-  animation-play-state: paused;
-}
-
-/* Focus visible partout pour l'accessibilite (section 36 du brief) */
+/* ── Accessibilité ── */
 :focus-visible {
   outline: 2px solid var(--cn-gold);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
-
 ::selection {
   background-color: var(--cn-gold);
   color: var(--cn-black);
 }
 
-@media print {
-  body {
-    background-color: #ffffff !important;
-    color: #000000 !important;
-  }
+/* ── Effuzion & Hero Inspiration : Filtres partenaires & Micro-animations ── */
+.partner-logo-filter {
+  filter: grayscale(1) brightness(1.7);
+  opacity: 0.7;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+.partner-logo-filter:hover {
+  filter: grayscale(0) brightness(1);
+  opacity: 1;
+}
 
-  main {
-    padding-top: 0 !important;
-  }
+@keyframes flame-glow {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.04); opacity: 1; }
+}
+.animate-flame-glow {
+  animation: flame-glow 3.5s ease-in-out infinite;
+}
 
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-vertical,
+  .animate-marquee-vertical-reverse,
+  .animate-marquee-horizontal {
+    animation-duration: 120s;
   }
 }
 
+/* ── Impression ── */
+@media print {
+  body { background-color: #fff !important; color: #000 !important; }
+  main { padding-top: 0 !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}

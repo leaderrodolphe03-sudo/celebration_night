@@ -59,26 +59,26 @@ function ConfirmationContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0304] text-white py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#080808] text-[#EDE8DC] py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Halo d'ambiance */}
       <div
         aria-hidden
-        className="pointer-events-none absolute top-12 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#E5252A]/20 blur-[130px]"
+        className="pointer-events-none absolute top-12 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-gradient-to-r from-[#F59E0B]/20 via-[#EA580C]/15 to-[#FCD34D]/20 blur-[130px]"
       />
 
       <div className="relative mx-auto max-w-3xl text-center">
         {/* Icône de succès */}
-        <div className="mx-auto h-20 w-20 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 shadow-[0_0_40px_rgba(52,211,153,0.3)]">
+        <div className="mx-auto h-20 w-20 rounded-full bg-[#F59E0B]/20 border-2 border-[#F59E0B] flex items-center justify-center text-[#FCD34D] shadow-[0_0_40px_rgba(245,158,11,0.35)]">
           <CheckCircle2 size={42} />
         </div>
 
-        <span className="mt-6 inline-block text-[11px] font-bold uppercase tracking-[0.3em] text-[#FFD84A]">
+        <span className="mt-6 inline-block text-[11px] font-bold uppercase tracking-[0.3em] text-[#FCD34D]">
           Inscription Confirmée avec Succès
         </span>
-        <h1 className="mt-2 font-heading text-4xl sm:text-6xl uppercase tracking-wider text-white">
+        <h1 className="mt-2 font-heading text-4xl sm:text-6xl uppercase tracking-wider text-[#EDE8DC]">
           Félicitations {name} !
         </h1>
-        <p className="mt-3 text-sm sm:text-base text-cn-gray-300 font-body max-w-xl mx-auto">
+        <p className="mt-3 text-sm sm:text-base text-[#BFB89E] font-body max-w-xl mx-auto">
           Votre place pour CÉLÉBRATION NIGHT est validée. Voici votre badge & pass officiel au format carré
           comportant votre code QR unique.
         </p>
@@ -98,7 +98,7 @@ function ConfirmationContent() {
             type="button"
             onClick={handleDownloadSquareBadge}
             disabled={downloading}
-            className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#B71C1C] via-[#E5252A] to-[#F5B900] bg-[length:200%_auto] hover:bg-right px-6 py-4 font-body text-xs font-bold uppercase tracking-widest text-white shadow-xl transition-all hover:scale-105"
+            className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-6 py-4 font-body text-xs font-black uppercase tracking-widest text-[#080808] shadow-[0_10px_30px_rgba(245,158,11,0.35)] transition-all hover:scale-105"
           >
             <Download size={16} />
             <span>{downloading ? "Génération du pass..." : "Télécharger mon pass carré (PNG HD)"}</span>
@@ -106,21 +106,21 @@ function ConfirmationContent() {
 
           <Link
             href={`/billet/${encodeURIComponent(ticketNumber)}`}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-md border border-white/20 bg-white/5 px-6 py-4 font-body text-xs font-semibold uppercase tracking-wider text-white hover:bg-white/10 transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-md border border-[#F59E0B]/30 bg-[#120E0A] px-6 py-4 font-body text-xs font-semibold uppercase tracking-wider text-[#EDE8DC] hover:bg-[#1A140E] transition-colors"
           >
-            <Printer size={16} className="text-[#FFD84A]" />
+            <Printer size={16} className="text-[#FCD34D]" />
             <span>Imprimer le pass</span>
           </Link>
         </div>
 
         {/* Carte Récapitulative Complémentaire */}
-        <div className="mt-10 rounded-2xl border border-white/15 bg-gradient-to-b from-[#140507] to-[#0A0304] p-6 text-left shadow-2xl max-w-xl mx-auto">
+        <div className="mt-10 rounded-2xl border border-[#F59E0B]/30 bg-gradient-to-b from-[#18120B] to-[#0A0806] p-6 text-left shadow-2xl max-w-xl mx-auto">
           <div className="flex items-center justify-between border-b border-white/10 pb-3">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#FFD84A]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#FCD34D]">
                 Numéro de Pass
               </span>
-              <p className="font-heading text-2xl text-white tracking-widest">
+              <p className="font-heading text-2xl text-[#EDE8DC] tracking-widest">
                 {ticketNumber}
               </p>
             </div>
@@ -131,19 +131,19 @@ function ConfirmationContent() {
 
           <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
             <div>
-              <span className="text-cn-gray-400 block uppercase">Nombre de places</span>
-              <span className="font-semibold text-white">{count} {parseInt(count, 10) > 1 ? "personnes" : "personne"}</span>
+              <span className="text-[#BFB89E]/70 block uppercase">Nombre de places</span>
+              <span className="font-semibold text-[#EDE8DC]">{count} {parseInt(count, 10) > 1 ? "personnes" : "personne"}</span>
             </div>
             <div>
-              <span className="text-cn-gray-400 block uppercase">Date & Heure</span>
-              <span className="font-semibold text-white">{EVENT.dateLabel} • {EVENT.timeLabel}</span>
+              <span className="text-[#BFB89E]/70 block uppercase">Date & Heure</span>
+              <span className="font-semibold text-[#EDE8DC]">{EVENT.dateLabel} • {EVENT.timeLabel}</span>
             </div>
           </div>
 
           <button
             type="button"
             onClick={handleShare}
-            className="mt-6 w-full flex items-center justify-center gap-2 rounded-md border border-white/15 bg-white/5 py-3 text-xs font-semibold uppercase tracking-wider text-[#FFD84A] hover:bg-white/10 transition-colors"
+            className="mt-6 w-full flex items-center justify-center gap-2 rounded-md border border-[#F59E0B]/40 bg-[#1F1710] py-3 text-xs font-semibold uppercase tracking-wider text-[#FCD34D] hover:bg-[#2A1F16] transition-colors"
           >
             <Share2 size={15} />
             <span>Partager à un ami sur WhatsApp</span>
@@ -158,7 +158,7 @@ export default function ConfirmationPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#0A0304] text-white p-12 text-center">
+        <div className="min-h-screen bg-[#080808] text-[#EDE8DC] p-12 text-center">
           Chargement de votre confirmation...
         </div>
       }

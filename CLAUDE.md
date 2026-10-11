@@ -12,7 +12,7 @@
 
 ### Vision du Projet
 Application web événementielle et portail d'administration pour la veillée « CÉLÉBRATION NIGHT », organisée par HAGIAZO Ministry.
-- **Front public** : Vitrine, présentation, programme, artistes, blog, contact/FAQ, lecteur worship, inscription participants avec génération de billets haute fidélité (QR codes sécurisés infalsifiables sans PII).
+- **Front public** : Vitrine, présentation, programme, artistes, blog, contact/FAQ, inscription participants avec génération de billets haute fidélité (QR codes sécurisés infalsifiables sans PII).
 - **Back-office / Admin** : Portique de contrôle et scanner caméra temps réel avec Web Audio API et vibrations haptiques, dashboard des KPIs en direct, gestion et export CSV des participants et billets.
 
 ### Décision Clé sur la Persistance
@@ -130,3 +130,134 @@ Application web événementielle et portail d'administration pour la veillée «
   - Correction de `Countdown.tsx` avec une garde `mounted` contre le mismatch SSR.
   - Création de `components/media/MediaDownloadButton.tsx` et correction de `app/(public)/medias/page.tsx` pour éliminer le crash `next build`.
   - Mise en place de l'interface `DatabaseRepository` dans `lib/db/storage.ts` pour préparer l'injection de Supabase.
+
+- **27/09/2026 (Refonte Visuelle & Hero Section)** :
+  - **Rejet du Thème Bleu** : Abandon complet du bleu nuit (`#17165A`) et du violet froid (`#38217F`) à la demande explicite de l'utilisateur.
+  - **Inspirations retenues** :
+    - Poster CU Chapel (`semilore.graphics`) : Ambiance feu sacré, fond bordeaux/braise, cartes inclinées avec bordures blanches épaisses et typographie d'impact.
+    - Site web Effuzion (`effuzion.org`) : Défilements continus dynamiques (marquees), typographie Bebas Neue monumentale, nuances ambrées et chaleureuses.
+  - **Génération & Intégration d'Actifs Photographiques 8K HD** :
+    - `public/images/hero/hero-backdrop.jpg` : Sanctuaire et scène sous éclairage rouge/bordeaux avec brume d'adoration.
+    - `public/images/hero/card-1.jpg` : Fervente adoratrice en prière intime.
+    - `public/images/hero/card-2.jpg` : Prédicateur africain passionné sous halo de feu.
+    - `public/images/hero/card-3.jpg` : Chantre soliste au micro avec chœur d'adoration.
+    - `public/images/hero/card-4.jpg` : Grande assemblée les mains levées vers le ciel.
+  - **Design System Officiel "Obsidienne & Or Solaire" (Inspiré du Hero cinématographique et d'Effuzion.org)** :
+    - Noir obsidienne : `#080808` (arrière-plan principal, profondeur cinéma)
+    - Nuit ambrée / Terre brûlée : `#120E0A` & `#18120B` (cartes, conteneurs, bandeaux)
+    - Or solaire / Ambre étincelant : `#F59E0B` & `#FCD34D` (accents majeurs, badges, lueurs, CTA)
+    - Braise ambrée : `#EA580C` (transitions de flamme et boutons de conversion)
+    - Blanc papier : `#EDE8DC` (typographie principale, lecture reposante et premium)
+    - Gris or : `#BFB89E` (sous-titres et métadonnées)
+    - 100% de photos réelles et authentiques du culte et des chantres (zéro image générée par IA)
+  - **Création du Composant `HeroScrollCards.tsx`** :
+    - Cartes inclinées (`-rotate-3`, `rotate-3`, `-rotate-4`, `rotate-4`) avec bordures blanches épaisses `border-[3.5px] border-white/95`, badges de catégorie, titres et sous-titres.
+    - Desktop : Double colonne verticale asynchrone à défilement continu infini (`animate-marquee-vertical` et `animate-marquee-vertical-reverse`) avec pause au survol.
+    - Mobile : Défilement horizontal continu infini fluide (`animate-marquee-horizontal`).
+  - **Refonte intégrale de `components/hero/Hero.tsx`** :
+    - Arrière-plan avec photo immersive `hero-backdrop.jpg` et dégradés cinématiques bordeaux/braise.
+    - Colonne gauche : Badge supérieur événementiel, titre flamboyant "CÉLÉBRATION NIGHT", slogan, coordonnées, compte à rebours ambré, boutons CTA dégradé flamme.
+    - Colonne droite : Composant `HeroScrollCards` défilant en continu.
+  - **Harmonisation globale de toutes les pages** :
+    - Nettoyage et élimination de tous les résidus `#17165A` et `#38217F` dans `Navbar`, `Footer`, `page.tsx`, `about`, `artistes`, `programme`, `worship-session`, `echo-de-la-louange`, `contact`, `inscription`, `mon-billet`, `confirmation`, `billet/[ticketNumber]`, les pages `admin/*` et `lib/qrcode-generator.ts`.
+    - Mise à jour du logo SVG officiel `public/logos/celebration-night.svg` aux couleurs de la nouvelle charte.
+  - **Ajustement Visuel Hero (Suppression de la trame de points)** :
+    - Suppression du calque CSS de motif en filigrane (`radial-gradient(#F5B900 1px, transparent 1px)`) qui créait un quadrillage de points jaunes superposé. Le fond met désormais en valeur purement la photographie d'ambiance et les dégradés cinématiques sans bruit visuel.
+  - **Ajustement Visuel Hero (Éclaircissement & Visibilité de la photo)** :
+    - Remplacement des dégradés noirs opaques par des voiles cinématiques légers et progressifs. L'arrière-plan du sanctuaire est désormais clairement visible tout en préservant le contraste du texte à gauche.
+  - **Validation & Contrôle** :
+    - Vérification `npx tsc --noEmit` : 0 erreur de typage.
+    - Compilation Next.js (`npm run build`) : 32/32 routes générées avec succès (code de sortie 0).
+
+- **30/09/2026 (Refonte UX/UI, Galerie Accueil, Logos Partenaires & Badge Carré "J'y serai")** :
+  - **Épuration Stricte de la Navbar (`Navbar.tsx`)** :
+    - Liens conservés : `Accueil`, `Notre Histoire`, `Médias`, `Worship session`, `Soutenir`.
+    - Bouton d'action principal : `Participer` (menant à `/inscription`).
+    - Suppression de tous les éléments superflus de la navbar (Programme, Artistes, L'Écho de la Louange, Contact, Mon Billet).
+  - **Nouvelle Page « Notre Histoire » (`app/(public)/notre-histoire/page.tsx`)** :
+    - Valorisation de la vision et du mandat HAGIAZO pour cet événement annuel pérenne.
+    - Redirection permanente 308 configurée dans `next.config.mjs` de `/about` vers `/notre-histoire`.
+  - **Refonte de la Page d'Accueil (`app/(public)/page.tsx`)** :
+    - Suppression du chronogramme (`EventTimeline`) et de la section `ARTISTES & CONDUCTEURS`.
+    - Intégration de la nouvelle section Galerie (`components/gallery/HomeGallerySection.tsx`) : titre à gauche « ILS ÉTAIENT À LA CÉLÉBRATION NIGHT », bouton à droite « Voir la galerie » (vers `/medias`), et 10 photographies immersives réparties sur 2 lignes avec lightbox modale.
+    - Intégration du bandeau Marquee défilant continu des logos partenaires (`components/partners/PartnersMarquee.tsx`) inspiré de `effuzion.org` avec pause au survol.
+    - Intégration de la section d'appel aux partenaires et sponsors (`components/partners/SponsorsCtaSection.tsx`).
+  - **Système de Billet & Badge Carré 1:1 « J'y serai » (`components/ticket/`)** :
+    - Module interactif `BadgeGenerator.tsx` dans `/inscription` permettant le téléversement photo, l'ajustement dynamique et la prévisualisation instantanée.
+    - Rendu Canvas 2D HD 1080x1080 (`lib/badge-canvas.ts`) avec macaron « J'Y SERAI ! », typographie officielle, QR code unique et fond braise cinématique pour WhatsApp Status & Instagram Story.
+    - Adaptation de la page de confirmation (`/confirmation`) et de la vue billet (`/billet/[ticketNumber]`) avec options de téléchargement HD direct et impression.
+  - **Nouvelle Page « Soutenir » (`app/(public)/soutenir/page.tsx`)** :
+    - Page dédiée aux entreprises mécènes, sponsors d'impact et donateurs avec formulaire interactif et 3 formules de partenariat.
+  - **Enrichissement de la Médiathèque (`/medias`)** :
+    - Intégration des vraies photographies de concert haute définition.
+  - **Validation & Contrôle** :
+    - Vérification `npx tsc --noEmit` : 0 erreur de typage.
+    - Compilation Next.js (`npm run build`) : 34/34 routes générées avec succès (code 0).
+
+- **30/09/2026 (Animation 3D des Cartes du Hero — Approche 1 Orbite Elliptique)** :
+  - **Transformation du Composant `HeroScrollCards.tsx`** :
+    - Remplacement du simple défilement vertical/horizontal par un **Carrousel Orbital 3D continu et interactif**, 100% fidèle au poster CU Chapel (`semilore.graphics`).
+    - **Cinématique Orbitale 3D** :
+      - Trajectoire sur une ellipse 3D inclinée ($X = \sin(\phi) \cdot R_x$, $Z = \cos(\phi) \cdot R_z$, $Y = -\cos(\phi) \cdot R_y + \sin(\phi) \cdot \text{tilt}_y$).
+      - Échelle dynamique progressive ($0.70\times$ en arrière-plan à $1.18\times$ au premier plan).
+      - Rendu de profondeur Z-space avec opacité douce et ordre d'empilement dynamique (`z-index`).
+      - Inclinaisons distinctives sur chaque carte (`baseTilt`) et rotation dynamique (`rotateY`, `rotateX`, `rotateZ`).
+      - Bordures blanches épaisses franches (`border-[3.5px] border-white/95`) et coins arrondis `rounded-2xl`.
+    - **Interactivité Complète** :
+      - Boucle `requestAnimationFrame` optimisée à 60/120 FPS.
+      - Pause douce au survol de la souris (`isHovered`) pour contempler la photo et lire les textes.
+      - Défilement manuel tactile et souris (drag / swipe avec inertie et vélocité).
+      - Clic sur une carte d'arrière-plan pour la faire pivoter directement au premier plan.
+      - Barre de contrôle inférieure ergonomique : boutons précédent/suivant, pause/reprise, et indicateurs de position (dots).
+      - Rendu 100% responsive (calibrage dynamique des rayons $R_x, R_y, R_z$ et dimensions de cartes pour mobile, tablette et desktop).
+  - **Nettoyage & Redirections** :
+    - Ajout de la redirection permanente 308 de `/programme` vers `/notre-histoire` dans `next.config.mjs`.
+    - Mise à jour du bouton d'action secondaire du Hero pointant vers `/notre-histoire`.
+
+- **08/10/2026 (Intégration du Carrousel 3D Swiper Coverflow dans le Hero)** :
+  - **Installation des Dépendances** :
+    - Ajout de `swiper` et `framer-motion` aux dépendances du projet.
+  - **Nouveau Composant Swiper Coverflow (`components/hero/HeroScrollCards.tsx`)** :
+    - Intégration de l'effet 3D Coverflow (`EffectCoverflow`, `Autoplay`, `Pagination`, `Navigation`) adapté de l'inspiration Skiper UI / Carousel_003.
+    - Charte visuelle "Braise & Flamme Sacrée" : puces de pagination dorées réactives (`#F5B900`), boutons de navigation ronds en verre dépoli avec bordures subtiles et survol crimson/ambre, ombres portées douces sur les cartes latérales inclinées.
+    - Intégration des photographies haute définition officielles de Célébration Night avec badges thématiques et typographies d'ambiance.
+    - Interaction enrichie : `grabCursor` tactile/souris, `slideToClickedSlide`, boucle infinie fluide et pause automatique au survol de la souris.
+  - **Validation & Contrôle** :
+    - Typage TypeScript (`npx tsc --noEmit`) : 0 erreur.
+    - Compilation Next.js (`npm run build`) : 33/33 pages statiques générées avec succès (code 0).
+
+- **10/10/2026 (Carrousel Hero — Restriction stricte à 3 cartes visibles avec relais infini & Navbar)** :
+  - **Carrousel Hero** :
+    - Masquage automatique de toutes les cartes en dehors du trio (`.swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next)`) avec `opacity: 0`, `visibility: hidden` et `pointer-events: none`.
+    - Suppression des badges thématiques sur les photos.
+    - Suppression des bordures blanches autour des images (coins arrondis purs sans cadre).
+    - Réduction de la taille globale des cartes (`205x285px` mobile, `230x320px` desktop) et du conteneur (`max-w-md`).
+    - Empilement maîtrisé : colonne texte passée en `relative z-20` et colonne carrousel en `relative z-10` pour que le texte soit garanti au premier plan.
+  - **Navbar** :
+    - Correction du fond au défilement : remplacement de `bg-[#080808]/96` (classe invalide Tailwind) par un fond opaque solide `bg-[#080808] border-b border-white/10 shadow-2xl` empêchant la transparence au scroll.
+  - **Logo Officiel Hero** :
+    - Découverte et diagnostic du fichier source corrompu sur la clé USB (`logo ps.png`).
+    - Récupération du visuel officiel en ultra HD (`Photo de couverture.jpg`, 2500x975).
+    - Détourage de précision IA (rembg + masque de luminance or) pour isoler le logo (tuba doré, typographie 3D or, flamme et saxophone) sur fond transparent 1016x467 sans mention d'édition.
+    - Remplacement du titre texte `<h1>` dans `Hero.tsx` par l'image officielle HD avec ombre dorée subtile et maintien du balisage accessible `h1.sr-only`.
+  - **Fond du Hero (Remplacement de l'image IA par la photo authentique)** :
+    - Remplacement de l'image d'arrière-plan générée par IA (`hero-bg.jpg`) par la vraie photographie de l'événement `public/Image à utiliser/Hero.jpeg`.
+    - Copie optimisée vers `public/images/hero-real.jpg` avec intégration d'un voile dégradé cinématographique bordeaux/braise pour préserver le contraste à gauche et valoriser la scène réelle de l'assemblée à droite.
+  - **Refonte Complète du Hero (Inspiration design-hero.jpg)** :
+    - Nouvelle composition monumentale centrée calquée sur l'affiche `design-hero.jpg`.
+    - Dégradé tricolore cinématique : Bleu royal/électrique en haut à gauche, Magenta/Violet en bas à gauche, Ambre et Orange feu à droite.
+    - Calque de texture de grain argentique (Film Grain) via filtre SVG fractal noise pour reproduire la texture organique de l'affiche.
+    - Logo officiel doré réduit en haut au centre (`w-36 sm:w-44 md:w-52`).
+    - Grand titre « CÉLÉBRATION NIGHT » sur une seule ligne (`whitespace-nowrap`) en typographie monumentale blanche avec ombre profonde.
+    - Carrousel 3D d'images centré au milieu de la composition.
+    - Bouton unique d'action « Réserver ma place » (suppression de « Notre Histoire » du Hero).
+    - Compte à rebours compact en badge verre dépoli dans le coin haut-droit (`hidden md:block`, masqué sur mobile).
+    - Flamme sacrée dorée (`flame-bottom.png`) ancrée tout en bas au centre à la limite inférieure du Hero.
+  - **Correction de la visibilité du fond Hero (Photo + Dégradé tricolore + Grain)** :
+    - Diagnostic : Les classes `-z-30`, `-z-20`, `-z-10` plaçaient les couches d'arrière-plan sous le fond opaque `#080808` de `PublicLayout`.
+    - Résolution : Génération d'un arrière-plan composite haute définition `public/images/hero-cinematic-bg.jpg` (2560x1440) fusionnant la photo réelle authentique du sanctuaire, le dégradé tricolore cinématique vibrant (bleu électrique, magenta, orange feu) et la texture de grain argentique fin.
+    - Isolation CSS stricte (`isolate`, `z-0`, `z-10`, `z-20`) garantissant une visibilité parfaite sur tous les navigateurs.
+  - **Validation** :
+    - Typage TypeScript (`npx tsc --noEmit`) : 0 erreur.
+    - Serveur de dev Next.js actif et opérationnel sur `http://localhost:3000`.
+

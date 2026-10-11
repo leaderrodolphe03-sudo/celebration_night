@@ -10,7 +10,7 @@ const bebasNeue = Bebas_Neue({
 });
 
 const montserrat = Montserrat({
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
   variable: "--font-montserrat",
   display: "swap",
@@ -39,7 +39,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={`${bebasNeue.variable} ${montserrat.variable}`}>
-      <body className="font-body min-h-screen bg-cn-ember-dark text-cn-white antialiased">
+      <body className="font-body min-h-screen bg-cn-black text-cn-white antialiased">
         {children}
       </body>
     </html>
