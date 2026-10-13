@@ -1,17 +1,27 @@
 import Image from "next/image";
 
 /**
- * CelebrationNightLogo — texte de marque stylisé en CSS pur.
- * Pas d'image générée. Le nom de la marque EST le logo.
+ * CelebrationNightLogo — Emblème officiel Célébration Night
  */
-export function CelebrationNightLogo({ className = "" }: { className?: string }) {
+export function CelebrationNightLogo({
+  className = "",
+  imgClassName = "h-11 sm:h-12 w-auto object-contain",
+  priority = true,
+}: {
+  className?: string;
+  imgClassName?: string;
+  priority?: boolean;
+}) {
   return (
-    <span className={`flex items-center gap-0 ${className}`}>
-      <span className="font-heading text-xl leading-none tracking-widest">
-        <span className="text-cn-gold-light">CÉLÉBRATION</span>
-        <br />
-        <span className="text-white text-2xl tracking-[0.15em]">NIGHT</span>
-      </span>
+    <span className={`inline-flex items-center ${className}`}>
+      <Image
+        src="/logos/celebration-night-logo.png"
+        alt="Célébration Night"
+        width={1016}
+        height={467}
+        priority={priority}
+        className={imgClassName}
+      />
     </span>
   );
 }

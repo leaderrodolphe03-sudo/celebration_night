@@ -92,21 +92,21 @@ const DOWNLOADS = [
 
 export default function MediasPage() {
   return (
-    <div className="min-h-screen bg-[#17110E] text-white">
+    <div className="min-h-screen bg-cn-black text-white">
       {/* Hero Header */}
       <section className="relative overflow-hidden px-4 pt-24 pb-16 sm:px-6 lg:px-8 text-center">
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#F59E0B]/10 blur-[130px]"
+          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-cn-gold/10 blur-[130px]"
         />
         <div className="relative mx-auto max-w-4xl">
-          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#F59E0B]">
+          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-cn-gold">
             Images &amp; Extraits
           </p>
           <h1 className="mt-4 font-heading text-5xl sm:text-7xl uppercase tracking-wider text-white">
             Médias &amp; Galerie
           </h1>
-          <p className="mt-4 font-body text-base sm:text-lg text-[#BFB89E] max-w-2xl mx-auto">
+          <p className="mt-4 font-body text-base sm:text-lg text-cn-gray-300 max-w-2xl mx-auto">
             Revivez les moments forts en images réelles, découvrez les vidéos de louange et téléchargez
             les affiches officielles pour votre communauté.
           </p>
@@ -115,9 +115,9 @@ export default function MediasPage() {
 
       {/* Section Vidéos */}
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between border-b border-white/8 pb-4">
+        <div className="flex items-center justify-between pb-4">
           <div className="flex items-center gap-2">
-            <Video className="text-[#F59E0B]" size={22} />
+            <Video className="text-cn-gold" size={22} />
             <h2 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide">
               Extraits &amp; Teasers
             </h2>
@@ -128,26 +128,23 @@ export default function MediasPage() {
           {VIDEOS.map((vid, idx) => (
             <div
               key={idx}
-              className="group rounded-xl border border-white/8 bg-[#120E0A] overflow-hidden backdrop-blur-sm transition-all hover:border-[#F59E0B]/50 hover:-translate-y-1 shadow-lg"
+              className="group rounded-2xl border border-white/10 bg-cn-dark overflow-hidden transition-all hover:border-cn-gold/40 hover:-translate-y-1 shadow-lg"
             >
-              {/* Vignette vidéo élégante */}
-              <div className="relative h-48 bg-gradient-to-br from-[#1A1410] to-[#0A0806] flex items-center justify-center">
-                <div className="h-16 w-16 rounded-full bg-[#F59E0B] text-[#17110E] flex items-center justify-center shadow-[0_0_30px_rgba(245,158,11,0.5)] transition-transform group-hover:scale-110">
-                  <Play size={24} className="fill-[#17110E] ml-1 text-[#17110E]" />
+              {/* Vignette vidéo épurée (sans badge de catégorie superposé) */}
+              <div className="relative h-48 bg-gradient-to-br from-cn-deep to-cn-black flex items-center justify-center">
+                <div className="h-16 w-16 rounded-full bg-cn-gold text-cn-black flex items-center justify-center shadow-gold transition-transform group-hover:scale-110">
+                  <Play size={24} className="fill-[#1C1613] ml-1 text-cn-black" />
                 </div>
-                <span className="absolute bottom-3 right-3 rounded bg-black/80 px-2 py-0.5 text-[11px] font-semibold text-white">
+                <span className="absolute bottom-3 right-3 rounded-md bg-black/80 px-2 py-0.5 text-[11px] font-semibold text-white">
                   {vid.duration}
-                </span>
-                <span className="absolute top-3 left-3 rounded-full bg-[#1A1410] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#FCD34D] border border-[#F59E0B]/40">
-                  {vid.tag}
                 </span>
               </div>
 
               <div className="p-6">
-                <h3 className="font-heading text-xl uppercase tracking-wide text-white group-hover:text-[#FCD34D] transition-colors">
+                <h3 className="font-heading text-xl uppercase tracking-wide text-white group-hover:text-cn-gold-light transition-colors">
                   {vid.title}
                 </h3>
-                <p className="mt-2 text-xs text-[#BFB89E] leading-relaxed">
+                <p className="mt-2 text-xs text-cn-gray-300 leading-relaxed">
                   {vid.description}
                 </p>
               </div>
@@ -156,11 +153,11 @@ export default function MediasPage() {
         </div>
       </section>
 
-      {/* Galerie Photos Réelles */}
-      <section className="bg-[#0D0A08] border-y border-white/8 px-4 py-16 sm:px-6 lg:px-8">
+      {/* Galerie Photos Réelles (sans badges superposés) */}
+      <section className="bg-cn-dark px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="flex items-center gap-2 border-b border-white/8 pb-4">
-            <ImageIcon className="text-[#F59E0B]" size={22} />
+          <div className="flex items-center gap-2 pb-4">
+            <ImageIcon className="text-cn-gold" size={22} />
             <h2 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide">
               Instantanés de Ferveur &amp; d&apos;Adoration
             </h2>
@@ -170,7 +167,7 @@ export default function MediasPage() {
             {PHOTO_GALLERY.map((photo, idx) => (
               <div
                 key={idx}
-                className={`${photo.aspect} relative h-72 rounded-xl border border-white/10 overflow-hidden bg-[#120E0A] p-6 flex flex-col justify-end group shadow-xl hover:border-[#F59E0B]/50 transition-all`}
+                className={`${photo.aspect} relative h-72 rounded-2xl border border-white/10 overflow-hidden bg-cn-deep p-6 flex flex-col justify-end group shadow-xl hover:border-cn-gold/40 transition-all`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -178,12 +175,9 @@ export default function MediasPage() {
                   alt={photo.title}
                   className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-cn-black/90 via-cn-black/30 to-transparent" />
                 <div className="relative z-10">
-                  <span className="inline-block rounded-xs bg-[#F59E0B]/20 border border-[#F59E0B]/40 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-[#FCD34D] mb-1.5">
-                    {photo.category}
-                  </span>
-                  <h3 className="font-heading text-2xl uppercase tracking-wide text-white group-hover:text-[#FCD34D] transition-colors">
+                  <h3 className="font-heading text-2xl uppercase tracking-wide text-white group-hover:text-cn-gold-light transition-colors">
                     {photo.title}
                   </h3>
                 </div>
@@ -195,14 +189,14 @@ export default function MediasPage() {
 
       {/* Kit Média Téléchargeable */}
       <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-2 border-b border-white/8 pb-4">
-          <Download className="text-[#F59E0B]" size={22} />
+        <div className="flex items-center gap-2 pb-4">
+          <Download className="text-cn-gold" size={22} />
           <h2 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide">
             Affiches &amp; Kit Média Officiel
           </h2>
         </div>
 
-        <p className="mt-4 text-sm text-[#BFB89E]">
+        <p className="mt-4 text-sm text-cn-gray-300">
           Responsables de jeunesse, pasteurs et médias : téléchargez gratuitement les visuels officiels
           pour relayer l&apos;événement au sein de vos assemblées.
         </p>
@@ -211,22 +205,22 @@ export default function MediasPage() {
           {DOWNLOADS.map((item, idx) => (
             <div
               key={idx}
-              className="rounded-xl border border-white/8 bg-[#120E0A] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-[#F59E0B]/40 transition-colors shadow-sm"
+              className="rounded-2xl border border-white/10 bg-cn-dark p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-cn-gold/40 transition-colors shadow-sm"
             >
               <div className="flex items-start gap-4">
-                <div className="h-10 w-10 rounded-lg bg-[#1A1410] border border-[#F59E0B]/30 flex items-center justify-center text-[#F59E0B] shrink-0 mt-0.5">
+                <div className="h-10 w-10 rounded-xl bg-cn-deep border border-cn-gold/30 flex items-center justify-center text-cn-gold shrink-0 mt-0.5">
                   <FileText size={20} />
                 </div>
                 <div>
                   <h3 className="font-heading text-lg sm:text-xl uppercase tracking-wide text-white">
                     {item.title}
                   </h3>
-                  <div className="mt-1 flex items-center gap-3 text-xs text-[#7D7560]">
+                  <div className="mt-1 flex items-center gap-3 text-xs text-cn-gray-400">
                     <span>{item.type}</span>
                     <span>•</span>
                     <span>{item.format}</span>
                     <span>•</span>
-                    <span className="text-[#F59E0B] font-semibold">{item.size}</span>
+                    <span className="text-cn-gold font-semibold">{item.size}</span>
                   </div>
                 </div>
               </div>
@@ -240,7 +234,7 @@ export default function MediasPage() {
         <div className="mt-16 text-center">
           <Link
             href="/inscription"
-            className="inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-[#17110E] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-105"
+            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-cn-gold to-cn-amber px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-cn-black shadow-gold hover:brightness-110 transition-all hover:scale-105"
           >
             Réserver mon billet d&apos;entrée <ArrowRight size={16} />
           </Link>

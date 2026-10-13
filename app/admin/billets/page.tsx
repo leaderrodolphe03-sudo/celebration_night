@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Search, Ticket, CheckCircle2, Clock, QrCode, RefreshCw, AlertCircle } from "lucide-react";
 import AdminNav from "@/components/admin/AdminNav";
+import Button from "@/components/ui/Button";
 import { Ticket as TicketItem, Participant } from "@/lib/types";
 
 interface TicketWithParticipant extends TicketItem {
@@ -83,28 +84,29 @@ export default function AdminBilletsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#17110E] text-[#EDE8DC]">
+    <div className="min-h-screen bg-cn-black text-white">
       <AdminNav user={user} />
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-6">
         {/* Titre */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#FCD34D]">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-cn-gold-light">
               Contrôle d&apos;accès
             </span>
-            <h1 className="mt-1 font-heading text-3xl sm:text-4xl uppercase tracking-wider text-[#EDE8DC]">
+            <h1 className="mt-1 font-heading text-3xl sm:text-4xl uppercase tracking-wider text-white">
               Gestion des Billets ({tickets.length})
             </h1>
           </div>
 
-          <Link
+          <Button
             href="/admin/scanner"
-            className="flex items-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-5 py-2.5 text-xs font-black uppercase tracking-wider text-[#17110E] shadow-lg transition-transform hover:scale-105"
+            variant="primary"
+            size="sm"
+            icon={<QrCode size={16} />}
           >
-            <QrCode size={16} />
-            <span>Passer au Scanner Caméra</span>
-          </Link>
+            Passer au Scanner Caméra
+          </Button>
         </div>
 
         {/* Barre de Recherche et Filtres */}
@@ -115,18 +117,18 @@ export default function AdminBilletsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Rechercher par numéro de billet CN-2026-..., nom ou email..."
-              className="w-full rounded-md border border-white/15 bg-white/5 px-4 py-2.5 pl-10 text-xs text-[#EDE8DC] placeholder-[#BFB89E]/40 focus:border-[#F59E0B] focus:outline-none"
+              className="w-full rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2.5 pl-10 text-xs text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
             />
             <Search
               size={15}
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#BFB89E]/50"
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-cn-gray-400"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="rounded-md border border-white/15 bg-[#0A0806] px-4 py-2.5 text-xs font-semibold text-[#EDE8DC] focus:border-[#F59E0B] focus:outline-none"
+            className="rounded-lg border border-white/10 bg-cn-dark px-4 py-2.5 text-xs font-semibold text-white focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
           >
             <option value="ALL">Tous les statuts</option>
             <option value="VALID">Valides (En attente)</option>
@@ -137,7 +139,7 @@ export default function AdminBilletsPage() {
           <select
             value={ticketTypeFilter}
             onChange={(e) => setTicketTypeFilter(e.target.value)}
-            className="rounded-md border border-white/15 bg-[#0A0806] px-4 py-2.5 text-xs font-semibold text-[#EDE8DC] focus:border-[#F59E0B] focus:outline-none"
+            className="rounded-lg border border-white/10 bg-cn-dark px-4 py-2.5 text-xs font-semibold text-white focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
           >
             <option value="ALL">Toutes les catégories</option>
             <option value="STANDARD">Pass Standard</option>
@@ -147,18 +149,18 @@ export default function AdminBilletsPage() {
           <button
             type="button"
             onClick={fetchTickets}
-            className="rounded-md border border-white/15 bg-white/5 px-3 py-2.5 text-xs text-[#BFB89E] hover:text-[#EDE8DC]"
+            className="rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-xs text-cn-gray-300 hover:text-white transition-colors"
           >
             <RefreshCw size={14} />
           </button>
         </div>
 
         {/* Tableau des billets */}
-        <div className="rounded-2xl border border-white/10 bg-[#120E0A]/90 overflow-hidden shadow-2xl">
+        <div className="rounded-2xl border border-white/8 bg-cn-dark/95 overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-white/10 bg-white/5 text-[#BFB89E]/70 font-bold uppercase tracking-wider">
+                <tr className="border-b border-white/10 bg-white/[0.03] text-cn-gray-400 font-bold uppercase tracking-wider">
                   <th className="py-3.5 px-4">Numéro de Billet</th>
                   <th className="py-3.5 px-4">Titulaire</th>
                   <th className="py-3.5 px-4">Catégorie</th>
@@ -175,16 +177,16 @@ export default function AdminBilletsPage() {
 
                     return (
                       <tr key={t.id} className="hover:bg-white/5 transition-colors">
-                        <td className="py-3.5 px-4 font-mono font-bold text-[#EDE8DC]">
+                        <td className="py-3.5 px-4 font-mono font-bold text-white">
                           {t.ticketNumber}
                         </td>
                         <td className="py-3.5 px-4">
-                          <span className="font-semibold text-[#EDE8DC] block">
+                          <span className="font-semibold text-white block">
                             {t.participant
                               ? `${t.participant.firstName} ${t.participant.lastName}`
                               : "Inconnu"}
                           </span>
-                          <span className="text-[11px] text-[#BFB89E]/70 font-mono block">
+                          <span className="text-[11px] text-cn-gray-400 font-mono block">
                             {t.participant?.email}
                           </span>
                         </td>
@@ -192,8 +194,8 @@ export default function AdminBilletsPage() {
                           <span
                             className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase ${
                               t.ticketType === "VIP"
-                                ? "bg-[#F59E0B] text-[#17110E] font-black"
-                                : "bg-[#1F1710] text-[#FCD34D] border border-[#F59E0B]/30"
+                                ? "bg-cn-gold text-cn-black font-black"
+                                : "bg-cn-black text-cn-gold-light border border-cn-gold/30"
                             }`}
                           >
                             {t.ticketType}
@@ -239,7 +241,7 @@ export default function AdminBilletsPage() {
                               type="button"
                               onClick={() => handleManualValidation(t.ticketNumber)}
                               disabled={validatingId === t.ticketNumber}
-                              className="rounded bg-emerald-600/30 border border-emerald-500/50 px-2.5 py-1 text-[11px] font-bold uppercase text-emerald-300 hover:bg-emerald-600 hover:text-white transition-colors"
+                              className="rounded-md bg-emerald-600/30 border border-emerald-500/50 px-2.5 py-1 text-[11px] font-bold uppercase text-emerald-300 hover:bg-emerald-600 hover:text-white transition-colors"
                             >
                               Valider l&apos;entrée
                             </button>
@@ -247,7 +249,7 @@ export default function AdminBilletsPage() {
                           <Link
                             href={`/billet/${encodeURIComponent(t.ticketNumber)}`}
                             target="_blank"
-                            className="inline-block rounded bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-[#F5B900] hover:text-[#111111] transition-colors"
+                            className="inline-block rounded-md bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-cn-gold hover:text-cn-black transition-colors"
                           >
                             Voir Billet
                           </Link>

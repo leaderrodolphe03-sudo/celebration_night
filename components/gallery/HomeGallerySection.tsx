@@ -41,39 +41,39 @@ export default function HomeGallerySection() {
   };
 
   return (
-    <section className="bg-[#17110E] border-t border-white/6 px-5 py-24 sm:px-8 lg:px-10">
+    <section className="bg-cn-black px-5 py-24 sm:px-8 lg:px-10">
       <div className="mx-auto max-w-7xl">
 
-        {/* En-tête inspiré Effuzion */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 mb-10 border-b border-white/6">
+        {/* En-tête épuré */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 mb-10">
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <span className="h-px w-6 bg-[#F59E0B]" />
-              <span className="font-body text-[11px] font-bold uppercase tracking-[0.2em] text-[#F59E0B]">
+              <span className="h-px w-6 bg-cn-gold" />
+              <span className="font-body text-[11px] font-bold uppercase tracking-[0.2em] text-cn-gold">
                 Toutes éditions confondues
               </span>
             </div>
-            <h2 className="font-heading text-[clamp(2.2rem,5vw,4.5rem)] uppercase leading-[0.92] tracking-wide text-white">
+            <h2 className="font-heading text-4xl sm:text-6xl uppercase leading-[0.92] tracking-wide text-white">
               ILS ÉTAIENT À LA<br />
-              <span className="text-[#F59E0B]">CÉLÉBRATION NIGHT</span>
+              <span className="text-cn-gold">CÉLÉBRATION NIGHT</span>
             </h2>
           </div>
           <Link
             href="/medias"
-            className="group shrink-0 inline-flex items-center gap-2 rounded-sm bg-[#120E0A] border border-[#F59E0B]/30 px-5 py-3 font-body text-xs font-bold uppercase tracking-wider text-[#FCD34D] hover:bg-[#F59E0B] hover:text-[#17110E] hover:border-[#F59E0B] transition-all shadow-md"
+            className="group shrink-0 inline-flex items-center gap-2 rounded-lg bg-cn-dark border border-white/10 px-5 py-3 font-body text-xs font-bold uppercase tracking-wider text-cn-gold-light hover:border-cn-gold/50 hover:bg-cn-deep hover:text-white transition-all shadow-sm"
           >
             <span>Voir toute la galerie</span>
             <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
 
-        {/* Grille 5×2 */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        {/* Grille 5×2 épurée (sans badges superposés) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           {GALLERY_PHOTOS.map((photo) => (
             <div
               key={photo.id}
               onClick={() => setSelectedPhoto(photo)}
-              className="group relative aspect-[3/4] cursor-pointer overflow-hidden rounded-md bg-[#120E0A] border border-white/8 hover:border-[#F59E0B]/50 transition-all duration-300 shadow-md hover:shadow-[0_8px_30px_rgba(245,158,11,0.2)]"
+              className="group relative aspect-[3/4] cursor-pointer overflow-hidden rounded-xl bg-cn-dark border border-white/10 hover:border-cn-gold/40 transition-all duration-300 shadow-md hover:shadow-gold"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -82,23 +82,12 @@ export default function HomeGallerySection() {
                 className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
               />
-              {/* Voile */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#17110E]/95 via-[#17110E]/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+              {/* Voile cinématographique */}
+              <div className="absolute inset-0 bg-gradient-to-t from-cn-black/90 via-cn-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity" />
 
-              {/* Texte bas */}
-              <div className="absolute inset-x-0 bottom-0 p-3.5 transition-all duration-300">
-                <span className="inline-block rounded-xs bg-[#F59E0B]/20 border border-[#F59E0B]/40 px-1.5 py-0.5 font-body text-[8.5px] font-bold uppercase tracking-wider text-[#FCD34D] mb-1">
-                  {photo.tag}
-                </span>
-                <p className="font-heading text-sm sm:text-base uppercase tracking-wide text-white leading-tight line-clamp-1 group-hover:text-[#FCD34D] transition-colors">
-                  {photo.title}
-                </p>
-              </div>
+              
 
-              {/* Icône loupe */}
-              <div className="absolute top-2.5 right-2.5 h-7 w-7 rounded-full bg-[#17110E]/80 border border-white/10 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                <Eye size={12} className="text-[#F59E0B]" />
-              </div>
+              
             </div>
           ))}
         </div>
@@ -108,26 +97,26 @@ export default function HomeGallerySection() {
       {selectedPhoto && (
         <div
           onClick={() => setSelectedPhoto(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#17110E]/98 p-4 sm:p-8 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-cn-black/95 p-4 sm:p-8 backdrop-blur-md"
         >
           <button
             type="button"
             onClick={() => setSelectedPhoto(null)}
-            className="absolute top-5 right-5 h-10 w-10 flex items-center justify-center border border-white/15 text-white hover:border-white/30 hover:text-[#F59E0B] transition-colors z-20"
+            className="absolute top-5 right-5 h-11 w-11 flex items-center justify-center rounded-lg border border-white/15 text-white hover:border-cn-gold hover:text-cn-gold transition-colors z-20"
           >
             <X size={20} />
           </button>
           <button
             type="button"
             onClick={handlePrev}
-            className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 h-11 w-11 flex items-center justify-center border border-white/15 text-white hover:border-[#F59E0B] hover:text-[#F59E0B] transition-colors z-20"
+            className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 h-11 w-11 flex items-center justify-center rounded-lg border border-white/15 text-white hover:border-cn-gold hover:text-cn-gold transition-colors z-20"
           >
             <ChevronLeft size={22} />
           </button>
 
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-h-[85vh] max-w-4xl overflow-hidden border border-white/10 bg-[#0F0B07]"
+            className="relative max-h-[85vh] max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-cn-dark shadow-2xl"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -135,18 +124,11 @@ export default function HomeGallerySection() {
               alt={selectedPhoto.title}
               className="max-h-[75vh] w-auto object-contain mx-auto"
             />
-            <div className="px-6 py-4 border-t border-white/8 flex items-center justify-between">
-              <div>
-                <span className="block font-body text-[10px] font-bold uppercase tracking-wider text-[#F59E0B] mb-0.5">
-                  {selectedPhoto.tag}
-                </span>
-                <h3 className="font-heading text-xl uppercase tracking-wide text-white">
-                  {selectedPhoto.title}
-                </h3>
-              </div>
+            <div className="px-6 py-4 border-t border-white/10 flex items-center justify-between">
+              
               <Link
                 href="/medias"
-                className="text-xs font-bold uppercase tracking-wider text-[#F59E0B] hover:text-[#FCD34D] transition-colors"
+                className="text-xs font-bold uppercase tracking-wider text-cn-gold hover:text-cn-gold-light transition-colors"
               >
                 Voir la médiathèque →
               </Link>
@@ -156,7 +138,7 @@ export default function HomeGallerySection() {
           <button
             type="button"
             onClick={handleNext}
-            className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 h-11 w-11 flex items-center justify-center border border-white/15 text-white hover:border-[#F59E0B] hover:text-[#F59E0B] transition-colors z-20"
+            className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 h-11 w-11 flex items-center justify-center rounded-lg border border-white/15 text-white hover:border-cn-gold hover:text-cn-gold transition-colors z-20"
           >
             <ChevronRight size={22} />
           </button>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Ticket,
   ArrowRight,
@@ -10,6 +11,7 @@ import HomeGallerySection from "@/components/gallery/HomeGallerySection";
 import PartnersMarquee from "@/components/partners/PartnersMarquee";
 import SponsorsCtaSection from "@/components/partners/SponsorsCtaSection";
 import { EVENT } from "@/lib/event-config";
+import Button from "@/components/ui/Button";
 
 export default function HomePage() {
   return (
@@ -26,60 +28,70 @@ export default function HomePage() {
       {/* 4. Galerie */}
       <HomeGallerySection />
 
-      <section className="relative bg-[#1E1611] border-t border-white/6 px-5 py-24 sm:px-8 lg:px-10 overflow-hidden">
+      {/* 5. Ministère Hôte */}
+      <section className="relative bg-gradient-to-br from-[#FCD34D] via-[#F59E0B] to-[#D97706] px-5 py-24 sm:px-8 lg:px-10 overflow-hidden">
+        {/* Lueur et reflets subtils */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-24 right-1/4 h-96 w-96 rounded-full bg-[#F59E0B]/5 blur-[130px]"
+          className="pointer-events-none absolute -top-24 right-1/4 h-96 w-96 rounded-full bg-white/20 blur-[120px]"
         />
-        <div className="relative mx-auto max-w-5xl">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
-            {/* Texte */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-24 left-1/4 h-96 w-96 rounded-full bg-amber-900/10 blur-[120px]"
+        />
+
+        <div className="relative mx-auto max-w-6xl">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
+            {/* Texte à gauche */}
             <div className="flex-1">
-              <div className="flex items-center gap-3 mb-5">
-                <span className="h-px w-6 bg-[#F59E0B]" />
-                <span className="font-body text-[11px] font-bold uppercase tracking-[0.2em] text-[#F59E0B]">
-                  Le Ministère Hôte
-                </span>
+              <div className="flex items-center gap-3 mb-4">
+                
               </div>
-              <h2 className="font-heading text-[clamp(2.5rem,5vw,4.5rem)] uppercase leading-[0.9] tracking-wide text-white">
-                HAGIAZO<br /><span className="text-[#F59E0B]">Ministry</span>
+
+              <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl uppercase leading-[0.92] tracking-wide text-cn-black">
+                HAGIAZO<br />
+                <span className="text-[#6D2800] drop-shadow-sm">Ministry</span>
               </h2>
-              <p className="mt-6 font-body text-base leading-relaxed text-[#BFB89E]">
+
+              <p className="mt-6 font-body text-base sm:text-lg leading-relaxed text-[#2B1B10] font-medium max-w-lg">
                 HAGIAZO (ἁγιάζω) porte une vision de sainteté, d&apos;adoration contemporaine
                 et de communion fraternelle au service d&apos;une jeunesse en quête d&apos;authenticité spirituelle.
               </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Link
+
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <Button
                   href="/notre-histoire"
-                  className="group flex items-center gap-2 font-body text-sm font-semibold text-[#F59E0B] hover:text-[#FCD34D] transition-colors"
+                  variant="secondary"
+                  size="md"
+                  className="bg-cn-black text-white border-cn-black hover:bg-cn-ground shadow-xl"
                 >
                   <span>Découvrir Notre Histoire</span>
-                  <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
-                </Link>
-                <span className="text-white/20 hidden sm:inline">·</span>
-                <Link
+                  
+                </Button>
+                <Button
                   href="/medias"
-                  className="group flex items-center gap-2 font-body text-sm font-semibold text-white/70 hover:text-white transition-colors"
+                  variant="outline"
+                  size="md"
+                  className="border-cn-black/50 text-cn-black hover:bg-black/10 hover:border-cn-black font-semibold"
                 >
                   <span>Galerie &amp; Médias</span>
-                  <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
-                </Link>
+                  
+                </Button>
               </div>
             </div>
 
-            {/* Séparateur vertical */}
-            <div className="hidden lg:block w-px self-stretch bg-white/8" />
-
-            {/* Citation */}
-            <div className="flex-1 lg:pt-2">
-              <blockquote className="border-l-2 border-[#F59E0B] pl-6 bg-[#241810]/70 py-4 rounded-r-md">
-                <p className="font-body text-xl sm:text-2xl italic leading-relaxed text-[#EDE8DC]">
-                  « Une génération. Une foi. Une célébration. »
-                </p>
-                <footer className="mt-4 font-body text-sm text-[#7D7560]">
-                  — HAGIAZO Ministry, Abidjan
-                </footer>
-              </blockquote>
+            {/* Image du groupe HAGIAZO à droite */}
+            <div className="flex-1 w-full lg:max-w-xl">
+              <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border-2 border-black/10 shadow-[0_25px_60px_rgba(28,22,19,0.30)] transition-all duration-300 hover:shadow-[0_30px_70px_rgba(28,22,19,0.40)]">
+                <div className="relative aspect-[16/11] w-full">
+                  <Image
+                    src="/images/gallery/photo-1.jpg"
+                    alt="Le collectif vocal et musical HAGIAZO en ferveur lors de Célébration Night"
+                    fill
+                    className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -92,7 +104,7 @@ export default function HomePage() {
       <SponsorsCtaSection />
 
       {/* 8. CTA Final */}
-      <section className="relative bg-[#17110E] border-t border-white/6 overflow-hidden">
+      <section className="relative bg-cn-black overflow-hidden">
         {/* Image de fond avec fort voile et photo réelle du sanctuaire */}
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -100,42 +112,45 @@ export default function HomePage() {
             src="/images/gallery/photo-10.jpg"
             alt=""
             aria-hidden
-            className="w-full h-full object-cover object-center opacity-25"
+            className="w-full h-full object-cover object-center opacity-20"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#17110E] via-[#17110E]/80 to-[#17110E]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-cn-black via-cn-black/85 to-cn-black" />
         </div>
-
 
         <div className="relative px-5 py-28 sm:px-8 lg:px-10 text-center">
           <div className="mx-auto max-w-2xl">
             <div className="flex items-center justify-center gap-3 mb-6">
-              <span className="h-px w-8 bg-[#F59E0B]" />
-              <span className="font-body text-[11px] font-bold uppercase tracking-[0.2em] text-[#F59E0B]">
+              
+              <span className="font-body text-[11px] font-bold uppercase tracking-[0.2em] text-cn-gold">
                 Capacité limitée · Réservation gratuite
               </span>
-              <span className="h-px w-8 bg-[#F59E0B]" />
+              
             </div>
-            <h2 className="font-heading text-[clamp(3rem,8vw,7rem)] uppercase leading-[0.9] tracking-wide text-white">
+            <h2 className="font-heading text-5xl sm:text-7xl lg:text-8xl uppercase leading-[0.9] tracking-wide text-white">
               Rejoignez la Célébration
             </h2>
-            <p className="mt-6 font-body text-base text-[#BFB89E] leading-relaxed">
+            <p className="mt-6 font-body text-base text-cn-gray-300 leading-relaxed">
               Entrée 100% gratuite. Téléversez votre photo pour générer votre pass officiel avec votre code QR unique.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
+              <Button
                 href="/inscription"
-                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-sm bg-[#F59E0B] px-10 py-4.5 font-body text-sm font-bold uppercase tracking-[0.15em] text-[#17110E] transition-all hover:bg-[#FCD34D] hover:shadow-[0_8px_40px_rgba(245,158,11,0.5)] active:scale-[0.98]"
+                size="lg"
+                variant="primary"
+                className="w-full sm:w-auto px-10 py-4.5"
               >
-                <Ticket size={16} />
-                <span>Générer mon badge &amp; réserver</span>
-                <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-              <Link
+                
+                <span>Générer mon badge</span>
+                
+              </Button>
+              <Button
                 href="/soutenir"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-sm border border-white/15 px-8 py-4.5 font-body text-sm font-semibold uppercase tracking-wider text-white hover:border-white/30 hover:bg-white/5 transition-all"
+                size="lg"
+                variant="outline"
+                className="w-full sm:w-auto px-8 py-4.5"
               >
                 Devenir Partenaire
-              </Link>
+              </Button>
             </div>
           </div>
         </div>

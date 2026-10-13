@@ -43,15 +43,15 @@ export default function AdminNav({ user }: AdminNavProps) {
   ];
 
   return (
-    <header className="border-b border-white/10 bg-[#0D0A08]/95 backdrop-blur-md sticky top-0 z-40">
+    <header className="border-b border-white/8 bg-cn-black/95 backdrop-blur-md sticky top-0 z-40">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo & Badge */}
         <div className="flex items-center gap-3">
           <Link href="/admin/dashboard" className="flex items-center">
-            <CelebrationNightLogo />
+            <CelebrationNightLogo imgClassName="h-8 sm:h-9 w-auto object-contain" />
           </Link>
-          <span className="hidden sm:inline-flex items-center gap-1 rounded bg-[#1F1710] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#FCD34D] border border-[#F59E0B]/40">
-            <Shield size={12} />
+          <span className="hidden sm:inline-flex items-center gap-1 rounded-md bg-cn-dark px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-cn-gold-light border border-cn-gold/40">
+            <Shield size={12} className="text-cn-gold" />
             {user?.role === "ADMIN" ? "Super Admin" : "Staff Contrôle"}
           </span>
         </div>
@@ -65,14 +65,14 @@ export default function AdminNav({ user }: AdminNavProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-colors ${
+                className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-colors ${
                   item.highlight
                     ? isActive
-                      ? "bg-gradient-to-r from-[#EA580C] to-[#F59E0B] text-[#17110E] font-black"
-                      : "bg-[#F59E0B]/15 text-[#FCD34D] border border-[#F59E0B]/40 hover:bg-[#F59E0B] hover:text-[#17110E]"
+                      ? "bg-gradient-to-r from-cn-gold to-cn-amber text-cn-black font-extrabold shadow-sm"
+                      : "bg-cn-gold/15 text-cn-gold-light border border-cn-gold/40 hover:bg-cn-gold hover:text-cn-black"
                     : isActive
-                    ? "bg-white/10 text-[#FCD34D]"
-                    : "text-[#BFB89E] hover:bg-white/5 hover:text-[#EDE8DC]"
+                    ? "bg-white/10 text-cn-gold-light"
+                    : "text-cn-gray-300 hover:bg-white/5 hover:text-white"
                 }`}
               >
                 <Icon size={15} />
@@ -87,7 +87,7 @@ export default function AdminNav({ user }: AdminNavProps) {
           <Link
             href="/"
             target="_blank"
-            className="hidden lg:flex items-center gap-1 text-xs text-cn-gray-500 hover:text-white"
+            className="hidden lg:flex items-center gap-1 text-xs text-cn-gray-400 hover:text-white transition-colors"
             title="Voir le site public"
           >
             <span>Site public</span>
@@ -97,7 +97,7 @@ export default function AdminNav({ user }: AdminNavProps) {
           <button
             type="button"
             onClick={handleLogout}
-            className="flex items-center gap-1.5 rounded-md border border-white/15 px-3 py-1.5 text-xs text-cn-gray-300 hover:bg-red-950/40 hover:border-red-500/50 hover:text-red-300 transition-colors"
+            className="flex items-center gap-1.5 rounded-lg border border-white/10 px-3 py-1.5 text-xs text-cn-gray-300 hover:bg-red-950/40 hover:border-red-500/50 hover:text-red-300 transition-colors"
           >
             <LogOut size={14} />
             <span className="hidden sm:inline">Déconnexion</span>

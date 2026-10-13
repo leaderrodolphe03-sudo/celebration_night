@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Search, Download, Users, Ticket, ArrowLeft, RefreshCw, Filter } from "lucide-react";
 import AdminNav from "@/components/admin/AdminNav";
+import Button from "@/components/ui/Button";
 import { Participant, Ticket as TicketItem } from "@/lib/types";
 
 interface ParticipantWithTickets extends Participant {
@@ -97,31 +98,32 @@ export default function AdminParticipantsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#17110E] text-[#EDE8DC]">
+    <div className="min-h-screen bg-cn-black text-white">
       <AdminNav user={user} />
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-6">
         {/* Titre & Export */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#FCD34D]">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-cn-gold-light">
               Répertoire officiel
             </span>
-            <h1 className="mt-1 font-heading text-3xl sm:text-4xl uppercase tracking-wider text-[#EDE8DC]">
+            <h1 className="mt-1 font-heading text-3xl sm:text-4xl uppercase tracking-wider text-white">
               Gestion des Participants ({participants.length})
             </h1>
           </div>
 
           <div className="flex items-center gap-3">
-            <button
+            <Button
               type="button"
               onClick={exportCsv}
               disabled={participants.length === 0}
-              className="flex items-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-4 py-2.5 text-xs font-black uppercase tracking-wider text-[#17110E] shadow-md transition-all hover:scale-105 disabled:opacity-50"
+              variant="primary"
+              size="sm"
+              icon={<Download size={15} />}
             >
-              <Download size={15} />
-              <span>Exporter en CSV</span>
-            </button>
+              Exporter en CSV
+            </Button>
           </div>
         </div>
 
@@ -133,18 +135,18 @@ export default function AdminParticipantsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Rechercher par nom, prénom, email, téléphone, ville..."
-              className="w-full rounded-md border border-white/15 bg-white/5 px-4 py-2.5 pl-10 text-xs text-[#EDE8DC] placeholder-[#BFB89E]/40 focus:border-[#F59E0B] focus:outline-none"
+              className="w-full rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2.5 pl-10 text-xs text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
             />
             <Search
               size={15}
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#BFB89E]/50"
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-cn-gray-400"
             />
           </form>
 
           <select
             value={ticketTypeFilter}
             onChange={(e) => setTicketTypeFilter(e.target.value)}
-            className="rounded-md border border-white/15 bg-[#0A0806] px-4 py-2.5 text-xs font-semibold text-[#EDE8DC] focus:border-[#F59E0B] focus:outline-none"
+            className="rounded-lg border border-white/10 bg-cn-dark px-4 py-2.5 text-xs font-semibold text-white focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
           >
             <option value="ALL">Toutes les catégories</option>
             <option value="STANDARD">Pass Standard</option>
@@ -154,23 +156,23 @@ export default function AdminParticipantsPage() {
           <button
             type="button"
             onClick={fetchParticipants}
-            className="rounded-md border border-white/15 bg-white/5 px-3 py-2.5 text-xs text-[#BFB89E] hover:text-[#EDE8DC]"
+            className="rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-xs text-cn-gray-300 hover:text-white transition-colors"
           >
             <RefreshCw size={14} />
           </button>
         </div>
 
         {/* Tableau des participants */}
-        <div className="rounded-2xl border border-white/10 bg-[#120E0A]/90 overflow-hidden shadow-2xl">
+        <div className="rounded-2xl border border-white/8 bg-cn-dark/95 overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-white/10 bg-white/5 text-[#BFB89E]/70 font-bold uppercase tracking-wider">
+                <tr className="border-b border-white/10 bg-white/[0.03] text-cn-gray-400 font-bold uppercase tracking-wider">
                   <th className="py-3.5 px-4">Participant</th>
                   <th className="py-3.5 px-4">Contact</th>
                   <th className="py-3.5 px-4">Localisation</th>
                   <th className="py-3.5 px-4">Catégorie</th>
-                  <th className="py-3.5 px-4">Places & Billets</th>
+                  <th className="py-3.5 px-4">Places &amp; Billets</th>
                   <th className="py-3.5 px-4">Date d&apos;inscription</th>
                   <th className="py-3.5 px-4 text-right">Actions</th>
                 </tr>
@@ -180,35 +182,35 @@ export default function AdminParticipantsPage() {
                   participants.map((p) => (
                     <tr key={p.id} className="hover:bg-white/5 transition-colors">
                       <td className="py-3.5 px-4">
-                        <span className="font-semibold text-[#EDE8DC] block">
+                        <span className="font-semibold text-white block">
                           {p.firstName} {p.lastName}
                         </span>
                         {p.source && (
-                          <span className="text-[10px] text-[#BFB89E]/60 block">
+                          <span className="text-[10px] text-cn-gray-400 block">
                             Via : {p.source}
                           </span>
                         )}
                       </td>
                       <td className="py-3.5 px-4 font-mono">
-                        <span className="text-[#EDE8DC] block">{p.email}</span>
-                        <span className="text-[#BFB89E]/70 text-[11px] block">{p.phone}</span>
+                        <span className="text-white block">{p.email}</span>
+                        <span className="text-cn-gray-400 text-[11px] block">{p.phone}</span>
                       </td>
-                      <td className="py-3.5 px-4 text-[#BFB89E]">
+                      <td className="py-3.5 px-4 text-cn-gray-300">
                         {p.city}, {p.country}
                       </td>
                       <td className="py-3.5 px-4">
                         <span
                           className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase ${
                             p.ticketType === "VIP"
-                              ? "bg-[#F59E0B] text-[#17110E] font-black"
-                              : "bg-[#1F1710] text-[#FCD34D] border border-[#F59E0B]/30"
+                              ? "bg-cn-gold text-cn-black font-black"
+                              : "bg-cn-black text-cn-gold-light border border-cn-gold/30"
                           }`}
                         >
                           {p.ticketType}
                         </span>
                       </td>
                       <td className="py-3.5 px-4">
-                        <span className="font-bold text-[#EDE8DC] block">
+                        <span className="font-bold text-white block">
                           {p.numberOfGuests} place(s)
                         </span>
                         <div className="flex flex-wrap gap-1 mt-1 font-mono text-[10px] text-cn-gray-400">
@@ -238,7 +240,7 @@ export default function AdminParticipantsPage() {
                           <Link
                             href={`/billet/${encodeURIComponent(p.tickets[0].ticketNumber)}`}
                             target="_blank"
-                            className="inline-block rounded bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-[#F5B900] hover:text-[#111111] transition-colors"
+                            className="inline-block rounded-md bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-cn-gold hover:text-cn-black transition-colors"
                           >
                             Voir Billet
                           </Link>

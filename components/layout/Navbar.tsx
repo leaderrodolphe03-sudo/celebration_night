@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Ticket } from "lucide-react";
 import { CelebrationNightLogo } from "./Logos";
+import Button from "@/components/ui/Button";
 
 const NAV_LINKS = [
   { href: "/", label: "Accueil" },
@@ -25,11 +26,23 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Empêcher le défilement arrière-plan sur mobile quand le menu est ouvert
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 print:hidden ${
         scrolled
-          ? "bg-[#17110E]/95 border-b border-white/10 shadow-2xl backdrop-blur-md shadow-black/80"
+          ? "bg-cn-black/90 border-b border-white/10 shadow-xl backdrop-blur-md"
           : "bg-transparent"
       }`}
     >
@@ -41,7 +54,7 @@ export default function Navbar() {
           className="group flex items-center"
           aria-label="Célébration Night — Accueil"
         >
-          <CelebrationNightLogo className="group-hover:opacity-80 transition-opacity" />
+          <CelebrationNightLogo className="group-hover:opacity-85 transition-opacity" />
         </Link>
 
         {/* Navigation Desktop */}
@@ -52,15 +65,15 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-4 py-2 font-body text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 rounded-sm ${
+                className={`relative px-4 py-2 font-body text-xs font-semibold uppercase tracking-[0.14em] transition-colors duration-200 rounded-md ${
                   isActive
-                    ? "text-[#FCD34D]"
-                    : "text-[#BFB89E] hover:text-white"
+                    ? "text-cn-gold-light"
+                    : "text-cn-gray-300 hover:text-white hover:bg-white/5"
                 }`}
               >
                 {link.label}
                 {isActive && (
-                  <span className="absolute bottom-0 left-4 right-4 h-px bg-[#F59E0B]" />
+                  <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-cn-gold rounded-full" />
                 )}
               </Link>
             );
@@ -69,29 +82,30 @@ export default function Navbar() {
 
         {/* CTA + Mobile toggle */}
         <div className="flex items-center gap-3">
-          <Link
+          <Button
             href="/inscription"
-            className="hidden sm:inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-5 py-2.5 font-body text-[11px] font-bold uppercase tracking-[0.12em] text-[#17110E] transition-all hover:bg-[#FCD34D] hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] active:scale-95"
+            size="sm"
+            variant="primary"
+            className="hidden sm:inline-flex"
           >
-            <Ticket size={13} />
             <span>Participer</span>
-          </Link>
+          </Button>
 
           <button
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="flex h-10 w-10 items-center justify-center rounded-sm border border-white/10 bg-white/4 text-white lg:hidden hover:border-[#F59E0B]/40 hover:text-[#F59E0B] transition-colors"
+            className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white lg:hidden hover:border-cn-gold/40 hover:text-cn-gold transition-colors"
           >
-            {open ? <X size={20} /> : <Menu size={20} />}
+            {open ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
-      {/* Menu Mobile */}
+      {/* Menu Mobile Plein Écran */}
       {open && (
-        <div className="bg-[#17110E] border-t border-white/8 px-5 pb-8 pt-5 lg:hidden">
-          <nav className="flex flex-col" aria-label="Navigation mobile">
+        <div className="fixed inset-x-0 top-20 bottom-0 z-40 bg-cn-black/98 backdrop-blur-xl border-t border-white/10 px-6 py-8 lg:hidden flex flex-col justify-between overflow-y-auto">
+          <nav className="flex flex-col space-y-2" aria-label="Navigation mobile">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -99,8 +113,8 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`border-b border-white/6 py-4 font-body text-sm uppercase tracking-wider transition-colors ${
-                    isActive ? "text-[#FCD34D]" : "text-[#BFB89E] hover:text-white"
+                  className={`border-b border-white/8 py-4 font-body text-base font-semibold uppercase tracking-wider transition-colors ${
+                    isActive ? "text-cn-gold-light" : "text-cn-gray-300 hover:text-white"
                   }`}
                 >
                   {link.label}
@@ -108,15 +122,16 @@ export default function Navbar() {
               );
             })}
           </nav>
-          <div className="mt-6">
-            <Link
+          <div className="pt-8">
+            <Button
               href="/inscription"
-              onClick={() => setOpen(false)}
-              className="flex w-full items-center justify-center gap-2 rounded-sm bg-[#F59E0B] py-4 font-body text-sm font-bold uppercase tracking-wider text-[#17110E]"
+              size="lg"
+              variant="primary"
+              className="w-full justify-center"
             >
-              <Ticket size={15} />
-              <span>Réserver ma place — Gratuit</span>
-            </Link>
+              
+              <span>Réserver ma place</span>
+            </Button>
           </div>
         </div>
       )}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send, HelpCircle, CheckCircle2, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { EVENT } from "@/lib/event-config";
+import Button from "@/components/ui/Button";
 
 const FAQS = [
   {
@@ -83,21 +84,21 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#17110E] text-white">
+    <div className="min-h-screen bg-cn-black text-white">
       {/* Hero Header */}
       <section className="relative overflow-hidden px-4 pt-24 pb-16 sm:px-6 lg:px-8 text-center">
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#F59E0B]/10 blur-[130px]"
+          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-cn-gold/10 blur-[130px]"
         />
         <div className="relative mx-auto max-w-4xl">
-          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-[#F59E0B]">
+          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-cn-gold">
             Une équipe à votre écoute
           </p>
           <h1 className="mt-4 font-heading text-5xl sm:text-7xl uppercase tracking-wider text-white">
             Contact &amp; Informations
           </h1>
-          <p className="mt-4 font-body text-base sm:text-lg text-[#BFB89E] max-w-2xl mx-auto">
+          <p className="mt-4 font-body text-base sm:text-lg text-cn-gray-300 max-w-2xl mx-auto">
             Une question sur la billetterie, l&apos;accès, les transports ou un partenariat ?
             Retrouvez nos réponses fréquentes ou écrivez-nous directement.
           </p>
@@ -110,7 +111,7 @@ export default function ContactPage() {
           {/* Informations & Coordonnées (5 col) */}
           <div className="lg:col-span-5 space-y-6">
             <div>
-              <span className="text-[11px] font-bold uppercase tracking-widest text-[#F59E0B]">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-cn-gold">
                 Localisation &amp; Accès
               </span>
               <h2 className="mt-2 font-heading text-3xl uppercase tracking-wide text-white">
@@ -118,16 +119,16 @@ export default function ContactPage() {
               </h2>
             </div>
 
-            <div className="rounded-2xl border border-white/8 bg-[#120E0A] p-6 space-y-5 backdrop-blur-sm shadow-xl">
+            <div className="rounded-2xl border border-white/8 bg-cn-dark p-6 space-y-5 backdrop-blur-sm shadow-xl">
               <div className="flex items-start gap-4">
-                <div className="h-10 w-10 rounded-lg bg-[#1A1410] border border-[#F59E0B]/30 flex items-center justify-center text-[#F59E0B] shrink-0">
+                <div className="h-10 w-10 rounded-lg bg-cn-black border border-cn-gold/30 flex items-center justify-center text-cn-gold shrink-0">
                   <MapPin size={20} />
                 </div>
                 <div>
                   <h3 className="font-heading text-lg uppercase tracking-wide text-white">
                     Lieu du Rassemblement
                   </h3>
-                  <p className="text-xs text-[#BFB89E] leading-relaxed mt-1">
+                  <p className="text-xs text-cn-gray-300 leading-relaxed mt-1">
                     Palais des Congrès / Grande Halle de Célébration
                     <br />
                     Boulevard Principal des Événements, Abidjan
@@ -136,14 +137,14 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="h-10 w-10 rounded-lg bg-[#1A1410] border border-[#F59E0B]/30 flex items-center justify-center text-[#F59E0B] shrink-0">
+                <div className="h-10 w-10 rounded-lg bg-cn-black border border-cn-gold/30 flex items-center justify-center text-cn-gold shrink-0">
                   <Mail size={20} />
                 </div>
                 <div>
                   <h3 className="font-heading text-lg uppercase tracking-wide text-white">
                     Email Officiel
                   </h3>
-                  <p className="text-xs text-[#BFB89E] leading-relaxed mt-1 font-mono">
+                  <p className="text-xs text-cn-gray-300 leading-relaxed mt-1 font-mono">
                     contact@celebrationnight.org
                     <br />
                     billetterie@celebrationnight.org
@@ -152,14 +153,14 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="h-10 w-10 rounded-lg bg-[#1A1410] border border-[#F59E0B]/30 flex items-center justify-center text-[#F59E0B] shrink-0">
+                <div className="h-10 w-10 rounded-lg bg-cn-black border border-cn-gold/30 flex items-center justify-center text-cn-gold shrink-0">
                   <Phone size={20} />
                 </div>
                 <div>
                   <h3 className="font-heading text-lg uppercase tracking-wide text-white">
                     Permanence Téléphonique &amp; WhatsApp
                   </h3>
-                  <p className="text-xs text-[#BFB89E] leading-relaxed mt-1 font-mono">
+                  <p className="text-xs text-cn-gray-300 leading-relaxed mt-1 font-mono">
                     +225 07 00 00 20 26 / +33 7 00 00 20 26
                   </p>
                 </div>
@@ -167,11 +168,11 @@ export default function ContactPage() {
             </div>
 
             {/* Note Accès & Transports */}
-            <div className="rounded-2xl border border-[#F59E0B]/30 bg-gradient-to-b from-[#17110E] to-[#120E0A] p-6 shadow-md">
-              <h3 className="font-heading text-xl uppercase tracking-wide text-[#FCD34D]">
+            <div className="rounded-2xl border border-cn-gold/30 bg-gradient-to-b from-cn-dark to-cn-black p-6 shadow-md">
+              <h3 className="font-heading text-xl uppercase tracking-wide text-cn-gold-light">
                 Transports &amp; Parking
               </h3>
-              <p className="mt-2 text-xs text-[#BFB89E] leading-relaxed">
+              <p className="mt-2 text-xs text-cn-gray-300 leading-relaxed">
                 Un parking sécurisé gratuit de 600 places est mis à disposition des participants.
                 Des navettes spéciales seront organisées depuis les principaux carrefours de la ville.
               </p>
@@ -180,11 +181,11 @@ export default function ContactPage() {
 
           {/* Formulaire de Contact (7 col) */}
           <div className="lg:col-span-7">
-            <div className="rounded-2xl border border-white/8 bg-[#120E0A] p-6 sm:p-10 backdrop-blur-md shadow-2xl">
+            <div className="rounded-2xl border border-white/8 bg-cn-dark p-6 sm:p-10 backdrop-blur-md shadow-2xl">
               <h2 className="font-heading text-3xl uppercase tracking-wide text-white mb-2">
                 Envoyer un Message
               </h2>
-              <p className="text-xs text-[#BFB89E] mb-8 font-body">
+              <p className="text-xs text-cn-gray-300 mb-8 font-body">
                 Remplissez ce formulaire et notre équipe vous répondra dans un délai de 24 heures.
               </p>
 
@@ -204,7 +205,7 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#BFB89E] mb-1.5">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-cn-gray-300 mb-1.5">
                       Nom &amp; Prénom *
                     </label>
                     <input
@@ -213,12 +214,12 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Ex: David Kouamé"
-                      className="w-full rounded-sm border border-white/15 bg-white/5 px-4 py-3 text-sm text-white placeholder-[#7D7560] focus:border-[#F59E0B] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+                      className="w-full rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#BFB89E] mb-1.5">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-cn-gray-300 mb-1.5">
                       Adresse Email *
                     </label>
                     <input
@@ -227,14 +228,14 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="Ex: david@example.com"
-                      className="w-full rounded-sm border border-white/15 bg-white/5 px-4 py-3 text-sm text-white placeholder-[#7D7560] focus:border-[#F59E0B] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+                      className="w-full rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#BFB89E] mb-1.5">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-cn-gray-300 mb-1.5">
                       Téléphone (optionnel)
                     </label>
                     <input
@@ -242,18 +243,18 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="Ex: +225 07 12 34 56"
-                      className="w-full rounded-sm border border-white/15 bg-white/5 px-4 py-3 text-sm text-white placeholder-[#7D7560] focus:border-[#F59E0B] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+                      className="w-full rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#BFB89E] mb-1.5">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-cn-gray-300 mb-1.5">
                       Objet du Message *
                     </label>
                     <select
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full rounded-sm border border-white/15 bg-[#120E0A] px-4 py-3 text-sm text-white focus:border-[#F59E0B] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+                      className="w-full rounded-lg border border-white/10 bg-cn-black px-4 py-3 text-sm text-white focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
                     >
                       <option value="Renseignement Général">Renseignement Général</option>
                       <option value="Problème Billetterie">Question sur mon Billet / QR Code</option>
@@ -265,7 +266,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#BFB89E] mb-1.5">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-cn-gray-300 mb-1.5">
                     Votre Message *
                   </label>
                   <textarea
@@ -274,24 +275,20 @@ export default function ContactPage() {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Détaillez votre question ou votre proposition..."
-                    className="w-full rounded-sm border border-white/15 bg-white/5 px-4 py-3 text-sm text-white placeholder-[#7D7560] focus:border-[#F59E0B] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+                    className="w-full rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
                   />
                 </div>
 
-                <button
+                <Button
                   type="submit"
-                  disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 rounded-sm bg-[#F59E0B] py-4 text-xs font-bold uppercase tracking-widest text-[#17110E] hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] shadow-xl transition-all disabled:opacity-50"
+                  variant="primary"
+                  size="lg"
+                  loading={loading}
+                  icon={<Send size={16} />}
+                  className="w-full justify-center"
                 >
-                  {loading ? (
-                    <span>Envoi en cours...</span>
-                  ) : (
-                    <>
-                      <Send size={16} />
-                      <span>Envoyer mon message</span>
-                    </>
-                  )}
-                </button>
+                  Envoyer mon message
+                </Button>
               </form>
             </div>
           </div>
@@ -299,14 +296,14 @@ export default function ContactPage() {
       </section>
 
       {/* Foire Aux Questions (FAQ) */}
-      <section className="bg-[#0B0806] border-t border-white/8 px-4 py-20 sm:px-6 lg:px-8">
+      <section className="bg-cn-deep px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl">
           <div className="text-center mb-12">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-[#F59E0B]">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-cn-gold">
               Réponses Rapides
             </span>
             <h2 className="mt-2 font-heading text-3xl sm:text-4xl uppercase tracking-wide text-white flex items-center justify-center gap-2">
-              <HelpCircle className="text-[#F59E0B]" size={28} />
+              <HelpCircle className="text-cn-gold" size={28} />
               Foire Aux Questions
             </h2>
           </div>
@@ -317,18 +314,18 @@ export default function ContactPage() {
               return (
                 <div
                   key={idx}
-                  className="rounded-xl border border-white/8 bg-[#120E0A] overflow-hidden transition-colors shadow-md hover:border-[#F59E0B]/40"
+                  className="rounded-xl border border-white/8 bg-cn-dark overflow-hidden transition-colors shadow-md hover:border-cn-gold/40"
                 >
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full flex items-center justify-between p-5 text-left font-body text-sm font-semibold text-white hover:text-[#FCD34D]"
+                    className="w-full flex items-center justify-between p-5 text-left font-body text-sm font-semibold text-white hover:text-cn-gold-light transition-colors"
                   >
                     <span>{faq.q}</span>
-                    {isOpen ? <ChevronUp size={18} className="text-[#F59E0B]" /> : <ChevronDown size={18} />}
+                    {isOpen ? <ChevronUp size={18} className="text-cn-gold" /> : <ChevronDown size={18} />}
                   </button>
                   {isOpen && (
-                    <div className="px-5 pb-5 text-xs sm:text-sm font-body text-[#BFB89E] leading-relaxed border-t border-white/5 pt-3">
+                    <div className="px-5 pb-5 text-xs sm:text-sm font-body text-cn-gray-300 leading-relaxed border-t border-white/5 pt-3">
                       {faq.a}
                     </div>
                   )}

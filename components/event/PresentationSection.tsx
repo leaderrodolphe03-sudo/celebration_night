@@ -1,117 +1,76 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, Music2, Heart, Play } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
+import Button from "@/components/ui/Button";
 
 export default function PresentationSection() {
   return (
-    <section className="bg-[#F4E6DE] px-5 py-24 sm:px-8 lg:px-10 border-t border-black/5">
-      <div className="mx-auto max-w-7xl">
+    <section className="relative bg-gradient-to-b from-[#FAF7F2] via-[#F6F1EA] to-[#FAF7F2] px-5 py-24 sm:px-8 lg:px-10 overflow-hidden">
+      {/* Halo lumineux chaud d'arrière-plan */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 right-1/4 h-96 w-96 rounded-full bg-amber-200/30 blur-[130px]"
+      />
 
-        {/* En-tête éditorial en contraste clair (style Effuzion) */}
-        <div className="mb-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
+      <div className="relative mx-auto max-w-7xl">
+
+        {/* En-tête éditorial épuré */}
+        <div className="mb-14 grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
           <div>
-            <h2 className="font-heading text-[clamp(2.5rem,6vw,5rem)] uppercase leading-[0.9] tracking-wide text-[#17110E]">
-              Une Rencontre<br />d&apos;Adoration<br />
-              <span className="text-[#D97706]">Vivante</span>
+            <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wider text-cn-black leading-[0.95]">
+              Une Rencontre<br />d&apos;Adoration <span className="text-cn-amber">Vivante</span>
             </h2>
           </div>
           <div className="lg:pt-8">
-            <p className="font-body text-base sm:text-lg leading-relaxed text-[#5C4538] max-w-lg">
-              <strong className="text-[#17110E] font-semibold">CÉLÉBRATION NIGHT</strong> est un rendez-vous annuel
+            <p className="font-body text-base sm:text-lg leading-relaxed text-[#5A4D41] max-w-lg">
+              <strong className="text-cn-black font-semibold">CÉLÉBRATION NIGHT</strong> est un rendez-vous annuel
               d&apos;impact spirituel, de proclamation de la Parole, d&apos;excellence musicale
               et de communion fraternelle porté par HAGIAZO Ministry.
             </p>
           </div>
         </div>
 
-        {/* Image principale — pleine largeur */}
-        <div className="group relative overflow-hidden rounded-lg border border-[#17110E]/10 hover:border-[#D97706]/50 transition-colors shadow-2xl">
+        {/* Image principale — pleine largeur épurée */}
+        <div className="group relative overflow-hidden rounded-2xl border border-[#E5DACF] shadow-[0_20px_50px_rgba(28,22,19,0.10)] hover:border-cn-gold/70 transition-all duration-300">
           <div className="relative aspect-[16/8] w-full">
             <Image
               src="/images/worship-bg.jpg"
               alt="Collectif de louange Célébration Night sur scène avec l'assemblée"
               fill
-              className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+              className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.01]"
               priority
             />
-            {/* Voile sombre cinématographique en bas */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#17110E] via-[#17110E]/40 to-transparent" />
+            {/* Voile sombre cinématographique doux en bas pour le texte */}
+            <div className="absolute inset-0 bg-gradient-to-t from-cn-black/95 via-cn-black/40 to-transparent" />
 
-            {/* Overlay de survol avec Play */}
+            {/* Bouton Play au survol */}
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="h-16 w-16 rounded-full bg-[#F59E0B] flex items-center justify-center shadow-[0_0_40px_rgba(245,158,11,0.7)] group-hover:scale-110 transition-transform">
-                <Play size={22} className="text-[#17110E] ml-1" fill="#17110E" />
+              <div className="h-16 w-16 rounded-full bg-cn-gold flex items-center justify-center shadow-gold group-hover:scale-110 transition-transform">
+                <Play size={22} className="text-cn-black ml-1" fill="#1C1613" />
               </div>
             </div>
           </div>
 
-          {/* Légende en bas de l'image */}
+          {/* Légende en bas de l'image (sans badge superposé) */}
           <div className="absolute bottom-0 inset-x-0 px-6 sm:px-10 py-7 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-sm bg-[#F59E0B] px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-[#17110E] mb-2 shadow-sm">
-                <Music2 size={11} />
-                Live Worship &amp; Scène
-              </span>
-              <h3 className="font-heading text-xl sm:text-3xl uppercase tracking-wide text-white">
+              <h3 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide text-white">
                 Une Louange Passionnée &amp; Sans Compromis
               </h3>
-              <p className="mt-1 text-xs sm:text-sm text-[#EDE8DC]">
+              <p className="mt-1 text-xs sm:text-sm text-cn-gray-300">
                 Chantres, musiciens et peuple réunis sous l&apos;onction pour élever le Roi des rois.
               </p>
             </div>
-            <Link
+            <Button
               href="/medias"
-              className="shrink-0 flex items-center gap-2 rounded-sm bg-[#17110E]/90 border border-[#F59E0B]/30 px-5 py-2.5 font-body text-xs font-bold uppercase tracking-wider text-[#FCD34D] backdrop-blur-md hover:bg-[#F59E0B] hover:text-[#17110E] hover:border-[#F59E0B] transition-all shadow-lg"
+              variant="outline"
+              size="sm"
+              className="shrink-0 rounded-md"
             >
               <span>Découvrir les médias</span>
-              <ArrowRight size={13} />
-            </Link>
+            
+            </Button>
           </div>
         </div>
-
-        {/* Deux images secondaires */}
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="group relative overflow-hidden rounded-lg aspect-[16/10] border border-[#17110E]/10 hover:border-[#D97706]/50 transition-colors shadow-md">
-            <Image
-              src="/images/gallery/photo-4.jpg"
-              alt="Chantre soliste féminine en ferveur"
-              fill
-              className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#17110E]/90 via-[#17110E]/30 to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-              <div>
-                <span className="block font-body text-[10px] font-bold uppercase tracking-wider text-[#F59E0B] mb-1">
-                  Chantre Soliste
-                </span>
-                <span className="font-heading text-base sm:text-lg uppercase tracking-wider text-white">
-                  Voix de Louange &amp; Ferveur
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="group relative overflow-hidden rounded-lg aspect-[16/10] border border-[#17110E]/10 hover:border-[#D97706]/50 transition-colors shadow-md">
-            <Image
-              src="/images/gallery/photo-3.jpg"
-              alt="Assemblée les mains levées en prière"
-              fill
-              className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#17110E]/90 via-[#17110E]/30 to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-              <div>
-                <span className="block font-body text-[10px] font-bold uppercase tracking-wider text-[#F59E0B] mb-1">
-                  Adoration Vivante
-                </span>
-                <span className="font-heading text-base sm:text-lg uppercase tracking-wider text-white">
-                  L&apos;Assemblée les Mains Levées
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
       </div>
     </section>
   );

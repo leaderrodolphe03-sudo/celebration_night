@@ -16,6 +16,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import AdminNav from "@/components/admin/AdminNav";
+import Button from "@/components/ui/Button";
 
 interface DashboardData {
   stats: {
@@ -95,8 +96,8 @@ export default function AdminDashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#111111] text-white flex flex-col items-center justify-center p-6">
-        <div className="h-10 w-10 rounded-full border-4 border-[#F5B900] border-t-transparent animate-spin mb-4" />
+      <div className="min-h-screen bg-cn-black text-white flex flex-col items-center justify-center p-6">
+        <div className="h-10 w-10 rounded-full border-4 border-cn-gold border-t-transparent animate-spin mb-4" />
         <p className="font-heading text-lg uppercase tracking-wider text-cn-gray-300">
           Chargement du tableau de bord...
         </p>
@@ -107,21 +108,21 @@ export default function AdminDashboardPage() {
   const stats = data?.stats;
 
   return (
-    <div className="min-h-screen bg-[#17110E] text-[#EDE8DC]">
+    <div className="min-h-screen bg-cn-black text-white">
       <AdminNav user={user} />
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-8">
         {/* En-tête du Dashboard */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#FCD34D]">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-cn-gold-light">
               Supervision en direct
             </span>
-            <h1 className="mt-1 font-heading text-3xl sm:text-4xl uppercase tracking-wider text-[#EDE8DC]">
+            <h1 className="mt-1 font-heading text-3xl sm:text-4xl uppercase tracking-wider text-white">
               Tableau de Bord Événement
             </h1>
-            <p className="text-xs text-[#BFB89E] mt-0.5">
-              Connecté en tant que <strong className="text-[#EDE8DC]">{user?.name || user?.email}</strong> ({user?.role})
+            <p className="text-xs text-cn-gray-300 mt-0.5">
+              Connecté en tant que <strong className="text-white">{user?.name || user?.email}</strong> ({user?.role})
             </p>
           </div>
 
@@ -129,50 +130,51 @@ export default function AdminDashboardPage() {
             <button
               type="button"
               onClick={handleRefresh}
-              className="flex items-center gap-1.5 rounded-md border border-white/20 bg-white/5 px-3.5 py-2 text-xs font-semibold text-[#EDE8DC] hover:bg-white/10 transition-colors"
+              className="flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-3.5 py-2.5 text-xs font-semibold text-white hover:bg-white/10 transition-colors"
             >
               <RefreshCw size={14} className={refreshing ? "animate-spin" : ""} />
               <span>Actualiser</span>
             </button>
 
-            <Link
+            <Button
               href="/admin/scanner"
-              className="flex items-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-5 py-2 text-xs font-black uppercase tracking-wider text-[#17110E] shadow-lg transition-transform hover:scale-105"
+              variant="primary"
+              size="sm"
+              icon={<QrCode size={16} />}
             >
-              <QrCode size={16} />
-              <span>Ouvrir Scanner</span>
-            </Link>
+              Ouvrir Scanner
+            </Button>
           </div>
         </div>
 
         {/* CARTES D'INDICATEURS CLÉS (KPIs) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
           {/* Participants */}
-          <div className="rounded-2xl border border-[#F59E0B]/20 bg-[#120E0A]/90 p-5 shadow-xl">
-            <div className="flex items-center justify-between text-[#BFB89E]">
+          <div className="rounded-2xl border border-cn-gold/20 bg-cn-dark p-5 shadow-xl">
+            <div className="flex items-center justify-between text-cn-gray-300">
               <span className="text-[11px] font-bold uppercase tracking-wider">Participants</span>
-              <div className="h-8 w-8 rounded-lg bg-[#1F1710] border border-[#F59E0B]/30 flex items-center justify-center text-[#FCD34D]">
+              <div className="h-8 w-8 rounded-lg bg-cn-black border border-cn-gold/30 flex items-center justify-center text-cn-gold-light">
                 <Users size={16} />
               </div>
             </div>
-            <p className="mt-3 font-heading text-4xl text-[#EDE8DC] tracking-wide">
+            <p className="mt-3 font-heading text-4xl text-white tracking-wide">
               {stats?.totalParticipants || 0}
             </p>
-            <p className="mt-1 text-[11px] text-[#BFB89E]/70">Inscrits uniques</p>
+            <p className="mt-1 text-[11px] text-cn-gray-400">Inscrits uniques</p>
           </div>
 
           {/* Billets Générés */}
-          <div className="rounded-2xl border border-[#F59E0B]/20 bg-[#120E0A]/90 p-5 shadow-xl">
-            <div className="flex items-center justify-between text-[#BFB89E]">
+          <div className="rounded-2xl border border-cn-gold/20 bg-cn-dark p-5 shadow-xl">
+            <div className="flex items-center justify-between text-cn-gray-300">
               <span className="text-[11px] font-bold uppercase tracking-wider">Billets Émis</span>
-              <div className="h-8 w-8 rounded-lg bg-[#1F1710] border border-[#F59E0B]/30 flex items-center justify-center text-[#FCD34D]">
+              <div className="h-8 w-8 rounded-lg bg-cn-black border border-cn-gold/30 flex items-center justify-center text-cn-gold-light">
                 <Ticket size={16} />
               </div>
             </div>
-            <p className="mt-3 font-heading text-4xl text-[#EDE8DC] tracking-wide">
+            <p className="mt-3 font-heading text-4xl text-white tracking-wide">
               {stats?.totalTickets || 0}
             </p>
-            <p className="mt-1 text-[11px] text-[#FCD34D]">
+            <p className="mt-1 text-[11px] text-cn-gold-light">
               {stats?.standardTickets || 0} Standard • {stats?.vipTickets || 0} VIP
             </p>
           </div>
@@ -206,19 +208,19 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Taux de présence */}
-          <div className="rounded-2xl border border-[#F59E0B]/20 bg-[#18120B]/90 p-5 shadow-xl">
-            <div className="flex items-center justify-between text-[#FCD34D]">
+          <div className="rounded-2xl border border-cn-gold/20 bg-cn-dark p-5 shadow-xl">
+            <div className="flex items-center justify-between text-cn-gold-light">
               <span className="text-[11px] font-bold uppercase tracking-wider">Affluence</span>
-              <div className="h-8 w-8 rounded-lg bg-[#1F1710] border border-[#F59E0B]/30 flex items-center justify-center text-[#FCD34D]">
+              <div className="h-8 w-8 rounded-lg bg-cn-black border border-cn-gold/30 flex items-center justify-center text-cn-gold-light">
                 <TrendingUp size={16} />
               </div>
             </div>
-            <p className="mt-3 font-heading text-4xl text-[#EDE8DC] tracking-wide">
+            <p className="mt-3 font-heading text-4xl text-white tracking-wide">
               {stats?.attendanceRate || 0}%
             </p>
             <div className="mt-2 h-1.5 w-full rounded-full bg-black/40 overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-[#EA580C] to-[#FCD34D] transition-all duration-500"
+                className="h-full bg-gradient-to-r from-cn-gold to-cn-amber transition-all duration-500"
                 style={{ width: `${Math.min(100, stats?.attendanceRate || 0)}%` }}
               />
             </div>
@@ -228,14 +230,14 @@ export default function AdminDashboardPage() {
         {/* SECTIONS BASSES : DERNIÈRES INSCRIPTIONS & DERNIERS SCANS */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Dernières Inscriptions (7 colonnes) */}
-          <div className="lg:col-span-7 rounded-2xl border border-white/10 bg-[#120E0A]/80 p-6 shadow-xl">
+          <div className="lg:col-span-7 rounded-2xl border border-white/10 bg-cn-dark/90 p-6 shadow-xl">
             <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
-              <h2 className="font-heading text-xl uppercase tracking-wide text-[#EDE8DC]">
+              <h2 className="font-heading text-xl uppercase tracking-wide text-white">
                 Dernières Inscriptions
               </h2>
               <Link
                 href="/admin/participants"
-                className="text-xs font-semibold text-[#FCD34D] hover:underline uppercase tracking-wider"
+                className="text-xs font-semibold text-cn-gold-light hover:underline uppercase tracking-wider"
               >
                 Voir tout →
               </Link>
@@ -244,7 +246,7 @@ export default function AdminDashboardPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-white/10 text-[#BFB89E]/60 font-bold uppercase">
+                  <tr className="border-b border-white/10 text-cn-gray-400 font-bold uppercase">
                     <th className="pb-3">Participant</th>
                     <th className="pb-3">Ville / Pays</th>
                     <th className="pb-3">Catégorie</th>
@@ -255,34 +257,34 @@ export default function AdminDashboardPage() {
                 <tbody className="divide-y divide-white/5">
                   {stats?.recentParticipants?.map((p) => (
                     <tr key={p.id} className="hover:bg-white/5 transition-colors">
-                      <td className="py-3 font-semibold text-[#EDE8DC]">
+                      <td className="py-3 font-semibold text-white">
                         {p.firstName} {p.lastName}
-                        <span className="block text-[11px] font-normal text-[#BFB89E]/70 font-mono">
+                        <span className="block text-[11px] font-normal text-cn-gray-400 font-mono">
                           {p.email}
                         </span>
                       </td>
-                      <td className="py-3 text-[#BFB89E]">
+                      <td className="py-3 text-cn-gray-300">
                         {p.city}, {p.country}
                       </td>
                       <td className="py-3">
                         <span
                           className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase ${
                             p.ticketType === "VIP"
-                              ? "bg-[#F59E0B] text-[#17110E] font-black"
-                              : "bg-[#1F1710] text-[#FCD34D] border border-[#F59E0B]/30"
+                              ? "bg-cn-gold text-cn-black font-black"
+                              : "bg-cn-black text-cn-gold-light border border-cn-gold/30"
                           }`}
                         >
                           {p.ticketType}
                         </span>
                       </td>
-                      <td className="py-3 font-mono font-semibold text-[#EDE8DC]">
+                      <td className="py-3 font-mono font-semibold text-white">
                         {p.ticketsCount} {p.ticketsCount > 1 ? "places" : "place"}
                       </td>
                       <td className="py-3 text-right">
                         <Link
                           href={`/billet/${encodeURIComponent(p.firstTicketNumber)}`}
                           target="_blank"
-                          className="rounded bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-[#EDE8DC] hover:bg-[#F59E0B] hover:text-[#17110E] transition-colors"
+                          className="rounded-md bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-cn-gold hover:text-cn-black transition-colors"
                         >
                           Billet
                         </Link>
@@ -295,15 +297,15 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Derniers Scans En Direct (5 colonnes) */}
-          <div className="lg:col-span-5 rounded-2xl border border-white/10 bg-[#120E0A]/80 p-6 shadow-xl">
+          <div className="lg:col-span-5 rounded-2xl border border-white/10 bg-cn-dark/90 p-6 shadow-xl">
             <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
-              <h2 className="font-heading text-xl uppercase tracking-wide text-[#EDE8DC] flex items-center gap-2">
+              <h2 className="font-heading text-xl uppercase tracking-wide text-white flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                 Scans En Direct
               </h2>
               <Link
                 href="/admin/scanner"
-                className="text-xs font-semibold text-[#FCD34D] hover:underline uppercase tracking-wider"
+                className="text-xs font-semibold text-cn-gold-light hover:underline uppercase tracking-wider"
               >
                 Scanner →
               </Link>
@@ -336,8 +338,8 @@ export default function AdminDashboardPage() {
                 ))}
               </div>
             ) : (
-              <div className="py-12 text-center text-xs text-cn-gray-500">
-                <QrCode size={32} className="mx-auto text-cn-gray-600 mb-2" />
+              <div className="py-12 text-center text-xs text-cn-gray-400">
+                <QrCode size={32} className="mx-auto text-cn-gray-500 mb-2" />
                 Aucun scan enregistré pour le moment.
                 <br />
                 Ouvrez le scanner lors de l&apos;ouverture des portes.

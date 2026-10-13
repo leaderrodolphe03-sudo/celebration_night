@@ -7,21 +7,21 @@ import { EVENT } from "@/lib/event-config";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#17110E] border-t border-white/8 text-cn-white print:hidden">
+    <footer className="bg-cn-black text-cn-white print:hidden">
 
       {/* Bande supérieure info rapide */}
       <div className="border-b border-white/6 px-5 py-5 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-4 text-xs text-[#7D7560]">
+        <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-4 text-xs text-cn-gray-300">
           <span className="flex items-center gap-2">
-            <Calendar size={14} className="text-[#F59E0B]" />
+            <Calendar size={14} className="text-cn-gold" />
             {EVENT.dateLabel} à {EVENT.timeLabel}
           </span>
           <span className="flex items-center gap-2">
-            <MapPin size={14} className="text-[#F59E0B]" />
+            <MapPin size={14} className="text-cn-gold" />
             Palais des Congrès — Grande Salle
           </span>
           <span className="flex items-center gap-2">
-            <Mail size={14} className="text-[#F59E0B]" />
+            <Mail size={14} className="text-cn-gold" />
             contact@celebrationnight.org
           </span>
         </div>
@@ -32,9 +32,9 @@ export default function Footer() {
 
           {/* Identité */}
           <div className="lg:col-span-2 flex flex-col gap-5">
-            <CelebrationNightLogo />
-            <HagiazoLogo className="opacity-80" />
-            <p className="text-sm leading-relaxed text-[#7D7560] max-w-sm">
+            <CelebrationNightLogo priority={false}/>
+            
+            <p className="text-sm leading-relaxed text-cn-gray-300 max-w-sm">
               Un rassemblement d&apos;adoration contemporaine, de ferveur et de louange
               porté par HAGIAZO Ministry pour une jeunesse consacrée.
             </p>
@@ -50,7 +50,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className="h-9 w-9 flex items-center justify-center border border-white/8 text-[#7D7560] transition-all hover:border-[#F59E0B]/40 hover:text-[#F59E0B] hover:bg-[#1A1108]"
+                  className="h-9 w-9 flex items-center justify-center rounded-lg border border-white/10 text-cn-gray-300 transition-all hover:border-cn-gold/40 hover:text-cn-gold hover:bg-cn-dark"
                 >
                   <Icon size={16} />
                 </a>
@@ -63,7 +63,7 @@ export default function Footer() {
             <h3 className="font-heading text-base uppercase tracking-wider text-white mb-4">
               L&apos;Événement
             </h3>
-            <ul className="space-y-2.5 text-sm text-[#7D7560]">
+            <ul className="space-y-2.5 text-sm text-cn-gray-300">
               {[
                 { href: "/",              label: "Accueil" },
                 { href: "/notre-histoire", label: "Notre Histoire" },
@@ -84,7 +84,7 @@ export default function Footer() {
             <h3 className="font-heading text-base uppercase tracking-wider text-white mb-4">
               Partenaires
             </h3>
-            <ul className="space-y-2.5 text-sm text-[#7D7560]">
+            <ul className="space-y-2.5 text-sm text-cn-gray-300">
               <li>
                 <Link href="/soutenir" className="hover:text-white transition-colors">
                   Devenir Partenaire
@@ -112,7 +112,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/inscription"
-                  className="group inline-flex items-center gap-2 font-semibold text-[#F59E0B] hover:text-[#FCD34D] transition-colors"
+                  className="group inline-flex items-center gap-2 font-semibold text-cn-gold hover:text-cn-gold-light transition-colors"
                 >
                   <Ticket size={13} />
                   <span>Réserver ma place</span>
@@ -122,7 +122,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/mon-billet"
-                  className="flex items-center gap-2 text-[#7D7560] hover:text-white transition-colors"
+                  className="flex items-center gap-2 text-cn-gray-300 hover:text-white transition-colors"
                 >
                   <Ticket size={13} />
                   <span>Retrouver mon billet</span>
@@ -131,9 +131,9 @@ export default function Footer() {
               <li className="pt-3 border-t border-white/6">
                 <Link
                   href="/admin/login"
-                  className="flex items-center gap-1.5 text-xs text-[#403C32] hover:text-[#7D7560] transition-colors"
+                  className="flex items-center gap-1.5 text-xs text-cn-gray-400 hover:text-cn-gray-200 transition-colors"
                 >
-                  <ShieldCheck size={13} className="text-emerald-600" />
+                  <ShieldCheck size={13} className="text-emerald-500" />
                   <span>Portail Admin & Scanner</span>
                 </Link>
               </li>
@@ -142,11 +142,10 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-14 pt-8 border-t border-white/6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#403C32]">
+        <div className="mt-14 pt-8  flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-cn-gray-400">
           <p>© {new Date().getFullYear()} HAGIAZO Ministry. Tous droits réservés.</p>
           <p>
-            Style contemporain et excellence spirituelle ·{" "}
-            <span className="text-[#D97706]">CÉLÉBRATION NIGHT 2026</span>
+            <span className="text-cn-gold">CÉLÉBRATION NIGHT 2026</span>
           </p>
         </div>
       </div>

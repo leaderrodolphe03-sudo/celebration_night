@@ -4,6 +4,7 @@ import { useState, useRef, ChangeEvent } from "react";
 import { Upload, Download, RefreshCw, Sparkles, Image as ImageIcon, Check, AlertCircle } from "lucide-react";
 import SquareBadge from "./SquareBadge";
 import { renderBadgeToDataUrl, downloadDataUrl } from "@/lib/badge-canvas";
+import Button from "@/components/ui/Button";
 
 export interface BadgeGeneratorProps {
   fullName: string;
@@ -101,7 +102,7 @@ export default function BadgeGenerator({
             photoUrl={photoUrl}
           />
           <span className="mt-3 text-[11px] font-medium text-cn-gray-400 uppercase tracking-wider text-center">
-            Aperçu instantané • Format carré 1:1 pour WhatsApp & Instagram
+            Aperçu instantané • Format carré 1:1 pour WhatsApp &amp; Instagram
           </span>
         </div>
 
@@ -118,10 +119,10 @@ export default function BadgeGenerator({
             onClick={() => fileInputRef.current?.click()}
             className={`cursor-pointer rounded-2xl border-2 border-dashed p-6 text-center transition-all ${
               dragOver
-                ? "border-[#F59E0B] bg-[#F59E0B]/10 scale-[1.01]"
+                ? "border-cn-gold bg-cn-gold/10 scale-[1.01]"
                 : photoUrl
-                ? "border-[#F59E0B]/50 bg-[#120E0A] hover:border-[#F59E0B]"
-                : "border-white/20 bg-white/5 hover:border-[#F59E0B]/40 hover:bg-[#120E0A]/40"
+                ? "border-cn-gold/50 bg-cn-dark hover:border-cn-gold"
+                : "border-white/15 bg-white/[0.03] hover:border-cn-gold/40 hover:bg-cn-dark/60"
             }`}
           >
             <input
@@ -133,20 +134,20 @@ export default function BadgeGenerator({
             />
 
             <div className="flex flex-col items-center gap-3">
-              <div className="h-14 w-14 rounded-full bg-[#1F1710] border border-[#F59E0B]/40 flex items-center justify-center text-[#FCD34D] shadow-inner">
+              <div className="h-14 w-14 rounded-full bg-cn-dark border border-cn-gold/40 flex items-center justify-center text-cn-gold-light shadow-inner">
                 {photoUrl ? <Check size={26} className="text-emerald-400" /> : <Upload size={24} />}
               </div>
 
               <div>
-                <p className="font-heading text-xl uppercase tracking-wide text-[#EDE8DC]">
+                <p className="font-heading text-xl uppercase tracking-wide text-white">
                   {photoUrl ? "Changer ma photo" : "Ajoute ta photo pour le badge"}
                 </p>
-                <p className="mt-1 font-body text-xs text-[#BFB89E]">
+                <p className="mt-1 font-body text-xs text-cn-gray-300">
                   {photoUrl
                     ? "Cliquez ou glissez une autre photo pour la remplacer"
                     : "Glissez votre photo ici ou cliquez pour parcourir votre galerie"}
                 </p>
-                <span className="mt-2 inline-block text-[10px] uppercase font-bold tracking-wider text-[#FCD34D]">
+                <span className="mt-2 inline-block text-[10px] uppercase font-bold tracking-wider text-cn-gold-light">
                   JPG, PNG • Portrait recommandé
                 </span>
               </div>
@@ -163,40 +164,35 @@ export default function BadgeGenerator({
           {/* Boutons d'action */}
           <div className="space-y-3">
             {showDownloadButton && (
-              <button
+              <Button
                 type="button"
                 onClick={handleDownload}
-                disabled={isGenerating}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-6 py-4 font-body text-xs font-black uppercase tracking-widest text-[#17110E] shadow-[0_4px_25px_rgba(245,158,11,0.35)] transition-all hover:scale-[1.02] disabled:opacity-60"
+                loading={isGenerating}
+                variant="primary"
+                size="lg"
+                icon={<Download size={16} />}
+                className="w-full justify-center"
               >
-                {isGenerating ? (
-                  <>
-                    <RefreshCw size={16} className="animate-spin text-[#17110E]" />
-                    <span>Génération du badge HD en cours...</span>
-                  </>
-                ) : (
-                  <>
-                    <Download size={16} />
-                    <span>Télécharger mon badge carré (HD PNG)</span>
-                  </>
-                )}
-              </button>
+                {isGenerating ? "Génération du badge HD..." : "Télécharger mon badge carré (HD PNG)"}
+              </Button>
             )}
 
             {photoUrl && (
-              <button
+              <Button
                 type="button"
                 onClick={() => setPhotoUrl(null)}
-                className="w-full py-2 font-body text-xs font-semibold text-[#BFB89E] hover:text-[#EDE8DC] transition-colors uppercase tracking-wider"
+                variant="ghost"
+                size="sm"
+                className="w-full justify-center text-cn-gray-400 hover:text-white"
               >
                 Retirer la photo
-              </button>
+              </Button>
             )}
           </div>
 
           {/* Conseil de partage */}
-          <div className="rounded-xl border border-[#F59E0B]/20 bg-[#17110E]/90 p-4 text-xs text-[#BFB89E] space-y-1">
-            <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[#FCD34D]">
+          <div className="rounded-xl border border-cn-gold/20 bg-cn-dark/90 p-4 text-xs text-cn-gray-300 space-y-1">
+            <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-cn-gold-light">
               <Sparkles size={14} />
               <span>Badge viral pour les réseaux</span>
             </div>

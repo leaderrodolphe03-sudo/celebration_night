@@ -43,33 +43,33 @@ export default function SquareBadge({
 
   return (
     <div
-      className={`relative aspect-square w-full max-w-[480px] rounded-3xl p-5 sm:p-7 flex flex-col justify-between overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)] border-2 border-[#F59E0B]/30 bg-gradient-to-br from-[#17110E] via-[#1A140E] to-[#120E0A] select-none ${className}`}
+      className={`relative aspect-square w-full max-w-[480px] rounded-3xl p-5 sm:p-7 flex flex-col justify-between overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)] border border-cn-gold/40 bg-gradient-to-br from-cn-black via-cn-dark to-cn-deep select-none ${className}`}
       style={{
-        boxShadow: "0 0 0 1px rgba(245, 158, 11, 0.4), 0 25px 50px -12px rgba(234, 88, 12, 0.35)",
+        boxShadow: "0 0 0 1px rgba(245, 158, 11, 0.4), 0 25px 50px -12px rgba(217, 119, 6, 0.35)",
       }}
     >
       {/* Halos d'ambiance d'arrière-plan */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-[#EA580C]/20 blur-3xl"
+        className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-cn-gold/15 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-16 right-0 h-64 w-64 rounded-full bg-[#F59E0B]/20 blur-3xl"
+        className="pointer-events-none absolute -bottom-16 right-0 h-64 w-64 rounded-full bg-cn-amber/15 blur-3xl"
       />
 
       {/* Liseré or intérieur */}
-      <div className="pointer-events-none absolute inset-2.5 rounded-[22px] border border-[#F59E0B]/40" />
+      <div className="pointer-events-none absolute inset-2.5 rounded-[22px] border border-cn-gold/30" />
 
       {/* 1. En-tête : Titre & Organisation */}
       <div className="relative z-10 text-center">
-        <span className="font-body text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-[#FCD34D] block">
+        <span className="font-body text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-cn-gold-light block">
           HAGIAZO MINISTRY PRÉSENTE
         </span>
-        <h3 className="mt-1 font-heading text-3xl sm:text-5xl uppercase tracking-wider text-[#EDE8DC] drop-shadow-md leading-none">
+        <h3 className="mt-1 font-heading text-3xl sm:text-5xl uppercase tracking-wider text-white drop-shadow-md leading-none">
           CÉLÉBRATION NIGHT
         </h3>
-        <p className="mt-1 font-body text-[10px] sm:text-xs font-semibold tracking-wider text-[#BFB89E] uppercase">
+        <p className="mt-1 font-body text-[10px] sm:text-xs font-semibold tracking-wider text-cn-gray-300 uppercase">
           {EVENT.dateLabel} • {EVENT.timeLabel} • ABIDJAN
         </p>
       </div>
@@ -78,7 +78,7 @@ export default function SquareBadge({
       <div className="relative z-10 my-auto flex justify-center">
         <div className="relative">
           {/* Cadre photo façon poster haute facture */}
-          <div className="relative h-44 w-44 sm:h-56 sm:w-56 rounded-2xl overflow-hidden border-[3.5px] border-[#EDE8DC] shadow-2xl bg-[#1A140E]">
+          <div className="relative h-44 w-44 sm:h-56 sm:w-56 rounded-2xl overflow-hidden border-[3px] border-cn-gold/40 shadow-2xl bg-cn-dark">
             {photoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -87,11 +87,11 @@ export default function SquareBadge({
                 className="h-full w-full object-cover object-center"
               />
             ) : (
-              <div className="h-full w-full flex flex-col items-center justify-center bg-gradient-to-br from-[#1F1710] via-[#2A1F16] to-[#120E0A] text-center p-4">
-                <span className="font-heading text-6xl sm:text-7xl text-[#FCD34D] leading-none">
+              <div className="h-full w-full flex flex-col items-center justify-center bg-gradient-to-br from-cn-dark via-cn-black to-cn-deep text-center p-4">
+                <span className="font-heading text-6xl sm:text-7xl text-cn-gold-light leading-none">
                   {initial}
                 </span>
-                <span className="mt-2 font-body text-[10px] font-bold tracking-widest text-[#EDE8DC]/80 uppercase">
+                <span className="mt-2 font-body text-[10px] font-bold tracking-widest text-cn-gray-300 uppercase">
                   Ta photo ici
                 </span>
               </div>
@@ -99,9 +99,9 @@ export default function SquareBadge({
           </div>
 
           {/* Macaron / Tampon officiel « J'Y SERAI ! » incliné sur la photo */}
-          <div className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 rotate-[-8deg] shadow-xl">
-            <div className="rounded-xl border-2 border-white bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-3.5 py-1.5 sm:px-4 sm:py-2 text-[#17110E] shadow-[0_8px_20px_rgba(245,158,11,0.5)]">
-              <span className="font-heading text-sm sm:text-xl font-black uppercase tracking-wider text-[#17110E] flex items-center gap-1 drop-shadow">
+          <div className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 rotate-[-6deg] shadow-xl">
+            <div className="rounded-xl border border-white/20 bg-gradient-to-r from-cn-gold to-cn-amber px-3.5 py-1.5 sm:px-4 sm:py-2 text-cn-black shadow-[0_8px_20px_rgba(245,158,11,0.4)]">
+              <span className="font-heading text-sm sm:text-xl font-black uppercase tracking-wider text-cn-black flex items-center gap-1 drop-shadow">
                 <span>★</span> J&apos;Y SERAI ! <span>★</span>
               </span>
             </div>
@@ -113,16 +113,16 @@ export default function SquareBadge({
       <div className="relative z-10 flex items-end justify-between gap-3 pt-2">
         {/* Coordonnées & Statut */}
         <div className="space-y-1 text-left">
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-[#F59E0B]/20 border border-[#F59E0B]/40 px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#FCD34D]">
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-cn-gold/20 border border-cn-gold/40 px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-cn-gold-light">
             <Sparkles size={11} />
             <span>Pass Officiel Participant</span>
           </div>
 
-          <h4 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide text-[#EDE8DC] leading-tight line-clamp-1">
+          <h4 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide text-white leading-tight line-clamp-1">
             {displayName}
           </h4>
 
-          <div className="flex flex-wrap items-center gap-x-2 text-[10px] sm:text-xs text-[#BFB89E] font-mono">
+          <div className="flex flex-wrap items-center gap-x-2 text-[10px] sm:text-xs text-cn-gray-300 font-mono">
             <span>N° {ticketNumber}</span>
             <span className="text-emerald-400 font-semibold flex items-center gap-1">
               <CheckCircle2 size={12} /> Entrée Confirmée
@@ -132,7 +132,7 @@ export default function SquareBadge({
 
         {/* QR Code de contrôle optique */}
         <div className="shrink-0 text-center">
-          <div className="rounded-xl border-2 border-[#F59E0B] bg-white p-1.5 shadow-lg">
+          <div className="rounded-xl border-2 border-cn-gold bg-white p-1.5 shadow-lg">
             {qrDataUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -146,7 +146,7 @@ export default function SquareBadge({
               </div>
             )}
           </div>
-          <span className="mt-1 block text-[8px] font-bold uppercase tracking-wider text-[#BFB89E]/70">
+          <span className="mt-1 block text-[8px] font-bold uppercase tracking-wider text-cn-gray-400">
             Pass à scanner
           </span>
         </div>

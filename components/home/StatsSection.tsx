@@ -4,7 +4,7 @@ interface StatItem {
   number: string;
   label: string;
   sublabel: string;
-  color: string;
+  colorClass: string;
 }
 
 const STATS_DATA: StatItem[] = [
@@ -12,118 +12,56 @@ const STATS_DATA: StatItem[] = [
     number: "6H",
     label: "De louange & prière non-stop",
     sublabel: "Une atmosphère d'adoration continue",
-    color: "#FCD34D", // Or éclatant
+    colorClass: "text-cn-gold-light",
   },
   {
     number: "5+",
     label: "Chantres, musiciens & choristes",
     sublabel: "Un collectif d'excellence vocale & scénique",
-    color: "#F59E0B", // Or solaire
+    colorClass: "text-cn-gold",
   },
   {
     number: "100%",
     label: "Gratuit sur inscription",
     sublabel: "Accès libre pour toute la jeunesse",
-    color: "#FFAB2E", // Ambre chaleureux
+    colorClass: "text-cn-amber",
   },
 ];
 
 export default function StatsSection() {
   return (
     <section
-      className="relative z-10"
-      style={{
-        background: "#1e1611",
-        borderTop: "1px solid rgba(255, 255, 255, 0.06)",
-        borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
-        padding: "clamp(38px, 5vw, 72px) clamp(12px, 3.5vw, 56px)",
-      }}
+      className="relative z-10 bg-gradient-to-b from-cn-black via-cn-dark to-cn-black py-16 sm:py-24 px-5 sm:px-8 lg:px-10"
       aria-label="Célébration Night 2026 en chiffres"
     >
-      <div style={{ maxWidth: "1320px", margin: "0 auto" }}>
+      <div className="mx-auto max-w-7xl">
         {/* Titre de la section */}
-        <div
-          style={{
-            marginBottom: "clamp(24px, 3vw, 38px)",
-            textAlign: "center",
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: "var(--font-bebas), 'Humane', sans-serif",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              color: "#ECECEC",
-              fontSize: "clamp(34px, 5.5vw, 72px)",
-              lineHeight: 0.84,
-              margin: 0,
-            }}
-          >
+        <div className="mb-12 text-center">
+          <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wider text-white">
             2026 en chiffres
           </h2>
         </div>
 
         {/* Grille des 3 métriques fluides */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
-            gap: "clamp(16px, 2.5vw, 28px)",
-          }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {STATS_DATA.map((item, idx) => (
             <div
               key={idx}
-              className="group transition-all duration-300 hover:border-[#F59E0B]/30"
-              style={{
-                background: "rgba(255, 255, 255, 0.025)",
-                border: "1px solid rgba(255, 255, 255, 0.06)",
-                borderRadius: "14px",
-                padding: "clamp(24px, 3vw, 34px)",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                textAlign: "left",
-              }}
+              className="group rounded-2xl  p-8 sm:p-10 flex flex-col justify-between text-left transition-all duration-300"
             >
               <div
-                style={{
-                  fontFamily: "var(--font-bebas), 'Humane', sans-serif",
-                  fontWeight: 700,
-                  color: item.color,
-                  fontSize: "clamp(56px, 7.5vw, 104px)",
-                  lineHeight: 0.8,
-                  letterSpacing: "0.01em",
-                }}
+                className={`font-heading text-6xl sm:text-7xl lg:text-8xl leading-none tracking-tight ${item.colorClass}`}
               >
                 {item.number}
               </div>
 
-              <div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-montserrat), sans-serif",
-                    fontWeight: 700,
-                    color: "#FFFFFF",
-                    fontSize: "15px",
-                    marginTop: "12px",
-                    lineHeight: 1.3,
-                  }}
-                >
+              <div className="mt-6">
+                <h3 className="font-body text-base sm:text-lg font-bold text-white leading-snug">
                   {item.label}
-                </div>
-
-                <div
-                  style={{
-                    fontFamily: "var(--font-montserrat), sans-serif",
-                    color: "#9C8A7F",
-                    fontSize: "13.5px",
-                    marginTop: "4px",
-                    lineHeight: 1.4,
-                  }}
-                >
+                </h3>
+                <p className="font-body text-xs sm:text-sm text-cn-gray-300 mt-1.5 leading-relaxed">
                   {item.sublabel}
-                </div>
+                </p>
               </div>
             </div>
           ))}

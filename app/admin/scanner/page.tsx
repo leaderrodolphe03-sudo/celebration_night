@@ -20,6 +20,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import AdminNav from "@/components/admin/AdminNav";
+import Button from "@/components/ui/Button";
 import { ScanResult } from "@/lib/types";
 
 export default function AdminScannerPage() {
@@ -272,14 +273,14 @@ export default function AdminScannerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-cn-black text-white">
       <AdminNav user={user} />
 
       <main className="mx-auto max-w-4xl px-4 py-6 sm:px-6 space-y-6">
         {/* Bandeau d'en-tête du scanner */}
         <div className="flex items-center justify-between border-b border-white/10 pb-4">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#F5B900]">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-cn-gold">
               Portique de Contrôle
             </span>
             <h1 className="font-heading text-2xl sm:text-3xl uppercase tracking-wider text-white">
@@ -291,7 +292,7 @@ export default function AdminScannerPage() {
             <button
               type="button"
               onClick={() => setSoundEnabled(!soundEnabled)}
-              className="p-2 rounded-md border border-white/15 bg-white/5 text-cn-gray-300 hover:text-white"
+              className="p-2 rounded-lg border border-white/15 bg-white/5 text-cn-gray-300 hover:text-white transition-colors"
               title={soundEnabled ? "Couper le son" : "Activer le son"}
             >
               {soundEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
@@ -306,12 +307,12 @@ export default function AdminScannerPage() {
         {/* MODALE OU AFFICHAGE PLEIN ÉCRAN DU RÉSULTAT DE SCAN */}
         {lastScannedResult && (
           <div
-            className={`rounded-3xl p-6 sm:p-10 border-2 shadow-2xl text-center animate-in zoom-in-95 duration-200 ${
+            className={`rounded-3xl p-6 sm:p-10 border shadow-2xl text-center animate-in zoom-in-95 duration-200 ${
               lastScannedResult.status === "VALID"
-                ? "bg-gradient-to-b from-emerald-950 via-[#080808] to-[#080808] border-emerald-400 shadow-[0_0_60px_rgba(52,211,153,0.35)]"
+                ? "bg-gradient-to-b from-emerald-950/70 via-cn-black to-cn-deep border-emerald-400/80 shadow-[0_0_60px_rgba(52,211,153,0.3)]"
                 : lastScannedResult.status === "ALREADY_USED"
-                ? "bg-gradient-to-b from-amber-950 via-[#080808] to-[#080808] border-amber-400 shadow-[0_0_60px_rgba(251,191,36,0.35)]"
-                : "bg-gradient-to-b from-red-950 via-[#080808] to-[#080808] border-red-500 shadow-[0_0_60px_rgba(239,68,68,0.35)]"
+                ? "bg-gradient-to-b from-amber-950/70 via-cn-black to-cn-deep border-amber-400/80 shadow-[0_0_60px_rgba(251,191,36,0.3)]"
+                : "bg-gradient-to-b from-red-950/70 via-cn-black to-cn-deep border-red-500/80 shadow-[0_0_60px_rgba(239,68,68,0.3)]"
             }`}
           >
             {/* Statut 1 : BILLET VALIDE */}
@@ -336,14 +337,14 @@ export default function AdminScannerPage() {
 
                 <div className="mx-auto max-w-sm rounded-xl bg-black/50 border border-white/10 p-4 text-xs font-mono grid grid-cols-2 gap-3 text-left">
                   <div>
-                    <span className="text-cn-gray-500 block uppercase">N° Billet</span>
+                    <span className="text-cn-gray-400 block uppercase">N° Billet</span>
                     <span className="font-bold text-white text-sm">
                       {lastScannedResult.ticket?.ticketNumber}
                     </span>
                   </div>
                   <div>
-                    <span className="text-cn-gray-500 block uppercase">Catégorie</span>
-                    <span className="font-bold text-[#F5B900] text-sm">
+                    <span className="text-cn-gray-400 block uppercase">Catégorie</span>
+                    <span className="font-bold text-cn-gold text-sm">
                       {lastScannedResult.ticket?.ticketType}
                     </span>
                   </div>
@@ -375,14 +376,14 @@ export default function AdminScannerPage() {
 
                 <div className="mx-auto max-w-sm rounded-xl bg-black/60 border border-amber-500/30 p-4 text-xs font-mono text-left space-y-2">
                   <div>
-                    <span className="text-cn-gray-500 block">Titulaire :</span>
+                    <span className="text-cn-gray-400 block">Titulaire :</span>
                     <span className="font-bold text-white">
                       {lastScannedResult.participant?.firstName}{" "}
                       {lastScannedResult.participant?.lastName}
                     </span>
                   </div>
                   <div>
-                    <span className="text-cn-gray-500 block">Premier scan effectué le :</span>
+                    <span className="text-cn-gray-400 block">Premier scan effectué le :</span>
                     <span className="font-bold text-amber-400">
                       {lastScannedResult.previousScanAt
                         ? new Date(lastScannedResult.previousScanAt).toLocaleString("fr-FR")
@@ -426,20 +427,22 @@ export default function AdminScannerPage() {
 
             {/* Bouton de réarmement pour le scan suivant */}
             <div className="mt-8">
-              <button
+              <Button
                 type="button"
                 onClick={resetForNextScan}
-                className="w-full sm:w-auto min-w-[260px] rounded-md bg-[#F5B900] px-8 py-3.5 font-body text-xs font-bold uppercase tracking-widest text-[#111111] hover:bg-[#FFD84A] shadow-xl transition-transform hover:scale-105"
+                variant="primary"
+                size="lg"
+                className="w-full sm:w-auto min-w-[260px] justify-center"
               >
                 Scanner le billet suivant →
-              </button>
+              </Button>
             </div>
           </div>
         )}
 
         {/* CADRE DU VISEUR VIDÉO CAMÉRA (si pas de résultat affiché) */}
         {!lastScannedResult && (
-          <div className="relative rounded-3xl border-2 border-white/20 bg-black overflow-hidden shadow-2xl">
+          <div className="relative rounded-3xl border border-white/10 bg-cn-dark overflow-hidden shadow-2xl">
             {/* Flux Vidéo */}
             <div className="relative aspect-[4/3] sm:aspect-video w-full flex items-center justify-center bg-black">
               <video
@@ -451,17 +454,18 @@ export default function AdminScannerPage() {
 
               {!cameraActive && (
                 <div className="p-8 text-center space-y-3">
-                  <CameraOff size={40} className="mx-auto text-cn-gray-600" />
+                  <CameraOff size={40} className="mx-auto text-cn-gray-500" />
                   <p className="text-xs text-cn-gray-400 max-w-xs mx-auto">
                     {cameraError || "Caméra désactivée ou en attente d'autorisation."}
                   </p>
-                  <button
+                  <Button
                     type="button"
                     onClick={startCamera}
-                    className="rounded-md bg-[#F5B900] px-4 py-2 text-xs font-bold uppercase text-[#111111]"
+                    variant="primary"
+                    size="sm"
                   >
                     Activer la caméra
-                  </button>
+                  </Button>
                 </div>
               )}
 
@@ -469,22 +473,22 @@ export default function AdminScannerPage() {
               {cameraActive && (
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                   {/* Cadre de visée */}
-                  <div className="relative h-64 w-64 rounded-2xl border-2 border-[#F5B900]/70 shadow-[0_0_20px_rgba(245,185,0,0.3)]">
+                  <div className="relative h-64 w-64 rounded-2xl border-2 border-cn-gold/70 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
                     {/* Coins renforcés */}
-                    <div className="absolute -top-1 -left-1 h-5 w-5 border-t-4 border-l-4 border-[#F5B900]" />
-                    <div className="absolute -top-1 -right-1 h-5 w-5 border-t-4 border-r-4 border-[#F5B900]" />
-                    <div className="absolute -bottom-1 -left-1 h-5 w-5 border-b-4 border-l-4 border-[#F5B900]" />
-                    <div className="absolute -bottom-1 -right-1 h-5 w-5 border-b-4 border-r-4 border-[#F5B900]" />
+                    <div className="absolute -top-1 -left-1 h-5 w-5 border-t-4 border-l-4 border-cn-gold" />
+                    <div className="absolute -top-1 -right-1 h-5 w-5 border-t-4 border-r-4 border-cn-gold" />
+                    <div className="absolute -bottom-1 -left-1 h-5 w-5 border-b-4 border-l-4 border-cn-gold" />
+                    <div className="absolute -bottom-1 -right-1 h-5 w-5 border-b-4 border-r-4 border-cn-gold" />
 
                     {/* Faisceau laser de scan animé */}
-                    <div className="absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-[#F5B900] to-transparent shadow-[0_0_8px_#F5B900] animate-bounce" />
+                    <div className="absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-cn-gold to-transparent shadow-[0_0_8px_#F59E0B] animate-bounce" />
                   </div>
                 </div>
               )}
             </div>
 
             {/* Barre de contrôle sous la vidéo */}
-            <div className="bg-[#111111] p-4 flex items-center justify-between border-t border-white/10">
+            <div className="bg-cn-black p-4 flex items-center justify-between border-t border-white/10">
               <span className="text-xs text-cn-gray-400 flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                 Viseur actif • Placez le QR code au centre
@@ -493,7 +497,7 @@ export default function AdminScannerPage() {
               <button
                 type="button"
                 onClick={switchCameraFacing}
-                className="flex items-center gap-1.5 rounded-md border border-white/15 px-3 py-1.5 text-xs text-white hover:bg-white/10"
+                className="flex items-center gap-1.5 rounded-lg border border-white/15 px-3 py-1.5 text-xs text-white hover:bg-white/10 transition-colors"
               >
                 <SwitchCamera size={14} />
                 <span>Changer caméra</span>
@@ -503,16 +507,16 @@ export default function AdminScannerPage() {
         )}
 
         {/* SAISIE MANUELLE DE SECOURS (Numéro CN-2026-...) */}
-        <div className="rounded-2xl border border-white/10 bg-[#120E0A]/90 p-6 backdrop-blur-md">
+        <div className="rounded-2xl border border-white/10 bg-cn-dark/90 p-6 backdrop-blur-md">
           <div className="flex items-center gap-2 mb-3">
-            <Keyboard size={18} className="text-[#FCD34D]" />
-            <h3 className="font-heading text-xl uppercase tracking-wide text-[#EDE8DC]">
+            <Keyboard size={18} className="text-cn-gold-light" />
+            <h3 className="font-heading text-xl uppercase tracking-wide text-white">
               Saisie Manuelle d&apos;Urgence
             </h3>
           </div>
-          <p className="text-xs text-[#BFB89E] mb-4">
+          <p className="text-xs text-cn-gray-300 mb-4">
             Si l&apos;écran du smartphone du participant est cassé ou déchargé, tapez directement
-            le numéro de billet officiel (ex: <code className="text-[#FCD34D]">CN-2026-000001</code>).
+            le numéro de billet officiel (ex: <code className="text-cn-gold-light font-mono">CN-2026-000001</code>).
           </p>
 
           <form onSubmit={handleManualSubmit} className="flex gap-2">
@@ -521,15 +525,16 @@ export default function AdminScannerPage() {
               value={manualCode}
               onChange={(e) => setManualCode(e.target.value)}
               placeholder="CN-2026-000001"
-              className="flex-1 rounded-md border border-white/15 bg-white/5 px-4 py-3 text-xs uppercase font-mono text-[#EDE8DC] placeholder-[#BFB89E]/40 focus:border-[#F59E0B] focus:outline-none"
+              className="flex-1 rounded-lg border border-white/15 bg-white/[0.04] px-4 py-3 text-xs uppercase font-mono text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
             />
-            <button
+            <Button
               type="submit"
+              variant="primary"
               disabled={scanning || !manualCode.trim()}
-              className="rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-6 py-3 text-xs font-black uppercase tracking-wider text-[#080808] hover:brightness-110 transition-all disabled:opacity-50"
+              className="px-6"
             >
               Valider
-            </button>
+            </Button>
           </form>
         </div>
       </main>

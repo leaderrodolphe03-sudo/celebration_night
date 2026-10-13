@@ -10,48 +10,49 @@
 ================================================================ */
 
 :root {
-  /* Fonds adaptés Célébration Night (style chaleureux inspiré Effuzion) */
-  --cn-black:      #17110E;   /* Espresso sombre profond de scène (au lieu du noir froid #080808) */
-  --cn-dark:       #1E1611;   /* Brun espresso chaud */
-  --cn-deep:       #241810;   /* Brun obscur chaleureux */
-  --cn-ground:     #2B1D13;   /* Terre brûlée ambrée */
-  --cn-light-cream:#F4E6DE;   /* Crème sable / nude lumineux pour sections claires */
+  /* Fonds adaptés Célébration Night (chaleureux, aérés, non étouffants) */
+  --cn-black:      #1C1613;   /* Espresso doux / café chaud (au lieu du noir froid) */
+  --cn-dark:       #231C17;   /* Brun chaleureux intermédiaire */
+  --cn-deep:       #29201B;   /* Surfaces surélevées / cartes */
+  --cn-ground:     #322721;   /* Relief contrasté */
+  --cn-light-cream:#F4E6DE;   /* Crème sable subtil */
 
-  /* Or et ambre — couleurs dominantes des photos */
+  /* Or et ambre — couleurs chaudes du Hero */
   --cn-amber:      #D97706;   /* Ambre vif */
   --cn-gold:       #F59E0B;   /* Or chaud principal */
   --cn-gold-light: #FCD34D;   /* Or clair */
   --cn-gold-pale:  #FEF3C7;   /* Or très pâle */
-  --cn-fire:       #EA580C;   /* Orange feu — scène */
+  --cn-fire:       #EA580C;   /* Orange feu */
   --cn-ember:      #B45309;   /* Braise */
 
-  /* Blanc et gris */
+  /* Blanc et gris chauds haute lisibilité (WCAG compliant) */
   --cn-white:      #FFFFFF;
-  --cn-off-white:  #FAF7F2;   /* Blanc chaud légèrement ivoire */
-  --cn-gray-100:   #EDE8DC;
-  --cn-gray-300:   #BFB89E;
-  --cn-gray-500:   #7D7560;
-  --cn-gray-700:   #403C32;
+  --cn-off-white:  #FAF7F2;   /* Blanc ivoire chaud */
+  --cn-gray-100:   #EDE8DC;   /* Texte secondaire clair */
+  --cn-gray-300:   #D1C9B6;   /* Corps de texte lisible */
+  --cn-gray-400:   #B3A996;   /* Texte atténué */
+  --cn-gray-500:   #948A77;   /* Métadonnées contrastées */
+  --cn-gray-700:   #615747;   /* Bordures et éléments discrets */
 
   /* Rayons */
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 20px;
+  --radius-xl: 28px;
 
   /* Rétrocompat */
-  --cn-ember-dark:   #080808;
+  --cn-ember-dark:   #1C1613;
   --cn-red-flame:    #D97706;
   --cn-red-crimson:  #B45309;
   --cn-gold-glow:    #F59E0B;
-  --cn-gray-400:     #9C9380;
-  --cn-blue-night:   #080808;
-  --cn-purple-deep:  #1A1108;
-  --cn-purple:       #261808;
+  --cn-blue-night:   #1C1613;
+  --cn-purple-deep:  #231C17;
+  --cn-purple:       #29201B;
   --cn-blue:         #D97706;
-  --cn-burgundy:     #261808;
-  --cn-navy:         #0F0B07;
-  --cn-night:        #0F0B07;
-  --cn-night-deep:   #080808;
+  --cn-burgundy:     #29201B;
+  --cn-navy:         #231C17;
+  --cn-night:        #231C17;
+  --cn-night-deep:   #1C1613;
 }
 
 html {
@@ -128,9 +129,21 @@ body {
   }
 }
 
-/* ── Impression ── */
+/* ── Impression Optimisée & Éco-responsable ── */
 @media print {
-  body { background-color: #fff !important; color: #000 !important; }
-  main { padding-top: 0 !important; }
-  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body, html {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  main {
+    padding-top: 0 !important;
+  }
+  .print\:hidden {
+    display: none !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 }

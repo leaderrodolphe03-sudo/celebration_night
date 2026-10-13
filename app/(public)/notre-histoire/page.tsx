@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Sparkles, Shield, Music, Heart, Users, CheckCircle2, ArrowRight, Flame } from "lucide-react";
 import { EVENT } from "@/lib/event-config";
+import Button from "@/components/ui/Button";
 
 export const metadata: Metadata = {
   title: "Notre Histoire — HAGIAZO Ministry & Célébration Night",
@@ -57,22 +58,22 @@ const MILESTONES = [
 
 export default function NotreHistoirePage() {
   return (
-    <div className="min-h-screen bg-[#17110E] text-white">
+    <div className="min-h-screen bg-cn-black text-white">
       {/* 1. Hero Éditorial */}
       <section className="relative overflow-hidden px-4 pt-24 pb-16 sm:px-6 lg:px-8 text-center">
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#F59E0B]/10 blur-[130px]"
+          className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-cn-gold/10 blur-[130px]"
         />
         <div className="relative mx-auto max-w-4xl">
-          <div className="inline-flex items-center gap-2 rounded-full bg-[#120E0A] border border-[#F59E0B]/40 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-[#FCD34D] mb-6 shadow-sm">
-            <Flame size={14} className="text-[#F59E0B]" />
+          <div className="inline-flex items-center gap-2 rounded-full bg-cn-dark border border-cn-gold/40 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-cn-gold-light mb-6 shadow-sm">
+            <Flame size={14} className="text-cn-gold" />
             <span>Genèse &amp; Mandat Spirituel</span>
           </div>
           <h1 className="font-heading text-5xl sm:text-7xl lg:text-8xl uppercase tracking-wider text-white">
             Notre Histoire
           </h1>
-          <p className="mt-6 font-body text-base sm:text-xl leading-relaxed text-[#BFB89E] max-w-2xl mx-auto">
+          <p className="mt-6 font-body text-base sm:text-xl leading-relaxed text-cn-gray-300 max-w-2xl mx-auto">
             « Sanctifie-les par ta vérité : ta parole est la vérité. » — Jean 17:17.
             Une alliance d&apos;adoration et de ferveur pour marquer toute une génération.
           </p>
@@ -83,47 +84,41 @@ export default function NotreHistoirePage() {
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#120E0A] px-4 py-1.5 text-xs font-semibold text-[#FCD34D] border border-[#F59E0B]/30 shadow-sm">
-              <Shield size={14} className="text-[#F59E0B]" /> Le Sens Fondateur de Hagiazo
+            <span className="inline-flex items-center gap-2 rounded-full bg-cn-dark px-4 py-1.5 text-xs font-semibold text-cn-gold-light border border-cn-gold/30 shadow-sm">
+              <Shield size={14} className="text-cn-gold" /> Le Sens Fondateur de Hagiazo
             </span>
             <h2 className="font-heading text-3xl sm:text-5xl uppercase tracking-wide leading-tight text-white">
               Une génération mise à part pour la gloire de Dieu
             </h2>
-            <p className="font-body text-sm sm:text-base text-[#BFB89E] leading-relaxed">
+            <p className="font-body text-sm sm:text-base text-cn-gray-300 leading-relaxed">
               Issu du grec ancien <strong className="text-white">« ἁγιάζω »</strong>, HAGIAZO exprime
               l&apos;acte de purifier, consacrer et dédier entièrement à un usage divin.
               Dans une époque saturée de bruits et de distractions, HAGIAZO Ministry s&apos;est
               donné pour mandat d&apos;équiper une jeunesse passionnée qui refuse la tiédeur.
             </p>
-            <p className="font-body text-sm sm:text-base text-[#BFB89E] leading-relaxed">
+            <p className="font-body text-sm sm:text-base text-cn-gray-300 leading-relaxed">
               Nous croyons que la musique n&apos;est pas une simple performance, mais un véhicule puissant pour
               introduire le peuple dans la présence du Très-Haut. Chaque célébration annuelle découle
               d&apos;un engagement permanent de prière, de consécration et d&apos;amour fraternel.
             </p>
             <div className="pt-2 flex flex-wrap gap-4">
-              <Link
-                href="/inscription"
-                className="inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-7 py-3.5 font-body text-xs font-bold uppercase tracking-widest text-[#17110E] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-105"
-              >
-                Participer à l&apos;Événement <ArrowRight size={16} />
-              </Link>
-              <Link
-                href="/soutenir"
-                className="inline-flex items-center gap-2 rounded-sm border border-white/20 bg-white/5 px-6 py-3.5 font-body text-xs font-semibold uppercase tracking-wider text-white hover:border-[#F59E0B]/40 hover:bg-white/10 transition-colors"
-              >
+              <Button href="/inscription" variant="primary" icon={<ArrowRight size={16} />}>
+                Participer à l&apos;Événement
+              </Button>
+              <Button href="/soutenir" variant="outline">
                 Soutenir la vision
-              </Link>
+              </Button>
             </div>
           </div>
 
-          <div className="relative rounded-2xl border border-[#F59E0B]/30 bg-gradient-to-br from-[#17110E] via-[#120E0A] to-[#0A0806] p-8 lg:p-10 shadow-2xl backdrop-blur-sm">
-            <div className="absolute -top-3.5 -right-3 rounded-md bg-[#F59E0B] px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-[#17110E] shadow-lg">
+          <div className="relative rounded-2xl border border-cn-gold/30 bg-gradient-to-br from-cn-dark via-cn-black to-cn-deep p-8 lg:p-10 shadow-2xl backdrop-blur-sm">
+            <div className="absolute -top-3.5 -right-3 rounded-md bg-cn-gold px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-cn-black shadow-lg">
               Rassemblement Annuel
             </div>
             <h3 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide text-white">
               Les Piliers de Célébration Night
             </h3>
-            <p className="mt-2 text-xs text-[#F59E0B] font-medium uppercase tracking-wider">
+            <p className="mt-2 text-xs text-cn-gold font-medium uppercase tracking-wider">
               Une tradition d&apos;excellence renouvelée chaque année
             </p>
             <ul className="mt-6 space-y-4">
@@ -135,8 +130,8 @@ export default function NotreHistoirePage() {
                 "Entrée 100% libre et gratuite avec badge personnalisé officiel",
               ].map((item, idx) => (
                 <li key={idx} className="flex items-start gap-3">
-                  <CheckCircle2 size={18} className="text-[#F59E0B] shrink-0 mt-0.5" />
-                  <span className="font-body text-sm text-[#EDE8DC] leading-snug">{item}</span>
+                  <CheckCircle2 size={18} className="text-cn-gold shrink-0 mt-0.5" />
+                  <span className="font-body text-sm text-cn-white leading-snug">{item}</span>
                 </li>
               ))}
             </ul>
@@ -145,16 +140,26 @@ export default function NotreHistoirePage() {
       </section>
 
       {/* 3. 4 Valeurs fondamentales */}
-      <section className="bg-[#0B0806] border-y border-white/8 px-4 py-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
+      <section className="relative bg-gradient-to-b from-[#FAF7F2] via-[#F6F1EA] to-[#FAF7F2] px-4 py-24 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Halo lumineux chaud d'arrière-plan */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-24 right-1/4 h-96 w-96 rounded-full bg-amber-200/30 blur-[130px]"
+        />
+
+        <div className="relative mx-auto max-w-6xl">
           <div className="text-center max-w-2xl mx-auto">
-            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#F59E0B]">
-              Notre ADN
-            </span>
-            <h2 className="mt-2 font-heading text-3xl sm:text-5xl uppercase tracking-wide text-white">
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <span className="h-0.5 w-6 bg-cn-amber rounded-full" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-cn-amber">
+                Notre ADN
+              </span>
+              <span className="h-0.5 w-6 bg-cn-amber rounded-full" />
+            </div>
+            <h2 className="mt-2 font-heading text-3xl sm:text-5xl uppercase tracking-wide text-cn-black">
               Nos Valeurs Inébranlables
             </h2>
-            <p className="mt-3 font-body text-sm text-[#BFB89E]">
+            <p className="mt-3 font-body text-sm sm:text-base text-[#5A4D41]">
               Ce qui anime chacune de nos actions et guide l&apos;organisation de chaque édition.
             </p>
           </div>
@@ -165,15 +170,17 @@ export default function NotreHistoirePage() {
               return (
                 <div
                   key={idx}
-                  className="rounded-xl border border-white/8 bg-[#120E0A] p-6 transition-all hover:-translate-y-1 hover:border-[#F59E0B]/40 shadow-lg"
+                  className="group rounded-2xl border border-[#E5DACF] bg-white p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-cn-gold/70 shadow-[0_10px_30px_rgba(28,22,19,0.06)] hover:shadow-[0_20px_45px_rgba(28,22,19,0.12)] flex flex-col justify-between"
                 >
-                  <div className="h-12 w-12 rounded-lg bg-[#1A1410] border border-[#F59E0B]/30 flex items-center justify-center text-[#F59E0B] shadow-sm">
-                    <Icon size={22} />
+                  <div>
+                    <div className="h-12 w-12 rounded-xl bg-amber-500/10 border border-cn-gold/40 flex items-center justify-center text-cn-amber group-hover:bg-cn-amber group-hover:text-white transition-colors duration-300 shadow-sm">
+                      <Icon size={22} />
+                    </div>
+                    <h3 className="mt-5 font-heading text-xl uppercase tracking-wide text-cn-black">
+                      {val.title}
+                    </h3>
                   </div>
-                  <h3 className="mt-5 font-heading text-xl uppercase tracking-wide text-white">
-                    {val.title}
-                  </h3>
-                  <p className="mt-2.5 font-body text-xs leading-relaxed text-[#BFB89E]">
+                  <p className="mt-3 font-body text-xs sm:text-sm leading-relaxed text-[#5A4D41]">
                     {val.desc}
                   </p>
                 </div>
@@ -186,18 +193,18 @@ export default function NotreHistoirePage() {
       {/* 4. Chronologie / Histoire */}
       <section className="mx-auto max-w-5xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="text-center">
-          <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#F59E0B]">
+          <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-cn-gold">
             La Lignée du Réveil
           </span>
           <h2 className="mt-2 font-heading text-3xl sm:text-5xl uppercase tracking-wide text-white">
             Le Chemin Parcouru
           </h2>
-          <p className="mt-3 font-body text-sm text-[#BFB89E]">
+          <p className="mt-3 font-body text-sm text-cn-gray-300">
             D&apos;une humble salle de répétition au grand rassemblement annuel qui rassemble des milliers de cœurs.
           </p>
         </div>
 
-        <div className="mt-14 space-y-8 relative before:absolute before:inset-0 before:left-4 md:before:left-1/2 before:w-0.5 before:bg-[#F59E0B]/25">
+        <div className="mt-14 space-y-8 relative before:absolute before:inset-0 before:left-4 md:before:left-1/2 before:w-0.5 before:bg-cn-gold/25">
           {MILESTONES.map((item, idx) => (
             <div
               key={idx}
@@ -206,46 +213,43 @@ export default function NotreHistoirePage() {
               }`}
             >
               <div className="md:w-1/2">
-                <div className="rounded-xl border border-white/10 bg-[#120E0A] p-6 backdrop-blur-sm shadow-lg hover:border-[#F59E0B]/50 transition-colors">
-                  <span className="font-heading text-2xl text-[#F59E0B] tracking-wider">
+                <div className="rounded-xl border border-white/10 bg-cn-dark p-6 backdrop-blur-sm shadow-lg hover:border-cn-gold/50 transition-colors">
+                  <span className="font-heading text-2xl text-cn-gold tracking-wider">
                     {item.year}
                   </span>
                   <h3 className="mt-1 font-heading text-xl uppercase tracking-wide text-white">
                     {item.title}
                   </h3>
-                  <p className="mt-2 font-body text-xs text-[#BFB89E] leading-relaxed">
+                  <p className="mt-2 font-body text-xs text-cn-gray-300 leading-relaxed">
                     {item.desc}
                   </p>
                 </div>
               </div>
-              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 h-8 w-8 rounded-full border-4 border-[#17110E] bg-[#F59E0B] flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.6)]" />
+              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 h-8 w-8 rounded-full border-4 border-cn-black bg-cn-gold flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.6)]" />
               <div className="hidden md:block md:w-1/2" />
             </div>
           ))}
         </div>
 
         {/* 5. Bannière finale d'engagement */}
-        <div className="mt-20 rounded-2xl bg-gradient-to-b from-[#17110E] via-[#120E0A] to-[#0A0806] border border-[#F59E0B]/40 p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden">
+        <div className="mt-20 rounded-2xl bg-gradient-to-b from-cn-dark via-cn-black to-cn-deep border border-cn-gold/40 p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden">
           <div
             aria-hidden
-            className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-[#F59E0B]/10 blur-[80px]"
+            className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-cn-gold/10 blur-[80px]"
           />
-          <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#F59E0B]">
+          <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-cn-gold">
             Soyez témoin de cette histoire
           </span>
           <h3 className="mt-2 font-heading text-3xl sm:text-5xl uppercase tracking-wide text-white">
             Écrivez cette page avec nous
           </h3>
-          <p className="mt-3 font-body text-sm sm:text-base text-[#BFB89E] max-w-xl mx-auto">
+          <p className="mt-3 font-body text-sm sm:text-base text-cn-gray-300 max-w-xl mx-auto">
             L&apos;entrée est 100% gratuite sur inscription. Réservez votre place et générez votre badge officiel.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/inscription"
-              className="rounded-sm bg-[#F59E0B] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-[#17110E] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-105"
-            >
+            <Button href="/inscription" variant="primary" size="lg">
               Réserver mon billet dès maintenant
-            </Link>
+            </Button>
           </div>
         </div>
       </section>
