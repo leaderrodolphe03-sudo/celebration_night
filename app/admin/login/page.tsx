@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Lock, Mail, ShieldCheck, AlertCircle, ArrowRight, UserCheck } from "lucide-react";
+import { Lock, Mail, ShieldCheck, AlertCircle, UserCheck } from "lucide-react";
 import { CelebrationNightLogo } from "@/components/layout/Logos";
 import Button from "@/components/ui/Button";
 
@@ -128,7 +128,6 @@ export default function AdminLoginPage() {
               variant="primary"
               size="lg"
               loading={loading}
-              icon={<ArrowRight size={15} />}
               className="w-full justify-center"
             >
               {loading ? "Vérification sécurisée..." : "Accéder à l'administration"}

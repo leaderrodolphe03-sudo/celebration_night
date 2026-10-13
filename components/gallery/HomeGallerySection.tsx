@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, X, ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import Button from "@/components/ui/Button";
 
 interface GalleryPhoto {
   id: number;
@@ -58,13 +59,13 @@ export default function HomeGallerySection() {
               <span className="text-cn-gold">CÉLÉBRATION NIGHT</span>
             </h2>
           </div>
-          <Link
+          <Button
             href="/medias"
-            className="group shrink-0 inline-flex items-center gap-2 rounded-lg bg-cn-dark border border-white/10 px-5 py-3 font-body text-xs font-bold uppercase tracking-wider text-cn-gold-light hover:border-cn-gold/50 hover:bg-cn-deep hover:text-white transition-all shadow-sm"
+            variant="secondary"
+            size="md"
           >
-            <span>Voir toute la galerie</span>
-            <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-          </Link>
+            Voir toute la galerie
+          </Button>
         </div>
 
         {/* Grille 5×2 épurée (sans badges superposés) */}
@@ -130,7 +131,7 @@ export default function HomeGallerySection() {
                 href="/medias"
                 className="text-xs font-bold uppercase tracking-wider text-cn-gold hover:text-cn-gold-light transition-colors"
               >
-                Voir la médiathèque →
+                Voir la médiathèque
               </Link>
             </div>
           </div>

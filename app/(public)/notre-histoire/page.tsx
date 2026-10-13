@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Sparkles, Shield, Music, Heart, Users, CheckCircle2, ArrowRight, Flame } from "lucide-react";
+import { Sparkles, Shield, Music, Heart, Users, CheckCircle2, Flame } from "lucide-react";
 import { EVENT } from "@/lib/event-config";
 import Button from "@/components/ui/Button";
 
@@ -66,10 +66,7 @@ export default function NotreHistoirePage() {
           className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-cn-gold/10 blur-[130px]"
         />
         <div className="relative mx-auto max-w-4xl">
-          <div className="inline-flex items-center gap-2 rounded-full bg-cn-dark border border-cn-gold/40 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-cn-gold-light mb-6 shadow-sm">
-            <Flame size={14} className="text-cn-gold" />
-            <span>Genèse &amp; Mandat Spirituel</span>
-          </div>
+          
           <h1 className="font-heading text-5xl sm:text-7xl lg:text-8xl uppercase tracking-wider text-white">
             Notre Histoire
           </h1>
@@ -84,9 +81,7 @@ export default function NotreHistoirePage() {
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <span className="inline-flex items-center gap-2 rounded-full bg-cn-dark px-4 py-1.5 text-xs font-semibold text-cn-gold-light border border-cn-gold/30 shadow-sm">
-              <Shield size={14} className="text-cn-gold" /> Le Sens Fondateur de Hagiazo
-            </span>
+            
             <h2 className="font-heading text-3xl sm:text-5xl uppercase tracking-wide leading-tight text-white">
               Une génération mise à part pour la gloire de Dieu
             </h2>
@@ -102,7 +97,7 @@ export default function NotreHistoirePage() {
               d&apos;un engagement permanent de prière, de consécration et d&apos;amour fraternel.
             </p>
             <div className="pt-2 flex flex-wrap gap-4">
-              <Button href="/inscription" variant="primary" icon={<ArrowRight size={16} />}>
+              <Button href="/inscription" variant="primary">
                 Participer à l&apos;Événement
               </Button>
               <Button href="/soutenir" variant="outline">

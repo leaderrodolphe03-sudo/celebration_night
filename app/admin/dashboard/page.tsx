@@ -9,7 +9,6 @@ import {
   CheckCircle2,
   Clock,
   QrCode,
-  ArrowRight,
   TrendingUp,
   Shield,
   Download,
@@ -239,7 +238,7 @@ export default function AdminDashboardPage() {
                 href="/admin/participants"
                 className="text-xs font-semibold text-cn-gold-light hover:underline uppercase tracking-wider"
               >
-                Voir tout →
+                Voir tout
               </Link>
             </div>
 
@@ -307,7 +306,7 @@ export default function AdminDashboardPage() {
                 href="/admin/scanner"
                 className="text-xs font-semibold text-cn-gold-light hover:underline uppercase tracking-wider"
               >
-                Scanner →
+                Scanner
               </Link>
             </div>
 

@@ -1,4 +1,4 @@
-import { ArrowRight, Eye, Award, HeartHandshake, Handshake, ShieldCheck } from "lucide-react";
+import { Eye, Award, HeartHandshake, Handshake, ShieldCheck } from "lucide-react";
 import Button from "@/components/ui/Button";
 
 export default function SponsorsCtaSection() {
@@ -35,8 +35,7 @@ export default function SponsorsCtaSection() {
                 variant="primary"
                 size="md"
               >
-                <span>Devenir Partenaire</span>
-                
+                Devenir Partenaire
               </Button>
               
             </div>

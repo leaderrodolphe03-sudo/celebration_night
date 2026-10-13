@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import Link from "next/link";
-import { Mic2, Music, Sparkles, MapPin, ArrowRight } from "lucide-react";
+import { Mic2, Music, Sparkles, MapPin } from "lucide-react";
+import Button from "@/components/ui/Button";
 
 export const metadata: Metadata = {
   title: "Artistes & Chantres — CÉLÉBRATION NIGHT 2026",
@@ -148,12 +148,13 @@ export default function ArtistesPage() {
             Rejoignez des milliers d&apos;adorateurs. L&apos;entrée est 100% gratuite avec génération de votre badge officiel.
           </p>
           <div className="mt-8 flex justify-center">
-            <Link
+            <Button
               href="/inscription"
-              className="inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-[#17110E] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-105"
+              variant="primary"
+              size="lg"
             >
-              Obtenir mon pass d&apos;accès <ArrowRight size={16} />
-            </Link>
+              Obtenir mon pass d&apos;accès
+            </Button>
           </div>
         </div>
       </section>

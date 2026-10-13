@@ -3,9 +3,7 @@ import {
   CalendarDays,
   Clock,
   MapPin,
-  ArrowRight,
   ShieldCheck,
-  Ticket,
 } from "lucide-react";
 import HeroPhotoGallery from "./HeroPhotoGallery";
 import Button from "@/components/ui/Button";
@@ -84,9 +82,7 @@ export default function Hero() {
             variant="primary"
             className="rounded-full px-8 sm:px-10 py-4 shadow-gold hover:shadow-gold-strong"
           >
-            
-            <span>Réserver ma place</span>
-            
+            Réserver ma place
           </Button>
           <p className="flex items-center gap-1.5 font-body text-xs text-cn-gray-300">
             <ShieldCheck size={14} className="text-emerald-400 shrink-0" />

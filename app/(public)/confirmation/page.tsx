@@ -11,7 +11,6 @@ import {
   MapPin,
   Share2,
   Download,
-  ArrowRight,
   Printer,
   Sparkles,
 } from "lucide-react";

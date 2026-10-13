@@ -1,9 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Ticket,
-  ArrowRight,
-} from "lucide-react";
+
 import Hero from "@/components/hero/Hero";
 import StatsSection from "@/components/home/StatsSection";
 import PresentationSection from "@/components/event/PresentationSection";
@@ -61,21 +58,17 @@ export default function HomePage() {
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Button
                   href="/notre-histoire"
-                  variant="secondary"
+                  variant="dark"
                   size="md"
-                  className="bg-cn-black text-white border-cn-black hover:bg-cn-ground shadow-xl"
                 >
-                  <span>Découvrir Notre Histoire</span>
-                  
+                  Découvrir Notre Histoire
                 </Button>
                 <Button
                   href="/medias"
-                  variant="outline"
+                  variant="outline-dark"
                   size="md"
-                  className="border-cn-black/50 text-cn-black hover:bg-black/10 hover:border-cn-black font-semibold"
                 >
-                  <span>Galerie &amp; Médias</span>
-                  
+                  Galerie &amp; Médias
                 </Button>
               </div>
             </div>

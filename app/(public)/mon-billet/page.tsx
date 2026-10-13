@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Search, Ticket, ArrowRight, AlertCircle, Sparkles, QrCode } from "lucide-react";
+import { Search, Ticket, AlertCircle, Sparkles, QrCode } from "lucide-react";
 import Button from "@/components/ui/Button";
 
 interface TicketSummary {
@@ -165,7 +165,7 @@ export default function MonBilletPage() {
             href="/inscription"
             className="mt-2 inline-block font-body text-xs font-bold uppercase tracking-widest text-cn-gold-light hover:text-cn-gold hover:underline transition-colors"
           >
-            → Réserver ma place gratuitement maintenant
+            Réserver ma place gratuitement maintenant
           </Link>
         </div>
       </div>

@@ -12,7 +12,6 @@ import {
   XCircle,
   QrCode,
   Keyboard,
-  ArrowLeft,
   Volume2,
   VolumeX,
   RotateCcw,
@@ -434,7 +433,7 @@ export default function AdminScannerPage() {
                 size="lg"
                 className="w-full sm:w-auto min-w-[260px] justify-center"
               >
-                Scanner le billet suivant →
+                Scanner le billet suivant
               </Button>
             </div>
           </div>

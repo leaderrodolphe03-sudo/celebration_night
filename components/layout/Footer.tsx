@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Youtube, Facebook, Instagram, ShieldCheck, Mail, MapPin, Calendar, Ticket, ArrowRight } from "lucide-react";
+import { Youtube, Facebook, Instagram, ShieldCheck, Mail, MapPin, Calendar, Ticket } from "lucide-react";
 import { CelebrationNightLogo, HagiazoLogo } from "./Logos";
 import { EVENT } from "@/lib/event-config";
 
@@ -112,20 +112,19 @@ export default function Footer() {
               <li>
                 <Link
                   href="/inscription"
-                  className="group inline-flex items-center gap-2 font-semibold text-cn-gold hover:text-cn-gold-light transition-colors"
+                  className="inline-flex items-center gap-2 font-semibold text-cn-gold hover:text-cn-gold-light transition-colors whitespace-nowrap flex-nowrap"
                 >
-                  <Ticket size={13} />
-                  <span>Réserver ma place</span>
-                  <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+                  <Ticket size={13} className="shrink-0" />
+                  <span className="whitespace-nowrap">Réserver ma place</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/mon-billet"
-                  className="flex items-center gap-2 text-cn-gray-300 hover:text-white transition-colors"
+                  className="inline-flex items-center gap-2 text-cn-gray-300 hover:text-white transition-colors whitespace-nowrap flex-nowrap"
                 >
-                  <Ticket size={13} />
-                  <span>Retrouver mon billet</span>
+                  <Ticket size={13} className="shrink-0" />
+                  <span className="whitespace-nowrap">Retrouver mon billet</span>
                 </Link>
               </li>
               <li className="pt-3 border-t border-white/6">

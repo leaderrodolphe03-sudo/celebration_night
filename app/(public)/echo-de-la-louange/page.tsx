@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { BookOpen, Calendar, User, Clock, ArrowRight, HeartHandshake, Sparkles } from "lucide-react";
+import { BookOpen, Calendar, User, Clock, HeartHandshake, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "L'Écho de la Louange — Réflexions & Témoignages | HAGIAZO",
@@ -115,8 +115,8 @@ export default function EchoDeLaLouangePage() {
                 <span className="font-semibold">{article.author}</span>
               </div>
 
-              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#F59E0B] group-hover:translate-x-1 transition-transform">
-                Lire l&apos;article complet <ArrowRight size={15} />
+              <span className="inline-flex items-center text-xs font-bold uppercase tracking-wider text-[#F59E0B]">
+                Lire l&apos;article complet
               </span>
             </div>
           </div>

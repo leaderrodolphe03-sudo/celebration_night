@@ -4,7 +4,7 @@ import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "dark" | "outline-dark";
   size?: "sm" | "md" | "lg";
   href?: string;
   target?: string;
@@ -32,7 +32,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center gap-2 rounded-lg font-body uppercase transition-all duration-200 select-none disabled:opacity-50 disabled:pointer-events-none cursor-pointer";
+      "inline-flex items-center justify-center gap-2 rounded-lg font-body uppercase transition-all duration-200 select-none whitespace-nowrap flex-nowrap shrink-0 disabled:opacity-50 disabled:pointer-events-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cn-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cn-black";
 
     const sizeStyles = {
       sm: "px-4 py-2 text-[11px] font-semibold tracking-wider",
@@ -49,6 +49,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         "border border-white/20 text-white hover:border-cn-gold/50 hover:bg-white/5 hover:text-cn-gold-light active:scale-[0.98]",
       ghost:
         "text-cn-gray-300 hover:text-cn-gold-light hover:bg-white/5 active:scale-[0.98]",
+      dark:
+        "bg-cn-black text-white border border-cn-black hover:bg-cn-ground shadow-md hover:scale-[1.01] active:scale-[0.98]",
+      "outline-dark":
+        "border border-cn-black/30 text-cn-black hover:bg-black/5 hover:border-cn-black active:scale-[0.98]",
     };
 
     const combinedClasses = cn(
@@ -60,8 +64,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const content = (
       <>
-        {loading ? <Loader2 size={16} className="animate-spin" /> : icon ? icon : null}
-        <span>{children}</span>
+        {loading ? (
+          <Loader2 size={16} className="animate-spin shrink-0" />
+        ) : icon ? (
+          <span className="shrink-0 flex items-center">{icon}</span>
+        ) : null}
+        <span className="whitespace-nowrap">{children}</span>
       </>
     );
 

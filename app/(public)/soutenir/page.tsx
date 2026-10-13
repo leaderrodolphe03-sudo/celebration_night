@@ -9,7 +9,6 @@ import {
   Sparkles,
   ShieldCheck,
   CheckCircle2,
-  ArrowRight,
   Mail,
   Phone,
   Send,

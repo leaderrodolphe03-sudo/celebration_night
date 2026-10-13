@@ -106,7 +106,7 @@ function NavigationButtons() {
         type="button"
         onClick={() => swiper.slidePrev()}
         aria-label="Image précédente"
-        className="hero-swiper-btn-prev absolute left-1 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/65 text-white backdrop-blur-md transition-all duration-300 hover:border-[#F59E0B] hover:bg-[#F59E0B] hover:text-[#080808] hover:scale-110 shadow-[0_4px_20px_rgba(0,0,0,0.6)] cursor-pointer"
+        className="hero-swiper-btn-prev absolute left-1 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/65 text-white backdrop-blur-md transition-all duration-300 hover:border-cn-gold hover:bg-cn-gold hover:text-cn-black hover:scale-110 shadow-[0_4px_20px_rgba(0,0,0,0.6)] cursor-pointer"
       >
         <ChevronLeft className="h-5 w-5" />
       </button>
@@ -115,7 +115,7 @@ function NavigationButtons() {
         type="button"
         onClick={() => swiper.slideNext()}
         aria-label="Image suivante"
-        className="hero-swiper-btn-next absolute right-1 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/65 text-white backdrop-blur-md transition-all duration-300 hover:border-[#F59E0B] hover:bg-[#F59E0B] hover:text-[#080808] hover:scale-110 shadow-[0_4px_20px_rgba(0,0,0,0.6)] cursor-pointer"
+        className="hero-swiper-btn-next absolute right-1 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/65 text-white backdrop-blur-md transition-all duration-300 hover:border-cn-gold hover:bg-cn-gold hover:text-cn-black hover:scale-110 shadow-[0_4px_20px_rgba(0,0,0,0.6)] cursor-pointer"
       >
         <ChevronRight className="h-5 w-5" />
       </button>

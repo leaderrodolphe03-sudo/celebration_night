@@ -1,7 +1,7 @@
-import { Metadata } from "next";
-import Link from "next/link";
-import { Play, Download, Image as ImageIcon, Video, FileText, ArrowRight } from "lucide-react";
+import type { Metadata } from "next";
+import { Play, Download, Image as ImageIcon, Video, FileText } from "lucide-react";
 import MediaDownloadButton from "@/components/media/MediaDownloadButton";
+import Button from "@/components/ui/Button";
 
 export const metadata: Metadata = {
   title: "Médias & Ressources — CÉLÉBRATION NIGHT 2026",
@@ -232,12 +232,13 @@ export default function MediasPage() {
 
         {/* CTA */}
         <div className="mt-16 text-center">
-          <Link
+          <Button
             href="/inscription"
-            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-cn-gold to-cn-amber px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-cn-black shadow-gold hover:brightness-110 transition-all hover:scale-105"
+            variant="primary"
+            size="lg"
           >
-            Réserver mon billet d&apos;entrée <ArrowRight size={16} />
-          </Link>
+            Réserver mon billet d&apos;entrée
+          </Button>
         </div>
       </section>
     </div>

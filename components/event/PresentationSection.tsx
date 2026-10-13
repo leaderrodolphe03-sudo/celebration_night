@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowRight, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import Button from "@/components/ui/Button";
 
 export default function PresentationSection() {
@@ -66,8 +66,7 @@ export default function PresentationSection() {
               size="sm"
               className="shrink-0 rounded-md"
             >
-              <span>Découvrir les médias</span>
-            
+              Découvrir les médias
             </Button>
           </div>
         </div>

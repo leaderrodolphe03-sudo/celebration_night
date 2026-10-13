@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Search, Download, Users, Ticket, ArrowLeft, RefreshCw, Filter } from "lucide-react";
+import { Search, Download, Users, Ticket, RefreshCw, Filter } from "lucide-react";
 import AdminNav from "@/components/admin/AdminNav";
 import Button from "@/components/ui/Button";
 import { Participant, Ticket as TicketItem } from "@/lib/types";

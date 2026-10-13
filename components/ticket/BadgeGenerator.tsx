@@ -101,7 +101,7 @@ export default function BadgeGenerator({
             qrToken={qrToken}
             photoUrl={photoUrl}
           />
-          <span className="mt-3 text-[11px] font-medium text-cn-gray-400 uppercase tracking-wider text-center">
+          <span className="mt-3 text-[11px] font-medium text-[#7A6D60] uppercase tracking-wider text-center">
             Aperçu instantané • Format carré 1:1 pour WhatsApp &amp; Instagram
           </span>
         </div>
@@ -119,10 +119,10 @@ export default function BadgeGenerator({
             onClick={() => fileInputRef.current?.click()}
             className={`cursor-pointer rounded-2xl border-2 border-dashed p-6 text-center transition-all ${
               dragOver
-                ? "border-cn-gold bg-cn-gold/10 scale-[1.01]"
+                ? "border-cn-gold bg-amber-50 scale-[1.01]"
                 : photoUrl
-                ? "border-cn-gold/50 bg-cn-dark hover:border-cn-gold"
-                : "border-white/15 bg-white/[0.03] hover:border-cn-gold/40 hover:bg-cn-dark/60"
+                ? "border-cn-gold/70 bg-amber-50/60 hover:border-cn-gold"
+                : "border-[#D8CABE] bg-[#FAF7F2] hover:border-cn-gold/60 hover:bg-white"
             }`}
           >
             <input
@@ -134,20 +134,20 @@ export default function BadgeGenerator({
             />
 
             <div className="flex flex-col items-center gap-3">
-              <div className="h-14 w-14 rounded-full bg-cn-dark border border-cn-gold/40 flex items-center justify-center text-cn-gold-light shadow-inner">
-                {photoUrl ? <Check size={26} className="text-emerald-400" /> : <Upload size={24} />}
+              <div className="h-14 w-14 rounded-full bg-white border border-cn-gold/50 flex items-center justify-center text-cn-amber shadow-sm">
+                {photoUrl ? <Check size={26} className="text-emerald-500" /> : <Upload size={24} />}
               </div>
 
               <div>
-                <p className="font-heading text-xl uppercase tracking-wide text-white">
+                <p className="font-heading text-xl uppercase tracking-wide text-cn-black">
                   {photoUrl ? "Changer ma photo" : "Ajoute ta photo pour le badge"}
                 </p>
-                <p className="mt-1 font-body text-xs text-cn-gray-300">
+                <p className="mt-1 font-body text-xs text-[#5A4D41]">
                   {photoUrl
                     ? "Cliquez ou glissez une autre photo pour la remplacer"
                     : "Glissez votre photo ici ou cliquez pour parcourir votre galerie"}
                 </p>
-                <span className="mt-2 inline-block text-[10px] uppercase font-bold tracking-wider text-cn-gold-light">
+                <span className="mt-2 inline-block text-[10px] uppercase font-bold tracking-wider text-cn-amber">
                   JPG, PNG • Portrait recommandé
                 </span>
               </div>
@@ -155,8 +155,8 @@ export default function BadgeGenerator({
           </div>
 
           {errorMessage && (
-            <div className="flex items-center gap-2 rounded-lg bg-red-950/60 border border-red-500/40 p-3 text-xs text-red-200">
-              <AlertCircle size={16} className="shrink-0 text-red-400" />
+            <div className="flex items-center gap-2 rounded-lg bg-red-50 border border-red-300 p-3 text-xs text-red-800">
+              <AlertCircle size={16} className="shrink-0 text-red-500" />
               <span>{errorMessage}</span>
             </div>
           )}
@@ -183,7 +183,7 @@ export default function BadgeGenerator({
                 onClick={() => setPhotoUrl(null)}
                 variant="ghost"
                 size="sm"
-                className="w-full justify-center text-cn-gray-400 hover:text-white"
+                className="w-full justify-center text-[#7A6D60] hover:text-cn-black"
               >
                 Retirer la photo
               </Button>
@@ -191,13 +191,10 @@ export default function BadgeGenerator({
           </div>
 
           {/* Conseil de partage */}
-          <div className="rounded-xl border border-cn-gold/20 bg-cn-dark/90 p-4 text-xs text-cn-gray-300 space-y-1">
-            <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-cn-gold-light">
-              <Sparkles size={14} />
-              <span>Badge viral pour les réseaux</span>
-            </div>
+          <div className="rounded-xl p-4 text-xs text-[#5A4D41] space-y-1">
+      
             <p className="leading-relaxed">
-              Téléchargez votre badge carré avec le macaron <strong>« J&apos;Y SERAI ! »</strong> et partagez-le sur votre statut WhatsApp, Instagram ou Facebook pour inviter vos proches à se joindre à la célébration !
+              Téléchargez votre badge et partagez-le sur votre statut WhatsApp, Instagram ou Facebook pour inviter vos proches à se joindre à la célébration !
             </p>
           </div>
         </div>

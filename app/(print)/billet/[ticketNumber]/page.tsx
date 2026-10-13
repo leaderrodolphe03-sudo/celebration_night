@@ -149,28 +149,28 @@ export default function TicketPage() {
                 console.error(e);
               }
             }}
-            className="inline-flex items-center gap-2 rounded-lg border border-cn-gold/40 bg-cn-gold/10 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-cn-gold-light hover:bg-cn-gold/20 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg border border-cn-gold/40 bg-cn-gold/10 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-cn-gold-light hover:bg-cn-gold/20 transition-colors whitespace-nowrap flex-nowrap"
           >
-            <Download size={14} className="text-cn-gold" />
-            <span>Pass Carré HD</span>
+            <Download size={14} className="text-cn-gold shrink-0" />
+            <span className="whitespace-nowrap">Pass Carré HD</span>
           </button>
 
           <button
             type="button"
             onClick={handleDownloadQr}
-            className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-cn-gray-100 hover:bg-white/10 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-cn-gray-100 hover:bg-white/10 transition-colors whitespace-nowrap flex-nowrap"
           >
-            <Download size={14} className="text-cn-gold" />
-            <span>QR Code</span>
+            <Download size={14} className="text-cn-gold shrink-0" />
+            <span className="whitespace-nowrap">QR Code</span>
           </button>
 
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-cn-gold to-cn-amber px-5 py-2.5 text-xs font-black uppercase tracking-wider text-cn-black shadow-gold hover:brightness-110 transition-all hover:scale-105"
+            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-cn-gold to-cn-amber px-5 py-2.5 text-xs font-black uppercase tracking-wider text-cn-black shadow-gold hover:brightness-110 transition-all hover:scale-105 whitespace-nowrap flex-nowrap"
           >
-            <Printer size={15} />
-            <span>Imprimer le Billet</span>
+            <Printer size={15} className="shrink-0" />
+            <span className="whitespace-nowrap">Imprimer le Billet</span>
           </button>
         </div>
       </div>
