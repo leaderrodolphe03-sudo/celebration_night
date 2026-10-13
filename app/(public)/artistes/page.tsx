@@ -61,7 +61,7 @@ const ARTISTS = [
 
 export default function ArtistesPage() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#17110E] text-white">
       {/* Hero Header */}
       <section className="relative overflow-hidden px-4 pt-24 pb-16 sm:px-6 lg:px-8 text-center">
         <div
@@ -150,7 +150,7 @@ export default function ArtistesPage() {
           <div className="mt-8 flex justify-center">
             <Link
               href="/inscription"
-              className="inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-[#080808] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-105"
+              className="inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-[#17110E] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-105"
             >
               Obtenir mon pass d&apos;accès <ArrowRight size={16} />
             </Link>

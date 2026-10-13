@@ -61,12 +61,12 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
     throw new Error("Impossible d'initialiser le contexte Canvas 2D.");
   }
 
-  // 1. Fond principal dégradé obsidienne / terre brûlée ambrée
+  // 1. Fond principal dégradé espresso / terre brûlée ambrée
   const bgGrad = ctx.createLinearGradient(0, 0, SIZE, SIZE);
-  bgGrad.addColorStop(0, "#080808");
+  bgGrad.addColorStop(0, "#17110E");
   bgGrad.addColorStop(0.35, "#1A140E");
   bgGrad.addColorStop(0.7, "#120E0A");
-  bgGrad.addColorStop(1, "#080808");
+  bgGrad.addColorStop(1, "#17110E");
   ctx.fillStyle = bgGrad;
   ctx.fillRect(0, 0, SIZE, SIZE);
 
@@ -189,7 +189,7 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
 
   // Texte du macaron
   ctx.shadowBlur = 0;
-  ctx.fillStyle = "#080808";
+  ctx.fillStyle = "#17110E";
   ctx.font = "900 32px 'Bebas Neue', Montserrat, sans-serif";
   ctx.textAlign = "center";
   ctx.letterSpacing = "2px";

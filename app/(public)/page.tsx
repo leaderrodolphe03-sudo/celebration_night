@@ -1,26 +1,15 @@
 import Link from "next/link";
 import {
-  Calendar,
-  Clock,
-  CheckCircle2,
   Ticket,
   ArrowRight,
-  Users,
-  Music2,
 } from "lucide-react";
 import Hero from "@/components/hero/Hero";
+import StatsSection from "@/components/home/StatsSection";
 import PresentationSection from "@/components/event/PresentationSection";
 import HomeGallerySection from "@/components/gallery/HomeGallerySection";
 import PartnersMarquee from "@/components/partners/PartnersMarquee";
 import SponsorsCtaSection from "@/components/partners/SponsorsCtaSection";
 import { EVENT } from "@/lib/event-config";
-
-const STATS = [
-  { number: "6H",   label: "De louange & prière non-stop",   icon: Clock },
-  { number: "25+",  label: "Chantres, musiciens & choristes", icon: Music2 },
-  { number: "100%", label: "Gratuit sur inscription",         icon: CheckCircle2 },
-  { number: "1",    label: "Génération embrasée pour Christ", icon: Users },
-];
 
 export default function HomePage() {
   return (
@@ -28,33 +17,8 @@ export default function HomePage() {
       {/* 1. Hero */}
       <Hero />
 
-      {/* 2. Bandeau chiffres */}
-      <section className="bg-[#0B0806] border-y border-white/6 px-5 py-14 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4">
-            {STATS.map((stat, idx) => {
-              const Icon = stat.icon;
-              const isLast = idx === STATS.length - 1;
-              return (
-                <div
-                  key={idx}
-                  className={`flex flex-col items-center text-center py-6 px-4 rounded-lg bg-[#120E0A]/60 border border-white/5 hover:border-[#F59E0B]/30 transition-all ${
-                    !isLast ? "md:border-r md:border-white/8" : ""
-                  }`}
-                >
-                  <Icon size={18} className="text-[#F59E0B] mb-2.5 opacity-90" />
-                  <span className="font-heading text-5xl sm:text-6xl leading-none text-[#F59E0B] tracking-wide">
-                    {stat.number}
-                  </span>
-                  <p className="mt-2.5 font-body text-[11px] font-semibold uppercase tracking-[0.1em] text-[#BFB89E] leading-snug max-w-[150px]">
-                    {stat.label}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* 2. 2026 en chiffres (Section style Effuzion avec nos 3 statistiques) */}
+      <StatsSection />
 
       {/* 3. Présentation */}
       <PresentationSection />
@@ -62,8 +26,7 @@ export default function HomePage() {
       {/* 4. Galerie */}
       <HomeGallerySection />
 
-      {/* 5. HAGIAZO Ministry */}
-      <section className="relative bg-[#080808] border-t border-white/6 px-5 py-24 sm:px-8 lg:px-10 overflow-hidden">
+      <section className="relative bg-[#1E1611] border-t border-white/6 px-5 py-24 sm:px-8 lg:px-10 overflow-hidden">
         <div
           aria-hidden
           className="pointer-events-none absolute -top-24 right-1/4 h-96 w-96 rounded-full bg-[#F59E0B]/5 blur-[130px]"
@@ -109,7 +72,7 @@ export default function HomePage() {
 
             {/* Citation */}
             <div className="flex-1 lg:pt-2">
-              <blockquote className="border-l-2 border-[#F59E0B] pl-6 bg-[#120E0A]/40 py-4 rounded-r-md">
+              <blockquote className="border-l-2 border-[#F59E0B] pl-6 bg-[#241810]/70 py-4 rounded-r-md">
                 <p className="font-body text-xl sm:text-2xl italic leading-relaxed text-[#EDE8DC]">
                   « Une génération. Une foi. Une célébration. »
                 </p>
@@ -129,7 +92,7 @@ export default function HomePage() {
       <SponsorsCtaSection />
 
       {/* 8. CTA Final */}
-      <section className="relative bg-[#080808] border-t border-white/6 overflow-hidden">
+      <section className="relative bg-[#17110E] border-t border-white/6 overflow-hidden">
         {/* Image de fond avec fort voile et photo réelle du sanctuaire */}
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -139,7 +102,7 @@ export default function HomePage() {
             aria-hidden
             className="w-full h-full object-cover object-center opacity-25"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/80 to-[#080808]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#17110E] via-[#17110E]/80 to-[#17110E]" />
         </div>
 
 
@@ -161,7 +124,7 @@ export default function HomePage() {
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/inscription"
-                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-sm bg-[#F59E0B] px-10 py-4.5 font-body text-sm font-bold uppercase tracking-[0.15em] text-[#080808] transition-all hover:bg-[#FCD34D] hover:shadow-[0_8px_40px_rgba(245,158,11,0.5)] active:scale-[0.98]"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-sm bg-[#F59E0B] px-10 py-4.5 font-body text-sm font-bold uppercase tracking-[0.15em] text-[#17110E] transition-all hover:bg-[#FCD34D] hover:shadow-[0_8px_40px_rgba(245,158,11,0.5)] active:scale-[0.98]"
               >
                 <Ticket size={16} />
                 <span>Générer mon badge &amp; réserver</span>

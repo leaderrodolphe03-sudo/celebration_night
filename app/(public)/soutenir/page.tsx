@@ -40,7 +40,7 @@ export default function SoutenirPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#17110E] text-white">
       {/* 1. Hero Éditorial */}
       <section className="relative overflow-hidden px-4 pt-24 pb-16 sm:px-6 lg:px-8 text-center">
         <div
@@ -97,7 +97,7 @@ export default function SoutenirPage() {
             </div>
             <a
               href="#formulaire"
-              className="mt-8 block text-center rounded-sm bg-[#1A1410] border border-[#F59E0B]/40 py-3 font-body text-xs font-bold uppercase tracking-wider text-[#FCD34D] hover:bg-[#F59E0B] hover:text-[#080808] transition-all shadow-sm"
+              className="mt-8 block text-center rounded-sm bg-[#1A1410] border border-[#F59E0B]/40 py-3 font-body text-xs font-bold uppercase tracking-wider text-[#FCD34D] hover:bg-[#F59E0B] hover:text-[#17110E] transition-all shadow-sm"
             >
               Postuler comme Sponsor
             </a>
@@ -105,7 +105,7 @@ export default function SoutenirPage() {
 
           {/* Formule 2 : Ministère & Église Partenaire */}
           <div className="rounded-2xl border border-[#F59E0B]/40 bg-gradient-to-b from-[#17110E] via-[#120E0A] to-[#0A0806] p-8 flex flex-col justify-between hover:border-[#F59E0B] transition-all hover:-translate-y-1 shadow-2xl relative">
-            <div className="absolute -top-3.5 right-6 rounded-md bg-[#F59E0B] px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#080808] shadow-md">
+            <div className="absolute -top-3.5 right-6 rounded-md bg-[#F59E0B] px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#17110E] shadow-md">
               Recommandé
             </div>
             <div>
@@ -138,7 +138,7 @@ export default function SoutenirPage() {
             </div>
             <a
               href="#formulaire"
-              className="mt-8 block text-center rounded-sm bg-[#F59E0B] py-3.5 font-body text-xs font-bold uppercase tracking-wider text-[#080808] shadow-xl hover:bg-[#FCD34D] transition-all"
+              className="mt-8 block text-center rounded-sm bg-[#F59E0B] py-3.5 font-body text-xs font-bold uppercase tracking-wider text-[#17110E] shadow-xl hover:bg-[#FCD34D] transition-all"
             >
               Rejoindre l&apos;Alliance
             </a>
@@ -176,7 +176,7 @@ export default function SoutenirPage() {
             </div>
             <a
               href="#formulaire"
-              className="mt-8 block text-center rounded-sm bg-[#1A1410] border border-[#F59E0B]/40 py-3 font-body text-xs font-bold uppercase tracking-wider text-[#FCD34D] hover:bg-[#F59E0B] hover:text-[#080808] transition-all shadow-sm"
+              className="mt-8 block text-center rounded-sm bg-[#1A1410] border border-[#F59E0B]/40 py-3 font-body text-xs font-bold uppercase tracking-wider text-[#FCD34D] hover:bg-[#F59E0B] hover:text-[#17110E] transition-all shadow-sm"
             >
               Faire une Promesse de Don
             </a>
@@ -304,7 +304,7 @@ export default function SoutenirPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 rounded-sm bg-[#F59E0B] py-4 text-center font-body text-xs font-bold uppercase tracking-widest text-[#080808] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-[1.01] disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-2 rounded-sm bg-[#F59E0B] py-4 text-center font-body text-xs font-bold uppercase tracking-widest text-[#17110E] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-[1.01] disabled:opacity-50"
                 >
                   <Send size={16} />
                   <span>{loading ? "Envoi en cours..." : "Transmettre ma Demande de Partenariat"}</span>

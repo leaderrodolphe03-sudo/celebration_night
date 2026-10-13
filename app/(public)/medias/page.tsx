@@ -92,7 +92,7 @@ const DOWNLOADS = [
 
 export default function MediasPage() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#17110E] text-white">
       {/* Hero Header */}
       <section className="relative overflow-hidden px-4 pt-24 pb-16 sm:px-6 lg:px-8 text-center">
         <div
@@ -132,8 +132,8 @@ export default function MediasPage() {
             >
               {/* Vignette vidéo élégante */}
               <div className="relative h-48 bg-gradient-to-br from-[#1A1410] to-[#0A0806] flex items-center justify-center">
-                <div className="h-16 w-16 rounded-full bg-[#F59E0B] text-[#080808] flex items-center justify-center shadow-[0_0_30px_rgba(245,158,11,0.5)] transition-transform group-hover:scale-110">
-                  <Play size={24} className="fill-[#080808] ml-1 text-[#080808]" />
+                <div className="h-16 w-16 rounded-full bg-[#F59E0B] text-[#17110E] flex items-center justify-center shadow-[0_0_30px_rgba(245,158,11,0.5)] transition-transform group-hover:scale-110">
+                  <Play size={24} className="fill-[#17110E] ml-1 text-[#17110E]" />
                 </div>
                 <span className="absolute bottom-3 right-3 rounded bg-black/80 px-2 py-0.5 text-[11px] font-semibold text-white">
                   {vid.duration}
@@ -240,7 +240,7 @@ export default function MediasPage() {
         <div className="mt-16 text-center">
           <Link
             href="/inscription"
-            className="inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-[#080808] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-105"
+            className="inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-[#17110E] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-105"
           >
             Réserver mon billet d&apos;entrée <ArrowRight size={16} />
           </Link>

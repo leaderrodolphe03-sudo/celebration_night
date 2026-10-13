@@ -83,7 +83,7 @@ export default function AdminBilletsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-[#EDE8DC]">
+    <div className="min-h-screen bg-[#17110E] text-[#EDE8DC]">
       <AdminNav user={user} />
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-6">
@@ -100,7 +100,7 @@ export default function AdminBilletsPage() {
 
           <Link
             href="/admin/scanner"
-            className="flex items-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-5 py-2.5 text-xs font-black uppercase tracking-wider text-[#080808] shadow-lg transition-transform hover:scale-105"
+            className="flex items-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-5 py-2.5 text-xs font-black uppercase tracking-wider text-[#17110E] shadow-lg transition-transform hover:scale-105"
           >
             <QrCode size={16} />
             <span>Passer au Scanner Caméra</span>
@@ -192,7 +192,7 @@ export default function AdminBilletsPage() {
                           <span
                             className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase ${
                               t.ticketType === "VIP"
-                                ? "bg-[#F59E0B] text-[#080808] font-black"
+                                ? "bg-[#F59E0B] text-[#17110E] font-black"
                                 : "bg-[#1F1710] text-[#FCD34D] border border-[#F59E0B]/30"
                             }`}
                           >

@@ -8,13 +8,12 @@ import {
   ShieldCheck,
   Ticket,
 } from "lucide-react";
-import Countdown from "./Countdown";
-import HeroScrollCards from "./HeroScrollCards";
+import HeroPhotoGallery from "./HeroPhotoGallery";
 import { EVENT } from "@/lib/event-config";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col justify-between overflow-hidden isolate bg-[#080808]">
+    <section className="relative min-h-screen flex flex-col justify-between overflow-hidden isolate bg-[#17110E]">
 
       {/* ── 1. FOND CINÉMATIQUE (Photo authentique + Dégradé tricolore + Grain argentique) ── */}
       <div className="absolute inset-0 z-0">
@@ -28,45 +27,36 @@ export default function Hero() {
           quality={95}
         />
         {/* Voile cinématographique subtil pour faire ressortir les textes tout en préservant l'éclat lumineux du dégradé */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/15 via-transparent to-[#080808]/35 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#17110E]/15 via-transparent to-[#17110E]/40 pointer-events-none" />
       </div>
 
-      {/* ── 2. COMPTE À REBOURS COMPACT EN HAUT À DROITE (Masqué sur mobile) ── */}
-      <div className="absolute top-24 right-5 sm:right-8 lg:right-12 z-20 hidden md:block animate-fade-in">
-        <Countdown targetDate={EVENT.date} variant="compact" />
-      </div>
 
       {/* ── 3. CONTENU MONUMENTAL CENTRÉ ── */}
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center text-center px-4 pt-28 pb-20 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
 
-        {/* Logo officiel réduit en haut au centre */}
-        <div className="relative w-36 sm:w-44 md:w-52 mb-3 select-none transition-transform hover:scale-105 duration-300">
+        {/* Logo officiel monumental au centre */}
+        <div className="relative w-[280px] sm:w-[380px] md:w-[480px] lg:w-[580px] xl:w-[640px] max-w-[90vw] mb-4 sm:mb-6 select-none transition-transform hover:scale-[1.02] duration-300">
           <Image
             src="/logos/celebration-night-logo.png"
             alt="Célébration Night — Emblème officiel"
             width={1016}
             height={467}
             priority
-            className="w-full h-auto object-contain drop-shadow-[0_8px_25px_rgba(245,158,11,0.45)]"
+            className="w-full h-auto object-contain drop-shadow-[0_12px_45px_rgba(245,158,11,0.5)]"
           />
         </div>
 
-        {/* Grand Titre en une seule ligne */}
-        <div className="w-full mb-3">
-          <h1 className="font-heading uppercase tracking-wide text-white drop-shadow-[0_8px_35px_rgba(0,0,0,0.95)] text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] leading-none whitespace-nowrap overflow-hidden text-ellipsis">
-            <span className="text-white">CÉLÉBRATION </span>
-            <span className="text-[#F59E0B]">NIGHT</span>
-          </h1>
-        </div>
+        {/* Titre sémantique accessible pour SEO et lecteurs d'écran */}
+        <h1 className="sr-only">CÉLÉBRATION NIGHT — HAGIAZO Ministry</h1>
 
         {/* Slogan */}
         <p className="font-body text-sm sm:text-base md:text-lg text-[#EDE8DC] max-w-xl mx-auto leading-relaxed mb-6 font-medium drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
           « {EVENT.tagline} »
         </p>
 
-        {/* Carrousel 3D d'images qui défile centré */}
-        <div className="w-full max-w-xl mx-auto mb-6">
-          <HeroScrollCards />
+        {/* Galerie interactive d'images en éventail */}
+        <div className="w-full max-w-4xl mx-auto mb-6">
+          <HeroPhotoGallery />
         </div>
 
         {/* Infos événement (date, heure, lieu) */}
@@ -91,7 +81,7 @@ export default function Hero() {
         <div className="flex flex-col items-center gap-3">
           <Link
             href="/inscription"
-            className="group flex items-center justify-center gap-2 rounded-full bg-[#F59E0B] px-8 sm:px-10 py-4 font-body text-xs sm:text-sm font-bold uppercase tracking-[0.18em] text-[#080808] transition-all hover:bg-[#FCD34D] hover:shadow-[0_8px_35px_rgba(245,158,11,0.65)] hover:scale-105 active:scale-[0.98] shadow-[0_4px_25px_rgba(245,158,11,0.4)] cursor-pointer"
+            className="group flex items-center justify-center gap-2 rounded-full bg-[#F59E0B] px-8 sm:px-10 py-4 font-body text-xs sm:text-sm font-bold uppercase tracking-[0.18em] text-[#17110E] transition-all hover:bg-[#FCD34D] hover:shadow-[0_8px_35px_rgba(245,158,11,0.65)] hover:scale-105 active:scale-[0.98] shadow-[0_4px_25px_rgba(245,158,11,0.4)] cursor-pointer"
           >
             <Ticket size={16} />
             <span>Réserver ma place</span>

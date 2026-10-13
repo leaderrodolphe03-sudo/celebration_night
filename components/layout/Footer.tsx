@@ -7,7 +7,7 @@ import { EVENT } from "@/lib/event-config";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0F0B07] border-t border-white/8 text-cn-white print:hidden">
+    <footer className="bg-[#17110E] border-t border-white/8 text-cn-white print:hidden">
 
       {/* Bande supérieure info rapide */}
       <div className="border-b border-white/6 px-5 py-5 sm:px-8 lg:px-10">

@@ -57,7 +57,7 @@ const MILESTONES = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#080808] text-[#EDE8DC]">
+    <div className="min-h-screen bg-[#17110E] text-[#EDE8DC]">
       {/* Hero Section */}
       <section className="relative overflow-hidden px-4 pt-20 pb-16 sm:px-6 lg:px-8 text-center">
         <div
@@ -103,7 +103,7 @@ export default function AboutPage() {
             <div className="pt-2">
               <Link
                 href="/inscription"
-                className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-6 py-3.5 font-body text-xs font-black uppercase tracking-widest text-[#080808] shadow-[0_10px_30px_rgba(245,158,11,0.35)] hover:opacity-95 transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-6 py-3.5 font-body text-xs font-black uppercase tracking-widest text-[#17110E] shadow-[0_10px_30px_rgba(245,158,11,0.35)] hover:opacity-95 transition-all hover:scale-105"
               >
                 Participer à l&apos;événement <ArrowRight size={16} />
               </Link>
@@ -111,7 +111,7 @@ export default function AboutPage() {
           </div>
 
           <div className="relative rounded-2xl border border-[#F59E0B]/30 bg-gradient-to-br from-[#1F1710] to-[#120E0A] p-8 lg:p-10 shadow-2xl backdrop-blur-sm">
-            <div className="absolute -top-4 -right-4 rounded-xl bg-[#F59E0B] px-4 py-2 text-xs font-black uppercase text-[#080808] shadow-lg">
+            <div className="absolute -top-4 -right-4 rounded-xl bg-[#F59E0B] px-4 py-2 text-xs font-black uppercase text-[#17110E] shadow-lg">
               Édition 2026
             </div>
             <h3 className="font-heading text-2xl uppercase tracking-wide text-[#EDE8DC]">
@@ -153,7 +153,7 @@ export default function AboutPage() {
               return (
                 <div
                   key={idx}
-                  className="rounded-xl border border-white/10 bg-[#080808] p-6 transition-all hover:-translate-y-1 hover:border-[#F59E0B]/50 hover:bg-[#18120B] shadow-md"
+                  className="rounded-xl border border-white/10 bg-[#17110E] p-6 transition-all hover:-translate-y-1 hover:border-[#F59E0B]/50 hover:bg-[#18120B] shadow-md"
                 >
                   <div className="h-12 w-12 rounded-lg bg-[#1F1710] border border-[#F59E0B]/40 flex items-center justify-center text-[#FCD34D]">
                     <Icon size={22} />
@@ -203,14 +203,14 @@ export default function AboutPage() {
                   </p>
                 </div>
               </div>
-              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 h-8 w-8 rounded-full border-4 border-[#080808] bg-[#F59E0B] flex items-center justify-center shadow-lg" />
+              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 h-8 w-8 rounded-full border-4 border-[#17110E] bg-[#F59E0B] flex items-center justify-center shadow-lg" />
               <div className="hidden md:block md:w-1/2" />
             </div>
           ))}
         </div>
 
         {/* Bannière finale */}
-        <div className="mt-20 rounded-2xl bg-gradient-to-r from-[#1F1710] via-[#120E0A] to-[#080808] border border-[#F59E0B]/40 p-8 sm:p-12 text-center shadow-2xl">
+        <div className="mt-20 rounded-2xl bg-gradient-to-r from-[#1F1710] via-[#120E0A] to-[#17110E] border border-[#F59E0B]/40 p-8 sm:p-12 text-center shadow-2xl">
           <h3 className="font-heading text-3xl sm:text-5xl uppercase tracking-wide text-[#EDE8DC]">
             Écrivez cette page avec nous
           </h3>
@@ -220,7 +220,7 @@ export default function AboutPage() {
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link
               href="/inscription"
-              className="rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-8 py-4 font-body text-xs font-black uppercase tracking-widest text-[#080808] shadow-[0_10px_30px_rgba(245,158,11,0.35)] transition-transform hover:scale-105"
+              className="rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-8 py-4 font-body text-xs font-black uppercase tracking-widest text-[#17110E] shadow-[0_10px_30px_rgba(245,158,11,0.35)] transition-transform hover:scale-105"
             >
               Réserver mon billet dès maintenant
             </Link>

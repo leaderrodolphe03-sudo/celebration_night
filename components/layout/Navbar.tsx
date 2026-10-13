@@ -29,7 +29,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 print:hidden ${
         scrolled
-          ? "bg-[#080808] border-b border-white/10 shadow-2xl shadow-black/90"
+          ? "bg-[#17110E]/95 border-b border-white/10 shadow-2xl backdrop-blur-md shadow-black/80"
           : "bg-transparent"
       }`}
     >
@@ -71,7 +71,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <Link
             href="/inscription"
-            className="hidden sm:inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-5 py-2.5 font-body text-[11px] font-bold uppercase tracking-[0.12em] text-[#080808] transition-all hover:bg-[#FCD34D] hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] active:scale-95"
+            className="hidden sm:inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-5 py-2.5 font-body text-[11px] font-bold uppercase tracking-[0.12em] text-[#17110E] transition-all hover:bg-[#FCD34D] hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] active:scale-95"
           >
             <Ticket size={13} />
             <span>Participer</span>
@@ -90,7 +90,7 @@ export default function Navbar() {
 
       {/* Menu Mobile */}
       {open && (
-        <div className="bg-[#080808] border-t border-white/8 px-5 pb-8 pt-5 lg:hidden">
+        <div className="bg-[#17110E] border-t border-white/8 px-5 pb-8 pt-5 lg:hidden">
           <nav className="flex flex-col" aria-label="Navigation mobile">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.href;
@@ -112,7 +112,7 @@ export default function Navbar() {
             <Link
               href="/inscription"
               onClick={() => setOpen(false)}
-              className="flex w-full items-center justify-center gap-2 rounded-sm bg-[#F59E0B] py-4 font-body text-sm font-bold uppercase tracking-wider text-[#080808]"
+              className="flex w-full items-center justify-center gap-2 rounded-sm bg-[#F59E0B] py-4 font-body text-sm font-bold uppercase tracking-wider text-[#17110E]"
             >
               <Ticket size={15} />
               <span>Réserver ma place — Gratuit</span>

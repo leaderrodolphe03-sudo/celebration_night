@@ -41,7 +41,7 @@ export default function HomeGallerySection() {
   };
 
   return (
-    <section className="bg-[#080808] border-t border-white/6 px-5 py-24 sm:px-8 lg:px-10">
+    <section className="bg-[#17110E] border-t border-white/6 px-5 py-24 sm:px-8 lg:px-10">
       <div className="mx-auto max-w-7xl">
 
         {/* En-tête inspiré Effuzion */}
@@ -60,7 +60,7 @@ export default function HomeGallerySection() {
           </div>
           <Link
             href="/medias"
-            className="group shrink-0 inline-flex items-center gap-2 rounded-sm bg-[#120E0A] border border-[#F59E0B]/30 px-5 py-3 font-body text-xs font-bold uppercase tracking-wider text-[#FCD34D] hover:bg-[#F59E0B] hover:text-[#080808] hover:border-[#F59E0B] transition-all shadow-md"
+            className="group shrink-0 inline-flex items-center gap-2 rounded-sm bg-[#120E0A] border border-[#F59E0B]/30 px-5 py-3 font-body text-xs font-bold uppercase tracking-wider text-[#FCD34D] hover:bg-[#F59E0B] hover:text-[#17110E] hover:border-[#F59E0B] transition-all shadow-md"
           >
             <span>Voir toute la galerie</span>
             <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
@@ -83,7 +83,7 @@ export default function HomeGallerySection() {
                 loading="lazy"
               />
               {/* Voile */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#080808]/95 via-[#080808]/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#17110E]/95 via-[#17110E]/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
               {/* Texte bas */}
               <div className="absolute inset-x-0 bottom-0 p-3.5 transition-all duration-300">
@@ -96,27 +96,19 @@ export default function HomeGallerySection() {
               </div>
 
               {/* Icône loupe */}
-              <div className="absolute top-2.5 right-2.5 h-7 w-7 rounded-full bg-[#080808]/80 border border-white/10 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="absolute top-2.5 right-2.5 h-7 w-7 rounded-full bg-[#17110E]/80 border border-white/10 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
                 <Eye size={12} className="text-[#F59E0B]" />
               </div>
             </div>
           ))}
         </div>
-
-        {/* Sous-note */}
-        <p className="mt-8 text-center text-xs text-[#7D7560]">
-          Photos réelles prises en direct lors des rassemblements. Plus de clichés sur la{" "}
-          <Link href="/medias" className="text-[#F59E0B] hover:text-[#FCD34D] hover:underline font-semibold">
-            page Médias &amp; Galerie
-          </Link>.
-        </p>
       </div>
 
       {/* LIGHTBOX */}
       {selectedPhoto && (
         <div
           onClick={() => setSelectedPhoto(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#080808]/98 p-4 sm:p-8 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#17110E]/98 p-4 sm:p-8 backdrop-blur-sm"
         >
           <button
             type="button"

@@ -57,7 +57,7 @@ const MILESTONES = [
 
 export default function NotreHistoirePage() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#17110E] text-white">
       {/* 1. Hero Éditorial */}
       <section className="relative overflow-hidden px-4 pt-24 pb-16 sm:px-6 lg:px-8 text-center">
         <div
@@ -103,7 +103,7 @@ export default function NotreHistoirePage() {
             <div className="pt-2 flex flex-wrap gap-4">
               <Link
                 href="/inscription"
-                className="inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-7 py-3.5 font-body text-xs font-bold uppercase tracking-widest text-[#080808] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-7 py-3.5 font-body text-xs font-bold uppercase tracking-widest text-[#17110E] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-105"
               >
                 Participer à l&apos;Événement <ArrowRight size={16} />
               </Link>
@@ -117,7 +117,7 @@ export default function NotreHistoirePage() {
           </div>
 
           <div className="relative rounded-2xl border border-[#F59E0B]/30 bg-gradient-to-br from-[#17110E] via-[#120E0A] to-[#0A0806] p-8 lg:p-10 shadow-2xl backdrop-blur-sm">
-            <div className="absolute -top-3.5 -right-3 rounded-md bg-[#F59E0B] px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-[#080808] shadow-lg">
+            <div className="absolute -top-3.5 -right-3 rounded-md bg-[#F59E0B] px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-[#17110E] shadow-lg">
               Rassemblement Annuel
             </div>
             <h3 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide text-white">
@@ -218,7 +218,7 @@ export default function NotreHistoirePage() {
                   </p>
                 </div>
               </div>
-              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 h-8 w-8 rounded-full border-4 border-[#080808] bg-[#F59E0B] flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.6)]" />
+              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 h-8 w-8 rounded-full border-4 border-[#17110E] bg-[#F59E0B] flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.6)]" />
               <div className="hidden md:block md:w-1/2" />
             </div>
           ))}
@@ -242,7 +242,7 @@ export default function NotreHistoirePage() {
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link
               href="/inscription"
-              className="rounded-sm bg-[#F59E0B] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-[#080808] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-105"
+              className="rounded-sm bg-[#F59E0B] px-8 py-4 font-body text-xs font-bold uppercase tracking-widest text-[#17110E] shadow-xl hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] transition-all hover:scale-105"
             >
               Réserver mon billet dès maintenant
             </Link>

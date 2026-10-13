@@ -3,7 +3,7 @@ import { ArrowRight, Eye, Award, HeartHandshake, Handshake, ShieldCheck } from "
 
 export default function SponsorsCtaSection() {
   return (
-    <section className="bg-[#080808] border-t border-white/6 px-5 py-24 sm:px-8 lg:px-10">
+    <section className="bg-[#1E1611] border-t border-white/6 px-5 py-24 sm:px-8 lg:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
@@ -49,7 +49,7 @@ export default function SponsorsCtaSection() {
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 href="/soutenir"
-                className="group inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-7 py-3.5 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-[#080808] transition-all hover:bg-[#FCD34D] hover:shadow-[0_4px_20px_rgba(245,158,11,0.4)] active:scale-[0.98]"
+                className="group inline-flex items-center gap-2 rounded-sm bg-[#F59E0B] px-7 py-3.5 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-[#17110E] transition-all hover:bg-[#FCD34D] hover:shadow-[0_4px_20px_rgba(245,158,11,0.4)] active:scale-[0.98]"
               >
                 <Handshake size={14} />
                 <span>Devenir Partenaire</span>

@@ -6,11 +6,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        /* Fonds nuit de scène */
-        "cn-black":      "#080808",
-        "cn-dark":       "#0F0B07",
-        "cn-deep":       "#1A1108",
-        "cn-ground":     "#261808",
+        /* Fonds chaleureux (style Effuzion sans noir froid) */
+        "cn-black":       "#17110E",
+        "cn-dark":        "#1E1611",
+        "cn-deep":        "#241810",
+        "cn-ground":      "#2B1D13",
+        "cn-light-cream": "#F4E6DE",
 
         /* Or et feu — couleurs dominantes des vraies photos */
         "cn-amber":      "#D97706",

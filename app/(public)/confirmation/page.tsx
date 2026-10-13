@@ -59,7 +59,7 @@ function ConfirmationContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-[#EDE8DC] py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-[#17110E] text-[#EDE8DC] py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Halo d'ambiance */}
       <div
         aria-hidden
@@ -98,7 +98,7 @@ function ConfirmationContent() {
             type="button"
             onClick={handleDownloadSquareBadge}
             disabled={downloading}
-            className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-6 py-4 font-body text-xs font-black uppercase tracking-widest text-[#080808] shadow-[0_10px_30px_rgba(245,158,11,0.35)] transition-all hover:scale-105"
+            className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-6 py-4 font-body text-xs font-black uppercase tracking-widest text-[#17110E] shadow-[0_10px_30px_rgba(245,158,11,0.35)] transition-all hover:scale-105"
           >
             <Download size={16} />
             <span>{downloading ? "Génération du pass..." : "Télécharger mon pass carré (PNG HD)"}</span>
@@ -158,7 +158,7 @@ export default function ConfirmationPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#080808] text-[#EDE8DC] p-12 text-center">
+        <div className="min-h-screen bg-[#17110E] text-[#EDE8DC] p-12 text-center">
           Chargement de votre confirmation...
         </div>
       }

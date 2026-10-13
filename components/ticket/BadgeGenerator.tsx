@@ -167,11 +167,11 @@ export default function BadgeGenerator({
                 type="button"
                 onClick={handleDownload}
                 disabled={isGenerating}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-6 py-4 font-body text-xs font-black uppercase tracking-widest text-[#080808] shadow-[0_4px_25px_rgba(245,158,11,0.35)] transition-all hover:scale-[1.02] disabled:opacity-60"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-6 py-4 font-body text-xs font-black uppercase tracking-widest text-[#17110E] shadow-[0_4px_25px_rgba(245,158,11,0.35)] transition-all hover:scale-[1.02] disabled:opacity-60"
               >
                 {isGenerating ? (
                   <>
-                    <RefreshCw size={16} className="animate-spin text-[#080808]" />
+                    <RefreshCw size={16} className="animate-spin text-[#17110E]" />
                     <span>Génération du badge HD en cours...</span>
                   </>
                 ) : (
@@ -195,7 +195,7 @@ export default function BadgeGenerator({
           </div>
 
           {/* Conseil de partage */}
-          <div className="rounded-xl border border-[#F59E0B]/20 bg-[#080808]/90 p-4 text-xs text-[#BFB89E] space-y-1">
+          <div className="rounded-xl border border-[#F59E0B]/20 bg-[#17110E]/90 p-4 text-xs text-[#BFB89E] space-y-1">
             <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[#FCD34D]">
               <Sparkles size={14} />
               <span>Badge viral pour les réseaux</span>

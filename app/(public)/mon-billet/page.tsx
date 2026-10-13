@@ -51,7 +51,7 @@ export default function MonBilletPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-[#EDE8DC] py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-[#17110E] text-[#EDE8DC] py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Halo d'ambiance */}
       <div
         aria-hidden
@@ -90,7 +90,7 @@ export default function MonBilletPage() {
           <button
             type="submit"
             disabled={loading}
-            className="rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-8 py-4 font-body text-xs font-black uppercase tracking-widest text-[#080808] hover:opacity-95 shadow-xl transition-all disabled:opacity-50"
+            className="rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-8 py-4 font-body text-xs font-black uppercase tracking-widest text-[#17110E] hover:opacity-95 shadow-xl transition-all disabled:opacity-50"
           >
             {loading ? "Recherche..." : "Rechercher"}
           </button>
@@ -124,7 +124,7 @@ export default function MonBilletPage() {
                     <span
                       className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
                         ticket.ticketType === "VIP"
-                          ? "bg-[#F59E0B] text-[#080808] font-black"
+                          ? "bg-[#F59E0B] text-[#17110E] font-black"
                           : "bg-[#1F1710] text-[#FCD34D] border border-[#F59E0B]/40"
                       }`}
                     >
@@ -143,7 +143,7 @@ export default function MonBilletPage() {
 
                 <Link
                   href={`/billet/${encodeURIComponent(ticket.ticketNumber)}`}
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-5 py-3 text-xs font-black uppercase tracking-wider text-[#080808] hover:brightness-110 transition-all"
+                  className="inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-5 py-3 text-xs font-black uppercase tracking-wider text-[#17110E] hover:brightness-110 transition-all"
                 >
                   <QrCode size={16} />
                   <span>Ouvrir mon Billet</span>

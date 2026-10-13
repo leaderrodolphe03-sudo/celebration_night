@@ -57,7 +57,7 @@ const ARTICLES = [
 
 export default function EchoDeLaLouangePage() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#17110E] text-white">
       {/* Hero Header */}
       <section className="relative overflow-hidden px-4 pt-24 pb-16 sm:px-6 lg:px-8 text-center">
         <div
@@ -87,7 +87,7 @@ export default function EchoDeLaLouangePage() {
             className="mb-14 rounded-2xl border border-[#F59E0B]/30 bg-gradient-to-b from-[#17110E] via-[#120E0A] to-[#0A0806] p-8 sm:p-12 shadow-2xl relative overflow-hidden group"
           >
             <div className="flex flex-wrap items-center gap-3 text-xs">
-              <span className="rounded-md bg-[#F59E0B] px-3 py-1 font-bold uppercase tracking-wider text-[#080808]">
+              <span className="rounded-md bg-[#F59E0B] px-3 py-1 font-bold uppercase tracking-wider text-[#17110E]">
                 À la une
               </span>
               <span className="text-[#FCD34D] font-semibold">{article.category}</span>
@@ -167,7 +167,7 @@ export default function EchoDeLaLouangePage() {
           <div className="mt-6">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-sm border border-[#F59E0B]/40 px-6 py-3 font-body text-xs font-bold uppercase tracking-widest text-[#FCD34D] hover:bg-[#F59E0B] hover:text-[#080808] transition-all"
+              className="inline-flex items-center gap-2 rounded-sm border border-[#F59E0B]/40 px-6 py-3 font-body text-xs font-bold uppercase tracking-widest text-[#FCD34D] hover:bg-[#F59E0B] hover:text-[#17110E] transition-all"
             >
               Écrire à l&apos;équipe éditoriale
             </Link>

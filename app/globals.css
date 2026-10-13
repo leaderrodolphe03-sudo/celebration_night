@@ -10,11 +10,12 @@
 ================================================================ */
 
 :root {
-  /* Fonds */
-  --cn-black:      #080808;   /* Noir de scène absolu */
-  --cn-dark:       #0F0B07;   /* Brun-noir très profond */
-  --cn-deep:       #1A1108;   /* Brun obscur chaud */
-  --cn-ground:     #261808;   /* Terre brûlée profonde */
+  /* Fonds adaptés Célébration Night (style chaleureux inspiré Effuzion) */
+  --cn-black:      #17110E;   /* Espresso sombre profond de scène (au lieu du noir froid #080808) */
+  --cn-dark:       #1E1611;   /* Brun espresso chaud */
+  --cn-deep:       #241810;   /* Brun obscur chaleureux */
+  --cn-ground:     #2B1D13;   /* Terre brûlée ambrée */
+  --cn-light-cream:#F4E6DE;   /* Crème sable / nude lumineux pour sections claires */
 
   /* Or et ambre — couleurs dominantes des photos */
   --cn-amber:      #D97706;   /* Ambre vif */

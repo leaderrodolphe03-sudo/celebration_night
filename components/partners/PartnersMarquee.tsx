@@ -21,7 +21,7 @@ const PARTNERS: Partner[] = [
 
 export default function PartnersMarquee() {
   return (
-    <section className="bg-[#080808] border-t border-white/6 py-18 overflow-hidden">
+    <section className="bg-[#17110E] border-t border-white/6 py-18 overflow-hidden">
       {/* En-tête */}
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10 mb-10 flex items-center gap-6">
         <span className="h-px flex-1 bg-white/8" />

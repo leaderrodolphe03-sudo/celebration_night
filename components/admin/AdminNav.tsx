@@ -68,8 +68,8 @@ export default function AdminNav({ user }: AdminNavProps) {
                 className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-colors ${
                   item.highlight
                     ? isActive
-                      ? "bg-gradient-to-r from-[#EA580C] to-[#F59E0B] text-[#080808] font-black"
-                      : "bg-[#F59E0B]/15 text-[#FCD34D] border border-[#F59E0B]/40 hover:bg-[#F59E0B] hover:text-[#080808]"
+                      ? "bg-gradient-to-r from-[#EA580C] to-[#F59E0B] text-[#17110E] font-black"
+                      : "bg-[#F59E0B]/15 text-[#FCD34D] border border-[#F59E0B]/40 hover:bg-[#F59E0B] hover:text-[#17110E]"
                     : isActive
                     ? "bg-white/10 text-[#FCD34D]"
                     : "text-[#BFB89E] hover:bg-white/5 hover:text-[#EDE8DC]"

@@ -50,7 +50,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-[#EDE8DC] flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-[#17110E] text-[#EDE8DC] flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Halo lumineux */}
       <div
         aria-hidden
@@ -125,7 +125,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] py-3.5 font-body text-xs font-black uppercase tracking-widest text-[#080808] hover:brightness-110 shadow-xl transition-all disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] py-3.5 font-body text-xs font-black uppercase tracking-widest text-[#17110E] hover:brightness-110 shadow-xl transition-all disabled:opacity-50"
             >
               {loading ? (
                 <span>Vérification sécurisée...</span>

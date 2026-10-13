@@ -123,7 +123,7 @@ export default function InscriptionPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-[#EDE8DC] py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-[#17110E] text-[#EDE8DC] py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Halo d'ambiance cinématique */}
       <div
         aria-hidden
@@ -414,7 +414,7 @@ export default function InscriptionPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full sm:w-auto min-w-[260px] flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-8 py-4 font-body text-xs font-extrabold uppercase tracking-widest text-[#080808] shadow-[0_10px_30px_rgba(245,158,11,0.35)] transition-all hover:scale-105 disabled:opacity-50"
+              className="w-full sm:w-auto min-w-[260px] flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-8 py-4 font-body text-xs font-extrabold uppercase tracking-widest text-[#17110E] shadow-[0_10px_30px_rgba(245,158,11,0.35)] transition-all hover:scale-105 disabled:opacity-50"
             >
               {submitting ? (
                 <span>Génération des billets officiels...</span>

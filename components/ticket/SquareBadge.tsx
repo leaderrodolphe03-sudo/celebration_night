@@ -43,7 +43,7 @@ export default function SquareBadge({
 
   return (
     <div
-      className={`relative aspect-square w-full max-w-[480px] rounded-3xl p-5 sm:p-7 flex flex-col justify-between overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)] border-2 border-[#F59E0B]/30 bg-gradient-to-br from-[#080808] via-[#1A140E] to-[#120E0A] select-none ${className}`}
+      className={`relative aspect-square w-full max-w-[480px] rounded-3xl p-5 sm:p-7 flex flex-col justify-between overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)] border-2 border-[#F59E0B]/30 bg-gradient-to-br from-[#17110E] via-[#1A140E] to-[#120E0A] select-none ${className}`}
       style={{
         boxShadow: "0 0 0 1px rgba(245, 158, 11, 0.4), 0 25px 50px -12px rgba(234, 88, 12, 0.35)",
       }}
@@ -100,8 +100,8 @@ export default function SquareBadge({
 
           {/* Macaron / Tampon officiel « J'Y SERAI ! » incliné sur la photo */}
           <div className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 rotate-[-8deg] shadow-xl">
-            <div className="rounded-xl border-2 border-white bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-3.5 py-1.5 sm:px-4 sm:py-2 text-[#080808] shadow-[0_8px_20px_rgba(245,158,11,0.5)]">
-              <span className="font-heading text-sm sm:text-xl font-black uppercase tracking-wider text-[#080808] flex items-center gap-1 drop-shadow">
+            <div className="rounded-xl border-2 border-white bg-gradient-to-r from-[#EA580C] via-[#F59E0B] to-[#FCD34D] px-3.5 py-1.5 sm:px-4 sm:py-2 text-[#17110E] shadow-[0_8px_20px_rgba(245,158,11,0.5)]">
+              <span className="font-heading text-sm sm:text-xl font-black uppercase tracking-wider text-[#17110E] flex items-center gap-1 drop-shadow">
                 <span>★</span> J&apos;Y SERAI ! <span>★</span>
               </span>
             </div>

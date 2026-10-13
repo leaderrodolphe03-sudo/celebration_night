@@ -83,7 +83,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#17110E] text-white">
       {/* Hero Header */}
       <section className="relative overflow-hidden px-4 pt-24 pb-16 sm:px-6 lg:px-8 text-center">
         <div
@@ -281,7 +281,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 rounded-sm bg-[#F59E0B] py-4 text-xs font-bold uppercase tracking-widest text-[#080808] hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] shadow-xl transition-all disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-2 rounded-sm bg-[#F59E0B] py-4 text-xs font-bold uppercase tracking-widest text-[#17110E] hover:bg-[#FCD34D] hover:shadow-[0_4px_25px_rgba(245,158,11,0.5)] shadow-xl transition-all disabled:opacity-50"
                 >
                   {loading ? (
                     <span>Envoi en cours...</span>
