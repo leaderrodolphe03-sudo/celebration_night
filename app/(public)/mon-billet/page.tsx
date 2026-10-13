@@ -52,7 +52,7 @@ export default function MonBilletPage() {
   };
 
   return (
-    <div className="min-h-screen bg-cn-black text-white py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-cn-black text-white pt-24 sm:pt-28 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Halo d'ambiance */}
       <div
         aria-hidden

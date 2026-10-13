@@ -123,7 +123,7 @@ export default function InscriptionPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#FAF7F2] via-[#F6F1EA] to-[#FAF7F2] text-cn-black py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-[#FAF7F2] via-[#F6F1EA] to-[#FAF7F2] text-cn-black pt-24 sm:pt-28 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Halo d'ambiance cinématique chaleureux */}
       <div
         aria-hidden
