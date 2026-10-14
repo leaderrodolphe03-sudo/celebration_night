@@ -17,6 +17,9 @@ import {
   RotateCcw,
   Sparkles,
   ShieldCheck,
+  Flame,
+  Ticket,
+  Phone,
 } from "lucide-react";
 import AdminNav from "@/components/admin/AdminNav";
 import Button from "@/components/ui/Button";
@@ -25,6 +28,9 @@ import { ScanResult } from "@/lib/types";
 export default function AdminScannerPage() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
+
+  // Mode de scan : "ENTRY" (Contrôle des entrées) ou "GAVE_LIFE" (Âmes pour Christ)
+  const [scanMode, setScanMode] = useState<"ENTRY" | "GAVE_LIFE">("ENTRY");
 
   // États de la caméra
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -35,7 +41,8 @@ export default function AdminScannerPage() {
   // États du scan
   const [scanning, setScanning] = useState(false);
   const [lastScannedResult, setLastScannedResult] = useState<ScanResult | null>(null);
-  const [sessionCount, setSessionCount] = useState(0);
+  const [sessionEntryCount, setSessionEntryCount] = useState(0);
+  const [sessionGaveLifeCount, setSessionGaveLifeCount] = useState(0);
   const [soundEnabled, setSoundEnabled] = useState(true);
 
   // Saisie manuelle d'urgence
@@ -43,7 +50,7 @@ export default function AdminScannerPage() {
   const [submittingManual, setSubmittingManual] = useState(false);
 
   // Système Audio Web Audio API
-  const playSound = (type: "VALID" | "ALREADY_USED" | "INVALID") => {
+  const playSound = (type: "VALID" | "ALREADY_USED" | "INVALID" | "GAVE_LIFE_SAVED") => {
     if (!soundEnabled || typeof window === "undefined") return;
 
     try {
@@ -51,8 +58,7 @@ export default function AdminScannerPage() {
       if (!AudioCtx) return;
       const ctx = new AudioCtx();
 
-      if (type === "VALID") {
-        // Deux tonalités ascendantes (accord de succès)
+      if (type === "VALID" || type === "GAVE_LIFE_SAVED") {
         const now = ctx.currentTime;
         const osc1 = ctx.createOscillator();
         const osc2 = ctx.createOscillator();
@@ -78,7 +84,6 @@ export default function AdminScannerPage() {
         osc1.stop(now + 0.35);
         osc2.stop(now + 0.35);
       } else if (type === "ALREADY_USED") {
-        // Double bip d'avertissement
         const now = ctx.currentTime;
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
@@ -96,7 +101,6 @@ export default function AdminScannerPage() {
         osc.start(now);
         osc.stop(now + 0.4);
       } else {
-        // Son d'erreur (buzz grave)
         const now = ctx.currentTime;
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
@@ -118,10 +122,9 @@ export default function AdminScannerPage() {
     }
   };
 
-  // Vibration haptique smartphone
-  const vibratePhone = (type: "VALID" | "ALREADY_USED" | "INVALID") => {
+  const vibratePhone = (type: "VALID" | "ALREADY_USED" | "INVALID" | "GAVE_LIFE_SAVED") => {
     if (typeof navigator !== "undefined" && navigator.vibrate) {
-      if (type === "VALID") {
+      if (type === "VALID" || type === "GAVE_LIFE_SAVED") {
         navigator.vibrate([100, 50, 100]);
       } else if (type === "ALREADY_USED") {
         navigator.vibrate([200, 100, 200]);
@@ -131,7 +134,6 @@ export default function AdminScannerPage() {
     }
   };
 
-  // Vérification de session
   useEffect(() => {
     fetch("/api/admin/me")
       .then((res) => {
@@ -142,7 +144,6 @@ export default function AdminScannerPage() {
       .catch(() => router.push("/admin/login"));
   }, [router]);
 
-  // Initialisation de la caméra
   const startCamera = async () => {
     setCameraError(null);
     try {
@@ -187,7 +188,6 @@ export default function AdminScannerPage() {
     return () => stopCamera();
   }, [facingMode]);
 
-  // Boucle de détection vidéo en temps réel via BarcodeDetector API (si supporté)
   useEffect(() => {
     if (!cameraActive || !videoRef.current) return;
 
@@ -212,7 +212,7 @@ export default function AdminScannerPage() {
             }
           }
         } catch (e) {
-          // Ignorer les erreurs frame par frame
+          // Ignorer frame errors
         }
       }, 250);
 
@@ -221,9 +221,8 @@ export default function AdminScannerPage() {
         clearInterval(detectInterval);
       };
     }
-  }, [cameraActive, scanning, lastScannedResult]);
+  }, [cameraActive, scanning, lastScannedResult, scanMode]);
 
-  // Traitement et validation d'un code scanné ou saisi
   const handleProcessCode = async (tokenOrNumber: string) => {
     if (scanning) return;
     setScanning(true);
@@ -232,7 +231,10 @@ export default function AdminScannerPage() {
       const res = await fetch("/api/admin/scan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tokenOrNumber: tokenOrNumber.trim() }),
+        body: JSON.stringify({
+          tokenOrNumber: tokenOrNumber.trim(),
+          mode: scanMode,
+        }),
       });
 
       const data: ScanResult = await res.json();
@@ -242,7 +244,9 @@ export default function AdminScannerPage() {
       vibratePhone(data.status);
 
       if (data.status === "VALID") {
-        setSessionCount((prev) => prev + 1);
+        setSessionEntryCount((prev) => prev + 1);
+      } else if (data.status === "GAVE_LIFE_SAVED") {
+        setSessionGaveLifeCount((prev) => prev + 1);
       }
     } catch (err) {
       setLastScannedResult({
@@ -266,55 +270,136 @@ export default function AdminScannerPage() {
     setLastScannedResult(null);
   };
 
-  const switchCameraFacing = () => {
-    stopCamera();
-    setFacingMode((prev) => (prev === "environment" ? "user" : "environment"));
-  };
-
   return (
-    <div className="min-h-screen bg-cn-black text-white">
+    <div className="min-h-screen bg-cn-black text-white pb-16">
       <AdminNav user={user} />
 
-      <main className="mx-auto max-w-4xl px-4 py-6 sm:px-6 space-y-6">
-        {/* Bandeau d'en-tête du scanner */}
-        <div className="flex items-center justify-between border-b border-white/10 pb-4">
-          <div>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-cn-gold">
-              Portique de Contrôle
-            </span>
-            <h1 className="font-heading text-2xl sm:text-3xl uppercase tracking-wider text-white">
-              Scanner QR Code
-            </h1>
-          </div>
-
-          <div className="flex items-center gap-3">
+      <main className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-8">
+        {/* COMMUTATEUR DE MODE DE SCAN PROÉMINENT */}
+        <div className="mb-6 rounded-2xl border border-white/10 bg-cn-dark/95 p-3 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             <button
               type="button"
+              onClick={() => {
+                setScanMode("ENTRY");
+                setLastScannedResult(null);
+              }}
+              className={`flex-1 sm:flex-initial px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
+                scanMode === "ENTRY"
+                  ? "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.35)]"
+                  : "bg-white/[0.04] text-cn-gray-400 hover:text-white"
+              }`}
+            >
+              <Ticket size={16} />
+              Contrôle des Entrées ({sessionEntryCount})
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setScanMode("GAVE_LIFE");
+                setLastScannedResult(null);
+              }}
+              className={`flex-1 sm:flex-initial px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
+                scanMode === "GAVE_LIFE"
+                  ? "bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white shadow-[0_0_25px_rgba(245,158,11,0.45)]"
+                  : "bg-white/[0.04] text-cn-gray-400 hover:text-white"
+              }`}
+            >
+              <Flame size={16} />
+              Âmes pour Christ ({sessionGaveLifeCount})
+            </button>
+          </div>
+
+          <div className="flex items-center gap-2 text-xs">
+            <button
               onClick={() => setSoundEnabled(!soundEnabled)}
-              className="p-2 rounded-lg border border-white/15 bg-white/5 text-cn-gray-300 hover:text-white transition-colors"
+              className="p-2 rounded-lg bg-white/[0.05] text-cn-gray-300 hover:text-white"
               title={soundEnabled ? "Couper le son" : "Activer le son"}
             >
               {soundEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
             </button>
-
-            <span className="rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 px-3 py-1 text-xs font-bold font-mono">
-              {sessionCount} validé(s)
-            </span>
+            <button
+              onClick={() => setFacingMode(facingMode === "environment" ? "user" : "environment")}
+              className="p-2 rounded-lg bg-white/[0.05] text-cn-gray-300 hover:text-white"
+              title="Changer de caméra"
+            >
+              <SwitchCamera size={16} />
+            </button>
           </div>
         </div>
 
-        {/* MODALE OU AFFICHAGE PLEIN ÉCRAN DU RÉSULTAT DE SCAN */}
+        {/* Message d'explication du mode actif */}
+        <div className="mb-6 text-center">
+          {scanMode === "GAVE_LIFE" ? (
+            <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-cn-gold-light">
+              <Flame size={14} className="text-amber-400" />
+              <span>Mode actif : Enregistrement des décisions pour Jésus</span>
+            </div>
+          ) : (
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-400">
+              <Ticket size={14} />
+              <span>Mode actif : Validation de l&apos;entrée en salle</span>
+            </div>
+          )}
+        </div>
+
+        {/* AFFICHAGE DU RÉSULTAT DU SCAN */}
         {lastScannedResult && (
           <div
-            className={`rounded-3xl p-6 sm:p-10 border shadow-2xl text-center animate-in zoom-in-95 duration-200 ${
-              lastScannedResult.status === "VALID"
+            className={`rounded-3xl p-6 sm:p-10 border shadow-2xl text-center animate-in zoom-in-95 duration-200 mb-8 ${
+              lastScannedResult.status === "GAVE_LIFE_SAVED"
+                ? "bg-gradient-to-b from-amber-950/80 via-cn-black to-cn-deep border-cn-gold shadow-[0_0_60px_rgba(245,158,11,0.4)]"
+                : lastScannedResult.status === "VALID"
                 ? "bg-gradient-to-b from-emerald-950/70 via-cn-black to-cn-deep border-emerald-400/80 shadow-[0_0_60px_rgba(52,211,153,0.3)]"
                 : lastScannedResult.status === "ALREADY_USED"
                 ? "bg-gradient-to-b from-amber-950/70 via-cn-black to-cn-deep border-amber-400/80 shadow-[0_0_60px_rgba(251,191,36,0.3)]"
                 : "bg-gradient-to-b from-red-950/70 via-cn-black to-cn-deep border-red-500/80 shadow-[0_0_60px_rgba(239,68,68,0.3)]"
             }`}
           >
-            {/* Statut 1 : BILLET VALIDE */}
+            {/* Cas Spécial : ÂMES POUR CHRIST */}
+            {lastScannedResult.status === "GAVE_LIFE_SAVED" && (
+              <div className="space-y-4">
+                <div className="mx-auto h-24 w-24 rounded-full bg-amber-500/20 border-2 border-cn-gold flex items-center justify-center text-cn-gold-light shadow-[0_0_30px_rgba(245,158,11,0.4)]">
+                  <Flame size={52} className="text-amber-400" />
+                </div>
+
+                <div className="space-y-1">
+                  <span className="rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-black px-4 py-1 text-xs font-black uppercase tracking-widest inline-block">
+                    ★ DÉCISION POUR CHRIST ENREGISTRÉE ★
+                  </span>
+                  <h2 className="font-heading text-4xl sm:text-5xl uppercase tracking-wider text-white mt-2">
+                    {lastScannedResult.participant?.firstName}{" "}
+                    {lastScannedResult.participant?.lastName}
+                  </h2>
+                  <p className="text-sm font-semibold text-cn-gold-light">
+                    {lastScannedResult.message}
+                  </p>
+                </div>
+
+                <div className="mx-auto max-w-sm rounded-xl bg-black/60 border border-cn-gold/30 p-4 text-xs font-mono text-left space-y-2">
+                  <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                    <span className="text-cn-gray-400">Numéro de téléphone :</span>
+                    <span className="font-bold text-white text-sm flex items-center gap-1.5">
+                      <Phone size={14} className="text-emerald-400" />
+                      {lastScannedResult.participant?.phone}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-cn-gray-400">Ville / Pays :</span>
+                    <span className="font-bold text-cn-gold">
+                      {lastScannedResult.participant?.city}, {lastScannedResult.participant?.country}
+                    </span>
+                  </div>
+                </div>
+
+                <p className="text-xs text-cn-gray-400 max-w-md mx-auto pt-2">
+                  Ce participant est désormais classé dans l&apos;onglet <strong>« Âmes pour Christ »</strong> pour le suivi pastoral.
+                </p>
+              </div>
+            )}
+
+            {/* Cas : ENTRÉE VALIDÉE */}
             {lastScannedResult.status === "VALID" && (
               <div className="space-y-4">
                 <div className="mx-auto h-20 w-20 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-400">
@@ -323,7 +408,7 @@ export default function AdminScannerPage() {
 
                 <div className="space-y-1">
                   <span className="rounded-full bg-emerald-400 text-black px-4 py-1 text-xs font-extrabold uppercase tracking-widest inline-block">
-                    ✓ BILLET VALIDE
+                    ✓ ENTRÉE VALIDÉE
                   </span>
                   <h2 className="font-heading text-4xl sm:text-5xl uppercase tracking-wider text-white mt-2">
                     {lastScannedResult.participant?.firstName}{" "}
@@ -347,84 +432,51 @@ export default function AdminScannerPage() {
                       {lastScannedResult.ticket?.ticketType}
                     </span>
                   </div>
-                  <div className="col-span-2 border-t border-white/10 pt-2 text-[11px] text-emerald-300">
-                    Validé à : {new Date(lastScannedResult.scannedAt || "").toLocaleTimeString("fr-FR")}
-                  </div>
                 </div>
               </div>
             )}
 
-            {/* Statut 2 : BILLET DÉJÀ UTILISÉ */}
+            {/* Cas : DÉJÀ UTILISÉ */}
             {lastScannedResult.status === "ALREADY_USED" && (
               <div className="space-y-4">
                 <div className="mx-auto h-20 w-20 rounded-full bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-amber-400 animate-bounce">
                   <AlertTriangle size={46} />
                 </div>
-
                 <div className="space-y-1">
                   <span className="rounded-full bg-amber-400 text-black px-4 py-1 text-xs font-extrabold uppercase tracking-widest inline-block">
                     ⚠ BILLET DÉJÀ UTILISÉ
                   </span>
-                  <h2 className="font-heading text-3xl sm:text-4xl uppercase tracking-wider text-amber-200 mt-2">
+                  <h2 className="font-heading text-3xl uppercase tracking-wider text-amber-200 mt-2">
                     Entrée Déjà Enregistrée
                   </h2>
                   <p className="text-xs text-amber-300 font-semibold max-w-md mx-auto">
                     {lastScannedResult.message}
                   </p>
                 </div>
-
-                <div className="mx-auto max-w-sm rounded-xl bg-black/60 border border-amber-500/30 p-4 text-xs font-mono text-left space-y-2">
-                  <div>
-                    <span className="text-cn-gray-400 block">Titulaire :</span>
-                    <span className="font-bold text-white">
-                      {lastScannedResult.participant?.firstName}{" "}
-                      {lastScannedResult.participant?.lastName}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-cn-gray-400 block">Premier scan effectué le :</span>
-                    <span className="font-bold text-amber-400">
-                      {lastScannedResult.previousScanAt
-                        ? new Date(lastScannedResult.previousScanAt).toLocaleString("fr-FR")
-                        : "Heure non renseignée"}
-                    </span>
-                  </div>
-                  {lastScannedResult.previousScannedBy && (
-                    <div className="text-[11px] text-cn-gray-400">
-                      Par l&apos;agent : {lastScannedResult.previousScannedBy}
-                    </div>
-                  )}
-                </div>
               </div>
             )}
 
-            {/* Statut 3 : BILLET INVALIDE */}
+            {/* Cas : INVALIDE */}
             {lastScannedResult.status === "INVALID" && (
               <div className="space-y-4">
                 <div className="mx-auto h-20 w-20 rounded-full bg-red-500/20 border-2 border-red-500 flex items-center justify-center text-red-500">
                   <XCircle size={46} />
                 </div>
-
                 <div className="space-y-1">
                   <span className="rounded-full bg-red-500 text-white px-4 py-1 text-xs font-extrabold uppercase tracking-widest inline-block">
                     ✕ BILLET INVALIDE
                   </span>
-                  <h2 className="font-heading text-3xl sm:text-4xl uppercase tracking-wider text-red-200 mt-2">
-                    Accès Refusé
+                  <h2 className="font-heading text-3xl uppercase tracking-wider text-red-200 mt-2">
+                    Code Introuvable
                   </h2>
                   <p className="text-xs text-red-300 max-w-md mx-auto">
                     {lastScannedResult.message}
                   </p>
                 </div>
-
-                <p className="text-xs text-cn-gray-400">
-                  Le QR code scanné n&apos;appartient pas à la base de données de CELEBRATION NIGHT ou
-                  a été révoqué.
-                </p>
               </div>
             )}
 
-            {/* Bouton de réarmement pour le scan suivant */}
+            {/* Bouton pour réarmer */}
             <div className="mt-8">
               <Button
                 type="button"
@@ -433,106 +485,76 @@ export default function AdminScannerPage() {
                 size="lg"
                 className="w-full sm:w-auto min-w-[260px] justify-center"
               >
-                Scanner le billet suivant
+                Prêt pour le scan suivant
               </Button>
             </div>
           </div>
         )}
 
-        {/* CADRE DU VISEUR VIDÉO CAMÉRA (si pas de résultat affiché) */}
+        {/* CADRE DU VISEUR CAMÉRA */}
         {!lastScannedResult && (
           <div className="relative rounded-3xl border border-white/10 bg-cn-dark overflow-hidden shadow-2xl">
-            {/* Flux Vidéo */}
             <div className="relative aspect-[4/3] sm:aspect-video w-full flex items-center justify-center bg-black">
               <video
                 ref={videoRef}
                 playsInline
                 muted
-                className={`w-full h-full object-cover ${cameraActive ? "block" : "hidden"}`}
+                className="h-full w-full object-cover"
               />
 
+              {/* Viseur visuel avec animation */}
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <div
+                  className={`relative h-64 w-64 rounded-2xl border-2 transition-colors ${
+                    scanMode === "GAVE_LIFE"
+                      ? "border-cn-gold shadow-[0_0_40px_rgba(245,158,11,0.5)]"
+                      : "border-emerald-400 shadow-[0_0_40px_rgba(52,211,153,0.4)]"
+                  }`}
+                >
+                  <div
+                    className={`absolute inset-x-0 h-1 bg-gradient-to-r animate-bounce top-1/2 ${
+                      scanMode === "GAVE_LIFE"
+                        ? "from-transparent via-amber-400 to-transparent"
+                        : "from-transparent via-emerald-400 to-transparent"
+                    }`}
+                  />
+                </div>
+              </div>
+
               {!cameraActive && (
-                <div className="p-8 text-center space-y-3">
-                  <CameraOff size={40} className="mx-auto text-cn-gray-500" />
-                  <p className="text-xs text-cn-gray-400 max-w-xs mx-auto">
-                    {cameraError || "Caméra désactivée ou en attente d'autorisation."}
+                <div className="absolute inset-0 bg-cn-dark/95 flex flex-col items-center justify-center p-6 text-center">
+                  <CameraOff size={42} className="text-cn-gray-400 mb-3" />
+                  <p className="text-sm font-semibold text-white">Caméra en attente</p>
+                  <p className="text-xs text-cn-gray-400 mt-1 max-w-xs">
+                    {cameraError || "Veuillez autoriser l'accès à la caméra pour scanner les QR Codes."}
                   </p>
                   <Button
                     type="button"
-                    onClick={startCamera}
                     variant="primary"
                     size="sm"
+                    onClick={startCamera}
+                    className="mt-4"
                   >
-                    Activer la caméra
+                    Réessayer d&apos;activer la caméra
                   </Button>
                 </div>
               )}
-
-              {/* Viseur Holographique & Ligne laser de balayage */}
-              {cameraActive && (
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                  {/* Cadre de visée */}
-                  <div className="relative h-64 w-64 rounded-2xl border-2 border-cn-gold/70 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
-                    {/* Coins renforcés */}
-                    <div className="absolute -top-1 -left-1 h-5 w-5 border-t-4 border-l-4 border-cn-gold" />
-                    <div className="absolute -top-1 -right-1 h-5 w-5 border-t-4 border-r-4 border-cn-gold" />
-                    <div className="absolute -bottom-1 -left-1 h-5 w-5 border-b-4 border-l-4 border-cn-gold" />
-                    <div className="absolute -bottom-1 -right-1 h-5 w-5 border-b-4 border-r-4 border-cn-gold" />
-
-                    {/* Faisceau laser de scan animé */}
-                    <div className="absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-cn-gold to-transparent shadow-[0_0_8px_#F59E0B] animate-bounce" />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Barre de contrôle sous la vidéo */}
-            <div className="bg-cn-black p-4 flex items-center justify-between border-t border-white/10">
-              <span className="text-xs text-cn-gray-400 flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                Viseur actif • Placez le QR code au centre
-              </span>
-
-              <button
-                type="button"
-                onClick={switchCameraFacing}
-                className="flex items-center gap-1.5 rounded-lg border border-white/15 px-3 py-1.5 text-xs text-white hover:bg-white/10 transition-colors"
-              >
-                <SwitchCamera size={14} />
-                <span>Changer caméra</span>
-              </button>
             </div>
           </div>
         )}
 
-        {/* SAISIE MANUELLE DE SECOURS (Numéro CN-2026-...) */}
-        <div className="rounded-2xl border border-white/10 bg-cn-dark/90 p-6 backdrop-blur-md">
-          <div className="flex items-center gap-2 mb-3">
-            <Keyboard size={18} className="text-cn-gold-light" />
-            <h3 className="font-heading text-xl uppercase tracking-wide text-white">
-              Saisie Manuelle d&apos;Urgence
-            </h3>
-          </div>
-          <p className="text-xs text-cn-gray-300 mb-4">
-            Si l&apos;écran du smartphone du participant est cassé ou déchargé, tapez directement
-            le numéro de billet officiel (ex: <code className="text-cn-gold-light font-mono">CN-2026-000001</code>).
-          </p>
-
-          <form onSubmit={handleManualSubmit} className="flex gap-2">
+        {/* Saisie manuelle d'urgence */}
+        <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+          <form onSubmit={handleManualSubmit} className="flex gap-3">
             <input
               type="text"
               value={manualCode}
               onChange={(e) => setManualCode(e.target.value)}
-              placeholder="CN-2026-000001"
-              className="flex-1 rounded-lg border border-white/15 bg-white/[0.04] px-4 py-3 text-xs uppercase font-mono text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
+              placeholder="Saisir manuellement le N° de billet (ex: CN-2026-000001)"
+              className="flex-1 rounded-xl border border-white/10 bg-black/40 px-4 py-2.5 text-xs text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none"
             />
-            <Button
-              type="submit"
-              variant="primary"
-              disabled={scanning || !manualCode.trim()}
-              className="px-6"
-            >
-              Valider
+            <Button type="submit" variant="secondary" size="sm">
+              Valider le code
             </Button>
           </form>
         </div>

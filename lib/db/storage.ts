@@ -72,6 +72,7 @@ function getInitialDatabase(): DatabaseSchema {
     numberOfGuests: 2,
     ticketType: "VIP",
     source: "Réseaux sociaux",
+    gaveLifeToJesus: false,
     createdAt: new Date(Date.now() - 3600000 * 48).toISOString(),
     updatedAt: new Date().toISOString(),
   };
@@ -87,6 +88,7 @@ function getInitialDatabase(): DatabaseSchema {
     numberOfGuests: 1,
     ticketType: "STANDARD",
     source: "Église partenaire",
+    gaveLifeToJesus: false,
     createdAt: new Date(Date.now() - 3600000 * 24).toISOString(),
     updatedAt: new Date().toISOString(),
   };
@@ -102,6 +104,7 @@ function getInitialDatabase(): DatabaseSchema {
     numberOfGuests: 1,
     ticketType: "STANDARD",
     source: "Bouche-à-oreille",
+    gaveLifeToJesus: false,
     createdAt: new Date(Date.now() - 3600000 * 5).toISOString(),
     updatedAt: new Date().toISOString(),
   };
@@ -269,6 +272,7 @@ class StorageEngine implements DatabaseRepository {
       numberOfGuests: data.numberOfGuests,
       ticketType: data.ticketType,
       source: data.source?.trim() || null,
+      gaveLifeToJesus: false,
       createdAt: now,
       updatedAt: now,
     };
@@ -335,7 +339,7 @@ class StorageEngine implements DatabaseRepository {
 
     const matchedParticipants = db.participants.filter(
       (p) =>
-        p.email.toLowerCase().includes(clean) ||
+        (p.email && p.email.toLowerCase().includes(clean)) ||
         p.phone.includes(clean) ||
         `${p.firstName} ${p.lastName}`.toLowerCase().includes(clean)
     );
@@ -383,9 +387,11 @@ class StorageEngine implements DatabaseRepository {
           ? {
               firstName: participant.firstName,
               lastName: participant.lastName,
+              phone: participant.phone,
               email: participant.email,
               city: participant.city,
               country: participant.country,
+              gaveLifeToJesus: participant.gaveLifeToJesus,
             }
           : undefined,
         previousScanAt: ticket.scannedAt || undefined,
@@ -424,9 +430,11 @@ class StorageEngine implements DatabaseRepository {
         ? {
             firstName: participant.firstName,
             lastName: participant.lastName,
+            phone: participant.phone,
             email: participant.email,
             city: participant.city,
             country: participant.country,
+            gaveLifeToJesus: participant.gaveLifeToJesus,
           }
         : undefined,
       scannedAt: scanTime,
@@ -506,7 +514,7 @@ class StorageEngine implements DatabaseRepository {
         (p) =>
           p.firstName.toLowerCase().includes(q) ||
           p.lastName.toLowerCase().includes(q) ||
-          p.email.toLowerCase().includes(q) ||
+          (p.email && p.email.toLowerCase().includes(q)) ||
           p.phone.includes(q) ||
           p.city.toLowerCase().includes(q) ||
           p.country.toLowerCase().includes(q)
@@ -543,7 +551,7 @@ class StorageEngine implements DatabaseRepository {
         return (
           participant.firstName.toLowerCase().includes(q) ||
           participant.lastName.toLowerCase().includes(q) ||
-          participant.email.toLowerCase().includes(q)
+          (participant.email && participant.email.toLowerCase().includes(q))
         );
       });
     }

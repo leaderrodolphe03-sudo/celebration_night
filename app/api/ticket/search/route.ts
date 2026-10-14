@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { supabaseStorage } from "@/lib/db/supabase-storage";
 import { storage } from "@/lib/db/storage";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,7 +15,45 @@ export async function POST(req: NextRequest) {
 
     const clean = query.trim();
 
-    // 1. Essai direct par numéro de billet
+    if (isSupabaseConfigured()) {
+      // 1. Essai direct par numéro de billet
+      const directTicket = await supabaseStorage.getTicketByNumber(clean);
+      if (directTicket) {
+        return NextResponse.json({
+          success: true,
+          tickets: [
+            {
+              ticketNumber: directTicket.ticket.ticketNumber,
+              ticketType: directTicket.ticket.ticketType,
+              status: directTicket.ticket.status,
+              participantName: `${directTicket.participant.firstName} ${directTicket.participant.lastName}`,
+              phone: directTicket.participant.phone,
+              email: directTicket.participant.email,
+            },
+          ],
+        });
+      }
+
+      // 2. Recherche par email ou téléphone
+      const matched = await supabaseStorage.findTicketsByPhoneOrEmail(clean);
+      const tickets = matched.flatMap((item) =>
+        item.tickets.map((t) => ({
+          ticketNumber: t.ticketNumber,
+          ticketType: t.ticketType,
+          status: t.status,
+          participantName: `${item.participant.firstName} ${item.participant.lastName}`,
+          phone: item.participant.phone,
+          email: item.participant.email,
+        }))
+      );
+
+      return NextResponse.json({
+        success: true,
+        tickets,
+      });
+    }
+
+    // Fallback local
     const directTicket = storage.getTicketByNumber(clean);
     if (directTicket) {
       return NextResponse.json({
@@ -24,13 +64,13 @@ export async function POST(req: NextRequest) {
             ticketType: directTicket.ticket.ticketType,
             status: directTicket.ticket.status,
             participantName: `${directTicket.participant.firstName} ${directTicket.participant.lastName}`,
+            phone: directTicket.participant.phone,
             email: directTicket.participant.email,
           },
         ],
       });
     }
 
-    // 2. Recherche par email ou téléphone
     const matched = storage.findTicketsByEmailOrPhone(clean);
     const tickets = matched.flatMap((item) =>
       item.tickets.map((t) => ({
@@ -38,6 +78,7 @@ export async function POST(req: NextRequest) {
         ticketType: t.ticketType,
         status: t.status,
         participantName: `${item.participant.firstName} ${item.participant.lastName}`,
+        phone: item.participant.phone,
         email: item.participant.email,
       }))
     );

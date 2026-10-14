@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -12,20 +13,24 @@ import {
   Sparkles,
   AlertCircle,
   Check,
-  Camera,
+  ArrowRight,
 } from "lucide-react";
 import { EVENT } from "@/lib/event-config";
-import BadgeGenerator from "@/components/ticket/BadgeGenerator";
 import Button from "@/components/ui/Button";
 
 const FormSchema = z.object({
   firstName: z.string().min(2, "Le prénom doit comporter au moins 2 caractères"),
   lastName: z.string().min(2, "Le nom doit comporter au moins 2 caractères"),
-  email: z.string().email("Adresse email invalide").toLowerCase(),
-  phone: z.string().min(6, "Numéro de téléphone requis"),
+  phone: z.string().min(6, "Numéro de téléphone requis pour valider votre entrée"),
+  email: z
+    .string()
+    .trim()
+    .email("Adresse email invalide")
+    .toLowerCase()
+    .optional()
+    .or(z.literal("")),
   country: z.string().min(2, "Le pays est requis"),
-  city: z.string().min(2, "La ville est requise"),
-  numberOfGuests: z.coerce.number().int().min(1, "Au moins 1 place").max(10, "Maximum 10 places"),
+  city: z.string().optional(),
   ticketType: z.enum(["STANDARD", "VIP"]),
   source: z.string().optional(),
 });
@@ -33,20 +38,22 @@ const FormSchema = z.object({
 type FormValues = z.infer<typeof FormSchema>;
 
 const COUNTRIES = [
+  "Bénin",
+  "Togo",
   "Côte d'Ivoire",
-  "France",
+  "Nigeria",
+  "Ghana",
   "Gabon",
   "Cameroun",
   "Sénégal",
-  "Bénin",
-  "Togo",
-  "RDC (Congo)",
-  "Congo-Brazzaville",
   "Burkina Faso",
   "Mali",
-  "Canada",
+  "Niger",
+  "RDC (Congo)",
+  "Congo-Brazzaville",
+  "France",
   "Belgique",
-  "Suisse",
+  "Canada",
   "États-Unis",
   "Autre pays",
 ];
@@ -63,8 +70,8 @@ const SOURCES = [
 export default function InscriptionPage() {
   const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
+  const [existingTicketNumber, setExistingTicketNumber] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [uploadedPhotoUrl, setUploadedPhotoUrl] = useState<string | null>(null);
 
   const {
     register,
@@ -77,11 +84,10 @@ export default function InscriptionPage() {
     defaultValues: {
       firstName: "",
       lastName: "",
-      email: "",
       phone: "",
-      country: "Côte d'Ivoire",
-      city: "Abidjan",
-      numberOfGuests: 1,
+      email: "",
+      country: "Bénin",
+      city: "",
       ticketType: "STANDARD",
       source: "Réseaux sociaux (Instagram, TikTok, Facebook)",
     },
@@ -91,30 +97,47 @@ export default function InscriptionPage() {
   const lastName = watch("lastName");
   const fullName = `${firstName} ${lastName}`.trim();
   const selectedTicketType = watch("ticketType");
-  const numberOfGuests = watch("numberOfGuests") || 1;
 
   const onSubmit = async (values: FormValues) => {
     setSubmitting(true);
     setServerError(null);
+    setExistingTicketNumber(null);
 
     try {
+      const payload = {
+        ...values,
+        city: values.city?.trim() || "Cotonou",
+      };
+
       const res = await fetch("/api/inscription", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
+
+      // Cas où le numéro est déjà enregistré
+      if (res.status === 409 && data.isExisting) {
+        setExistingTicketNumber(data.primaryTicket?.ticketNumber || null);
+        setServerError(
+          "Ce numéro de téléphone est déjà enregistré pour CELEBRATION NIGHT. Chaque personne dispose d'un pass individuel unique."
+        );
+        setSubmitting(false);
+        return;
+      }
+
       if (!res.ok) {
         throw new Error(data.error || "Une erreur est survenue lors de l'enregistrement.");
       }
 
       const primaryNumber = data.primaryTicket.ticketNumber;
-      // Redirection vers confirmation avec les paramètres
+
+      // Redirection immédiate vers la page de confirmation et création du badge
       router.push(
         `/confirmation?ticketNumber=${encodeURIComponent(primaryNumber)}&name=${encodeURIComponent(
           fullName || "Participant"
-        )}&count=${values.numberOfGuests}`
+        )}`
       );
     } catch (err: any) {
       setServerError(err.message || "Erreur de connexion avec le serveur.");
@@ -130,59 +153,51 @@ export default function InscriptionPage() {
         className="pointer-events-none absolute top-12 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-amber-200/40 blur-[130px]"
       />
 
-      <div className="relative mx-auto max-w-5xl">
+      <div className="relative mx-auto max-w-3xl">
         {/* Titre & En-tête */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-10">
           <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-cn-amber block">
-            Billeterie Officielle Gratuite &amp; Pass Carré
+            Billeterie Officielle Gratuite &bull; Inscription Individuelle
           </span>
           <h1 className="mt-3 font-heading text-4xl sm:text-6xl uppercase tracking-wider text-cn-black">
             Réserver Ma Place
           </h1>
           <p className="mt-3 font-body text-sm sm:text-base text-[#5A4D41] max-w-xl mx-auto">
-            {EVENT.name} • {EVENT.dateLabel} à {EVENT.timeLabel}.
-            Inscrivez-vous gratuitement et personnalisez dès maintenant votre badge officiel carré « J&apos;y serai ».
+            {EVENT.name} &bull; {EVENT.dateLabel} à {EVENT.timeLabel}.<br />
+            Remplissez ce formulaire pour valider votre entrée gratuite. Dès confirmation, vous pourrez ajouter votre photo et générer votre badge officiel carré &laquo; J&apos;y serai &raquo;.
           </p>
         </div>
 
         {/* Message d'erreur serveur si applicable */}
         {serverError && (
-          <div className="mb-8 rounded-xl border border-red-300 bg-red-50 p-4 text-xs text-red-800 flex items-center gap-3">
-            <AlertCircle size={18} className="shrink-0 text-red-500" />
-            <span>{serverError}</span>
+          <div className="mb-8 rounded-2xl border border-red-300 bg-red-50 p-5 text-sm text-red-900 shadow-sm">
+            <div className="flex items-start gap-3">
+              <AlertCircle size={20} className="shrink-0 text-red-600 mt-0.5" />
+              <div className="flex-1">
+                <p className="font-semibold">{serverError}</p>
+                {existingTicketNumber && (
+                  <div className="mt-3">
+                    <Link
+                      href={`/confirmation?ticketNumber=${encodeURIComponent(existingTicketNumber)}&name=${encodeURIComponent(fullName || "Participant")}`}
+                      className="inline-flex items-center gap-2 rounded-lg bg-red-600 text-white px-4 py-2 text-xs font-bold uppercase tracking-wider hover:bg-red-700 transition-colors shadow-sm"
+                    >
+                      Voir mon badge &amp; billet existant ({existingTicketNumber})
+                      <ArrowRight size={14} />
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         )}
 
-        {/* SECTION 1 : GÉNÉRATEUR DE BADGE 'J'Y SERAI' */}
-        <div className="mb-12 rounded-3xl border border-[#E5DACF] bg-white p-6 sm:p-10 shadow-[0_20px_50px_rgba(28,22,19,0.06)]">
-          <div className="border-b border-[#E5DACF] pb-6 mb-8 text-center sm:text-left flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              
-              <h2 className="font-heading text-2xl sm:text-4xl uppercase tracking-wide text-cn-black">
-                Génère ton badge &laquo; J&apos;y serai ! &raquo;
-              </h2>
-              <p className="mt-1 font-body text-xs sm:text-sm text-[#5A4D41]">
-                Téléverse ta photo pour créer ton pass personnalisé carré à partager sur tes statuts WhatsApp et Instagram.
-              </p>
-            </div>
-          </div>
-
-          <BadgeGenerator
-            fullName={fullName || "Votre Nom et Prénom"}
-            ticketNumber="CN-2026-PASS"
-            qrToken="https://celebrationnight.org/reservation"
-            onPhotoUploaded={(url) => setUploadedPhotoUrl(url)}
-            showDownloadButton={true}
-          />
-        </div>
-
-        {/* SECTION 2 : FORMULAIRE D'INSCRIPTION OFFICIEL */}
+        {/* FORMULAIRE D'INSCRIPTION OFFICIEL */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-          {/* Choix de catégorie */}
+          {/* ÉTAPE 1 : Choix de catégorie */}
           <div className="rounded-2xl border border-[#E5DACF] bg-white p-6 sm:p-8 shadow-[0_10px_30px_rgba(28,22,19,0.05)]">
             <h2 className="font-heading text-2xl uppercase tracking-wide text-cn-black mb-4 flex items-center gap-2">
               <Ticket size={22} className="text-cn-amber" />
-              1. Choisissez votre catégorie de billet
+              1. Choisissez votre catégorie d&apos;accès
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -207,8 +222,7 @@ export default function InscriptionPage() {
                   Accès Général
                 </h3>
                 <p className="mt-2 text-xs text-[#5A4D41] leading-relaxed font-body">
-                  Accès complet à la grande CELEBRATION, toutes les sessions d&apos;adoration et la
-                  ferveur en direct.
+                  Accès complet à la grande CELEBRATION, toutes les sessions d&apos;adoration et la ferveur en direct.
                 </p>
                 {selectedTicketType === "STANDARD" && (
                   <div className="mt-4 flex items-center gap-1.5 text-xs font-bold text-cn-amber">
@@ -248,35 +262,19 @@ export default function InscriptionPage() {
               </div>
             </div>
 
-            {/* Nombre de participants */}
-            <div className="mt-6 pt-6 border-t border-[#E5DACF] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#4A3E34]">
-                  Nombre de places souhaitées
-                </label>
-                <p className="text-[11px] text-[#7A6D60]">
-                  Un billet avec QR Code individuel sera attribué à chaque personne.
-                </p>
-              </div>
-              <div className="flex items-center gap-3">
-                <select
-                  {...register("numberOfGuests", { valueAsNumber: true })}
-                  className="rounded-lg border border-[#D8CABE] bg-[#FAF7F2] px-4 py-2.5 text-sm font-bold text-cn-black focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold"
-                >
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                    <option key={num} value={num}>
-                      {num} {num > 1 ? "places" : "place"}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            <div className="mt-5 pt-4 border-t border-[#E5DACF] flex items-center gap-2 text-xs text-[#5A4D41]">
+              <ShieldCheck size={16} className="text-emerald-600 shrink-0" />
+              <span>
+                <strong>1 place individuelle par inscription</strong> : chaque participant doit être inscrit avec son propre numéro de téléphone afin de recevoir son QR Code unique infalsifiable.
+              </span>
             </div>
           </div>
-          {/* Coordonnées du participant */}
+
+          {/* ÉTAPE 2 : Coordonnées du participant */}
           <div className="rounded-2xl border border-[#E5DACF] bg-white p-6 sm:p-8 shadow-[0_10px_30px_rgba(28,22,19,0.05)]">
             <h2 className="font-heading text-2xl uppercase tracking-wide text-cn-black mb-6 flex items-center gap-2">
               <Users size={22} className="text-cn-amber" />
-              2. Informations du titulaire du billet
+              2. Vos Coordonnées
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -312,7 +310,22 @@ export default function InscriptionPage() {
 
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-[#4A3E34] mb-1.5">
-                  Adresse Email * (pour recevoir le billet officiel)
+                  Numéro de Téléphone * (Sert d&apos;identifiant unique)
+                </label>
+                <input
+                  type="tel"
+                  {...register("phone")}
+                  placeholder="Ex: +229 97 00 00 00"
+                  className="w-full rounded-lg border border-[#D8CABE] bg-[#FAF7F2] px-4 py-3 text-sm text-cn-black placeholder-[#9E9081] focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold focus:bg-white transition-colors"
+                />
+                {errors.phone && (
+                  <p className="mt-1 text-xs text-red-600 font-medium">{errors.phone.message}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#4A3E34] mb-1.5">
+                  Adresse Email <span className="text-[#887869] normal-case font-normal">(Optionnelle)</span>
                 </label>
                 <input
                   type="email"
@@ -322,21 +335,6 @@ export default function InscriptionPage() {
                 />
                 {errors.email && (
                   <p className="mt-1 text-xs text-red-600 font-medium">{errors.email.message}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#4A3E34] mb-1.5">
-                  Numéro de Téléphone *
-                </label>
-                <input
-                  type="tel"
-                  {...register("phone")}
-                  placeholder="Ex: +225 07 12 34 56 78"
-                  className="w-full rounded-lg border border-[#D8CABE] bg-[#FAF7F2] px-4 py-3 text-sm text-cn-black placeholder-[#9E9081] focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold focus:bg-white transition-colors"
-                />
-                {errors.phone && (
-                  <p className="mt-1 text-xs text-red-600 font-medium">{errors.phone.message}</p>
                 )}
               </div>
 
@@ -361,12 +359,12 @@ export default function InscriptionPage() {
 
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-[#4A3E34] mb-1.5">
-                  Ville *
+                  Ville <span className="text-[#887869] normal-case font-normal">(Par défaut : Cotonou)</span>
                 </label>
                 <input
                   type="text"
                   {...register("city")}
-                  placeholder="Ex: Abidjan, Paris, Libreville..."
+                  placeholder="Cotonou"
                   className="w-full rounded-lg border border-[#D8CABE] bg-[#FAF7F2] px-4 py-3 text-sm text-cn-black placeholder-[#9E9081] focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold focus:bg-white transition-colors"
                 />
                 {errors.city && (
@@ -399,11 +397,11 @@ export default function InscriptionPage() {
                 Récapitulatif de l&apos;Inscription
               </p>
               <h3 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide text-cn-black mt-1">
-                {numberOfGuests} {numberOfGuests > 1 ? "Billets" : "Billet"} {selectedTicketType}
+                1 Billet {selectedTicketType} &bull; 100% Gratuit
               </h3>
               <p className="text-xs text-[#5A4D41] mt-1 flex items-center gap-1.5">
                 <ShieldCheck size={14} className="text-emerald-600" />
-                Billet carré numérique officiel avec QR Code unique
+                Pass carré officiel avec QR Code unique généré immédiatement
               </p>
             </div>
 
@@ -412,9 +410,9 @@ export default function InscriptionPage() {
               variant="primary"
               size="lg"
               loading={submitting}
-              className="w-full sm:w-auto min-w-[260px] justify-center"
+              className="w-full sm:w-auto min-w-[280px] justify-center"
             >
-              {submitting ? "Génération des billets officiels..." : "Confirmer Mon Inscription"}
+              {submitting ? "Validation de ma place..." : "Valider et Générer Mon Badge"}
             </Button>
           </div>
         </form>

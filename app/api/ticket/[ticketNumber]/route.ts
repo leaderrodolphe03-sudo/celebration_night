@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { supabaseStorage } from "@/lib/db/supabase-storage";
 import { storage } from "@/lib/db/storage";
+import { isSupabaseConfigured } from "@/lib/supabase";
 import { generateQrCodeDataUrl, generateQrCodeSvg } from "@/lib/qrcode-generator";
 import { EVENT } from "@/lib/event-config";
 
@@ -13,7 +15,13 @@ export async function GET(
       return NextResponse.json({ error: "Numéro de billet manquant" }, { status: 400 });
     }
 
-    const result = storage.getTicketByNumber(rawNumber);
+    let result = null;
+    if (isSupabaseConfigured()) {
+      result = await supabaseStorage.getTicketByNumber(rawNumber);
+    } else {
+      result = storage.getTicketByNumber(rawNumber);
+    }
+
     if (!result) {
       return NextResponse.json({ error: "Billet introuvable" }, { status: 404 });
     }
@@ -44,6 +52,7 @@ export async function GET(
       participant: {
         firstName: participant.firstName,
         lastName: participant.lastName,
+        phone: participant.phone,
         email: participant.email,
         city: participant.city,
         country: participant.country,

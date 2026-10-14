@@ -8,13 +8,14 @@ export interface Participant {
   id: string;
   firstName: string;
   lastName: string;
-  email: string;
+  email?: string | null;
   phone: string;
   country: string;
   city: string;
-  numberOfGuests: number;
+  numberOfGuests?: number;
   ticketType: TicketType;
   source?: string | null;
+  gaveLifeToJesus: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -55,8 +56,9 @@ export interface ContactMessage {
 }
 
 export interface ScanResult {
-  status: "VALID" | "ALREADY_USED" | "INVALID";
+  status: "VALID" | "ALREADY_USED" | "INVALID" | "GAVE_LIFE_SAVED";
   message: string;
+  mode?: "ENTRY" | "GAVE_LIFE";
   ticket?: {
     id: string;
     ticketNumber: string;
@@ -68,9 +70,11 @@ export interface ScanResult {
   participant?: {
     firstName: string;
     lastName: string;
-    email: string;
+    phone: string;
+    email?: string | null;
     city: string;
     country: string;
+    gaveLifeToJesus?: boolean;
   };
   scannedAt?: string;
   previousScanAt?: string;

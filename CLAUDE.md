@@ -2,9 +2,9 @@
 
 > **Projet** : CELEBRATION NIGHT (HAGIAZO Ministry)  
 > **Date de création du registre** : 27 Septembre 2026  
-> **Dernière mise à jour** : 27 Septembre 2026  
+> **Dernière mise à jour** : 14 Octobre 2026  
 > **Objectif Final** : Base de données hébergée sur **Supabase** (PostgreSQL)  
-> **État Actuel** : Stockage local JSON (`data/db.json`) temporaire
+> **État Actuel** : Architecture Supabase `@supabase/supabase-js` prête, flux individuel 1 personne = 1 place, générateur de badge post-inscription, scan "Âmes pour Christ" et accès admin par code PIN.
 
 ---
 

@@ -13,6 +13,7 @@ import {
   Shield,
   Download,
   RefreshCw,
+  Flame,
 } from "lucide-react";
 import AdminNav from "@/components/admin/AdminNav";
 import Button from "@/components/ui/Button";
@@ -26,6 +27,7 @@ interface DashboardData {
     attendanceRate: number;
     standardTickets: number;
     vipTickets: number;
+    gaveLifeCount?: number;
     recentParticipants: Array<{
       id: string;
       firstName: string;
@@ -147,11 +149,11 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* CARTES D'INDICATEURS CLÉS (KPIs) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 sm:gap-6">
           {/* Participants */}
           <div className="rounded-2xl border border-cn-gold/20 bg-cn-dark p-5 shadow-xl">
             <div className="flex items-center justify-between text-cn-gray-300">
-              <span className="text-[11px] font-bold uppercase tracking-wider">Participants</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider">Inscrits</span>
               <div className="h-8 w-8 rounded-lg bg-cn-black border border-cn-gold/30 flex items-center justify-center text-cn-gold-light">
                 <Users size={16} />
               </div>
@@ -159,7 +161,26 @@ export default function AdminDashboardPage() {
             <p className="mt-3 font-heading text-4xl text-white tracking-wide">
               {stats?.totalParticipants || 0}
             </p>
-            <p className="mt-1 text-[11px] text-cn-gray-400">Inscrits uniques</p>
+            <p className="mt-1 text-[11px] text-cn-gray-400">Pass individuels</p>
+          </div>
+
+          {/* Âmes pour Christ */}
+          <div className="rounded-2xl border border-amber-500/50 bg-gradient-to-b from-amber-950/40 to-cn-dark p-5 shadow-xl">
+            <div className="flex items-center justify-between text-amber-400">
+              <span className="text-[11px] font-bold uppercase tracking-wider">Âmes pour Christ</span>
+              <div className="h-8 w-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-300 shadow-sm">
+                <Flame size={16} />
+              </div>
+            </div>
+            <p className="mt-3 font-heading text-4xl text-amber-300 tracking-wide">
+              {stats?.gaveLifeCount || 0}
+            </p>
+            <Link
+              href="/admin/participants"
+              className="mt-1 text-[11px] text-cn-gold hover:underline block"
+            >
+              Voir la liste &rarr;
+            </Link>
           </div>
 
           {/* Billets Générés */}
@@ -174,7 +195,7 @@ export default function AdminDashboardPage() {
               {stats?.totalTickets || 0}
             </p>
             <p className="mt-1 text-[11px] text-cn-gold-light">
-              {stats?.standardTickets || 0} Standard • {stats?.vipTickets || 0} VIP
+              {stats?.standardTickets || 0} Std &bull; {stats?.vipTickets || 0} VIP
             </p>
           </div>
 
@@ -189,27 +210,27 @@ export default function AdminDashboardPage() {
             <p className="mt-3 font-heading text-4xl text-emerald-400 tracking-wide">
               {stats?.scannedTickets || 0}
             </p>
-            <p className="mt-1 text-[11px] text-emerald-200/70">Billets scannés validés</p>
+            <p className="mt-1 text-[11px] text-emerald-200/70">Scans validés</p>
           </div>
 
           {/* Absents / En Attente */}
-          <div className="rounded-2xl border border-amber-500/30 bg-amber-950/20 p-5 shadow-xl">
-            <div className="flex items-center justify-between text-amber-400">
-              <span className="text-[11px] font-bold uppercase tracking-wider">Absents</span>
-              <div className="h-8 w-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-300">
+          <div className="rounded-2xl border border-white/10 bg-cn-dark p-5 shadow-xl">
+            <div className="flex items-center justify-between text-cn-gray-400">
+              <span className="text-[11px] font-bold uppercase tracking-wider">En Attente</span>
+              <div className="h-8 w-8 rounded-lg bg-white/5 flex items-center justify-center text-cn-gray-300">
                 <Clock size={16} />
               </div>
             </div>
-            <p className="mt-3 font-heading text-4xl text-amber-400 tracking-wide">
+            <p className="mt-3 font-heading text-4xl text-white tracking-wide">
               {stats?.pendingTickets || 0}
             </p>
-            <p className="mt-1 text-[11px] text-amber-200/70">En attente d&apos;entrée</p>
+            <p className="mt-1 text-[11px] text-cn-gray-400">Restants</p>
           </div>
 
           {/* Taux de présence */}
           <div className="rounded-2xl border border-cn-gold/20 bg-cn-dark p-5 shadow-xl">
             <div className="flex items-center justify-between text-cn-gold-light">
-              <span className="text-[11px] font-bold uppercase tracking-wider">Affluence</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider">Taux d&apos;Entrée</span>
               <div className="h-8 w-8 rounded-lg bg-cn-black border border-cn-gold/30 flex items-center justify-center text-cn-gold-light">
                 <TrendingUp size={16} />
               </div>
