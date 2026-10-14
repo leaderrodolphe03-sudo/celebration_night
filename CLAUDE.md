@@ -291,13 +291,12 @@ Application web événementielle et portail d'administration pour la veillée «
     - Compilation Next.js (`npm run build`) : 31/31 routes générées avec succès (code de sortie 0).
     - Validation du serveur de production Next.js : En-têtes HTTP de sécurité, cache immuable et `X-Nextjs-Cache: HIT` confirmés.
 
-  - **Rognage & Nettoyage des 5 Photos du Hero (`HeroPhotoGallery.tsx`)** :
-    - Détection de précision de l'incrustation inférieure du logo (« CELEBRATION NIGHT » + « REGIS L'OEIL »).
-    - Création du répertoire dédié `public/images/hero/cropped/` accueillant les versions rognées haute résolution (qualité MozJPEG progressive 90).
-    - Rognage chirurgical éliminant le logo tout en préservant intacts les sujets, les mains levées, les micros, pupitres et postures.
-    - Conservation stricte des 5 photos originales dans `public/images/hero/card-1.jpg` à `card-5.jpg` pour les autres sections du site.
-    - Mise à jour de `HeroPhotoGallery.tsx` pointant vers `/images/hero/cropped/card-*.jpg`.
-    - Validation TypeScript (`npx tsc --noEmit`) : 0 erreur. Build Next.js (`npm run build`) : 31/31 validées (code 0).
+  - **Optimisation Vidéo Adoration Vivante & Faststart (`PresentationSection.tsx`)** :
+    - Découverte du problème de blocage de lecture : l'atome `moov` était écrit à la fin du fichier MP4, forçant les navigateurs à tamponner l'intégralité du fichier avant de pouvoir démarrer la lecture.
+    - Application de `-movflags +faststart` sur `public/images/recap.mp4` pour placer l'index `moov` au tout début du fichier, assurant un streaming et un démarrage de lecture instantané dès les premiers kilooctets téléchargés.
+    - Ajout d'un garde d'autoplay robuste (`useEffect` avec `muted = true` et gestion `catch()`) assurant la compatibilité stricte avec les politiques de lecture automatique de Safari, iOS et Chrome.
+    - Typage TypeScript (`npx tsc --noEmit`) : 0 erreur. Compilation Next.js (`npm run build`) : 31/31 routes validées (code 0).
+
 
 
 
