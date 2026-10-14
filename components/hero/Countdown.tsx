@@ -40,7 +40,7 @@ export default function Countdown({
     return (
       <div
         role="timer"
-        aria-label="Compte à rebours avant Célébration Night"
+        aria-label="Compte à rebours avant CELEBRATION Night"
         className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-black/65 px-4 py-1.5 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.6)] select-none"
       >
         <span className="relative flex h-2 w-2">
@@ -63,7 +63,7 @@ export default function Countdown({
   return (
     <div
       role="timer"
-      aria-label="Compte à rebours avant Célébration Night"
+      aria-label="Compte à rebours avant CELEBRATION Night"
       className="grid grid-cols-4 gap-2 max-w-xs"
     >
       {units.map(([label, value]) => (

@@ -32,7 +32,7 @@ export default function StatsSection() {
   return (
     <section
       className="relative z-10 bg-gradient-to-b from-cn-black via-cn-dark to-cn-black py-10 sm:py-14 px-5 sm:px-8 lg:px-10"
-      aria-label="Célébration Night 2026 en chiffres"
+      aria-label="CELEBRATION Night 2026 en chiffres"
     >
       <div className="mx-auto max-w-6xl">
         {/* Titre de la section plus équilibré */}

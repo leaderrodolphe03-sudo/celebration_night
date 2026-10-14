@@ -159,7 +159,7 @@ export default function MonBilletPage() {
         {/* CTA Pas encore inscrit ? */}
         <div className="mt-14 pt-8 border-t border-white/10">
           <p className="text-xs text-cn-gray-300">
-            Vous n&apos;avez pas encore de billet pour CÉLÉBRATION NIGHT ?
+            Vous n&apos;avez pas encore de billet pour CELEBRATION NIGHT ?
           </p>
           <Link
             href="/inscription"

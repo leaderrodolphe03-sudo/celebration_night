@@ -17,7 +17,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/hero-cinematic-bg.jpg"
-          alt="Célébration Night — Sanctuaire et ambiance cinématique"
+          alt="CELEBRATION Night — Sanctuaire et ambiance cinématique"
           fill
           priority
           sizes="100vw"
@@ -32,19 +32,19 @@ export default function Hero() {
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center text-center px-4 pt-28 pb-24 sm:pb-28 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
 
         {/* Logo officiel monumental au centre */}
-        <div className="relative w-[280px] sm:w-[380px] md:w-[480px] lg:w-[560px] max-w-[90vw] mb-4 select-none transition-transform hover:scale-[1.01] duration-300">
+        <div className="relative w-[240px] sm:w-[320px] md:w-[420px] lg:w-[480px] max-w-[85vw] mb-4 select-none transition-transform hover:scale-[1.01] duration-300">
           <Image
-            src="/logos/celebration-night-logo.png"
-            alt="Célébration Night — Emblème officiel"
-            width={1016}
-            height={467}
+            src="/logos/celebration-night-logo-3d.png"
+            alt="CELEBRATION Night — Emblème officiel"
+            width={1402}
+            height={1122}
             priority
-            className="w-full h-auto object-contain drop-shadow-[0_12px_40px_rgba(245,158,11,0.4)]"
+            className="w-full h-auto object-contain drop-shadow-[0_16px_50px_rgba(245,158,11,0.45)]"
           />
         </div>
 
         {/* Titre sémantique pour lecteurs d'écran */}
-        <h1 className="sr-only">CÉLÉBRATION NIGHT — HAGIAZO Ministry</h1>
+        <h1 className="sr-only">CELEBRATION NIGHT — HAGIAZO Ministry</h1>
 
         {/* Slogan */}
         <p className="font-body text-sm sm:text-base md:text-lg text-cn-gray-100 max-w-xl mx-auto leading-relaxed mb-6 font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
@@ -70,7 +70,7 @@ export default function Hero() {
           <span className="text-white/30 hidden sm:inline">•</span>
           <span className="flex items-center gap-1.5">
             <MapPin size={14} className="text-cn-gold" />
-            <span>Palais des Congrès, Abidjan</span>
+            <span>Temple des Leaders FOURSQUARE Sikècodji</span>
           </span>
         </div>
 
@@ -84,10 +84,6 @@ export default function Hero() {
           >
             Réserver ma place
           </Button>
-          <p className="flex items-center gap-1.5 font-body text-xs text-cn-gray-300">
-            <ShieldCheck size={14} className="text-emerald-400 shrink-0" />
-            Entrée 100% gratuite · Billet numérique sécurisé
-          </p>
         </div>
       </div>
 
@@ -98,7 +94,7 @@ export default function Hero() {
       >
         <Image
           src="/images/flame-bottom.png"
-          alt="Flamme Sacrée Célébration Night"
+          alt="Flamme Sacrée CELEBRATION Night"
           width={164}
           height={177}
           priority

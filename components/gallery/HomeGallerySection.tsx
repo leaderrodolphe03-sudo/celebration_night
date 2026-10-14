@@ -21,7 +21,7 @@ const GALLERY_PHOTOS: GalleryPhoto[] = [
   { id: 6,  src: "/images/gallery/photo-6.jpg",  title: "Intercession & Humiliation",       tag: "Prière" },
   { id: 7,  src: "/images/gallery/photo-7.jpg",  title: "Prédication & Proclamation",       tag: "Parole" },
   { id: 8,  src: "/images/gallery/photo-8.jpg",  title: "Jeunesse consacrée & Recueillie",  tag: "Communion" },
-  { id: 9,  src: "/images/gallery/photo-9.jpg",  title: "Célébration & Allégresse",         tag: "Joie Sainte" },
+  { id: 9,  src: "/images/gallery/photo-9.jpg",  title: "CELEBRATION & Allégresse",         tag: "Joie Sainte" },
   { id: 10, src: "/images/gallery/photo-10.jpg", title: "Le Sanctuaire sous les lumières",  tag: "Scène" },
 ];
 
@@ -56,7 +56,7 @@ export default function HomeGallerySection() {
             </div>
             <h2 className="font-heading text-4xl sm:text-6xl uppercase leading-[0.92] tracking-wide text-white">
               ILS ÉTAIENT À LA<br />
-              <span className="text-cn-gold">CÉLÉBRATION NIGHT</span>
+              <span className="text-cn-gold">CELEBRATION NIGHT</span>
             </h2>
           </div>
           <Button

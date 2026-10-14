@@ -8,3 +8,8 @@ data/
 *.db
 *.db-journal
 *.sqlite
+
+# Fichiers médias bruts volumineux (> 100 Mo)
+public/video/video1.mp4
+public/video/video2.mp4
+public/images/XKOZ4098.MP4

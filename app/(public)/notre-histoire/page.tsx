@@ -5,9 +5,9 @@ import { EVENT } from "@/lib/event-config";
 import Button from "@/components/ui/Button";
 
 export const metadata: Metadata = {
-  title: "Notre Histoire — HAGIAZO Ministry & Célébration Night",
+  title: "Notre Histoire — HAGIAZO Ministry & CELEBRATION Night",
   description:
-    "Découvrez l'histoire, la vision et le mandat divin d'HAGIAZO Ministry à travers le grand rassemblement annuel CÉLÉBRATION NIGHT.",
+    "Découvrez l'histoire, la vision et le mandat divin d'HAGIAZO Ministry à travers le grand rassemblement annuel CELEBRATION NIGHT.",
 };
 
 const VALUES = [
@@ -24,7 +24,7 @@ const VALUES = [
   {
     icon: Users,
     title: "Unité des Générations",
-    desc: "Célébration Night brise les barrières dénominationnelles pour rassembler jeunes, responsables et familles dans un même souffle de ferveur.",
+    desc: "CELEBRATION Night brise les barrières dénominationnelles pour rassembler jeunes, responsables et familles dans un même souffle de ferveur.",
   },
   {
     icon: Heart,
@@ -46,13 +46,13 @@ const MILESTONES = [
   },
   {
     year: "2025",
-    title: "L'Appel de Célébration Night",
+    title: "L'Appel de CELEBRATION Night",
     desc: "Structuration officielle de HAGIAZO Ministry et conception d'un rassemblement annuel d'envergure, alliant chantres renommés, chœur de louange et nouveaux talents.",
   },
   {
     year: "2026",
     title: "L'Édition Historique",
-    desc: "Une soirée grandiose conçue pour marquer toute une génération : 6 heures de célébration non-stop, communion fraternelle et puissance du Saint-Esprit.",
+    desc: "Une soirée grandiose conçue pour marquer toute une génération : 6 heures de CELEBRATION non-stop, communion fraternelle et puissance du Saint-Esprit.",
   },
 ];
 
@@ -93,7 +93,7 @@ export default function NotreHistoirePage() {
             </p>
             <p className="font-body text-sm sm:text-base text-cn-gray-300 leading-relaxed">
               Nous croyons que la musique n&apos;est pas une simple performance, mais un véhicule puissant pour
-              introduire le peuple dans la présence du Très-Haut. Chaque célébration annuelle découle
+              introduire le peuple dans la présence du Très-Haut. Chaque CELEBRATION annuelle découle
               d&apos;un engagement permanent de prière, de consécration et d&apos;amour fraternel.
             </p>
             <div className="pt-2 flex flex-wrap gap-4">
@@ -111,7 +111,7 @@ export default function NotreHistoirePage() {
               Rassemblement Annuel
             </div>
             <h3 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide text-white">
-              Les Piliers de Célébration Night
+              Les Piliers de CELEBRATION Night
             </h3>
             <p className="mt-2 text-xs text-cn-gold font-medium uppercase tracking-wider">
               Une tradition d&apos;excellence renouvelée chaque année
@@ -227,21 +227,17 @@ export default function NotreHistoirePage() {
         </div>
 
         {/* 5. Bannière finale d'engagement */}
-        <div className="mt-20 rounded-2xl bg-gradient-to-b from-cn-dark via-cn-black to-cn-deep border border-cn-gold/40 p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-cn-gold/10 blur-[80px]"
-          />
-          <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-cn-gold">
+        <div className="mt-20 rounded-2xl bg-[linear-gradient(225deg,#6E1818_0%,#3B1812_22%,#241510_50%,#1C1613_100%)] border border-cn-gold/40 p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden">
+          <span className="relative z-10 text-[11px] font-bold uppercase tracking-[0.3em] text-cn-gold">
             Soyez témoin de cette histoire
           </span>
-          <h3 className="mt-2 font-heading text-3xl sm:text-5xl uppercase tracking-wide text-white">
+          <h3 className="relative z-10 mt-2 font-heading text-3xl sm:text-5xl uppercase tracking-wide text-white">
             Écrivez cette page avec nous
           </h3>
-          <p className="mt-3 font-body text-sm sm:text-base text-cn-gray-300 max-w-xl mx-auto">
+          <p className="relative z-10 mt-3 font-body text-sm sm:text-base text-cn-gray-300 max-w-xl mx-auto">
             L&apos;entrée est 100% gratuite sur inscription. Réservez votre place et générez votre badge officiel.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <div className="relative z-10 mt-8 flex flex-wrap justify-center gap-4">
             <Button href="/inscription" variant="primary" size="lg">
               Réserver mon billet dès maintenant
             </Button>

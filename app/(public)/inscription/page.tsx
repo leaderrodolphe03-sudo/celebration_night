@@ -207,7 +207,7 @@ export default function InscriptionPage() {
                   Accès Général
                 </h3>
                 <p className="mt-2 text-xs text-[#5A4D41] leading-relaxed font-body">
-                  Accès complet à la grande célébration, toutes les sessions d&apos;adoration et la
+                  Accès complet à la grande CELEBRATION, toutes les sessions d&apos;adoration et la
                   ferveur en direct.
                 </p>
                 {selectedTicketType === "STANDARD" && (
@@ -376,7 +376,7 @@ export default function InscriptionPage() {
 
               <div className="sm:col-span-2">
                 <label className="block text-xs font-semibold uppercase tracking-wider text-[#4A3E34] mb-1.5">
-                  Comment avez-vous connu CÉLÉBRATION NIGHT ?
+                  Comment avez-vous connu CELEBRATION NIGHT ?
                 </label>
                 <select
                   {...register("source")}

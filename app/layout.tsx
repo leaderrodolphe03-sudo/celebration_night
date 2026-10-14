@@ -17,18 +17,18 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "CÉLÉBRATION NIGHT — HAGIAZO Ministry",
-  description: "CÉLÉBRATION NIGHT — Une génération. Une foi. Une célébration.",
+  title: "CELEBRATION NIGHT — HAGIAZO Ministry",
+  description: "CELEBRATION NIGHT — Une génération. Une foi. Une CELEBRATION.",
   openGraph: {
-    title: "CÉLÉBRATION NIGHT — HAGIAZO Ministry",
-    description: "CÉLÉBRATION NIGHT — Une génération. Une foi. Une célébration.",
+    title: "CELEBRATION NIGHT — HAGIAZO Ministry",
+    description: "CELEBRATION NIGHT — Une génération. Une foi. Une CELEBRATION.",
     type: "website",
     locale: "fr_FR",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CÉLÉBRATION NIGHT — HAGIAZO Ministry",
-    description: "CÉLÉBRATION NIGHT — Une génération. Une foi. Une célébration.",
+    title: "CELEBRATION NIGHT — HAGIAZO Ministry",
+    description: "CELEBRATION NIGHT — Une génération. Une foi. Une CELEBRATION.",
   },
 };
 

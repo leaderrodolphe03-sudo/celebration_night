@@ -68,12 +68,12 @@ export default function Navbar() {
           <Link
             href="/"
             className="group flex items-center shrink-0"
-            aria-label="Célébration Night — Accueil"
+            aria-label="CELEBRATION Night — Accueil"
           >
             <CelebrationNightLogo
               className="group-hover:opacity-85 transition-opacity"
               imgClassName={`w-auto object-contain transition-all duration-300 ${
-                scrolled ? "h-9 sm:h-10" : "h-11 sm:h-12"
+                scrolled ? "h-10 sm:h-11" : "h-12 sm:h-13"
               }`}
             />
           </Link>
@@ -86,15 +86,15 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-4 py-2 font-body text-xs font-semibold uppercase tracking-[0.14em] transition-colors duration-200 rounded-md ${
+                  className={`relative px-3 py-2 font-body text-xs font-semibold uppercase tracking-[0.14em] transition-colors duration-200 ${
                     isActive
                       ? "text-cn-gold-light"
-                      : "text-cn-gray-300 hover:text-white hover:bg-white/5"
+                      : "text-cn-gray-300 hover:text-cn-gold"
                   }`}
                 >
                   {link.label}
                   {isActive && (
-                    <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-cn-gold rounded-full" />
+                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-cn-gold rounded-full" />
                   )}
                 </Link>
               );
@@ -141,7 +141,7 @@ export default function Navbar() {
                   href={link.href}
                   onClick={() => setOpen(false)}
                   className={`border-b border-white/8 py-4 font-body text-base font-semibold uppercase tracking-wider transition-colors ${
-                    isActive ? "text-cn-gold-light" : "text-cn-gray-300 hover:text-white"
+                    isActive ? "text-cn-gold-light" : "text-cn-gray-300 hover:text-cn-gold"
                   }`}
                 >
                   {link.label}

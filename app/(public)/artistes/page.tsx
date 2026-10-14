@@ -3,9 +3,9 @@ import { Mic2, Music, Sparkles, MapPin } from "lucide-react";
 import Button from "@/components/ui/Button";
 
 export const metadata: Metadata = {
-  title: "Artistes & Chantres — CÉLÉBRATION NIGHT 2026",
+  title: "Artistes & Chantres — CELEBRATION NIGHT 2026",
   description:
-    "Découvrez les ministres de la louange, chantres invités et orateurs de la Célébration Night organisée par HAGIAZO Ministry.",
+    "Découvrez les ministres de la louange, chantres invités et orateurs de la CELEBRATION Night organisée par HAGIAZO Ministry.",
 };
 
 const ARTISTS = [
@@ -44,7 +44,7 @@ const ARTISTS = [
   {
     name: "Section Rythmique & Synthés",
     role: "Musiciens & Virtuoses de Scène",
-    origin: "Régie Musicale Célébration Night",
+    origin: "Régie Musicale CELEBRATION Night",
     bio: "Claviéristes, batteurs, percussionnistes et bassistes réunis dans une virtuosité au service exclusif de la sainteté et du culte divin.",
     songs: ["Symphonie Céleste", "Groove d'Adoration"],
     badge: "Musiciens Live",

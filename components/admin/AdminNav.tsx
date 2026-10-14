@@ -48,7 +48,7 @@ export default function AdminNav({ user }: AdminNavProps) {
         {/* Logo & Badge */}
         <div className="flex items-center gap-3">
           <Link href="/admin/dashboard" className="flex items-center">
-            <CelebrationNightLogo imgClassName="h-8 sm:h-9 w-auto object-contain" />
+            <CelebrationNightLogo imgClassName="h-9 sm:h-10 w-auto object-contain" />
           </Link>
           <span className="hidden sm:inline-flex items-center gap-1 rounded-md bg-cn-dark px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-cn-gold-light border border-cn-gold/40">
             <Shield size={12} className="text-cn-gold" />

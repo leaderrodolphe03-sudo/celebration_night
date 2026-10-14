@@ -102,17 +102,17 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
   ctx.letterSpacing = "6px";
   ctx.fillText("HAGIAZO MINISTRY PRÉSENTE", SIZE / 2, 95);
 
-  // Titre événementiel : CÉLÉBRATION NIGHT
+  // Titre événementiel : CELEBRATION NIGHT
   ctx.fillStyle = "#EDE8DC";
   ctx.font = "900 76px 'Bebas Neue', Montserrat, sans-serif";
   ctx.letterSpacing = "4px";
-  ctx.fillText("CÉLÉBRATION NIGHT", SIZE / 2, 175);
+  ctx.fillText("CELEBRATION NIGHT", SIZE / 2, 175);
 
   // Date et lieu
   ctx.fillStyle = "#BFB89E";
   ctx.font = "600 22px Montserrat, sans-serif";
   ctx.letterSpacing = "3px";
-  const dateVenue = `${data.dateLabel || "SAMEDI 14 NOVEMBRE 2026"} • ${data.venueLabel || "ABIDJAN"}`;
+  const dateVenue = `${data.dateLabel || "VENDREDI 13 NOVEMBRE 2026"} • ${data.venueLabel || "ABIDJAN"}`;
   ctx.fillText(dateVenue.toUpperCase(), SIZE / 2, 215);
 
   // 5. Zone centrale : Photo du participant

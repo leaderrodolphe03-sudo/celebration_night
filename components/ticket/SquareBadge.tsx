@@ -67,7 +67,7 @@ export default function SquareBadge({
           HAGIAZO MINISTRY PRÉSENTE
         </span>
         <h3 className="mt-1 font-heading text-3xl sm:text-5xl uppercase tracking-wider text-white drop-shadow-md leading-none">
-          CÉLÉBRATION NIGHT
+          CELEBRATION NIGHT
         </h3>
         <p className="mt-1 font-body text-[10px] sm:text-xs font-semibold tracking-wider text-cn-gray-300 uppercase">
           {EVENT.dateLabel} • {EVENT.timeLabel} • ABIDJAN

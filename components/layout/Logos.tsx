@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 /**
- * CelebrationNightLogo — Emblème officiel Célébration Night
+ * CelebrationNightLogo — Emblème officiel CELEBRATION Night
  */
 export function CelebrationNightLogo({
   className = "",
@@ -15,10 +15,10 @@ export function CelebrationNightLogo({
   return (
     <span className={`inline-flex items-center ${className}`}>
       <Image
-        src="/logos/celebration-night-logo.png"
-        alt="Célébration Night"
-        width={1016}
-        height={467}
+        src="/logos/celebration-night-logo-3d.png"
+        alt="CELEBRATION Night"
+        width={1402}
+        height={1122}
         priority={priority}
         className={imgClassName}
       />
@@ -30,12 +30,12 @@ export function HagiazoLogo({ className = "" }: { className?: string }) {
   return (
     <span className={`flex items-center ${className}`}>
       <Image
-        src="/logos/hagiazo-ministry.svg"
+        src="/logos/hagiazo-ministry.png"
         alt="HAGIAZO Ministry"
-        width={190}
-        height={44}
+        width={300}
+        height={260}
         priority
-        className="h-9 w-auto object-contain opacity-90"
+        className="h-10 w-auto object-contain opacity-95"
       />
     </span>
   );

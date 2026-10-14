@@ -418,7 +418,7 @@ export default function AdminScannerPage() {
                 </div>
 
                 <p className="text-xs text-cn-gray-400">
-                  Le QR code scanné n&apos;appartient pas à la base de données de CÉLÉBRATION NIGHT ou
+                  Le QR code scanné n&apos;appartient pas à la base de données de CELEBRATION NIGHT ou
                   a été révoqué.
                 </p>
               </div>

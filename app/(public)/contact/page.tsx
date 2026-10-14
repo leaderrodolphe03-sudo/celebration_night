@@ -7,7 +7,7 @@ import Button from "@/components/ui/Button";
 
 const FAQS = [
   {
-    q: "L'entrée à CÉLÉBRATION NIGHT est-elle payante ?",
+    q: "L'entrée à CELEBRATION NIGHT est-elle payante ?",
     a: "Non, l'entrée est 100% gratuite ! Cependant, en raison de la capacité d'accueil de la salle et des normes strictes de sécurité, l'inscription préalable est obligatoire pour obtenir votre billet numérique avec QR Code unique.",
   },
   {
@@ -20,7 +20,7 @@ const FAQS = [
   },
   {
     q: "Quelle est la différence entre un billet Standard et VIP ?",
-    a: "Le billet Standard donne un accès complet à l'événement et à la grande salle. Le billet VIP (Partenaire) donne en plus accès aux places réservées en tribune avant et à la rencontre d'échange avec les pasteurs et conducteurs de louange à l'issue de la célébration.",
+    a: "Le billet Standard donne un accès complet à l'événement et à la grande salle. Le billet VIP (Partenaire) donne en plus accès aux places réservées en tribune avant et à la rencontre d'échange avec les pasteurs et conducteurs de louange à l'issue de la CELEBRATION.",
   },
   {
     q: "Y aura-t-il un service de restauration sur place ?",
@@ -129,9 +129,8 @@ export default function ContactPage() {
                     Lieu du Rassemblement
                   </h3>
                   <p className="text-xs text-cn-gray-300 leading-relaxed mt-1">
-                    Palais des Congrès / Grande Halle de Célébration
-                    <br />
-                    Boulevard Principal des Événements, Abidjan
+                    Temple des Leaders FOURSQUARE Sikècodji
+                    
                   </p>
                 </div>
               </div>

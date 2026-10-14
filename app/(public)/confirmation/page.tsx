@@ -30,8 +30,8 @@ function ConfirmationContent() {
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: "CÉLÉBRATION NIGHT — HAGIAZO Ministry",
-        text: `J'ai réservé ma place pour Célébration Night le ${EVENT.dateLabel} ! Viens adorer avec nous, c'est 100% gratuit sur inscription :`,
+        title: "CELEBRATION NIGHT — HAGIAZO Ministry",
+        text: `J'ai réservé ma place pour CELEBRATION Night le ${EVENT.dateLabel} ! Viens adorer avec nous, c'est 100% gratuit sur inscription :`,
         url: window.location.origin,
       });
     } else {
@@ -79,7 +79,7 @@ function ConfirmationContent() {
           Félicitations {name} !
         </h1>
         <p className="mt-3 text-sm sm:text-base text-cn-gray-300 font-body max-w-xl mx-auto">
-          Votre place pour CÉLÉBRATION NIGHT est validée. Voici votre badge &amp; pass officiel au format carré
+          Votre place pour CELEBRATION NIGHT est validée. Voici votre badge &amp; pass officiel au format carré
           comportant votre code QR unique.
         </p>
 

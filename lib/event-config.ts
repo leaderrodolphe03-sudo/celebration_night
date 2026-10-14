@@ -3,11 +3,11 @@
 // elles sont centralisees ici pour rester faciles a mettre a jour.
 
 export const EVENT = {
-  name: "CÉLÉBRATION NIGHT",
+  name: "CELEBRATION NIGHT",
   organizer: "HAGIAZO Ministry",
-  tagline: "Une génération. Une foi. Une célébration.",
+  tagline: "Une génération. Une foi. Une CELEBRATION.",
   date: "2026-11-14T18:00:00",
-  dateLabel: "Samedi 14 Novembre 2026",
+  dateLabel: "Vendredi 13 Novembre 2026",
   timeLabel: "18h00",
   venue: "À confirmer",
 };

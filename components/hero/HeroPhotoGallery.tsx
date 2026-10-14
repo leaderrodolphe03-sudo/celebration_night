@@ -235,7 +235,7 @@ export default function HeroPhotoGallery({
                       {/* Image photographique épurée */}
                       <Image
                         src={photo.src}
-                        alt="Moment de Célébration Night"
+                        alt="Moment de CELEBRATION Night"
                         fill
                         sizes="(max-width: 768px) 150px, 220px"
                         priority={photo.id <= 3}

@@ -1,6 +1,6 @@
 # 🧠 CLAUDE.MD — Registre Mémoire & Suivi d'Architecture du Projet
 
-> **Projet** : CÉLÉBRATION NIGHT (HAGIAZO Ministry)  
+> **Projet** : CELEBRATION NIGHT (HAGIAZO Ministry)  
 > **Date de création du registre** : 27 Septembre 2026  
 > **Dernière mise à jour** : 27 Septembre 2026  
 > **Objectif Final** : Base de données hébergée sur **Supabase** (PostgreSQL)  
@@ -11,7 +11,7 @@
 ## 📌 1. Vue d'Ensemble & Objectifs Stratégiques
 
 ### Vision du Projet
-Application web événementielle et portail d'administration pour la veillée « CÉLÉBRATION NIGHT », organisée par HAGIAZO Ministry.
+Application web événementielle et portail d'administration pour la veillée « CELEBRATION NIGHT », organisée par HAGIAZO Ministry.
 - **Front public** : Vitrine, présentation, programme, artistes, blog, contact/FAQ, inscription participants avec génération de billets haute fidélité (QR codes sécurisés infalsifiables sans PII).
 - **Back-office / Admin** : Portique de contrôle et scanner caméra temps réel avec Web Audio API et vibrations haptiques, dashboard des KPIs en direct, gestion et export CSV des participants et billets.
 
@@ -156,7 +156,7 @@ Application web événementielle et portail d'administration pour la veillée «
     - Mobile : Défilement horizontal continu infini fluide (`animate-marquee-horizontal`).
   - **Refonte intégrale de `components/hero/Hero.tsx`** :
     - Arrière-plan avec photo immersive `hero-backdrop.jpg` et dégradés cinématiques bordeaux/braise.
-    - Colonne gauche : Badge supérieur événementiel, titre flamboyant "CÉLÉBRATION NIGHT", slogan, coordonnées, compte à rebours ambré, boutons CTA dégradé flamme.
+    - Colonne gauche : Badge supérieur événementiel, titre flamboyant "CELEBRATION NIGHT", slogan, coordonnées, compte à rebours ambré, boutons CTA dégradé flamme.
     - Colonne droite : Composant `HeroScrollCards` défilant en continu.
   - **Harmonisation globale de toutes les pages** :
     - Nettoyage et élimination de tous les résidus `#17165A` et `#38217F` dans `Navbar`, `Footer`, `page.tsx`, `about`, `artistes`, `programme`, `worship-session`, `echo-de-la-louange`, `contact`, `inscription`, `mon-billet`, `confirmation`, `billet/[ticketNumber]`, les pages `admin/*` et `lib/qrcode-generator.ts`.
@@ -179,7 +179,7 @@ Application web événementielle et portail d'administration pour la veillée «
     - Redirection permanente 308 configurée dans `next.config.mjs` de `/about` vers `/notre-histoire`.
   - **Refonte de la Page d'Accueil (`app/(public)/page.tsx`)** :
     - Suppression du chronogramme (`EventTimeline`) et de la section `ARTISTES & CONDUCTEURS`.
-    - Intégration de la nouvelle section Galerie (`components/gallery/HomeGallerySection.tsx`) : titre à gauche « ILS ÉTAIENT À LA CÉLÉBRATION NIGHT », bouton à droite « Voir la galerie » (vers `/medias`), et 10 photographies immersives réparties sur 2 lignes avec lightbox modale.
+    - Intégration de la nouvelle section Galerie (`components/gallery/HomeGallerySection.tsx`) : titre à gauche « ILS ÉTAIENT À LA CELEBRATION NIGHT », bouton à droite « Voir la galerie » (vers `/medias`), et 10 photographies immersives réparties sur 2 lignes avec lightbox modale.
     - Intégration du bandeau Marquee défilant continu des logos partenaires (`components/partners/PartnersMarquee.tsx`) inspiré de `effuzion.org` avec pause au survol.
     - Intégration de la section d'appel aux partenaires et sponsors (`components/partners/SponsorsCtaSection.tsx`).
   - **Système de Billet & Badge Carré 1:1 « J'y serai » (`components/ticket/`)** :
@@ -220,7 +220,7 @@ Application web événementielle et portail d'administration pour la veillée «
   - **Nouveau Composant Swiper Coverflow (`components/hero/HeroScrollCards.tsx`)** :
     - Intégration de l'effet 3D Coverflow (`EffectCoverflow`, `Autoplay`, `Pagination`, `Navigation`) adapté de l'inspiration Skiper UI / Carousel_003.
     - Charte visuelle "Braise & Flamme Sacrée" : puces de pagination dorées réactives (`#F5B900`), boutons de navigation ronds en verre dépoli avec bordures subtiles et survol crimson/ambre, ombres portées douces sur les cartes latérales inclinées.
-    - Intégration des photographies haute définition officielles de Célébration Night avec badges thématiques et typographies d'ambiance.
+    - Intégration des photographies haute définition officielles de CELEBRATION Night avec badges thématiques et typographies d'ambiance.
     - Interaction enrichie : `grabCursor` tactile/souris, `slideToClickedSlide`, boucle infinie fluide et pause automatique au survol de la souris.
   - **Validation & Contrôle** :
     - Typage TypeScript (`npx tsc --noEmit`) : 0 erreur.
@@ -248,7 +248,7 @@ Application web événementielle et portail d'administration pour la veillée «
     - Dégradé tricolore cinématique : Bleu royal/électrique en haut à gauche, Magenta/Violet en bas à gauche, Ambre et Orange feu à droite.
     - Calque de texture de grain argentique (Film Grain) via filtre SVG fractal noise pour reproduire la texture organique de l'affiche.
     - Logo officiel doré réduit en haut au centre (`w-36 sm:w-44 md:w-52`).
-    - Grand titre « CÉLÉBRATION NIGHT » sur une seule ligne (`whitespace-nowrap`) en typographie monumentale blanche avec ombre profonde.
+    - Grand titre « CELEBRATION NIGHT » sur une seule ligne (`whitespace-nowrap`) en typographie monumentale blanche avec ombre profonde.
     - Carrousel 3D d'images centré au milieu de la composition.
     - Bouton unique d'action « Réserver ma place » (suppression de « Notre Histoire » du Hero).
     - Compte à rebours compact en badge verre dépoli dans le coin haut-droit (`hidden md:block`, masqué sur mobile).

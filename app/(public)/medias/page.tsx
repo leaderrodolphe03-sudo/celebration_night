@@ -1,73 +1,15 @@
 import type { Metadata } from "next";
-import { Play, Download, Image as ImageIcon, Video, FileText } from "lucide-react";
+import { Download, Image as ImageIcon, Video, FileText } from "lucide-react";
 import MediaDownloadButton from "@/components/media/MediaDownloadButton";
 import Button from "@/components/ui/Button";
+import MediaPhotoGallery from "@/components/media/MediaPhotoGallery";
+import MediaVideoSection from "@/components/media/MediaVideoSection";
 
 export const metadata: Metadata = {
-  title: "Médias & Ressources — CÉLÉBRATION NIGHT 2026",
+  title: "Médias & Ressources — CELEBRATION NIGHT 2026",
   description:
-    "Galerie photos, vidéos de louange, teasers et kit média officiel pour Célébration Night et HAGIAZO Ministry.",
+    "Galerie photos, vidéos de louange, teasers et kit média officiel pour CELEBRATION Night et HAGIAZO Ministry.",
 };
-
-const VIDEOS = [
-  {
-    title: "Teaser Officiel — Célébration Night 2026",
-    duration: "02:15",
-    description: "La bande-annonce officielle dévoilant l'esprit, le lieu et les intervenants.",
-    tag: "Teaser",
-  },
-  {
-    title: "Session Live — « Brûle en moi » (HAGIAZO)",
-    duration: "08:40",
-    description: "Extrait de la veillée de louange et d'adoration spontanée en direct.",
-    tag: "Live Worship",
-  },
-  {
-    title: "Rétrospective — Édition Précédente",
-    duration: "05:12",
-    description: "Retour en images sur les temps forts, les baptêmes de l'Esprit et les témoignages.",
-    tag: "Aftermovie",
-  },
-];
-
-const PHOTO_GALLERY = [
-  {
-    title: "Grand Chœur de Louange HAGIAZO",
-    category: "Scène Live",
-    src: "/images/gallery/photo-1.jpg",
-    aspect: "col-span-1 md:col-span-2",
-  },
-  {
-    title: "Section Claviers & Synthés",
-    category: "Musiciens",
-    src: "/images/gallery/photo-2.jpg",
-    aspect: "col-span-1",
-  },
-  {
-    title: "L'Assemblée les mains levées vers le ciel",
-    category: "Adoration",
-    src: "/images/gallery/photo-3.jpg",
-    aspect: "col-span-1",
-  },
-  {
-    title: "Chantre soliste en ferveur spirituelle",
-    category: "Louange",
-    src: "/images/gallery/photo-4.jpg",
-    aspect: "col-span-1 md:col-span-2",
-  },
-  {
-    title: "Section Percussions & Batterie sacrée",
-    category: "Rythmique",
-    src: "/images/gallery/photo-5.jpg",
-    aspect: "col-span-1",
-  },
-  {
-    title: "Prière d'Intercession & Humiliation",
-    category: "Intercession",
-    src: "/images/gallery/photo-6.jpg",
-    aspect: "col-span-1 md:col-span-2",
-  },
-];
 
 const DOWNLOADS = [
   {
@@ -100,9 +42,6 @@ export default function MediasPage() {
           className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-cn-gold/10 blur-[130px]"
         />
         <div className="relative mx-auto max-w-4xl">
-          <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-cn-gold">
-            Images &amp; Extraits
-          </p>
           <h1 className="mt-4 font-heading text-5xl sm:text-7xl uppercase tracking-wider text-white">
             Médias &amp; Galerie
           </h1>
@@ -115,75 +54,42 @@ export default function MediasPage() {
 
       {/* Section Vidéos */}
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between pb-4">
-          <div className="flex items-center gap-2">
-            <Video className="text-cn-gold" size={22} />
-            <h2 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide">
+        <div className="flex flex-col items-center text-center pb-8">
+          <div className="flex items-center justify-center gap-2">
+            <Video className="text-cn-gold" size={24} />
+            <h2 className="font-heading text-2xl sm:text-4xl uppercase tracking-wide">
               Extraits &amp; Teasers
             </h2>
           </div>
+          <p className="mt-2 text-sm text-cn-gray-300 max-w-xl">
+            Vivez l&apos;expérience CELEBRATION NIGHT à travers nos sessions live et podcasts exclusifs.
+          </p>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {VIDEOS.map((vid, idx) => (
-            <div
-              key={idx}
-              className="group rounded-2xl border border-white/10 bg-cn-dark overflow-hidden transition-all hover:border-cn-gold/40 hover:-translate-y-1 shadow-lg"
-            >
-              {/* Vignette vidéo épurée (sans badge de catégorie superposé) */}
-              <div className="relative h-48 bg-gradient-to-br from-cn-deep to-cn-black flex items-center justify-center">
-                <div className="h-16 w-16 rounded-full bg-cn-gold text-cn-black flex items-center justify-center shadow-gold transition-transform group-hover:scale-110">
-                  <Play size={24} className="fill-[#1C1613] ml-1 text-cn-black" />
-                </div>
-                <span className="absolute bottom-3 right-3 rounded-md bg-black/80 px-2 py-0.5 text-[11px] font-semibold text-white">
-                  {vid.duration}
-                </span>
-              </div>
-
-              <div className="p-6">
-                <h3 className="font-heading text-xl uppercase tracking-wide text-white group-hover:text-cn-gold-light transition-colors">
-                  {vid.title}
-                </h3>
-                <p className="mt-2 text-xs text-cn-gray-300 leading-relaxed">
-                  {vid.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <MediaVideoSection />
       </section>
 
-      {/* Galerie Photos Réelles (sans badges superposés) */}
+      {/* Galerie Photos Réelles */}
       <section className="bg-cn-dark px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="flex items-center gap-2 pb-4">
-            <ImageIcon className="text-cn-gold" size={22} />
-            <h2 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide">
-              Instantanés de Ferveur &amp; d&apos;Adoration
-            </h2>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-white/10 mb-8">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <ImageIcon className="text-cn-gold" size={22} />
+                <span className="font-body text-xs font-bold uppercase tracking-[0.2em] text-cn-gold">
+                  Archives officielles
+                </span>
+              </div>
+              <h2 className="font-heading text-3xl sm:text-5xl uppercase tracking-wide text-white">
+                Instantanés de Ferveur &amp; d&apos;Adoration
+              </h2>
+            </div>
+            <p className="font-body text-sm text-cn-gray-300 max-w-md">
+              Revivez la puissance spirituelle, la louange spontanée et les visages illuminés par la gloire de Dieu lors des rassemblements CELEBRATION NIGHT.
+            </p>
           </div>
 
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {PHOTO_GALLERY.map((photo, idx) => (
-              <div
-                key={idx}
-                className={`${photo.aspect} relative h-72 rounded-2xl border border-white/10 overflow-hidden bg-cn-deep p-6 flex flex-col justify-end group shadow-xl hover:border-cn-gold/40 transition-all`}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={photo.src}
-                  alt={photo.title}
-                  className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-cn-black/90 via-cn-black/30 to-transparent" />
-                <div className="relative z-10">
-                  <h3 className="font-heading text-2xl uppercase tracking-wide text-white group-hover:text-cn-gold-light transition-colors">
-                    {photo.title}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
+          <MediaPhotoGallery />
         </div>
       </section>
 

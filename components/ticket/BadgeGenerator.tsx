@@ -194,7 +194,7 @@ export default function BadgeGenerator({
           <div className="rounded-xl p-4 text-xs text-[#5A4D41] space-y-1">
       
             <p className="leading-relaxed">
-              Téléchargez votre badge et partagez-le sur votre statut WhatsApp, Instagram ou Facebook pour inviter vos proches à se joindre à la célébration !
+              Téléchargez votre badge et partagez-le sur votre statut WhatsApp, Instagram ou Facebook pour inviter vos proches à se joindre à la CELEBRATION !
             </p>
           </div>
         </div>

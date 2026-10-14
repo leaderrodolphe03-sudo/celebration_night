@@ -17,11 +17,11 @@ export default function SponsorsCtaSection() {
             </div>
 
             <h2 className="font-heading text-4xl sm:text-6xl uppercase leading-[0.92] tracking-wide text-white">
-              Associez Votre Image à une Célébration Historique
+              Associez Votre Image à une CELEBRATION Historique
             </h2>
 
             <p className="mt-6 font-body text-base leading-relaxed text-cn-gray-300">
-              CÉLÉBRATION NIGHT réunit chaque année des milliers de personnes. En devenant
+              CELEBRATION NIGHT réunit chaque année des milliers de personnes. En devenant
               sponsor officiel, vous bénéficiez d&apos;une visibilité d&apos;honneur et participez
               à la gratuité totale des billets pour la jeunesse.
             </p>
@@ -55,10 +55,10 @@ export default function SponsorsCtaSection() {
                 Rejoignez les Bâtisseurs
               </span>
               <h3 className="font-heading text-2xl uppercase tracking-wide text-white mb-3">
-                Pack Partenaire Flamme d&apos;Or
+                Pack Partenaire
               </h3>
               <p className="font-body text-sm text-cn-gray-300 leading-relaxed">
-                Présence prestigieuse sur scène, places VIP réservées et visibilité maximale
+                Présence prestigieuse sur scène et visibilité maximale
                 sur tous nos supports de communication officiels et digitaux.
               </p>
               <div className="mt-6 pt-5 border-t border-white/10 flex items-center justify-between">

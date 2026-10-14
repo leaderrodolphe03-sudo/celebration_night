@@ -48,15 +48,12 @@ export default function SoutenirPage() {
           className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-cn-gold/10 blur-[130px]"
         />
         <div className="relative mx-auto max-w-4xl">
-          <div className="inline-flex items-center gap-2 rounded-full bg-cn-dark border border-cn-gold/40 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-cn-gold-light mb-6 shadow-sm">
-            <Handshake size={14} className="text-cn-gold" />
-            <span>Alliance &amp; Partenariats Stratégiques</span>
-          </div>
+          
           <h1 className="font-heading text-5xl sm:text-7xl lg:text-8xl uppercase tracking-wider text-white">
             Soutenir la Vision
           </h1>
           <p className="mt-6 font-body text-base sm:text-xl leading-relaxed text-cn-gray-300 max-w-2xl mx-auto">
-            CÉLÉBRATION NIGHT est une œuvre d&apos;impact spirituel et social offerte gratuitement à la jeunesse.
+            CELEBRATION NIGHT est une œuvre d&apos;impact spirituel et social offerte gratuitement à la jeunesse.
             En devenant partenaire, sponsor ou bienfaiteur, vous bâtissez avec nous un autel d&apos;excellence.
           </p>
         </div>
@@ -71,9 +68,7 @@ export default function SoutenirPage() {
               <div className="h-12 w-12 rounded-lg bg-cn-black border border-cn-gold/30 flex items-center justify-center text-cn-gold mb-6">
                 <Building2 size={24} />
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-cn-gold">
-                Visibilité &amp; Marque
-              </span>
+              
               <h3 className="mt-2 font-heading text-2xl sm:text-3xl uppercase tracking-wide text-white">
                 Sponsor Entreprise
               </h3>
@@ -104,16 +99,12 @@ export default function SoutenirPage() {
 
           {/* Formule 2 : Ministère & Église Partenaire */}
           <div className="rounded-2xl border border-cn-gold/40 bg-gradient-to-b from-cn-dark via-cn-black to-cn-deep p-8 flex flex-col justify-between hover:border-cn-gold transition-all hover:-translate-y-1 shadow-2xl relative">
-            <div className="absolute -top-3.5 right-6 rounded-md bg-cn-gold px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider text-cn-black shadow-md">
-              Recommandé
-            </div>
+            
             <div>
               <div className="h-12 w-12 rounded-lg bg-cn-black border border-cn-gold/40 flex items-center justify-center text-cn-gold mb-6">
                 <Award size={24} />
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-cn-gold">
-                Communion &amp; Réveil
-              </span>
+             
               <h3 className="mt-2 font-heading text-2xl sm:text-3xl uppercase tracking-wide text-white">
                 Église &amp; Ministère
               </h3>
@@ -148,9 +139,7 @@ export default function SoutenirPage() {
               <div className="h-12 w-12 rounded-lg bg-cn-black border border-cn-gold/30 flex items-center justify-center text-cn-gold mb-6">
                 <Heart size={24} />
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-cn-gold">
-                Générosité du Cœur
-              </span>
+              
               <h3 className="mt-2 font-heading text-2xl sm:text-3xl uppercase tracking-wide text-white">
                 Donateur Privé
               </h3>
@@ -312,21 +301,7 @@ export default function SoutenirPage() {
             </form>
           )}
 
-          {/* Coordonnées directes */}
-          <div className="mt-10 pt-6 border-t border-white/8 flex flex-wrap items-center justify-between gap-4 text-xs text-cn-gray-400">
-            <div className="flex items-center gap-2">
-              <Mail size={15} className="text-cn-gold" />
-              <span>partenaires@celebrationnight.org</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone size={15} className="text-cn-gold" />
-              <span>Permanence : +225 07 12 34 56 78</span>
-            </div>
-            <div className="flex items-center gap-2 text-emerald-400 font-semibold">
-              <ShieldCheck size={15} />
-              <span>Gestion transparente HAGIAZO Ministry</span>
-            </div>
-          </div>
+          
         </div>
       </section>
     </div>

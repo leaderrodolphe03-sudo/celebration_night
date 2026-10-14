@@ -251,7 +251,7 @@ export default function TicketPage() {
                   <MapPin size={13} className="text-cn-amber print:text-black" /> Lieu du Rassemblement
                 </span>
                 <span className="font-semibold text-white print:text-black text-sm mt-0.5 block">
-                  Palais des Congrès / Grande Halle de Célébration (Abidjan)
+                  Temple des Leaders FOURSQUARE Sikècodji
                 </span>
               </div>
             </div>

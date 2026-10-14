@@ -18,7 +18,7 @@ export default function Footer() {
           </span>
           <span className="flex items-center gap-2">
             <MapPin size={14} className="text-cn-gold" />
-            Palais des Congrès — Grande Salle
+            Temple des Leaders FOURSQUARE Sikècodji
           </span>
           <span className="flex items-center gap-2">
             <Mail size={14} className="text-cn-gold" />
@@ -32,7 +32,7 @@ export default function Footer() {
 
           {/* Identité */}
           <div className="lg:col-span-2 flex flex-col gap-5">
-            <CelebrationNightLogo priority={false}/>
+            <CelebrationNightLogo priority={false} imgClassName="h-16 sm:h-20 w-auto object-contain" />
             
             <p className="text-sm leading-relaxed text-cn-gray-300 max-w-sm">
               Un rassemblement d&apos;adoration contemporaine, de ferveur et de louange
@@ -144,7 +144,7 @@ export default function Footer() {
         <div className="mt-14 pt-8  flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-cn-gray-400">
           <p>© {new Date().getFullYear()} HAGIAZO Ministry. Tous droits réservés.</p>
           <p>
-            <span className="text-cn-gold">CÉLÉBRATION NIGHT 2026</span>
+            <span className="text-cn-gold">CELEBRATION NIGHT 2026</span>
           </p>
         </div>
       </div>

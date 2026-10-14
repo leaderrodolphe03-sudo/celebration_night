@@ -62,7 +62,7 @@ export default function AdminLoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-block">
-            <CelebrationNightLogo imgClassName="h-14 w-auto object-contain mx-auto" />
+            <CelebrationNightLogo imgClassName="h-20 sm:h-24 w-auto object-contain mx-auto drop-shadow-md" />
           </Link>
           <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-cn-dark border border-cn-gold/40 px-3 py-1 text-xs font-semibold text-cn-gold-light">
             <ShieldCheck size={14} className="text-cn-gold" />

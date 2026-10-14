@@ -11,7 +11,7 @@ export async function generateQrCodeDataUrl(token: string): Promise<string> {
       margin: 2,
       width: 400,
       color: {
-        dark: "#080808", // Noir obsidienne CÉLÉBRATION NIGHT
+        dark: "#080808", // Noir obsidienne CELEBRATION NIGHT
         light: "#FFFFFF",
       },
     });

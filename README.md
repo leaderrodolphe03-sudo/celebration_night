@@ -1,11 +1,10 @@
-# CÉLÉBRATION NIGHT — HAGIAZO Ministry
+# CELEBRATION NIGHT — HAGIAZO Ministry
 
-Application web professionnelle complète pour l'événement **« CÉLÉBRATION NIGHT »**, organisé par **HAGIAZO Ministry**.
+Application web professionnelle complète pour l'événement **« CELEBRATION NIGHT »**, organisé par **HAGIAZO Ministry**.
 
-> **« Une génération. Une foi. Une célébration. »**  
-> Date officielle : **Samedi 14 Novembre 2026 à 18h00**  
-> Lieu : Palais des Congrès / Grande Halle de Célébration (Abidjan)
-
+> **« Une génération. Une foi. Une CELEBRATION. »**  
+> Date officielle : **Vendredi 13 Novembre 2026 à 18h00**  
+> Lieu : Temple des Leaders FOURSQUARE Sikècodji
 ---
 
 ## 🌟 Fonctionnalités Réalisées
@@ -89,7 +88,7 @@ Application web professionnelle complète pour l'événement **« CÉLÉBRATION 
   - `Montserrat` pour les sous-titres, corps de texte et boutons.
 - **Logos Vectoriels SVG** :
   - `/public/logos/celebration-night.svg` : Logo officiel avec flamme d'adoration et faisceau doré.
-  - `/public/logos/hagiazo-ministry.svg` : Logo officiel avec croix sacrée épurée et sceau d'alliance.
+  - `/public/logos/hagiazo-ministry.png` : Logo officiel avec sceau d'alliance et flamme sacrée.
 
 ---
 
