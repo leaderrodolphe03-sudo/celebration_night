@@ -261,3 +261,34 @@ Application web événementielle et portail d'administration pour la veillée «
     - Typage TypeScript (`npx tsc --noEmit`) : 0 erreur.
     - Serveur de dev Next.js actif et opérationnel sur `http://localhost:3000`.
 
+- **14/10/2026 (Refonte Forme Boutons CTA Inférieur & Optimisation Sécurisée des Performances de Production)** :
+  - **Correction Esthétique et Géométrique des Boutons CTA Inférieurs (`app/(public)/page.tsx`)** :
+    - Remplacement du rayon semi-rectangulaire disgracieux `rounded-lg` (20px) par la forme pilule signature `rounded-full` conforme au CTA Hero.
+    - Harmonisation symétrique des marges intérieures (`px-8 sm:px-10 py-4`) et de la largeur minimale desktop (`sm:min-w-[230px]`), éliminant l'asymétrie (`px-10` vs `px-8`) et la classe invalide `py-4.5`.
+    - Intégration d'icônes vectorielles contextuelles : `Ticket` pour « Générer mon badge » et `Handshake` pour « Devenir Partenaire ».
+    - Stylisation premium : lueur dorée diffuse pour le bouton primaire (`shadow-gold hover:shadow-gold-strong`), et verre dépoli cinématique pour le bouton partenaire (`border-white/20 bg-white/5 backdrop-blur-sm hover:border-cn-gold/60 hover:bg-white/10 hover:text-cn-gold-light`).
+  - **Accélération Majeure du Rendu et Chargement en Production** :
+    - **Installation de `sharp` (v0.35.5)** dans `dependencies` pour activer le moteur natif C/libvips de Next.js au lieu de l'émulateur WebAssembly Squoosh (gain de vitesse d'optimisation d'image ×10 à ×50, réduction drastique du temps CPU serveur).
+    - **Optimisation de la Configuration Next.js (`next.config.mjs`)** :
+      - Activation de la compression native Gzip & Brotli (`compress: true`).
+      - Retrait de l'en-tête `x-powered-by: Next.js` pour la sécurité et la compacité des en-têtes HTTP.
+      - Configuration des formats d'image prioritaires modernes (`image/avif`, `image/webp`) et extension de la durée de mise en cache (`minimumCacheTTL: 31536000`).
+      - Optimisation du tree-shaking des paquets volumineux (`optimizePackageImports: ['lucide-react', 'framer-motion']`).
+      - Configuration des en-têtes HTTP de sécurité (`X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy`).
+      - Mise en cache long terme immuable des ressources statiques (`Cache-Control: public, max-age=31536000, immutable` sur `/images/*` et `/logos/*`).
+    - **Élimination de la Saturation Réseau au Démarrage (`priority`)** :
+      - Retrait de `priority` sur l'image en dessous de la ligne de flottaison `visuel_hote.jpg`.
+      - Retrait de `priority` sur les 3 cartes du Hero `HeroPhotoGallery.tsx` et sur `flame-bottom.png` dans `Hero.tsx`.
+      - Passage de `priority = false` par défaut sur les logos de navigation (`Logos.tsx`).
+      - Seul l'élément LCP critique (logo 3D Hero et fond cinématique à qualité 85) conserve la priorité d'affichage immédiate.
+    - **Suppression du Lag Artificiel dans `HeroPhotoGallery.tsx`** :
+      - Suppression des `setTimeout` bloquants (300ms + 300ms) qui maintenaient la galerie invisible (`opacity: 0`). Affichage immédiat et fluide dès le montage React (`isMounted`).
+    - **Compression Haute Fidélité des Actifs Sources Bruts** :
+      - Logos PNG optimisés avec Sharp sans perte de netteté : `celebration-night-logo-3d.png` (1 393 Ko ➔ 367 Ko, -74%), `hagiazo-ministry.png` (823 Ko ➔ 221 Ko, -73%).
+      - JPEGs optimisés avec MozJPEG : `visuel_hote.jpg` (589 Ko ➔ 118 Ko, -80%), `card-3.jpg`, `card-4.jpg`, `card-5.jpg` réduits de ~580 Ko à ~120 Ko chacun.
+  - **Validation & Contrôle** :
+    - Typage TypeScript (`npx tsc --noEmit`) : 0 erreur.
+    - Compilation Next.js (`npm run build`) : 31/31 routes générées avec succès (code de sortie 0).
+    - Validation du serveur de production Next.js : En-têtes HTTP de sécurité, cache immuable et `X-Nextjs-Cache: HIT` confirmés.
+
+

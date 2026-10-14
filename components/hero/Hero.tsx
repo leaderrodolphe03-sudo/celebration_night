@@ -22,7 +22,7 @@ export default function Hero() {
           priority
           sizes="100vw"
           className="object-cover object-center opacity-90"
-          quality={95}
+          quality={85}
         />
         {/* Voile cinématographique chaud pour unifier avec la palette non-sombre */}
         <div className="absolute inset-0 bg-gradient-to-b from-cn-black/40 via-cn-black/20 to-cn-black/70 pointer-events-none" />
@@ -97,7 +97,6 @@ export default function Hero() {
           alt="Flamme Sacrée CELEBRATION Night"
           width={164}
           height={177}
-          priority
           className="w-14 sm:w-18 md:w-22 h-auto object-contain animate-pulse"
         />
       </div>

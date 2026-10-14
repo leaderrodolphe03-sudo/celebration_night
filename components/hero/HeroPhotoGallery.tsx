@@ -88,32 +88,22 @@ export default function HeroPhotoGallery({
 }: {
   animationDelay?: number;
 }) {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [activePhotoId, setActivePhotoId] = useState<number | null>(null);
 
   useEffect(() => {
+    setIsMounted(true);
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
 
-    const visibilityTimer = setTimeout(() => {
-      setIsVisible(true);
-    }, animationDelay * 1000);
-
-    const animationTimer = setTimeout(() => {
-      setIsLoaded(true);
-    }, (animationDelay + 0.3) * 1000);
-
     return () => {
       window.removeEventListener("resize", handleResize);
-      clearTimeout(visibilityTimer);
-      clearTimeout(animationTimer);
     };
-  }, [animationDelay]);
+  }, []);
 
   // Dimensions adaptatives des cartes
   const cardWidth = isMobile ? 148 : 220;
@@ -169,14 +159,14 @@ export default function HeroPhotoGallery({
         <motion.div
           className="relative mx-auto flex w-full max-w-5xl justify-center items-center"
           initial={{ opacity: 0 }}
-          animate={{ opacity: isVisible ? 1 : 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          animate={{ opacity: isMounted ? 1 : 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           <motion.div
             className="relative flex w-full justify-center items-center"
             variants={containerVariants}
             initial="hidden"
-            animate={isLoaded ? "visible" : "hidden"}
+            animate={isMounted ? "visible" : "hidden"}
           >
             {/* Boîte pivot centrale aux dimensions d'une carte */}
             <div
@@ -238,7 +228,6 @@ export default function HeroPhotoGallery({
                         alt="Moment de CELEBRATION Night"
                         fill
                         sizes="(max-width: 768px) 150px, 220px"
-                        priority={photo.id <= 3}
                         className="object-cover object-center transition-transform duration-500"
                         draggable={false}
                       />

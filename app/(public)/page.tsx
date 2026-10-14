@@ -9,6 +9,7 @@ import PartnersMarquee from "@/components/partners/PartnersMarquee";
 import SponsorsCtaSection from "@/components/partners/SponsorsCtaSection";
 import { EVENT } from "@/lib/event-config";
 import Button from "@/components/ui/Button";
+import { Ticket, Handshake } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -77,7 +78,6 @@ export default function HomePage() {
                   alt="Le collectif vocal et musical HAGIAZO en ferveur lors de CÉLÉBRATION Night"
                   width={1080}
                   height={578}
-                  priority
                   className="w-full h-auto block rounded-2xl sm:rounded-3xl transition-transform duration-700 group-hover:scale-[1.01]"
                 />
               </div>
@@ -121,22 +121,22 @@ export default function HomePage() {
             <p className="mt-6 font-body text-base text-cn-gray-300 leading-relaxed">
               Entrée 100% gratuite. Téléversez votre photo pour générer votre pass officiel avec votre code QR unique.
             </p>
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5">
               <Button
                 href="/inscription"
                 size="lg"
                 variant="primary"
-                className="w-full sm:w-auto px-10 py-4.5"
+                icon={<Ticket size={18} className="text-cn-black" />}
+                className="rounded-full w-full sm:w-auto sm:min-w-[230px] px-8 sm:px-10 py-4 shadow-gold hover:shadow-gold-strong text-xs sm:text-sm font-bold tracking-wider"
               >
-                
-                <span>Générer mon badge</span>
-                
+                Générer mon badge
               </Button>
               <Button
                 href="/soutenir"
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto px-8 py-4.5"
+                icon={<Handshake size={18} className="text-cn-gold" />}
+                className="rounded-full w-full sm:w-auto sm:min-w-[230px] px-8 sm:px-10 py-4 border-white/20 bg-white/5 backdrop-blur-sm hover:border-cn-gold/60 hover:bg-white/10 hover:text-cn-gold-light text-xs sm:text-sm font-bold tracking-wider"
               >
                 Devenir Partenaire
               </Button>

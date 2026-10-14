@@ -6,7 +6,7 @@ import Image from "next/image";
 export function CelebrationNightLogo({
   className = "",
   imgClassName = "h-11 sm:h-12 w-auto object-contain",
-  priority = true,
+  priority = false,
 }: {
   className?: string;
   imgClassName?: string;
@@ -26,7 +26,13 @@ export function CelebrationNightLogo({
   );
 }
 
-export function HagiazoLogo({ className = "" }: { className?: string }) {
+export function HagiazoLogo({
+  className = "",
+  priority = false,
+}: {
+  className?: string;
+  priority?: boolean;
+}) {
   return (
     <span className={`flex items-center ${className}`}>
       <Image
@@ -34,7 +40,7 @@ export function HagiazoLogo({ className = "" }: { className?: string }) {
         alt="HAGIAZO Ministry"
         width={300}
         height={260}
-        priority
+        priority={priority}
         className="h-10 w-auto object-contain opacity-95"
       />
     </span>
