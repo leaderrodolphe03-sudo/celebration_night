@@ -48,7 +48,7 @@ export default function PresentationSection() {
           <div className="relative aspect-[16/9] md:aspect-[16/8] w-full overflow-hidden">
             <video
               ref={videoRef}
-              src="/images/XKOZ4098.MP4"
+              src="/images/recap.mp4"
               poster="/images/worship-bg.jpg"
               autoPlay
               loop

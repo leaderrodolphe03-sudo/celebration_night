@@ -31,7 +31,7 @@ const PHOTOS: PhotoItem[] = [
     defaultRotate: -4,
     zIndex: 50,
     direction: "left",
-    src: "/images/hero/card-1.jpg",
+    src: "/images/hero/cropped/card-1.jpg",
   },
   {
     id: 2,
@@ -43,7 +43,7 @@ const PHOTOS: PhotoItem[] = [
     defaultRotate: -2,
     zIndex: 40,
     direction: "left",
-    src: "/images/hero/card-2.jpg",
+    src: "/images/hero/cropped/card-2.jpg",
   },
   {
     id: 3,
@@ -55,7 +55,7 @@ const PHOTOS: PhotoItem[] = [
     defaultRotate: 1,
     zIndex: 30,
     direction: "right",
-    src: "/images/hero/card-3.jpg",
+    src: "/images/hero/cropped/card-3.jpg",
   },
   {
     id: 4,
@@ -67,7 +67,7 @@ const PHOTOS: PhotoItem[] = [
     defaultRotate: 3,
     zIndex: 20,
     direction: "right",
-    src: "/images/hero/card-4.jpg",
+    src: "/images/hero/cropped/card-4.jpg",
   },
   {
     id: 5,
@@ -79,7 +79,7 @@ const PHOTOS: PhotoItem[] = [
     defaultRotate: -2,
     zIndex: 10,
     direction: "left",
-    src: "/images/hero/card-5.jpg",
+    src: "/images/hero/cropped/card-5.jpg",
   },
 ];
 

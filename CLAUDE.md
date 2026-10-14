@@ -291,4 +291,13 @@ Application web événementielle et portail d'administration pour la veillée «
     - Compilation Next.js (`npm run build`) : 31/31 routes générées avec succès (code de sortie 0).
     - Validation du serveur de production Next.js : En-têtes HTTP de sécurité, cache immuable et `X-Nextjs-Cache: HIT` confirmés.
 
+  - **Rognage & Nettoyage des 5 Photos du Hero (`HeroPhotoGallery.tsx`)** :
+    - Détection de précision de l'incrustation inférieure du logo (« CELEBRATION NIGHT » + « REGIS L'OEIL »).
+    - Création du répertoire dédié `public/images/hero/cropped/` accueillant les versions rognées haute résolution (qualité MozJPEG progressive 90).
+    - Rognage chirurgical éliminant le logo tout en préservant intacts les sujets, les mains levées, les micros, pupitres et postures.
+    - Conservation stricte des 5 photos originales dans `public/images/hero/card-1.jpg` à `card-5.jpg` pour les autres sections du site.
+    - Mise à jour de `HeroPhotoGallery.tsx` pointant vers `/images/hero/cropped/card-*.jpg`.
+    - Validation TypeScript (`npx tsc --noEmit`) : 0 erreur. Build Next.js (`npm run build`) : 31/31 validées (code 0).
+
+
 
