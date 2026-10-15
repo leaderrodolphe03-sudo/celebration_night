@@ -27,8 +27,12 @@ const DATA_DIR = path.join(process.cwd(), "data");
 const DB_FILE = path.join(DATA_DIR, "db.json");
 
 function ensureDirectoryExists(dirPath: string) {
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
+  try {
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
+    }
+  } catch (e) {
+    // Environnement read-only (ex: Vercel)
   }
 }
 
@@ -217,30 +221,29 @@ class StorageEngine implements DatabaseRepository {
   private load(): DatabaseSchema {
     if (this.cache) return this.cache;
 
-    ensureDirectoryExists(DATA_DIR);
-
-    if (!fs.existsSync(DB_FILE)) {
-      const initial = getInitialDatabase();
-      fs.writeFileSync(DB_FILE, JSON.stringify(initial, null, 2), "utf-8");
-      this.cache = initial;
-      return initial;
-    }
-
     try {
-      const content = fs.readFileSync(DB_FILE, "utf-8");
-      this.cache = JSON.parse(content) as DatabaseSchema;
-      return this.cache;
-    } catch (e) {
-      const fallback = getInitialDatabase();
-      this.cache = fallback;
-      return fallback;
+      if (fs.existsSync(DB_FILE)) {
+        const content = fs.readFileSync(DB_FILE, "utf-8");
+        this.cache = JSON.parse(content) as DatabaseSchema;
+        return this.cache;
+      }
+    } catch {
+      // Environnement read-only ou fichier absent
     }
+
+    const fallback = getInitialDatabase();
+    this.cache = fallback;
+    return fallback;
   }
 
   private save(): void {
     if (!this.cache) return;
-    ensureDirectoryExists(DATA_DIR);
-    fs.writeFileSync(DB_FILE, JSON.stringify(this.cache, null, 2), "utf-8");
+    try {
+      ensureDirectoryExists(DATA_DIR);
+      fs.writeFileSync(DB_FILE, JSON.stringify(this.cache, null, 2), "utf-8");
+    } catch {
+      // Ignorer si filesystem read-only (ex: Vercel)
+    }
   }
 
   // --- PARTICIPANTS & BILLETS ---

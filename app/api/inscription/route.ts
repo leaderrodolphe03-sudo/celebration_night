@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { supabaseStorage } from "@/lib/db/supabase-storage";
-import { storage } from "@/lib/db/storage";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { TicketType } from "@/lib/types";
 
@@ -67,97 +66,74 @@ export async function POST(req: NextRequest) {
     const data = parsed.data;
     const city = data.city?.trim() || "Cotonou";
 
-    // Utilisation de Supabase en priorité
-    if (isSupabaseConfigured()) {
-      const res = await supabaseStorage.createRegistration({
-        firstName: data.firstName,
-        lastName: data.lastName,
-        phone: data.phone,
-        email: data.email,
-        country: data.country,
-        city,
-        ticketType: data.ticketType as TicketType,
-        source: data.source,
+    // 1. Vérification de la configuration Supabase
+    if (!isSupabaseConfigured()) {
+      console.error("Configuration Supabase manquante au runtime:", {
+        hasUrl: Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL),
+        hasServiceKey: Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY),
+        hasAnonKey: Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
       });
-
-      if (res.isExisting) {
-        return NextResponse.json(
-          {
-            success: false,
-            isExisting: true,
-            error: "Ce numéro de téléphone est déjà inscrit pour CELEBRATION NIGHT.",
-            primaryTicket: {
-              ticketNumber: res.ticket.ticketNumber,
-              ticketType: res.ticket.ticketType,
-              status: res.ticket.status,
-            },
-            participant: {
-              firstName: res.participant.firstName,
-              lastName: res.participant.lastName,
-              phone: res.participant.phone,
-            },
-          },
-          { status: 409 }
-        );
-      }
 
       return NextResponse.json(
         {
-          success: true,
-          message: "Inscription confirmée avec succès",
-          participant: {
-            id: res.participant.id,
-            firstName: res.participant.firstName,
-            lastName: res.participant.lastName,
-            email: res.participant.email,
-            phone: res.participant.phone,
-            city: res.participant.city,
-            country: res.participant.country,
-            ticketType: res.participant.ticketType,
-          },
+          error:
+            "Base de données non connectée : les variables d'environnement Supabase (NEXT_PUBLIC_SUPABASE_URL et SUPABASE_SERVICE_ROLE_KEY) ne sont pas détectées sur le serveur. Veuillez vérifier les variables d'environnement sur Vercel et relancer le déploiement.",
+        },
+        { status: 500 }
+      );
+    }
+
+    // 2. Inscription directe dans Supabase
+    const res = await supabaseStorage.createRegistration({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      phone: data.phone,
+      email: data.email,
+      country: data.country,
+      city,
+      ticketType: data.ticketType as TicketType,
+      source: data.source,
+    });
+
+    if (res.isExisting) {
+      return NextResponse.json(
+        {
+          success: false,
+          isExisting: true,
+          error: "Ce numéro de téléphone est déjà inscrit pour CELEBRATION NIGHT.",
           primaryTicket: {
             ticketNumber: res.ticket.ticketNumber,
             ticketType: res.ticket.ticketType,
             status: res.ticket.status,
           },
+          participant: {
+            firstName: res.participant.firstName,
+            lastName: res.participant.lastName,
+            phone: res.participant.phone,
+          },
         },
-        { status: 201 }
+        { status: 409 }
       );
     }
-
-    // Fallback de développement local sur db.json si Supabase non encore connecté
-    const { participant, tickets } = storage.createRegistration({
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email || `${data.phone.replace(/[^0-9]/g, "")}@phone.celebrationnight.org`,
-      phone: data.phone,
-      country: data.country,
-      city,
-      numberOfGuests: 1,
-      ticketType: data.ticketType as TicketType,
-      source: data.source,
-    });
-
-    const primaryTicket = tickets[0];
 
     return NextResponse.json(
       {
         success: true,
-        message: "Inscription confirmée avec succès (stockage local)",
+        message: "Inscription confirmée avec succès",
         participant: {
-          id: participant.id,
-          firstName: participant.firstName,
-          lastName: participant.lastName,
-          email: participant.email,
-          phone: participant.phone,
-          city: participant.city,
-          country: participant.country,
-          ticketType: participant.ticketType,
+          id: res.participant.id,
+          firstName: res.participant.firstName,
+          lastName: res.participant.lastName,
+          email: res.participant.email,
+          phone: res.participant.phone,
+          city: res.participant.city,
+          country: res.participant.country,
+          ticketType: res.participant.ticketType,
         },
         primaryTicket: {
-          ticketNumber: primaryTicket.ticketNumber,
-          ticketType: primaryTicket.ticketType,
-          status: primaryTicket.status,
+          ticketNumber: res.ticket.ticketNumber,
+          ticketType: res.ticket.ticketType,
+          status: res.ticket.status,
         },
       },
       { status: 201 }
