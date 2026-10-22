@@ -23,6 +23,12 @@ export function getSupabaseServerClient(): SupabaseClient {
     );
   }
 
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()) {
+    console.warn(
+      "[Supabase] ⚠️ ATTENTION : SUPABASE_SERVICE_ROLE_KEY n'est pas définie sur le serveur. Utilisation de NEXT_PUBLIC_SUPABASE_ANON_KEY en secours. Si les règles RLS sont actives, les écritures échoueront."
+    );
+  }
+
   serverClient = createClient(url, serviceKey, {
     auth: {
       persistSession: false,

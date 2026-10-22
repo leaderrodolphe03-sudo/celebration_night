@@ -42,6 +42,7 @@ function getInitialDatabase(): DatabaseSchema {
 
   const adminUser: AdminUser = {
     id: "admin-super-001",
+    username: "superadmin",
     email: "admin@celebrationnight.com",
     name: "Direction HAGIAZO",
     passwordHash: adminCredentials.hash,
@@ -52,6 +53,7 @@ function getInitialDatabase(): DatabaseSchema {
 
   const staffUser: AdminUser = {
     id: "staff-gate-001",
+    username: "staff",
     email: "staff@celebrationnight.com",
     name: "Équipe Accueil & Contrôle",
     passwordHash: staffCredentials.hash,
@@ -570,9 +572,14 @@ class StorageEngine implements DatabaseRepository {
 
   // --- AUTHENTIFICATION ---
 
-  public authenticate(email: string, password: string): AdminUser | null {
+  public authenticate(emailOrUsername: string, password: string): AdminUser | null {
     const db = this.load();
-    const user = db.adminUsers.find((u) => u.email.toLowerCase() === email.trim().toLowerCase());
+    const clean = emailOrUsername.trim().toLowerCase();
+    const user = db.adminUsers.find(
+      (u) =>
+        (u.email && u.email.toLowerCase() === clean) ||
+        (u.username && u.username.toLowerCase() === clean)
+    );
     if (!user) return null;
 
     const valid = verifyPassword(password, user.passwordHash, user.salt);
