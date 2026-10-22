@@ -5,9 +5,13 @@ import { storage } from "@/lib/db/storage";
 import { isSupabaseConfigured } from "@/lib/supabase";
 
 export async function GET(req: NextRequest) {
-  const session = await getSessionUser();
+  const session = await getSessionUser(req);
   if (!session) {
     return NextResponse.json({ error: "Accès refusé. Veuillez vous connecter." }, { status: 401 });
+  }
+
+  if (session.role !== "ADMIN") {
+    return NextResponse.json({ error: "Accès refusé. Réservé aux administrateurs." }, { status: 403 });
   }
 
   const { searchParams } = new URL(req.url);

@@ -6,7 +6,7 @@ import { isSupabaseConfigured } from "@/lib/supabase";
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getSessionUser();
+    const session = await getSessionUser(req);
     if (!session) {
       return NextResponse.json(
         { error: "Non autorisé. Veuillez vous connecter au portail organisateur." },
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const scannerAgent = session.name || session.email;
+    const scannerAgent = session.name || session.username || session.email;
 
     if (isSupabaseConfigured()) {
       const result = await supabaseStorage.scanTicket(tokenOrNumber, mode, scannerAgent);

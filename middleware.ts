@@ -25,12 +25,21 @@ function uint8ArrayToBase64Url(bytes: Uint8Array): string {
   return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
-async function verifySessionTokenEdge(token: string): Promise<boolean> {
+interface EdgeSessionData {
+  userId: string;
+  username?: string;
+  email: string;
+  name: string;
+  role: "ADMIN" | "STAFF";
+  expiresAt: number;
+}
+
+async function verifySessionTokenEdge(token: string): Promise<EdgeSessionData | null> {
   try {
     const parts = token.split(".");
-    if (parts.length !== 2) return false;
+    if (parts.length !== 2) return null;
     const [payloadBase64, signature] = parts;
-    if (!payloadBase64 || !signature) return false;
+    if (!payloadBase64 || !signature) return null;
 
     const encoder = new TextEncoder();
     const key = await crypto.subtle.importKey(
@@ -48,27 +57,41 @@ async function verifySessionTokenEdge(token: string): Promise<boolean> {
     );
 
     const expectedSig = uint8ArrayToBase64Url(new Uint8Array(sigBuffer));
-    if (expectedSig !== signature) return false;
+    if (expectedSig !== signature) return null;
 
     // Décoder le payload
     const payloadText = new TextDecoder().decode(base64UrlToUint8Array(payloadBase64));
-    const payload = JSON.parse(payloadText);
+    const payload = JSON.parse(payloadText) as EdgeSessionData;
 
     if (!payload.expiresAt || Date.now() > payload.expiresAt) {
-      return false;
+      return null;
     }
 
-    return true;
+    return payload;
   } catch {
-    return false;
+    return null;
   }
 }
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Protection des routes d'administration sauf /admin/login
-  if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
+  // 1. Visite de la page de login (/admin/login)
+  if (pathname === "/admin/login") {
+    const sessionCookie = req.cookies.get(SESSION_COOKIE_NAME)?.value;
+    if (sessionCookie) {
+      const session = await verifySessionTokenEdge(sessionCookie);
+      if (session) {
+        // Redirection contextuelle selon le rôle
+        const target = session.role === "STAFF" ? "/admin/scanner" : "/admin/dashboard";
+        return NextResponse.redirect(new URL(target, req.url));
+      }
+    }
+    return NextResponse.next();
+  }
+
+  // 2. Protection des routes d'administration (/admin/*)
+  if (pathname.startsWith("/admin")) {
     const sessionCookie = req.cookies.get(SESSION_COOKIE_NAME)?.value;
 
     if (!sessionCookie) {
@@ -76,23 +99,18 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(loginUrl);
     }
 
-    const isValid = await verifySessionTokenEdge(sessionCookie);
-    if (!isValid) {
+    const session = await verifySessionTokenEdge(sessionCookie);
+    if (!session) {
       const loginUrl = new URL("/admin/login", req.url);
       const response = NextResponse.redirect(loginUrl);
       response.cookies.delete(SESSION_COOKIE_NAME);
       return response;
     }
-  }
 
-  // Si l'utilisateur est déjà connecté et visite /admin/login, rediriger vers le dashboard
-  if (pathname === "/admin/login") {
-    const sessionCookie = req.cookies.get(SESSION_COOKIE_NAME)?.value;
-    if (sessionCookie) {
-      const isValid = await verifySessionTokenEdge(sessionCookie);
-      if (isValid) {
-        return NextResponse.redirect(new URL("/admin/dashboard", req.url));
-      }
+    // 3. Cloisonnement strict RBAC : Le rôle STAFF est strictement cantonné au scanner
+    if (session.role === "STAFF" && pathname !== "/admin/scanner") {
+      const scannerUrl = new URL("/admin/scanner", req.url);
+      return NextResponse.redirect(scannerUrl);
     }
   }
 

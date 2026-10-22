@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { verifySessionToken, createSessionToken, SessionData } from "./crypto-security";
 import { AdminRole } from "./types";
 
@@ -8,13 +8,27 @@ export const SESSION_COOKIE_NAME = "celebration_admin_session";
 /**
  * Récupère les données de session de l'administrateur ou du staff connecté.
  */
-export async function getSessionUser(): Promise<SessionData | null> {
-  const cookieStore = cookies();
-  const sessionCookie = cookieStore.get(SESSION_COOKIE_NAME);
-  if (!sessionCookie || !sessionCookie.value) {
+export async function getSessionUser(req?: NextRequest): Promise<SessionData | null> {
+  let token: string | undefined;
+
+  if (req) {
+    token = req.cookies.get(SESSION_COOKIE_NAME)?.value;
+  }
+
+  if (!token) {
+    try {
+      const cookieStore = cookies();
+      const sessionCookie = cookieStore.get(SESSION_COOKIE_NAME);
+      token = sessionCookie?.value;
+    } catch {
+      // Cas où cookies() est appelé hors contexte de requête Next.js (ex: tests unitaires)
+    }
+  }
+
+  if (!token) {
     return null;
   }
-  return verifySessionToken(sessionCookie.value);
+  return verifySessionToken(token);
 }
 
 /**
