@@ -22,11 +22,12 @@ export async function getSessionUser(): Promise<SessionData | null> {
  */
 export function setSessionCookie(
   response: NextResponse,
-  user: { id: string; email: string; name: string; role: AdminRole }
+  user: { id: string; username: string; email?: string | null; name: string; role: AdminRole }
 ): NextResponse {
   const token = createSessionToken({
     userId: user.id,
-    email: user.email,
+    username: user.username,
+    email: user.email || `${user.username}@celebration.org`,
     name: user.name,
     role: user.role,
   });
