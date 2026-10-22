@@ -36,12 +36,14 @@ export interface Ticket {
 
 export interface AdminUser {
   id: string;
-  email: string;
+  username: string;
+  email?: string | null;
   name: string;
   passwordHash: string;
   salt: string;
   role: AdminRole;
   createdAt: string;
+  updatedAt?: string;
 }
 
 export interface ContactMessage {

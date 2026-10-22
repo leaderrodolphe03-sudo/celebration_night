@@ -1,11 +1,13 @@
 import { getSupabaseServerClient, isSupabaseConfigured } from "../supabase";
-import { generateSecureQrToken } from "../crypto-security";
+import { generateSecureQrToken, hashPassword } from "../crypto-security";
 import {
   Participant,
   Ticket,
   ScanResult,
   TicketType,
   TicketStatus,
+  AdminUser,
+  AdminRole,
 } from "../types";
 
 export class SupabaseStorage {
@@ -87,7 +89,8 @@ export class SupabaseStorage {
 
     if (pError || !newParticipant) {
       console.error("Erreur insertion participant Supabase:", pError);
-      throw new Error("Impossible d'enregistrer le participant dans la base de données.");
+      const detail = pError?.message ? ` (${pError.message})` : "";
+      throw new Error(`Impossible d'enregistrer le participant dans la base de données.${detail}`);
     }
 
     // 3. Détermination du numéro de billet séquentiel
@@ -114,7 +117,8 @@ export class SupabaseStorage {
 
     if (tError || !newTicket) {
       console.error("Erreur insertion ticket Supabase:", tError);
-      throw new Error("Impossible de générer le billet officiel.");
+      const detail = tError?.message ? ` (${tError.message})` : "";
+      throw new Error(`Impossible de générer le billet officiel.${detail}`);
     }
 
     return {
@@ -598,6 +602,137 @@ export class SupabaseStorage {
           }
         : undefined,
     }));
+  }
+
+  /**
+   * Récupérer un administrateur ou staff par son identifiant court ou son email
+   */
+  async getAdminByUsernameOrEmail(identifier: string): Promise<AdminUser | null> {
+    const supabase = getSupabaseServerClient();
+    const clean = identifier.trim().toLowerCase();
+
+    // Recherche insensible à la casse sur username OU email
+    const { data, error } = await supabase
+      .from("admin_users")
+      .select("*")
+      .or(`username.ilike.${clean},email.ilike.${clean}`)
+      .maybeSingle();
+
+    if (error || !data) {
+      return null;
+    }
+
+    return {
+      id: data.id,
+      username: data.username,
+      email: data.email,
+      name: data.name,
+      passwordHash: data.password_hash,
+      salt: data.salt,
+      role: data.role as AdminRole,
+      createdAt: data.created_at,
+      updatedAt: data.updated_at,
+    };
+  }
+
+  /**
+   * Créer un nouvel utilisateur administrateur ou staff auxiliaire
+   */
+  async createAdminUser(data: {
+    username: string;
+    name: string;
+    password: string;
+    role?: AdminRole;
+    email?: string | null;
+  }): Promise<Omit<AdminUser, "passwordHash" | "salt">> {
+    const supabase = getSupabaseServerClient();
+    const cleanUsername = data.username.trim().toLowerCase();
+    const cleanName = data.name.trim();
+    const cleanEmail = data.email?.trim().toLowerCase() || null;
+    const role: AdminRole = data.role === "ADMIN" ? "ADMIN" : "STAFF";
+
+    // Vérifier l'unicité de l'identifiant
+    const existing = await this.getAdminByUsernameOrEmail(cleanUsername);
+    if (existing) {
+      throw new Error(`L'identifiant '${cleanUsername}' est déjà utilisé.`);
+    }
+
+    // Hachage cryptographique du mot de passe avec scrypt
+    const { hash, salt } = hashPassword(data.password);
+
+    const { data: newUser, error } = await supabase
+      .from("admin_users")
+      .insert({
+        username: cleanUsername,
+        name: cleanName,
+        email: cleanEmail,
+        password_hash: hash,
+        salt,
+        role,
+      })
+      .select("id, username, email, name, role, created_at, updated_at")
+      .single();
+
+    if (error || !newUser) {
+      console.error("Erreur création admin_user:", error);
+      throw new Error(`Impossible de créer le compte utilisateur: ${error?.message || "erreur inconnue"}`);
+    }
+
+    return {
+      id: newUser.id,
+      username: newUser.username,
+      email: newUser.email,
+      name: newUser.name,
+      role: newUser.role as AdminRole,
+      createdAt: newUser.created_at,
+      updatedAt: newUser.updated_at,
+    };
+  }
+
+  /**
+   * Lister tous les utilisateurs administratifs et staff
+   */
+  async listAdminUsers(): Promise<Omit<AdminUser, "passwordHash" | "salt">[]> {
+    const supabase = getSupabaseServerClient();
+
+    const { data, error } = await supabase
+      .from("admin_users")
+      .select("id, username, email, name, role, created_at, updated_at")
+      .order("created_at", { ascending: false });
+
+    if (error || !data) {
+      console.error("Erreur récupération admin_users:", error);
+      return [];
+    }
+
+    return data.map((u) => ({
+      id: u.id,
+      username: u.username,
+      email: u.email,
+      name: u.name,
+      role: u.role as AdminRole,
+      createdAt: u.created_at,
+      updatedAt: u.updated_at,
+    }));
+  }
+
+  /**
+   * Supprimer un utilisateur administratif ou staff par son ID
+   */
+  async deleteAdminUser(id: string): Promise<boolean> {
+    const supabase = getSupabaseServerClient();
+
+    const { error } = await supabase
+      .from("admin_users")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      console.error("Erreur suppression admin_user:", error);
+      throw new Error(`Impossible de supprimer le compte: ${error.message}`);
+    }
+
+    return true;
   }
 }
 

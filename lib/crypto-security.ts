@@ -48,6 +48,7 @@ export function generateSecureQrToken(): string {
 
 export interface SessionData {
   userId: string;
+  username: string;
   email: string;
   name: string;
   role: AdminRole;
