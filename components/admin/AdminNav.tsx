@@ -7,6 +7,7 @@ import {
   Users,
   Ticket,
   QrCode,
+  UserPlus,
   LogOut,
   Shield,
   ExternalLink,
@@ -15,9 +16,10 @@ import { CelebrationNightLogo } from "../layout/Logos";
 
 interface AdminNavProps {
   user?: {
-    email: string;
-    name: string;
-    role: "ADMIN" | "STAFF";
+    email?: string;
+    username?: string;
+    name?: string;
+    role?: "ADMIN" | "STAFF";
   } | null;
 }
 
@@ -35,24 +37,33 @@ export default function AdminNav({ user }: AdminNavProps) {
     }
   };
 
-  const navItems = [
-    { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/admin/scanner", label: "Scanner Entrées", icon: QrCode, highlight: true },
-    { href: "/admin/participants", label: "Participants", icon: Users },
-    { href: "/admin/billets", label: "Billets", icon: Ticket },
-  ];
+  const isStaff = user?.role === "STAFF";
+
+  const navItems = isStaff
+    ? [
+        { href: "/admin/scanner", label: "Scanner Entrées", icon: QrCode, highlight: true },
+      ]
+    : [
+        { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+        { href: "/admin/scanner", label: "Scanner Entrées", icon: QrCode, highlight: true },
+        { href: "/admin/participants", label: "Participants", icon: Users },
+        { href: "/admin/billets", label: "Billets", icon: Ticket },
+        { href: "/admin/equipe", label: "Équipe Staff", icon: UserPlus },
+      ];
+
+  const homeHref = isStaff ? "/admin/scanner" : "/admin/dashboard";
 
   return (
     <header className="border-b border-white/8 bg-cn-black/95 backdrop-blur-md sticky top-0 z-40">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo & Badge */}
         <div className="flex items-center gap-3">
-          <Link href="/admin/dashboard" className="flex items-center">
+          <Link href={homeHref} className="flex items-center">
             <CelebrationNightLogo imgClassName="h-9 sm:h-10 w-auto object-contain" />
           </Link>
           <span className="hidden sm:inline-flex items-center gap-1 rounded-md bg-cn-dark px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-cn-gold-light border border-cn-gold/40">
             <Shield size={12} className="text-cn-gold" />
-            {user?.role === "ADMIN" ? "Super Admin" : "Staff Contrôle"}
+            {isStaff ? "Staff Contrôle" : "Super Admin"}
           </span>
         </div>
 

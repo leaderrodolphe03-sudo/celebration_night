@@ -14,6 +14,7 @@ import {
   Download,
   RefreshCw,
   Flame,
+  UserPlus,
 } from "lucide-react";
 import AdminNav from "@/components/admin/AdminNav";
 import Button from "@/components/ui/Button";
@@ -136,6 +137,15 @@ export default function AdminDashboardPage() {
               <RefreshCw size={14} className={refreshing ? "animate-spin" : ""} />
               <span>Actualiser</span>
             </button>
+
+            <Button
+              href="/admin/equipe"
+              variant="outline"
+              size="sm"
+              icon={<UserPlus size={16} />}
+            >
+              Équipe Staff
+            </Button>
 
             <Button
               href="/admin/scanner"
