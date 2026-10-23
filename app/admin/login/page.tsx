@@ -68,10 +68,7 @@ export default function AdminLoginPage() {
           <Link href="/" className="inline-block">
             <CelebrationNightLogo imgClassName="h-20 sm:h-24 w-auto object-contain mx-auto drop-shadow-md" />
           </Link>
-          <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-cn-dark border border-cn-gold/40 px-3 py-1 text-xs font-semibold text-cn-gold-light">
-            <ShieldCheck size={14} className="text-cn-gold" />
-            <span>Portail Responsables &amp; Scanner Officiel</span>
-          </div>
+          
           <h1 className="mt-3 font-heading text-3xl uppercase tracking-wider text-white">
             Connexion Admin &amp; Staff
           </h1>
@@ -104,7 +101,7 @@ export default function AdminLoginPage() {
                   autoCorrect="off"
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
-                  placeholder="ex: superadmin ou porte1"
+                  placeholder="ex: username"
                   className="w-full rounded-xl border border-white/15 bg-white/[0.05] px-4 py-3 pl-11 text-sm text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
                 />
                 <User
