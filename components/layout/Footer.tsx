@@ -132,7 +132,7 @@ export default function Footer() {
                   href="/admin/login"
                   className="flex items-center gap-1.5 text-xs text-cn-gray-400 hover:text-cn-gray-200 transition-colors"
                 >
-                
+                  <span>  .  </span>
                 </Link>
               </li>
             </ul>

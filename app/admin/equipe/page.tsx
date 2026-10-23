@@ -45,8 +45,9 @@ export default function AdminEquipePage() {
   const [formError, setFormError] = useState<string | null>(null);
   const [formSuccess, setFormSuccess] = useState<string | null>(null);
 
-  // Copie d'identifiants
+  // Copie ou partage direct d'identifiants
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [mobileTab, setMobileTab] = useState<"LIST" | "ADD">("LIST");
 
   // 1. Chargement et vérification session
   const checkSessionAndFetch = async () => {
@@ -124,12 +125,13 @@ export default function AdminEquipePage() {
         throw new Error(data.error || "Impossible de créer le compte.");
       }
 
-      setFormSuccess(`Le compte '${data.user.username}' a été créé avec succès !`);
+      setFormSuccess(`Le compte '${data.user.username}' a été créé avec succès.`);
       setUsername("");
       setName("");
       setEmail("");
       setPassword("");
       setRole("STAFF");
+      setMobileTab("LIST");
 
       // Recharger la liste
       handleRefresh();
@@ -168,14 +170,22 @@ export default function AdminEquipePage() {
     }
   };
 
-  // 4. Copier les identifiants pour partage WhatsApp / SMS
-  const handleCopyCredentials = (u: AdminUserItem) => {
-    const text = `CELEBRATION NIGHT 2026 - Accès Scanner Terrain
-Bonjour ${u.name},
-Voici vos accès pour le scanner officiel :
-- Rôle : ${u.role === "ADMIN" ? "Super Admin" : "Staff Contrôle / Scanner"}
-- Identifiant : ${u.username}
-- Portail : ${window.location.origin}/admin/login`;
+  // 4. Partager les identifiants via Web Share ou Presse-papier
+  const handleShareCredentials = async (u: AdminUserItem) => {
+    const text = `CELEBRATION NIGHT 2026 - Accès Scanner Terrain\nBonjour ${u.name},\nVoici vos accès pour le scanner officiel :\n- Rôle : ${u.role === "ADMIN" ? "Super Admin" : "Staff Contrôle / Scanner"}\n- Identifiant : ${u.username}\n- Portail : ${window.location.origin}/admin/login`;
+
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({
+          title: `Accès Scanner - ${u.name}`,
+          text,
+          url: `${window.location.origin}/admin/login`,
+        });
+        return;
+      } catch {
+        // Fallback sur le clipboard si refus ou annulation
+      }
+    }
 
     navigator.clipboard.writeText(text);
     setCopiedId(u.id);
@@ -194,22 +204,22 @@ Voici vos accès pour le scanner officiel :
   }
 
   return (
-    <div className="min-h-screen bg-cn-black text-white">
+    <div className="min-h-screen bg-cn-black text-white pb-20 md:pb-10">
       <AdminNav user={currentUser} />
 
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+      <main className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-6">
         {/* En-tête */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 border-b border-white/10 pb-5">
           <div>
             <div className="inline-flex items-center gap-1.5 rounded-full bg-cn-dark border border-cn-gold/40 px-3 py-1 text-xs font-semibold text-cn-gold-light mb-2">
-              <Shield size={14} className="text-cn-gold" />
+              <Shield size={14} className="text-cn-gold shrink-0" />
               <span>Administration &amp; Permissions</span>
             </div>
-            <h1 className="font-heading text-3xl uppercase tracking-wider text-white">
+            <h1 className="font-heading text-2xl sm:text-3xl uppercase tracking-wider text-white">
               Gestion de l&apos;Équipe &amp; Scanners
             </h1>
-            <p className="mt-1 text-sm text-cn-gray-400 font-body">
-              Créez et gérez les comptes auxiliaires pour les bénévoles chargés du contrôle des entrées et du suivi des nouvelles âmes.
+            <p className="mt-1 text-xs sm:text-sm text-cn-gray-400 font-body">
+              Créez et gérez les comptes auxiliaires pour les bénévoles aux entrées.
             </p>
           </div>
 
@@ -219,15 +229,45 @@ Voici vos accès pour le scanner officiel :
             onClick={handleRefresh}
             loading={refreshing}
             icon={<RefreshCw size={14} className={refreshing ? "animate-spin" : ""} />}
+            className="self-start sm:self-center text-xs"
           >
             Actualiser
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* COMMUTATEUR D'ONGLETS MOBILE (Visible uniquement sous lg) */}
+        <div className="flex lg:hidden rounded-xl bg-black/50 p-1 border border-white/10 gap-1">
+          <button
+            type="button"
+            onClick={() => setMobileTab("LIST")}
+            className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${
+              mobileTab === "LIST"
+                ? "bg-white/12 text-white shadow-sm"
+                : "text-cn-gray-400 hover:text-white"
+            }`}
+          >
+            <Users size={14} />
+            <span>Membres ({users.length})</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setMobileTab("ADD")}
+            className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${
+              mobileTab === "ADD"
+                ? "bg-cn-gold text-cn-black font-extrabold shadow-sm"
+                : "text-cn-gold-light hover:text-white"
+            }`}
+          >
+            <UserPlus size={14} />
+            <span>Nouveau Membre</span>
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Colonne Gauche : Formulaire de Création */}
-          <div className="lg:col-span-1">
-            <div className="rounded-2xl border border-white/10 bg-cn-dark/95 p-6 backdrop-blur-md shadow-xl sticky top-24">
+          <div className={`lg:col-span-1 ${mobileTab === "LIST" ? "hidden lg:block" : "block"}`}>
+            <div className="rounded-2xl border border-white/10 bg-cn-dark/95 p-5 sm:p-6 backdrop-blur-md shadow-xl lg:sticky lg:top-24">
               <div className="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
                 <UserPlus size={18} className="text-cn-gold" />
                 <h2 className="font-heading text-lg uppercase tracking-wider text-white">
@@ -259,8 +299,8 @@ Voici vos accès pour le scanner officiel :
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="ex: Porte Nord 1 (Marc)"
-                    className="w-full rounded-xl border border-white/15 bg-white/[0.05] px-3.5 py-2.5 text-sm text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold"
+                    placeholder="ex: Porte Nord (Marc)"
+                    className="w-full rounded-xl border border-white/15 bg-white/[0.05] px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold"
                   />
                 </div>
 
@@ -274,10 +314,10 @@ Voici vos accès pour le scanner officiel :
                     value={username}
                     onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, ""))}
                     placeholder="ex: porte1 ou staff-marc"
-                    className="w-full rounded-xl border border-white/15 bg-white/[0.05] px-3.5 py-2.5 text-sm font-mono text-cn-gold-light placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold"
+                    className="w-full rounded-xl border border-white/15 bg-white/[0.05] px-3.5 py-2.5 text-xs sm:text-sm font-mono text-cn-gold-light placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold"
                   />
                   <span className="text-[10px] text-cn-gray-500 mt-1 block">
-                    Lettres minuscules, chiffres, tirets uniquement.
+                    Minuscules, chiffres, tirets uniquement.
                   </span>
                 </div>
 
@@ -301,7 +341,7 @@ Voici vos accès pour le scanner officiel :
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Min. 6 caractères"
-                    className="w-full rounded-xl border border-white/15 bg-white/[0.05] px-3.5 py-2.5 text-sm font-mono text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold"
+                    className="w-full rounded-xl border border-white/15 bg-white/[0.05] px-3.5 py-2.5 text-xs sm:text-sm font-mono text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold"
                   />
                 </div>
 
@@ -312,7 +352,7 @@ Voici vos accès pour le scanner officiel :
                   <select
                     value={role}
                     onChange={(e) => setRole(e.target.value as "STAFF" | "ADMIN")}
-                    className="w-full rounded-xl border border-white/15 bg-cn-dark px-3.5 py-2.5 text-sm text-white focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold"
+                    className="w-full rounded-xl border border-white/15 bg-cn-dark px-3.5 py-2.5 text-xs sm:text-sm text-white focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold"
                   >
                     <option value="STAFF">STAFF (Scanner uniquement : entrées &amp; âmes)</option>
                     <option value="ADMIN">ADMIN (Accès total au Dashboard et données)</option>
@@ -328,7 +368,7 @@ Voici vos accès pour le scanner officiel :
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="email@exemple.com"
-                    className="w-full rounded-xl border border-white/15 bg-white/[0.05] px-3.5 py-2.5 text-sm text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold"
+                    className="w-full rounded-xl border border-white/15 bg-white/[0.05] px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold"
                   />
                 </div>
 
@@ -339,7 +379,7 @@ Voici vos accès pour le scanner officiel :
                     size="md"
                     loading={submitting}
                     icon={<UserPlus size={16} />}
-                    className="w-full justify-center"
+                    className="w-full justify-center text-xs"
                   >
                     {submitting ? "Création..." : "Créer le compte"}
                   </Button>
@@ -349,28 +389,28 @@ Voici vos accès pour le scanner officiel :
           </div>
 
           {/* Colonne Droite : Liste des Comptes */}
-          <div className="lg:col-span-2">
+          <div className={`lg:col-span-2 ${mobileTab === "ADD" ? "hidden lg:block" : "block"}`}>
             <div className="rounded-2xl border border-white/10 bg-cn-dark/95 backdrop-blur-md shadow-xl overflow-hidden">
-              <div className="p-6 border-b border-white/10 flex items-center justify-between">
+              <div className="p-4 sm:p-6 border-b border-white/10 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Users size={18} className="text-cn-gold" />
-                  <h2 className="font-heading text-lg uppercase tracking-wider text-white">
+                  <h2 className="font-heading text-base sm:text-lg uppercase tracking-wider text-white">
                     Comptes Actifs ({users.length})
                   </h2>
                 </div>
-                <span className="text-xs text-cn-gray-400">
+                <span className="text-[11px] text-cn-gray-400">
                   {users.filter((u) => u.role === "STAFF").length} staff &bull; {users.filter((u) => u.role === "ADMIN").length} admin
                 </span>
               </div>
 
               {users.length === 0 ? (
-                <div className="p-12 text-center text-cn-gray-400">
+                <div className="p-8 sm:p-12 text-center text-cn-gray-400">
                   <Users size={36} className="mx-auto mb-3 opacity-30 text-cn-gold" />
                   <p className="font-heading text-lg uppercase tracking-wider text-white">
                     Aucun compte auxiliaire
                   </p>
                   <p className="text-xs mt-1">
-                    Utilisez le formulaire pour ajouter des bénévoles scanners pour la soirée.
+                    Ajoutez des bénévoles pour le contrôle des entrées.
                   </p>
                 </div>
               ) : (
@@ -382,31 +422,31 @@ Voici vos accès pour le scanner officiel :
                     return (
                       <div
                         key={u.id}
-                        className="p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 hover:bg-white/[0.02] transition-colors"
+                        className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 hover:bg-white/[0.02] transition-colors"
                       >
-                        <div className="flex items-start gap-3.5">
+                        <div className="flex items-start gap-3">
                           <div
-                            className={`h-10 w-10 shrink-0 rounded-xl flex items-center justify-center border ${
+                            className={`h-9 w-9 sm:h-10 sm:w-10 shrink-0 rounded-xl flex items-center justify-center border ${
                               isStaff
                                 ? "bg-cyan-950/40 border-cyan-500/40 text-cyan-400"
                                 : "bg-cn-gold/15 border-cn-gold/40 text-cn-gold"
                             }`}
                           >
-                            {isStaff ? <QrCode size={18} /> : <Shield size={18} />}
+                            {isStaff ? <QrCode size={17} /> : <Shield size={17} />}
                           </div>
 
-                          <div>
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <span className="font-semibold text-sm text-white">
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                              <span className="font-semibold text-xs sm:text-sm text-white">
                                 {u.name}
                               </span>
                               {isSelf && (
-                                <span className="rounded-md bg-cn-gold/20 text-cn-gold-light px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider border border-cn-gold/40">
+                                <span className="rounded-md bg-cn-gold/20 text-cn-gold-light px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider border border-cn-gold/40">
                                   Votre session
                                 </span>
                               )}
                               <span
-                                className={`rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider border ${
+                                className={`rounded-md px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider border ${
                                   isStaff
                                     ? "bg-cyan-950/60 text-cyan-300 border-cyan-500/30"
                                     : "bg-cn-dark text-cn-gold-light border-cn-gold/40"
@@ -416,33 +456,30 @@ Voici vos accès pour le scanner officiel :
                               </span>
                             </div>
 
-                            <div className="mt-1 flex items-center gap-3 text-xs text-cn-gray-400 flex-wrap">
+                            <div className="mt-1 flex items-center gap-2 sm:gap-3 text-xs text-cn-gray-400 flex-wrap">
                               <span>
-                                Identifiant :{" "}
-                                <code className="text-white font-mono bg-white/[0.05] px-1.5 py-0.5 rounded">
+                                Id :{" "}
+                                <code className="text-white font-mono bg-white/[0.05] px-1.5 py-0.5 rounded text-[11px]">
                                   {u.username}
                                 </code>
                               </span>
-                              {u.email && <span>&bull; {u.email}</span>}
-                              <span>
-                                &bull; Créé le {new Date(u.created_at).toLocaleDateString("fr-FR")}
-                              </span>
+                              {u.email && <span className="truncate max-w-[150px]">&bull; {u.email}</span>}
                             </div>
                           </div>
                         </div>
 
-                        {/* Actions */}
+                        {/* Actions tactiles */}
                         <div className="flex items-center gap-2 self-end sm:self-center">
                           <button
                             type="button"
-                            onClick={() => handleCopyCredentials(u)}
+                            onClick={() => handleShareCredentials(u)}
                             className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 px-3 py-1.5 text-xs text-cn-gray-300 hover:border-cn-gold/50 hover:text-cn-gold transition-colors"
-                            title="Copier les identifiants pour WhatsApp / SMS"
+                            title="Partager les accès via WhatsApp, SMS ou Presse-papier"
                           >
                             {copiedId === u.id ? (
                               <>
                                 <Check size={13} className="text-green-400" />
-                                <span className="text-green-400 font-semibold">Copié !</span>
+                                <span className="text-green-400 font-semibold">Copié</span>
                               </>
                             ) : (
                               <>
@@ -456,7 +493,7 @@ Voici vos accès pour le scanner officiel :
                             <button
                               type="button"
                               onClick={() => handleDeleteUser(u)}
-                              className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 px-3 py-1.5 text-xs text-red-400 hover:bg-red-950/40 hover:border-red-500/50 transition-colors"
+                              className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-1.5 text-xs text-red-400 hover:bg-red-950/40 hover:border-red-500/50 transition-colors"
                               title="Révoquer ce compte"
                             >
                               <Trash2 size={13} />

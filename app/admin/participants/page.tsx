@@ -107,63 +107,62 @@ export default function AdminParticipantsPage() {
   const gaveLifeCount = participants.filter((p) => p.gaveLifeToJesus).length;
 
   return (
-    <div className="min-h-screen bg-cn-black text-white">
+    <div className="min-h-screen bg-cn-black text-white pb-20 md:pb-10">
       <AdminNav user={user} />
 
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-6">
+      <main className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-5 sm:space-y-6">
         {/* Titre & Export */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-white/10 pb-5 sm:pb-6">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-widest text-cn-gold-light">
               Répertoire Officiel Organisateur
             </span>
-            <h1 className="mt-1 font-heading text-3xl sm:text-4xl uppercase tracking-wider text-white">
+            <h1 className="mt-1 font-heading text-2xl sm:text-4xl uppercase tracking-wider text-white">
               {activeTab === "GAVE_LIFE" ? "Âmes pour Christ (Suivi Pastoral)" : "Gestion des Inscrits"} ({participants.length})
             </h1>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 self-start sm:self-center">
             <Button
               type="button"
               onClick={exportCsv}
               disabled={participants.length === 0}
               variant={activeTab === "GAVE_LIFE" ? "primary" : "secondary"}
               size="sm"
-              icon={<Download size={15} />}
+              icon={<Download size={14} />}
+              className="text-xs"
             >
-              {activeTab === "GAVE_LIFE"
-                ? "Exporter les Âmes pour Christ (CSV)"
-                : "Exporter en CSV"}
+              {activeTab === "GAVE_LIFE" ? "Exporter Âmes (CSV)" : "Exporter CSV"}
             </Button>
           </div>
         </div>
 
         {/* ONGLETS MAJEURS : TOUS LES INSCRITS VS ÂMES POUR CHRIST */}
-        <div className="flex items-center gap-2 border-b border-white/10 pb-3">
+        <div className="flex items-center gap-2 border-b border-white/10 pb-3 overflow-x-auto">
           <button
             type="button"
             onClick={() => setActiveTab("ALL")}
-            className={`px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shrink-0 ${
               activeTab === "ALL"
                 ? "bg-white/10 text-white border border-white/20 shadow-sm"
                 : "text-cn-gray-400 hover:text-white"
             }`}
           >
-            <Users size={16} />
-            Tous les participants
+            <Users size={15} />
+            <span>Tous les inscrits</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveTab("GAVE_LIFE")}
-            className={`px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shrink-0 ${
               activeTab === "GAVE_LIFE"
                 ? "bg-gradient-to-r from-amber-500 to-orange-500 text-black font-extrabold shadow-[0_0_20px_rgba(245,158,11,0.4)]"
                 : "text-amber-400 hover:text-amber-300 bg-amber-500/10 border border-amber-500/30"
             }`}
           >
-            <Flame size={16} />
-            Âmes pour Christ
+            <Flame size={15} />
+            <span>Âmes pour Christ</span>
             {activeTab !== "GAVE_LIFE" && gaveLifeCount > 0 && (
               <span className="ml-1 rounded-full bg-amber-400 text-black px-1.5 py-0.2 text-[10px] font-black">
                 {gaveLifeCount}
@@ -173,14 +172,14 @@ export default function AdminParticipantsPage() {
         </div>
 
         {/* Barre de Recherche et Filtres */}
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3">
           <form onSubmit={handleSearchSubmit} className="relative flex-1">
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Rechercher par nom, téléphone, ville..."
-              className="w-full rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2.5 pl-10 text-xs text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
+              className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 pl-10 text-xs sm:text-sm text-white placeholder-cn-gray-500 focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
             />
             <Search
               size={15}
@@ -188,28 +187,107 @@ export default function AdminParticipantsPage() {
             />
           </form>
 
-          <select
-            value={ticketTypeFilter}
-            onChange={(e) => setTicketTypeFilter(e.target.value)}
-            className="rounded-lg border border-white/10 bg-cn-dark px-4 py-2.5 text-xs font-semibold text-white focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
-          >
-            <option value="ALL">Toutes les catégories</option>
-            <option value="STANDARD">Pass Standard</option>
-            <option value="VIP">Pass VIP Partenaire</option>
-          </select>
+          <div className="flex items-center gap-2">
+            <select
+              value={ticketTypeFilter}
+              onChange={(e) => setTicketTypeFilter(e.target.value)}
+              className="flex-1 sm:flex-initial rounded-xl border border-white/10 bg-cn-dark px-3.5 py-2.5 text-xs font-semibold text-white focus:border-cn-gold focus:outline-none focus:ring-1 focus:ring-cn-gold transition-colors"
+            >
+              <option value="ALL">Toutes catégories</option>
+              <option value="STANDARD">Pass Standard</option>
+              <option value="VIP">Pass VIP Partenaire</option>
+            </select>
 
-          <button
-            type="button"
-            onClick={fetchParticipants}
-            className="rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-xs text-cn-gray-300 hover:text-white transition-colors"
-            title="Rafraîchir la liste"
-          >
-            <RefreshCw size={14} className={loading ? "animate-spin" : ""} />
-          </button>
+            <button
+              type="button"
+              onClick={fetchParticipants}
+              className="rounded-xl border border-white/10 bg-white/5 p-2.5 text-xs text-cn-gray-300 hover:text-white transition-colors shrink-0"
+              title="Rafraîchir la liste"
+            >
+              <RefreshCw size={15} className={loading ? "animate-spin" : ""} />
+            </button>
+          </div>
         </div>
 
-        {/* Tableau des participants */}
-        <div className="rounded-2xl border border-white/8 bg-cn-dark/95 overflow-hidden shadow-2xl">
+        {/* VUE MOBILE : FICHES CONTACTS TACTILES */}
+        <div className="block md:hidden space-y-3">
+          {participants.length > 0 ? (
+            participants.map((p) => (
+              <div
+                key={p.id}
+                className="rounded-2xl border border-white/10 bg-cn-dark/95 p-4 shadow-lg space-y-3"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <h3 className="font-semibold text-white text-sm">
+                      {p.firstName} {p.lastName}
+                    </h3>
+                    <p className="text-[11px] text-cn-gray-400">
+                      {p.city}, {p.country}
+                    </p>
+                  </div>
+
+                  <span
+                    className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase shrink-0 ${
+                      p.ticketType === "VIP"
+                        ? "bg-cn-gold text-cn-black font-black"
+                        : "bg-cn-black text-cn-gold-light border border-cn-gold/30"
+                    }`}
+                  >
+                    {p.ticketType}
+                  </span>
+                </div>
+
+                {/* Statut Âme pour Christ */}
+                {p.gaveLifeToJesus && (
+                  <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/40 px-2.5 py-0.5 text-[10px] font-extrabold uppercase">
+                    <Flame size={12} className="text-amber-400" />
+                    <span>Décision pour Jésus</span>
+                  </div>
+                )}
+
+                {/* Coordonnées & Appel direct */}
+                <div className="flex items-center justify-between pt-2 border-t border-white/5">
+                  <div className="space-y-0.5">
+                    <a
+                      href={`tel:${p.phone}`}
+                      className="font-mono text-xs font-bold text-emerald-400 flex items-center gap-1.5 hover:underline"
+                    >
+                      <Phone size={13} />
+                      {p.phone}
+                    </a>
+                    {p.email && (
+                      <p className="text-[10px] text-cn-gray-400 font-mono truncate max-w-[190px]">
+                        {p.email}
+                      </p>
+                    )}
+                  </div>
+
+                  {p.tickets?.[0] && (
+                    <Link
+                      href={`/billet/${encodeURIComponent(p.tickets[0].ticketNumber)}`}
+                      target="_blank"
+                      className="rounded-lg bg-white/10 hover:bg-cn-gold hover:text-cn-black px-3 py-1.5 text-[11px] font-semibold text-white transition-colors"
+                    >
+                      Voir Billet
+                    </Link>
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="rounded-2xl border border-white/10 bg-cn-dark/95 p-8 text-center text-xs text-cn-gray-400">
+              {loading
+                ? "Chargement de la liste..."
+                : activeTab === "GAVE_LIFE"
+                ? "Aucune décision pour Christ enregistrée pour le moment."
+                : "Aucun participant ne correspond aux critères."}
+            </div>
+          )}
+        </div>
+
+        {/* VUE DESKTOP : TABLEAU COMPLET */}
+        <div className="hidden md:block rounded-2xl border border-white/10 bg-cn-dark/95 overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
@@ -238,10 +316,13 @@ export default function AdminParticipantsPage() {
                         )}
                       </td>
                       <td className="py-3.5 px-4 font-mono">
-                        <span className="text-white font-bold flex items-center gap-1.5">
+                        <a
+                          href={`tel:${p.phone}`}
+                          className="text-white font-bold flex items-center gap-1.5 hover:text-emerald-400 transition-colors"
+                        >
                           <Phone size={13} className="text-emerald-400" />
                           {p.phone}
-                        </span>
+                        </a>
                         {p.email ? (
                           <span className="text-cn-gray-400 text-[11px] block mt-0.5">
                             {p.email}
