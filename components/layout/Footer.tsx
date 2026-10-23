@@ -132,8 +132,7 @@ export default function Footer() {
                   href="/admin/login"
                   className="flex items-center gap-1.5 text-xs text-cn-gray-400 hover:text-cn-gray-200 transition-colors"
                 >
-                  <ShieldCheck size={13} className="text-emerald-500" />
-                  <span>Portail Admin & Scanner</span>
+                
                 </Link>
               </li>
             </ul>
