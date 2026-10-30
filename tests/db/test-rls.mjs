@@ -23,7 +23,7 @@ const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim();
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
 
 if (!supabaseUrl || !anonKey || !serviceKey) {
-  console.error("❌ Variables d'environnement Supabase incomplètes pour le test RLS.");
+  console.error("[ERROR] Variables d'environnement Supabase incompletes pour le test RLS.");
   process.exit(1);
 }
 
@@ -31,30 +31,30 @@ const anonClient = createClient(supabaseUrl, anonKey);
 const serviceClient = createClient(supabaseUrl, serviceKey);
 
 async function runRlsTests() {
-  console.log("🧪 Démarrage des tests de sécurité RLS...");
+  console.log("[TEST] Demarrage des tests de securite RLS...");
 
   // Test 1 : Vérifier que l'accès Anonyme direct en écriture sur participants est bloqué
-  console.log("- Test 1 : Tentative d'insertion avec clé Anonyme...");
+  console.log("- Test 1 : Tentative d'insertion avec cle Anonyme...");
   const { data: anonInsert, error: anonError } = await anonClient
     .from("participants")
     .insert({
       first_name: "Attacker",
       last_name: "Anonymous",
       phone: "+99900000000",
-      country: "Bénin",
+      country: "Benin",
       city: "Cotonou",
       ticket_type: "STANDARD",
       gave_life_to_jesus: false,
     });
 
   if (!anonError) {
-    console.warn("⚠️ Attention : L'insertion anonyme n'a pas été bloquée. Assurez-vous d'avoir exécuté la migration RLS dans Supabase.");
+    console.warn("[WARN] Attention : L'insertion anonyme n'a pas ete bloquee. Assurez-vous d'avoir execute la migration RLS dans Supabase.");
   } else {
-    console.log("✅ Succès Test 1 : Insertion anonyme rejetée par RLS (" + (anonError.code || anonError.message) + ")");
+    console.log("[SUCCESS] Test 1 : Insertion anonyme rejetee par RLS (" + (anonError.code || anonError.message) + ")");
   }
 
   // Test 2 : Vérifier que le service_role a tous les accès
-  console.log("- Test 2 : Accès en lecture/écriture avec clé service_role...");
+  console.log("- Test 2 : Acces en lecture/ecriture avec cle service_role...");
   const testPhone = "+22900009999";
   const { data: sInsert, error: sError } = await serviceClient
     .from("participants")
@@ -62,7 +62,7 @@ async function runRlsTests() {
       first_name: "TestService",
       last_name: "RoleAccess",
       phone: testPhone,
-      country: "Bénin",
+      country: "Benin",
       city: "Cotonou",
       ticket_type: "STANDARD",
       gave_life_to_jesus: false,
@@ -70,17 +70,17 @@ async function runRlsTests() {
     .select()
     .single();
 
-  assert(!sError, "Le service_role doit pouvoir insérer : " + sError?.message);
-  assert(sInsert && sInsert.id, "Le participant créé doit avoir un ID");
+  assert(!sError, "Le service_role doit pouvoir inserer : " + sError?.message);
+  assert(sInsert && sInsert.id, "Le participant cree doit avoir un ID");
 
   // Nettoyage
   await serviceClient.from("participants").delete().eq("id", sInsert.id);
-  console.log("✅ Succès Test 2 : Le service_role fonctionne et a été nettoyé.");
+  console.log("[SUCCESS] Test 2 : Le service_role fonctionne et a ete nettoye.");
 
-  console.log("🎉 Suite de tests RLS validée avec succès !");
+  console.log("[SUCCESS] Suite de tests RLS validee avec succes !");
 }
 
 runRlsTests().catch((err) => {
-  console.error("❌ Échec test RLS :", err);
+  console.error("[ERROR] Echec test RLS :", err);
   process.exit(1);
 });

@@ -62,39 +62,6 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 3. Fallback de transition : Vérification du code d'accès maître si la table n'a pas encore été migrée
-    const masterCode = (process.env.ADMIN_ACCESS_CODE || "CN2026").trim().toUpperCase();
-    const codeCandidate = identifier.toUpperCase();
-    const passCandidate = password.toUpperCase();
-
-    if (
-      codeCandidate === masterCode ||
-      codeCandidate === "CN2026" ||
-      passCandidate === masterCode ||
-      passCandidate === "CN2026"
-    ) {
-      console.warn("⚠️ Connexion via le code de secours transitoire.");
-      const response = NextResponse.json({
-        success: true,
-        message: "Portail déverrouillé via code de transition",
-        user: {
-          id: "admin-master",
-          username: "superadmin",
-          email: "direction@celebrationnight.org",
-          name: "Direction HAGIAZO",
-          role: "ADMIN",
-        },
-      });
-
-      return setSessionCookie(response, {
-        id: "admin-master",
-        username: "superadmin",
-        email: "direction@celebrationnight.org",
-        name: "Direction HAGIAZO",
-        role: "ADMIN",
-      });
-    }
-
     return NextResponse.json(
       { error: "Identifiant ou mot de passe incorrect." },
       { status: 401 }

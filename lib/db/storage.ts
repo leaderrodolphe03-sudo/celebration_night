@@ -192,7 +192,7 @@ export interface DatabaseRepository {
   getTicketByNumber(ticketNumber: string): { ticket: Ticket; participant: Participant } | null;
   getTicketByToken(qrToken: string): { ticket: Ticket; participant: Participant } | null;
   findTicketsByEmailOrPhone(query: string): { participant: Participant; tickets: Ticket[] }[];
-  scanTicket(tokenOrNumber: string, scannedBy?: string): ScanResult;
+  scanTicket(tokenOrNumber: string, mode?: "ENTRY" | "GAVE_LIFE", scannedBy?: string): ScanResult;
   getDashboardStats(): {
     totalParticipants: number;
     totalTickets: number;
@@ -357,7 +357,11 @@ class StorageEngine implements DatabaseRepository {
 
   // --- SCAN & VALIDATION ---
 
-  public scanTicket(tokenOrNumber: string, scannedBy = "Staff"): ScanResult {
+  public scanTicket(
+    tokenOrNumber: string,
+    mode: "ENTRY" | "GAVE_LIFE" = "ENTRY",
+    scannedBy = "Staff"
+  ): ScanResult {
     const db = this.load();
     const cleanInput = tokenOrNumber.trim();
 
@@ -371,15 +375,52 @@ class StorageEngine implements DatabaseRepository {
       return {
         status: "INVALID",
         message: "Billet invalide ou introuvable dans le système.",
+        mode,
       };
     }
 
     const participant = db.participants.find((p) => p.id === ticket.participantId);
 
+    // MODE 1 : Âmes pour Christ (GAVE_LIFE)
+    if (mode === "GAVE_LIFE") {
+      if (participant) {
+        participant.gaveLifeToJesus = true;
+        participant.updatedAt = new Date().toISOString();
+        this.save();
+      }
+
+      return {
+        status: "GAVE_LIFE_SAVED",
+        message: `Décision pour Christ enregistrée pour ${participant ? `${participant.firstName} ${participant.lastName}` : "le participant"}.`,
+        mode: "GAVE_LIFE",
+        ticket: {
+          id: ticket.id,
+          ticketNumber: ticket.ticketNumber,
+          ticketType: ticket.ticketType,
+          status: ticket.status,
+          scannedAt: ticket.scannedAt,
+          scannedBy: ticket.scannedBy,
+        },
+        participant: participant
+          ? {
+              firstName: participant.firstName,
+              lastName: participant.lastName,
+              phone: participant.phone,
+              email: participant.email,
+              city: participant.city,
+              country: participant.country,
+              gaveLifeToJesus: true,
+            }
+          : undefined,
+      };
+    }
+
+    // MODE 2 : Entrée standard
     if (ticket.status === "USED") {
       return {
         status: "ALREADY_USED",
         message: "Ce billet a déjà été validé à l'entrée !",
+        mode: "ENTRY",
         ticket: {
           id: ticket.id,
           ticketNumber: ticket.ticketNumber,
@@ -408,6 +449,7 @@ class StorageEngine implements DatabaseRepository {
       return {
         status: "INVALID",
         message: "Ce billet a été annulé par l'organisation.",
+        mode: "ENTRY",
       };
     }
 
@@ -423,6 +465,7 @@ class StorageEngine implements DatabaseRepository {
     return {
       status: "VALID",
       message: "Billet validé avec succès ! Entrée autorisée.",
+      mode: "ENTRY",
       ticket: {
         id: ticket.id,
         ticketNumber: ticket.ticketNumber,

@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { hashPassword, verifyPassword, createSessionToken, verifySessionToken } from "../../lib/crypto-security.js";
 
 async function runStorageAuthTests() {
-  console.log("🧪 Test unitaire de la couche cryptographique et des sessions RBAC...");
+  console.log("[TEST] Test unitaire de la couche cryptographique et des sessions RBAC...");
 
   // 1. Test du hachage de mot de passe (scrypt + sel)
   const password = "SecretStaffPassword2026!";
@@ -20,7 +20,7 @@ async function runStorageAuthTests() {
   const isBadMatch = verifyPassword("MauvaisMotDePasse", hash, salt);
   assert.strictEqual(isBadMatch, false, "Un mauvais mot de passe doit échouer");
 
-  console.log("✅ Hachage et vérification de mot de passe validés.");
+  console.log("[SUCCESS] Hachage et vérification de mot de passe validés.");
 
   // 2. Test des sessions HMAC-SHA256 avec rôles RBAC
   const staffSessionPayload = {
@@ -51,18 +51,18 @@ async function runStorageAuthTests() {
   const decodedAdmin = verifySessionToken(adminToken);
   assert.strictEqual(decodedAdmin.role, "ADMIN");
 
-  console.log("✅ Génération et décodage des sessions RBAC validés.");
+  console.log("[SUCCESS] Génération et décodage des sessions RBAC validés.");
 
   // 3. Test de falsification de jeton
   const tamperedToken = staffToken.substring(0, staffToken.length - 4) + "abcd";
   const decodedTampered = verifySessionToken(tamperedToken);
   assert.strictEqual(decodedTampered, null, "Un jeton altéré doit être rejeté");
 
-  console.log("✅ Protection anti-falsification de session validée.");
-  console.log("🎉 Tous les tests unitaires de sécurité et stockage sont validés !");
+  console.log("[SUCCESS] Protection anti-falsification de session validée.");
+  console.log("[SUCCESS] Tous les tests unitaires de sécurité et stockage sont validés !");
 }
 
 runStorageAuthTests().catch((err) => {
-  console.error("❌ Échec test storage auth :", err);
+  console.error("[ERROR] Échec test storage auth :", err);
   process.exit(1);
 });

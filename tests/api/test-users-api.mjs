@@ -5,13 +5,13 @@ import { createSessionToken } from "../../lib/crypto-security.js";
 import { NextRequest } from "next/server.js";
 
 async function runUsersApiTests() {
-  console.log("🧪 Test des routes d'API de gestion d'équipe /api/admin/users...");
+  console.log("[TEST] Test des routes d'API de gestion d'équipe /api/admin/users...");
 
   // 1. Non authentifié -> 401
   const reqAnon = new NextRequest("http://localhost:3000/api/admin/users");
   const resAnon = await GET(reqAnon);
   assert.strictEqual(resAnon.status, 401, "GET anonyme doit renvoyer 401");
-  console.log("✅ Test 1 : Anonyme rejeté avec 401.");
+  console.log("[SUCCESS] Test 1 : Anonyme rejeté avec 401.");
 
   // 2. Compte Staff -> 403
   const staffToken = createSessionToken({
@@ -26,7 +26,7 @@ async function runUsersApiTests() {
   });
   const resStaff = await GET(reqStaff);
   assert.strictEqual(resStaff.status, 403, "Compte Staff doit renvoyer 403");
-  console.log("✅ Test 2 : Staff rejeté avec 403.");
+  console.log("[SUCCESS] Test 2 : Staff rejeté avec 403.");
 
   // 3. Validation payload invalide par Admin -> 400
   const adminToken = createSessionToken({
@@ -52,7 +52,7 @@ async function runUsersApiTests() {
   assert.strictEqual(resBadData.status, 400, "Données invalides doivent renvoyer 400");
   const badDataJson = await resBadData.json();
   assert(badDataJson.error, "Doit contenir un message d'erreur de validation explicite");
-  console.log("✅ Test 3 : Validation Zod des paramètres rejetant les entrées invalides validée.");
+  console.log("[SUCCESS] Test 3 : Validation Zod des paramètres rejetant les entrées invalides validée.");
 
   // 4. Tentative de suppression de son propre compte -> 400
   const reqSelfDelete = new NextRequest("http://localhost:3000/api/admin/users/admin-master", {
@@ -63,12 +63,12 @@ async function runUsersApiTests() {
   assert.strictEqual(resSelfDelete.status, 400, "Auto-suppression doit être bloquée avec 400");
   const selfDeleteJson = await resSelfDelete.json();
   assert(selfDeleteJson.error.includes("propre compte"), "Message explicite interdisant l'auto-suppression attendu");
-  console.log("✅ Test 4 : Protection anti-suppression de son propre compte validée.");
+  console.log("[SUCCESS] Test 4 : Protection anti-suppression de son propre compte validée.");
 
-  console.log("🎉 Tous les tests de l'API /api/admin/users sont validés avec succès !");
+  console.log("[SUCCESS] Tous les tests de l'API /api/admin/users sont validés avec succès !");
 }
 
 runUsersApiTests().catch((err) => {
-  console.error("❌ Échec test users API :", err);
+  console.error("[ERROR] Échec test users API :", err);
   process.exit(1);
 });

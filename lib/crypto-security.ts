@@ -1,9 +1,23 @@
 import crypto from "crypto";
 import { AdminRole } from "./types";
 
-const SECRET_KEY =
-  process.env.AUTH_SECRET ||
-  "celebration-night-hagiazo-super-secret-key-2026-phase1-4";
+const INSECURE_KEY_EXAMPLE = "celebration-night-hagiazo-super-secret-key-2026-phase1-4";
+
+/**
+ * Obtient la cle secrete de signature.
+ * En production, refuse categoriquement la cle d'exemple publique.
+ */
+export function getAuthSecret(): string {
+  const secret = process.env.AUTH_SECRET?.trim();
+  if (!secret || secret === INSECURE_KEY_EXAMPLE) {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error(
+        "[SECURITE CRITIQUE] AUTH_SECRET n'est pas defini ou utilise la cle publique par defaut. Definissez une cle secrete forte."
+      );
+    }
+  }
+  return secret || INSECURE_KEY_EXAMPLE;
+}
 
 /**
  * Hache un mot de passe en utilisant scrypt et un sel cryptographique aléatoire.
@@ -67,7 +81,7 @@ export function createSessionToken(data: Omit<SessionData, "expiresAt">, duratio
 
   const payloadBase64 = Buffer.from(JSON.stringify(payload)).toString("base64url");
   const signature = crypto
-    .createHmac("sha256", SECRET_KEY)
+    .createHmac("sha256", getAuthSecret())
     .update(payloadBase64)
     .digest("base64url");
 
@@ -83,7 +97,7 @@ export function verifySessionToken(token: string): SessionData | null {
     if (!payloadBase64 || !signature) return null;
 
     const expectedSignature = crypto
-      .createHmac("sha256", SECRET_KEY)
+      .createHmac("sha256", getAuthSecret())
       .update(payloadBase64)
       .digest("base64url");
 

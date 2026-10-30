@@ -1,9 +1,17 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 const SESSION_COOKIE_NAME = "celebration_admin_session";
-const SECRET_KEY =
-  process.env.AUTH_SECRET ||
-  "celebration-night-hagiazo-super-secret-key-2026-phase1-4";
+const INSECURE_KEY_EXAMPLE = "celebration-night-hagiazo-super-secret-key-2026-phase1-4";
+
+function getSecretKey(): string {
+  const secret = process.env.AUTH_SECRET?.trim();
+  if (!secret || secret === INSECURE_KEY_EXAMPLE) {
+    if (process.env.NODE_ENV === "production") {
+      return "";
+    }
+  }
+  return secret || INSECURE_KEY_EXAMPLE;
+}
 
 function base64UrlToUint8Array(base64url: string): Uint8Array {
   const base64 = base64url.replace(/-/g, "+").replace(/_/g, "/");
@@ -41,10 +49,13 @@ async function verifySessionTokenEdge(token: string): Promise<EdgeSessionData | 
     const [payloadBase64, signature] = parts;
     if (!payloadBase64 || !signature) return null;
 
+    const secretKey = getSecretKey();
+    if (!secretKey) return null;
+
     const encoder = new TextEncoder();
     const key = await crypto.subtle.importKey(
       "raw",
-      encoder.encode(SECRET_KEY),
+      encoder.encode(secretKey),
       { name: "HMAC", hash: "SHA-256" },
       false,
       ["sign"]
@@ -59,7 +70,7 @@ async function verifySessionTokenEdge(token: string): Promise<EdgeSessionData | 
     const expectedSig = uint8ArrayToBase64Url(new Uint8Array(sigBuffer));
     if (expectedSig !== signature) return null;
 
-    // Décoder le payload
+    // Decodage du payload
     const payloadText = new TextDecoder().decode(base64UrlToUint8Array(payloadBase64));
     const payload = JSON.parse(payloadText) as EdgeSessionData;
 
@@ -82,7 +93,6 @@ export async function middleware(req: NextRequest) {
     if (sessionCookie) {
       const session = await verifySessionTokenEdge(sessionCookie);
       if (session) {
-        // Redirection contextuelle selon le rôle
         const target = session.role === "STAFF" ? "/admin/scanner" : "/admin/dashboard";
         return NextResponse.redirect(new URL(target, req.url));
       }
@@ -90,7 +100,45 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // 2. Protection des routes d'administration (/admin/*)
+  // 2. Protection centralisee des routes API d'administration (/api/admin/*)
+  if (pathname.startsWith("/api/admin")) {
+    if (pathname === "/api/admin/login") {
+      return NextResponse.next();
+    }
+
+    const sessionCookie = req.cookies.get(SESSION_COOKIE_NAME)?.value;
+    if (!sessionCookie) {
+      return NextResponse.json(
+        { error: "Non autorise. Session requise." },
+        { status: 401 }
+      );
+    }
+
+    const session = await verifySessionTokenEdge(sessionCookie);
+    if (!session) {
+      const res = NextResponse.json(
+        { error: "Session invalide ou expiree." },
+        { status: 401 }
+      );
+      res.cookies.delete(SESSION_COOKIE_NAME);
+      return res;
+    }
+
+    // Restriction RBAC API : le rôle STAFF n'a accès qu'aux endpoints de scan, profil et déconnexion
+    const staffAllowedApiPrefixes = ["/api/admin/scan", "/api/admin/me", "/api/admin/logout"];
+    const isAllowedForStaff = staffAllowedApiPrefixes.some((prefix) => pathname.startsWith(prefix));
+
+    if (session.role === "STAFF" && !isAllowedForStaff) {
+      return NextResponse.json(
+        { error: "Acces refuse. Droits administrateur requis." },
+        { status: 403 }
+      );
+    }
+
+    return NextResponse.next();
+  }
+
+  // 3. Protection des pages d'administration (/admin/*)
   if (pathname.startsWith("/admin")) {
     const sessionCookie = req.cookies.get(SESSION_COOKIE_NAME)?.value;
 
@@ -107,7 +155,7 @@ export async function middleware(req: NextRequest) {
       return response;
     }
 
-    // 3. Cloisonnement strict RBAC : Le rôle STAFF est strictement cantonné au scanner
+    // Cloisonnement strict RBAC : Le role STAFF est strictement cantonne au scanner
     if (session.role === "STAFF" && pathname !== "/admin/scanner") {
       const scannerUrl = new URL("/admin/scanner", req.url);
       return NextResponse.redirect(scannerUrl);
@@ -118,5 +166,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/api/admin/:path*"],
 };

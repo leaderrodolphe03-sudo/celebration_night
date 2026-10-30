@@ -12,7 +12,7 @@ export interface Partner {
 
 /**
  * Liste officielle des partenaires & ministères associés.
- * 💡 Note pour les 3 prochains partenaires :
+ * Note pour les 3 prochains partenaires :
  * Il suffira d'ajouter leur objet avec leur chemin dans /logos/partenaire/
  */
 export const PARTNERS: Partner[] = [

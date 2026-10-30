@@ -5,13 +5,13 @@ import { createSessionToken } from "../../lib/crypto-security.js";
 import { NextRequest } from "next/server.js";
 
 async function runRbacTests() {
-  console.log("🧪 Test de contrôle d'accès RBAC (API & Middleware Edge)...");
+  console.log("[TEST] Test de contrôle d'accès RBAC (API & Middleware Edge)...");
 
   // 1. Appel API stats sans cookie -> 401
   const reqAnon = new NextRequest("http://localhost:3000/api/admin/stats");
   const resAnon = await getStats(reqAnon);
   assert.strictEqual(resAnon.status, 401, "Accès anonyme sur stats doit être refusé (401)");
-  console.log("✅ Test 1 : Anonyme bloqué avec 401.");
+  console.log("[SUCCESS] Test 1 : Anonyme bloqué avec 401.");
 
   // 2. Création token Staff
   const staffToken = createSessionToken({
@@ -30,7 +30,7 @@ async function runRbacTests() {
   });
   const resStaff = await getStats(reqStaff);
   assert.strictEqual(resStaff.status, 403, "Compte STAFF sur stats doit renvoyer 403 Forbidden");
-  console.log("✅ Test 2 : Rôle STAFF bloqué avec 403 sur /api/admin/stats.");
+  console.log("[SUCCESS] Test 2 : Rôle STAFF bloqué avec 403 sur /api/admin/stats.");
 
   // 4. Test Middleware Edge : Staff tentant d'accéder à /admin/dashboard
   const reqMiddlewareStaff = new NextRequest("http://localhost:3000/admin/dashboard", {
@@ -43,7 +43,7 @@ async function runRbacTests() {
   assert.strictEqual(resMiddlewareStaff.status, 307, "Doit rediriger (307)");
   const redirectLocation = resMiddlewareStaff.headers.get("location");
   assert(redirectLocation && redirectLocation.includes("/admin/scanner"), "Staff doit être redirigé vers /admin/scanner");
-  console.log("✅ Test 3 : Middleware redirige bien le compte STAFF vers /admin/scanner.");
+  console.log("[SUCCESS] Test 3 : Middleware redirige bien le compte STAFF vers /admin/scanner.");
 
   // 5. Test Middleware Edge : Admin accédant à /admin/dashboard
   const adminToken = createSessionToken({
@@ -59,14 +59,13 @@ async function runRbacTests() {
     },
   });
   const resMiddlewareAdmin = await middleware(reqMiddlewareAdmin);
-  // Pour un admin, middleware renvoie next() (statut 200)
   assert.strictEqual(resMiddlewareAdmin.status, 200, "Admin doit passer le middleware sans redirection");
-  console.log("✅ Test 4 : Middleware laisse passer le Super Admin.");
+  console.log("[SUCCESS] Test 4 : Middleware laisse passer le Super Admin.");
 
-  console.log("🎉 Tous les tests RBAC (APIs & Middleware) sont validés avec succès !");
+  console.log("[SUCCESS] Tous les tests RBAC (APIs & Middleware) sont validés avec succès !");
 }
 
 runRbacTests().catch((err) => {
-  console.error("❌ Échec test RBAC :", err);
+  console.error("[ERROR] Échec test RBAC :", err);
   process.exit(1);
 });

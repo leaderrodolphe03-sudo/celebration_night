@@ -37,7 +37,7 @@ async function main() {
   const email = process.argv[5] || process.env.ADMIN_SEED_EMAIL || "direction@celebrationnight.org";
 
   console.log("------------------------------------------------------------------");
-  console.log("🔑 Préparation du compte Super Admin Initial pour CELEBRATION NIGHT");
+  console.log("[ADMIN] Preparation du compte Super Admin Initial pour CELEBRATION NIGHT");
   console.log("------------------------------------------------------------------");
   console.log(`- Identifiant : ${username}`);
   console.log(`- Nom         : ${name}`);
@@ -46,7 +46,7 @@ async function main() {
 
   const { hash, salt } = hashPassword(password);
 
-  console.log("\n📦 Requête SQL équivalente (à copier dans Supabase SQL Editor si besoin) :");
+  console.log("\n[SQL] Requete SQL equivalente (a copier dans Supabase SQL Editor si besoin) :");
   console.log(`
 INSERT INTO public.admin_users (username, name, email, password_hash, salt, role)
 VALUES ('${username}', '${name}', '${email}', '${hash}', '${salt}', 'ADMIN')
@@ -60,14 +60,14 @@ DO UPDATE SET
 `);
 
   if (!supabaseUrl || !serviceKey) {
-    console.log("⚠️ Variables Supabase non détectées dans .env.local.");
-    console.log("Veuillez exécuter la requête SQL ci-dessus directement dans le SQL Editor de Supabase.");
+    console.log("[WARN] Variables Supabase non detectees dans .env.local.");
+    console.log("Veuillez executer la requete SQL ci-dessus directement dans le SQL Editor de Supabase.");
     return;
   }
 
   const supabase = createClient(supabaseUrl, serviceKey);
 
-  console.log("🚀 Tentative d'insertion directe via l'API Supabase...");
+  console.log("[INFO] Tentative d'insertion directe via l'API Supabase...");
   const { data: existing } = await supabase
     .from("admin_users")
     .select("id")
@@ -88,9 +88,9 @@ DO UPDATE SET
       .eq("id", existing.id);
 
     if (updateError) {
-      console.error("❌ Erreur mise à jour:", updateError.message);
+      console.error("[ERROR] Erreur mise a jour:", updateError.message);
     } else {
-      console.log(`✅ Compte Super Admin '${username}' mis à jour avec succès dans Supabase !`);
+      console.log(`[SUCCESS] Compte Super Admin '${username}' mis a jour avec succes dans Supabase !`);
     }
   } else {
     const { error: insertError } = await supabase
@@ -105,12 +105,12 @@ DO UPDATE SET
       });
 
     if (insertError) {
-      console.error("❌ Erreur insertion:", insertError.message);
+      console.error("[ERROR] Erreur insertion:", insertError.message);
       if (insertError.message.includes("Could not find the table")) {
-        console.log("👉 Rappel : N'oubliez pas d'exécuter d'abord le script 'lib/db/migrations/20261023_init_admin_users_and_rls.sql' dans votre SQL Editor Supabase.");
+        console.log("[INFO] Rappel : N'oubliez pas d'executer d'abord le script 'lib/db/migrations/20261023_init_admin_users_and_rls.sql' dans votre SQL Editor Supabase.");
       }
     } else {
-      console.log(`✅ Compte Super Admin '${username}' créé avec succès dans Supabase !`);
+      console.log(`[SUCCESS] Compte Super Admin '${username}' cree avec succes dans Supabase !`);
     }
   }
 }

@@ -61,250 +61,87 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
     throw new Error("Impossible d'initialiser le contexte Canvas 2D.");
   }
 
-  // 1. Fond principal dégradé espresso / terre brûlée ambrée
-  const bgGrad = ctx.createLinearGradient(0, 0, SIZE, SIZE);
-  bgGrad.addColorStop(0, "#17110E");
-  bgGrad.addColorStop(0.35, "#1A140E");
-  bgGrad.addColorStop(0.7, "#120E0A");
-  bgGrad.addColorStop(1, "#17110E");
-  ctx.fillStyle = bgGrad;
-  ctx.fillRect(0, 0, SIZE, SIZE);
+  // 1. Fond officiel Celebration Night (affiche officielle nettoyée)
+  try {
+    const bgImg = await loadImage("/images/badge_template_clean.png");
+    ctx.drawImage(bgImg, 0, 0, SIZE, SIZE);
+  } catch (err) {
+    console.warn("Échec du chargement du fond officiel, utilisation du fallback:", err);
+    const bgGrad = ctx.createLinearGradient(0, 0, SIZE, SIZE);
+    bgGrad.addColorStop(0, "#1F0A2E");
+    bgGrad.addColorStop(0.5, "#4A0E4E");
+    bgGrad.addColorStop(1, "#120520");
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, SIZE, SIZE);
+  }
 
-  // 2. Halos d'ambiance lumineux (or solaire et braise ambrée)
-  const glowTop = ctx.createRadialGradient(SIZE / 2, 80, 20, SIZE / 2, 80, 520);
-  glowTop.addColorStop(0, "rgba(234, 88, 12, 0.35)");
-  glowTop.addColorStop(0.6, "rgba(245, 158, 11, 0.15)");
-  glowTop.addColorStop(1, "rgba(0, 0, 0, 0)");
-  ctx.fillStyle = glowTop;
-  ctx.fillRect(0, 0, SIZE, SIZE);
-
-  const glowGold = ctx.createRadialGradient(SIZE - 120, SIZE - 120, 10, SIZE - 120, SIZE - 120, 400);
-  glowGold.addColorStop(0, "rgba(245, 158, 11, 0.25)");
-  glowGold.addColorStop(1, "rgba(0, 0, 0, 0)");
-  ctx.fillStyle = glowGold;
-  ctx.fillRect(0, 0, SIZE, SIZE);
-
-  // 3. Cadre extérieur esthétique avec bordure or & obsidienne
-  ctx.lineWidth = 14;
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
-  roundRect(ctx, 32, 32, SIZE - 64, SIZE - 64, 48);
-  ctx.stroke();
-
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = "#F59E0B";
-  roundRect(ctx, 42, 42, SIZE - 84, SIZE - 84, 40);
-  ctx.stroke();
-
-  // 4. En-tête : Organisation & Logo
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#FCD34D";
-  ctx.font = "bold 24px Montserrat, sans-serif";
-  ctx.letterSpacing = "6px";
-  ctx.fillText("HAGIAZO MINISTRY PRÉSENTE", SIZE / 2, 95);
-
-  // Titre événementiel : CELEBRATION NIGHT
-  ctx.fillStyle = "#EDE8DC";
-  ctx.font = "900 76px 'Bebas Neue', Montserrat, sans-serif";
-  ctx.letterSpacing = "4px";
-  ctx.fillText("CELEBRATION NIGHT", SIZE / 2, 175);
-
-  // Date et lieu
-  ctx.fillStyle = "#BFB89E";
-  ctx.font = "600 22px Montserrat, sans-serif";
-  ctx.letterSpacing = "3px";
-  const dateVenue = `${data.dateLabel || "VENDREDI 13 NOVEMBRE 2026"} • ${data.venueLabel || "ABIDJAN"}`;
-  ctx.fillText(dateVenue.toUpperCase(), SIZE / 2, 215);
-
-  // 5. Zone centrale : Photo du participant
-  const photoSize = 420;
-  const photoX = (SIZE - photoSize) / 2;
-  const photoY = 260;
-
-  // Ombre portée sous la photo
-  ctx.save();
-  ctx.shadowColor = "rgba(0, 0, 0, 0.75)";
-  ctx.shadowBlur = 40;
-  ctx.shadowOffsetY = 15;
-
-  // Cadre blanc épais style poster / polaroid haut de gamme
-  ctx.fillStyle = "#EDE8DC";
-  roundRect(ctx, photoX - 10, photoY - 10, photoSize + 20, photoSize + 20, 28);
-  ctx.fill();
-  ctx.restore();
-
-  // Dessin de la photo ou placeholder
-  ctx.save();
-  roundRect(ctx, photoX, photoY, photoSize, photoSize, 20);
-  ctx.clip();
+  // 2. Photo du participant (dans un cadre propre et léger, aligné avec l'affiche sous J'Y SERAI)
+  const frameX = 24;
+  const frameY = 180;
+  const frameW = 540;
+  const frameH = 672;
+  const radius = 22;
 
   if (data.photoUrl) {
     try {
       const userImg = await loadImage(data.photoUrl);
-      // Recadrage cover au centre
-      const scale = Math.max(photoSize / userImg.width, photoSize / userImg.height);
+      ctx.save();
+      roundRect(ctx, frameX, frameY, frameW, frameH, radius);
+      ctx.clip();
+
+      // Recadrage 'cover' centré
+      const scale = Math.max(frameW / userImg.width, frameH / userImg.height);
       const w = userImg.width * scale;
       const h = userImg.height * scale;
-      const x = photoX + (photoSize - w) / 2;
-      const y = photoY + (photoSize - h) / 2;
+      const x = frameX + (frameW - w) / 2;
+      const y = frameY + (frameH - h) / 2;
       ctx.drawImage(userImg, x, y, w, h);
-    } catch {
-      // En cas d'échec de chargement, fallback dégradé
-      drawDefaultPhoto(ctx, photoX, photoY, photoSize, data.fullName);
+      ctx.restore();
+
+      // Cadre léger : contour fin blanc translucide
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.28)";
+      roundRect(ctx, frameX, frameY, frameW, frameH, radius);
+      ctx.stroke();
+    } catch (err) {
+      console.warn("Échec du chargement de la photo participant:", err);
     }
-  } else {
-    drawDefaultPhoto(ctx, photoX, photoY, photoSize, data.fullName);
   }
-  ctx.restore();
 
-  // Bordure dorée intérieure sur la photo
-  ctx.lineWidth = 4;
-  ctx.strokeStyle = "#F59E0B";
-  roundRect(ctx, photoX, photoY, photoSize, photoSize, 20);
-  ctx.stroke();
+  // 3. Calque de premier plan officiel : J'Y SERAI en 3D, bandeau date, logos et flyer au-dessus de la photo
+  try {
+    const fgImg = await loadImage("/images/badge_foreground.png");
+    ctx.drawImage(fgImg, 0, 0, SIZE, SIZE);
+  } catch (err) {
+    console.warn("Échec du chargement du premier plan officiel:", err);
+  }
 
-  // 6. Macaron Flamboyant « J'Y SERAI ! » (incliné sur le coin inférieur droit de la photo)
-  ctx.save();
-  const stampX = photoX + photoSize - 60;
-  const stampY = photoY + photoSize - 20;
-  ctx.translate(stampX, stampY);
-  ctx.rotate((-8 * Math.PI) / 180);
+  // 4. QR Code dynamique officiel sur la carte d'entrée (bas-droite)
+  // Coordonnées exactes : carte à X: 835..1047, Y: 815..1027, QR centré en (941, 921)
+  const qrSize = 176;
+  const qrX = 853;
+  const qrY = 833;
+  const tokenToEncode = data.qrToken || data.ticketNumber || "CN-2026-VALIDE";
 
-  // Ombre du macaron
-  ctx.shadowColor = "rgba(245, 158, 11, 0.5)";
-  ctx.shadowBlur = 24;
-
-  // Fond du macaron
-  const stampGrad = ctx.createLinearGradient(-110, -35, 110, 35);
-  stampGrad.addColorStop(0, "#EA580C");
-  stampGrad.addColorStop(0.5, "#F59E0B");
-  stampGrad.addColorStop(1, "#FCD34D");
-  ctx.fillStyle = stampGrad;
-  roundRect(ctx, -110, -32, 220, 64, 16);
-  ctx.fill();
-
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = "#FFFFFF";
-  roundRect(ctx, -110, -32, 220, 64, 16);
-  ctx.stroke();
-
-  // Texte du macaron
-  ctx.shadowBlur = 0;
-  ctx.fillStyle = "#17110E";
-  ctx.font = "900 32px 'Bebas Neue', Montserrat, sans-serif";
-  ctx.textAlign = "center";
-  ctx.letterSpacing = "2px";
-  ctx.fillText("★ J'Y SERAI ! ★", 0, 10);
-  ctx.restore();
-
-  // 7. Bas du badge : Nom du participant et QR Code
-  // Zone gauche : Informations Participant
-  const bottomY = 740;
-  ctx.textAlign = "left";
-
-  // Badge catégorie
-  ctx.fillStyle = "rgba(245, 158, 11, 0.2)";
-  roundRect(ctx, 75, bottomY, 240, 38, 8);
-  ctx.fill();
-  ctx.lineWidth = 1.5;
-  ctx.strokeStyle = "rgba(245, 158, 11, 0.4)";
-  roundRect(ctx, 75, bottomY, 240, 38, 8);
-  ctx.stroke();
-
-  ctx.fillStyle = "#FCD34D";
-  ctx.font = "bold 15px Montserrat, sans-serif";
-  ctx.letterSpacing = "2px";
-  ctx.fillText("BILLET PARTICIPANT OFFICIEL", 90, bottomY + 24);
-
-  // Nom complet en grand
-  ctx.fillStyle = "#EDE8DC";
-  ctx.font = "800 44px 'Bebas Neue', Montserrat, sans-serif";
-  ctx.letterSpacing = "2px";
-  const nameToDisplay = data.fullName.trim() || "PARTICIPANT OFFICIEL";
-  // Tronquer si trop long
-  const truncatedName = nameToDisplay.length > 24 ? nameToDisplay.substring(0, 23) + "…" : nameToDisplay;
-  ctx.fillText(truncatedName.toUpperCase(), 75, bottomY + 90);
-
-  // Numéro de billet et statut
-  ctx.fillStyle = "#BFB89E";
-  ctx.font = "600 20px Montserrat, sans-serif";
-  ctx.letterSpacing = "1.5px";
-  ctx.fillText(`N° ${data.ticketNumber || "CN-2026-VALIDE"}`, 75, bottomY + 130);
-
-  ctx.fillStyle = "#34D399";
-  ctx.font = "bold 16px Montserrat, sans-serif";
-  ctx.letterSpacing = "1px";
-  ctx.fillText("● ENTRÉE GRATUITE CONFIRMÉE", 75, bottomY + 165);
-
-  // Zone droite : QR Code individuel officiel
-  const qrSize = 200;
-  const qrX = SIZE - 75 - qrSize;
-  const qrY = bottomY - 10;
-
-  // Cadre blanc pour lecture optique parfaite au scanner
-  ctx.fillStyle = "#FFFFFF";
-  roundRect(ctx, qrX - 10, qrY - 10, qrSize + 20, qrSize + 20, 16);
-  ctx.fill();
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = "#F59E0B";
-  roundRect(ctx, qrX - 10, qrY - 10, qrSize + 20, qrSize + 20, 16);
-  ctx.stroke();
-
-  // Rendu du QR code dans le canvas
-  const qrDataUrl = await QRCode.toDataURL(data.qrToken || data.ticketNumber || "CN-2026-OFFICIAL", {
-    errorCorrectionLevel: "H",
-    margin: 1,
-    width: qrSize,
-    color: {
-      dark: "#080808",
-      light: "#FFFFFF",
-    },
-  });
-  const qrImg = await loadImage(qrDataUrl);
-  ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
-
-  // Légende sous le QR
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#BFB89E";
-  ctx.font = "600 13px Montserrat, sans-serif";
-  ctx.letterSpacing = "1px";
-  ctx.fillText("SCANNEZ À L'ENTRÉE", qrX + qrSize / 2, qrY + qrSize + 28);
-
-  // Pied de page légal / Hashtag
-  ctx.textAlign = "center";
-  ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
-  ctx.font = "500 16px Montserrat, sans-serif";
-  ctx.letterSpacing = "2px";
-  ctx.fillText("#CelebrationNight2026 • #HagiazoMinistry • www.celebrationnight.org", SIZE / 2, SIZE - 48);
+  try {
+    const qrDataUrl = await QRCode.toDataURL(tokenToEncode, {
+      errorCorrectionLevel: "M",
+      margin: 1,
+      width: qrSize,
+      color: {
+        dark: "#0F071A",
+        light: "#FFFFFF",
+      },
+    });
+    const qrImg = await loadImage(qrDataUrl);
+    ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
+  } catch (err) {
+    console.error("Erreur rendu QR code HD:", err);
+  }
 
   return canvas.toDataURL("image/png");
 }
 
-function drawDefaultPhoto(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  size: number,
-  fullName: string
-) {
-  const grad = ctx.createLinearGradient(x, y, x + size, y + size);
-  grad.addColorStop(0, "#1F1710");
-  grad.addColorStop(0.5, "#2A1F16");
-  grad.addColorStop(1, "#120E0A");
-  ctx.fillStyle = grad;
-  ctx.fillRect(x, y, size, size);
-
-  // Initiale
-  const initial = (fullName.trim()[0] || "C").toUpperCase();
-  ctx.fillStyle = "#FCD34D";
-  ctx.font = "bold 140px 'Bebas Neue', Montserrat, sans-serif";
-  ctx.textAlign = "center";
-  ctx.fillText(initial, x + size / 2, y + size / 2 + 50);
-
-  ctx.fillStyle = "rgba(237, 232, 220, 0.85)";
-  ctx.font = "bold 18px Montserrat, sans-serif";
-  ctx.letterSpacing = "2px";
-  ctx.fillText("PHOTO PARTICIPANT", x + size / 2, y + size - 35);
-}
 
 /**
  * Déclenche le téléchargement du Data URL PNG sur le navigateur client.

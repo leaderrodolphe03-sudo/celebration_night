@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { supabaseStorage } from "@/lib/db/supabase-storage";
 import { storage } from "@/lib/db/storage";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 const ContactSchema = z.object({
   name: z.string().min(2, "Le nom est requis"),
@@ -22,7 +24,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    storage.addContactMessage(parsed.data);
+    if (isSupabaseConfigured()) {
+      await supabaseStorage.createContactMessage(parsed.data);
+    } else {
+      storage.addContactMessage(parsed.data);
+    }
 
     return NextResponse.json({
       success: true,

@@ -8,6 +8,7 @@ import {
   TicketStatus,
   AdminUser,
   AdminRole,
+  ContactMessage,
 } from "../types";
 
 export class SupabaseStorage {
@@ -93,32 +94,43 @@ export class SupabaseStorage {
       throw new Error(`Impossible d'enregistrer le participant dans la base de données.${detail}`);
     }
 
-    // 3. Détermination du numéro de billet séquentiel
-    const { count } = await supabase
-      .from("tickets")
-      .select("*", { count: "exact", head: true });
+    // 3. Détermination robuste du numéro de billet avec boucle anti-collision concurrente
+    let newTicket = null;
+    let attempts = 0;
+    const maxAttempts = 5;
 
-    const sequenceNum = (count || 0) + 1;
-    const ticketNumber = `CN-2026-${String(sequenceNum).padStart(6, "0")}`;
-    const qrToken = generateSecureQrToken();
+    while (!newTicket && attempts < maxAttempts) {
+      attempts++;
+      const { count } = await supabase
+        .from("tickets")
+        .select("*", { count: "exact", head: true });
 
-    // 4. Création du billet unique
-    const { data: newTicket, error: tError } = await supabase
-      .from("tickets")
-      .insert({
-        ticket_number: ticketNumber,
-        qr_token: qrToken,
-        ticket_type: data.ticketType,
-        status: "VALID",
-        participant_id: newParticipant.id,
-      })
-      .select()
-      .single();
+      const sequenceNum = (count || 0) + attempts;
+      const ticketNumber = `CN-2026-${String(sequenceNum).padStart(6, "0")}`;
+      const qrToken = generateSecureQrToken();
 
-    if (tError || !newTicket) {
-      console.error("Erreur insertion ticket Supabase:", tError);
-      const detail = tError?.message ? ` (${tError.message})` : "";
-      throw new Error(`Impossible de générer le billet officiel.${detail}`);
+      const { data: createdTicket, error: tError } = await supabase
+        .from("tickets")
+        .insert({
+          ticket_number: ticketNumber,
+          qr_token: qrToken,
+          ticket_type: data.ticketType,
+          status: "VALID",
+          participant_id: newParticipant.id,
+        })
+        .select()
+        .maybeSingle();
+
+      if (!tError && createdTicket) {
+        newTicket = createdTicket;
+        break;
+      }
+
+      if (attempts >= maxAttempts) {
+        console.error("Erreur insertion ticket Supabase apres retries:", tError);
+        const detail = tError?.message ? ` (${tError.message})` : "";
+        throw new Error(`Impossible de générer le billet officiel.${detail}`);
+      }
     }
 
     return {
@@ -245,7 +257,7 @@ export class SupabaseStorage {
   }
 
   /**
-   * Recherche par téléphone ou email
+   * Recherche par téléphone ou email avec validation stricte anti-énumération
    */
   async findTicketsByPhoneOrEmail(query: string): Promise<{ participant: Participant; tickets: Ticket[] }[]> {
     const supabase = getSupabaseServerClient();
@@ -253,9 +265,17 @@ export class SupabaseStorage {
 
     let qb = supabase.from("participants").select("*, tickets(*)");
     if (clean.includes("@")) {
-      qb = qb.ilike("email", clean.toLowerCase());
+      const sanitizedEmail = clean.toLowerCase().replace(/[^a-z0-9@._+-]/g, "");
+      if (sanitizedEmail.length < 5) return [];
+      qb = qb.ilike("email", sanitizedEmail);
     } else {
-      qb = qb.ilike("phone", `%${clean}%`);
+      // Pour une recherche téléphonique, exiger au moins 8 chiffres significatifs pour bloquer l'énumération
+      const digitsOnly = clean.replace(/\D/g, "");
+      if (digitsOnly.length < 8) {
+        return [];
+      }
+      const sanitizedPhone = clean.replace(/[^0-9+ ]/g, "");
+      qb = qb.or(`phone.eq."${sanitizedPhone}",phone.ilike."%${digitsOnly}"`);
     }
 
     const { data, error } = await qb;
@@ -300,13 +320,21 @@ export class SupabaseStorage {
     scannedBy: string = "Admin"
   ): Promise<ScanResult> {
     const supabase = getSupabaseServerClient();
-    const clean = tokenOrNumber.trim();
+    const sanitized = tokenOrNumber.trim().replace(/[^a-zA-Z0-9_-]/g, "");
 
-    // Recherche par token ou numéro
+    if (!sanitized) {
+      return {
+        status: "INVALID",
+        message: "Code invalide ou format non reconnu.",
+        mode,
+      };
+    }
+
+    // Recherche par token ou numéro sans injection PostgREST
     const { data: t, error } = await supabase
       .from("tickets")
       .select("*, participants(*)")
-      .or(`qr_token.eq.${clean},ticket_number.eq.${clean.toUpperCase()}`)
+      .or(`qr_token.eq.${sanitized},ticket_number.eq.${sanitized.toUpperCase()}`)
       .maybeSingle();
 
     if (error || !t || !t.participants) {
@@ -610,13 +638,20 @@ export class SupabaseStorage {
   async getAdminByUsernameOrEmail(identifier: string): Promise<AdminUser | null> {
     const supabase = getSupabaseServerClient();
     const clean = identifier.trim().toLowerCase();
+    const isEmail = clean.includes("@");
 
-    // Recherche insensible à la casse sur username OU email
-    const { data, error } = await supabase
-      .from("admin_users")
-      .select("*")
-      .or(`username.ilike.${clean},email.ilike.${clean}`)
-      .maybeSingle();
+    let qb = supabase.from("admin_users").select("*");
+    if (isEmail) {
+      const sanitizedEmail = clean.replace(/[^a-z0-9@._+-]/g, "");
+      if (!sanitizedEmail) return null;
+      qb = qb.ilike("email", sanitizedEmail);
+    } else {
+      const sanitizedUsername = clean.replace(/[^a-z0-9_-]/g, "");
+      if (!sanitizedUsername) return null;
+      qb = qb.ilike("username", sanitizedUsername);
+    }
+
+    const { data, error } = await qb.maybeSingle();
 
     if (error || !data) {
       return null;
@@ -733,6 +768,47 @@ export class SupabaseStorage {
     }
 
     return true;
+  }
+
+  /**
+   * Enregistrer un message de contact dans Supabase
+   */
+  async createContactMessage(data: {
+    name: string;
+    email: string;
+    phone?: string | null;
+    subject: string;
+    message: string;
+  }): Promise<ContactMessage> {
+    const supabase = getSupabaseServerClient();
+    const { data: record, error } = await supabase
+      .from("contact_messages")
+      .insert({
+        name: data.name.trim(),
+        email: data.email.trim(),
+        phone: data.phone?.trim() || null,
+        subject: data.subject.trim(),
+        message: data.message.trim(),
+        status: "NEW",
+      })
+      .select()
+      .single();
+
+    if (error || !record) {
+      console.error("Erreur insertion contact_message Supabase:", error);
+      throw new Error("Impossible d'enregistrer le message de contact.");
+    }
+
+    return {
+      id: record.id,
+      name: record.name,
+      email: record.email,
+      phone: record.phone,
+      subject: record.subject,
+      message: record.message,
+      status: record.status || "NEW",
+      createdAt: record.created_at,
+    };
   }
 }
 

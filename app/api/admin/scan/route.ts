@@ -37,11 +37,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Fallback stockage local si Supabase non encore connecté
-    const result = storage.scanTicket(tokenOrNumber, scannerAgent);
-    return NextResponse.json({
-      ...result,
-      mode,
-    });
+    const result = storage.scanTicket(tokenOrNumber, mode, scannerAgent);
+    return NextResponse.json(result);
   } catch (error) {
     console.error("Erreur API validation scan:", error);
     return NextResponse.json(
