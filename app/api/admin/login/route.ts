@@ -66,10 +66,10 @@ export async function POST(req: NextRequest) {
       { error: "Identifiant ou mot de passe incorrect." },
       { status: 401 }
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error("Erreur login admin:", error);
     return NextResponse.json(
-      { error: "Une erreur est survenue lors de l'accès au portail." },
+      { error: error?.message || "Une erreur est survenue lors de l'accès au portail." },
       { status: 500 }
     );
   }

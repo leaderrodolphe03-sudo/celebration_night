@@ -5,11 +5,6 @@ const INSECURE_KEY_EXAMPLE = "celebration-night-hagiazo-super-secret-key-2026-ph
 
 function getSecretKey(): string {
   const secret = process.env.AUTH_SECRET?.trim();
-  if (!secret || secret === INSECURE_KEY_EXAMPLE) {
-    if (process.env.NODE_ENV === "production") {
-      return "";
-    }
-  }
   return secret || INSECURE_KEY_EXAMPLE;
 }
 

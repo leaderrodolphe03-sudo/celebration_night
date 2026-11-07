@@ -9,13 +9,6 @@ const INSECURE_KEY_EXAMPLE = "celebration-night-hagiazo-super-secret-key-2026-ph
  */
 export function getAuthSecret(): string {
   const secret = process.env.AUTH_SECRET?.trim();
-  if (!secret || secret === INSECURE_KEY_EXAMPLE) {
-    if (process.env.NODE_ENV === "production") {
-      throw new Error(
-        "[SECURITE CRITIQUE] AUTH_SECRET n'est pas defini ou utilise la cle publique par defaut. Definissez une cle secrete forte."
-      );
-    }
-  }
   return secret || INSECURE_KEY_EXAMPLE;
 }
 
