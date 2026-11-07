@@ -24,6 +24,7 @@ import {
 import AdminNav from "@/components/admin/AdminNav";
 import Button from "@/components/ui/Button";
 import { ScanResult } from "@/lib/types";
+import jsQR from "jsqr";
 
 export default function AdminScannerPage() {
   const router = useRouter();
@@ -210,6 +211,40 @@ export default function AdminScannerPage() {
             if (rawValue) {
               handleProcessCode(rawValue);
             }
+          }
+        } catch (e) {
+          // Ignorer frame errors
+        }
+      }, 250);
+
+      return () => {
+        isScanningActive = false;
+        clearInterval(detectInterval);
+      };
+    } else {
+      // Fallback universel pour Safari iOS et navigateurs sans BarcodeDetector natif
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+      const detectInterval = setInterval(() => {
+        if (!isScanningActive || scanning || lastScannedResult) return;
+        if (!videoRef.current || videoRef.current.readyState < 2 || !ctx) return;
+
+        try {
+          const video = videoRef.current;
+          if (video.videoWidth === 0 || video.videoHeight === 0) return;
+
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const code = jsQR(imageData.data, imageData.width, imageData.height, {
+            inversionAttempts: "dontInvert",
+          });
+
+          if (code && code.data) {
+            handleProcessCode(code.data);
           }
         } catch (e) {
           // Ignorer frame errors

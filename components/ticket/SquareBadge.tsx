@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import QRCode from "qrcode";
+
 export interface SquareBadgeProps {
   fullName: string;
   ticketNumber: string;
@@ -10,12 +13,38 @@ export interface SquareBadgeProps {
 
 export default function SquareBadge({
   fullName,
-  ticketNumber: _ticketNumber,
-  qrToken: _qrToken,
+  ticketNumber,
+  qrToken,
   photoUrl,
   className = "",
 }: SquareBadgeProps) {
   const initial = (fullName.trim()[0] || "C").toUpperCase();
+  const [qrDataUrl, setQrDataUrl] = useState<string>("");
+  const codeValue = (ticketNumber || qrToken || "CN-2026-VALIDE").trim();
+
+  useEffect(() => {
+    let isMounted = true;
+    if (codeValue) {
+      QRCode.toDataURL(codeValue, {
+        errorCorrectionLevel: "M",
+        margin: 1,
+        width: 240,
+        color: {
+          dark: "#0F071A",
+          light: "#FFFFFF",
+        },
+      })
+        .then((url) => {
+          if (isMounted) setQrDataUrl(url);
+        })
+        .catch((err) => {
+          console.error("Erreur génération QR badge:", err);
+        });
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [codeValue]);
 
   return (
     <div
@@ -62,6 +91,26 @@ export default function SquareBadge({
         alt="Affiche officielle Celebration Night — J'y serai"
         className="absolute inset-0 h-full w-full object-cover pointer-events-none z-10"
       />
+
+      {/* 3. QR Code officiel individuel positionné dans le cadre blanc */}
+      {qrDataUrl && (
+        <div
+          className="absolute flex items-center justify-center pointer-events-none z-20"
+          style={{
+            left: "7.5%",
+            top: "88.59%",
+            width: "10.65%",
+            height: "8.52%",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={qrDataUrl}
+            alt="QR Code Pass Entrée Officiel"
+            className="w-[86%] h-[86%] object-contain"
+          />
+        </div>
+      )}
     </div>
   );
 }

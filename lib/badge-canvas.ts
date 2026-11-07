@@ -1,7 +1,9 @@
+import QRCode from "qrcode";
+
 export interface BadgeData {
   fullName: string;
-  ticketNumber: string;
-  qrToken: string;
+  ticketNumber?: string;
+  qrToken?: string;
   photoUrl?: string | null;
   dateLabel?: string;
   venueLabel?: string;
@@ -127,6 +129,30 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
       ctx.drawImage(fallbackImg, 0, 0, WIDTH, HEIGHT);
     } catch (fallbackErr) {
       console.error("Échec du chargement du fallback badge:", fallbackErr);
+    }
+  }
+
+  // 4. Dessiner le QR Code officiel individuel du participant
+  const codeValue = (data.ticketNumber || data.qrToken || "CN-2026-VALIDE").trim();
+  if (codeValue) {
+    try {
+      const qrDataUrl = await QRCode.toDataURL(codeValue, {
+        errorCorrectionLevel: "M",
+        margin: 1,
+        width: 198,
+        color: {
+          dark: "#0F071A",
+          light: "#FFFFFF",
+        },
+      });
+      const qrImg = await loadImage(qrDataUrl);
+      // Position exacte du QR code dans le cadre blanc (centré sur x: 81..196, y: 1196..1311)
+      const qrSize = 99;
+      const qrX = 89;
+      const qrY = 1204;
+      ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
+    } catch (qrErr) {
+      console.warn("Échec du dessin du QR Code officiel sur le badge:", qrErr);
     }
   }
 
