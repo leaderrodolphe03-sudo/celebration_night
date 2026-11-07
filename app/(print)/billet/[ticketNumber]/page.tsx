@@ -144,7 +144,7 @@ export default function TicketPage() {
                   ticketNumber: data.ticket.ticketNumber,
                   qrToken: data.ticket.ticketNumber,
                 });
-                downloadDataUrl(dataUrl, `badge-carre-${data.ticket.ticketNumber}.png`);
+                downloadDataUrl(dataUrl, `badge-j-y-serai-${data.ticket.ticketNumber}.png`);
               } catch (e) {
                 console.error(e);
               }
@@ -152,7 +152,7 @@ export default function TicketPage() {
             className="inline-flex items-center gap-2 rounded-lg border border-cn-gold/40 bg-cn-gold/10 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-cn-gold-light hover:bg-cn-gold/20 transition-colors whitespace-nowrap flex-nowrap"
           >
             <Download size={14} className="text-cn-gold shrink-0" />
-            <span className="whitespace-nowrap">Pass Carré HD</span>
+            <span className="whitespace-nowrap">Badge J&apos;y serai HD</span>
           </button>
 
           <button

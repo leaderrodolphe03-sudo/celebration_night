@@ -93,8 +93,8 @@ export default function BadgeGenerator({
   return (
     <div className="w-full space-y-6">
       <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
-        {/* Colonne Gauche : Badge Carré 1:1 en Direct */}
-        <div className="w-full max-w-[420px] shrink-0 flex flex-col items-center">
+        {/* Colonne Gauche : Badge J'y serai 4:5 en Direct */}
+        <div className="w-full max-w-[390px] sm:max-w-[420px] shrink-0 flex flex-col items-center">
           <SquareBadge
             fullName={fullName}
             ticketNumber={ticketNumber}
@@ -102,7 +102,7 @@ export default function BadgeGenerator({
             photoUrl={photoUrl}
           />
           <span className="mt-3 text-[11px] font-medium text-[#7A6D60] uppercase tracking-wider text-center">
-            Aperçu instantané • Format carré 1:1 pour WhatsApp &amp; Instagram
+            Aperçu instantané • Format officiel 4:5 pour WhatsApp &amp; Instagram
           </span>
         </div>
 
@@ -173,7 +173,7 @@ export default function BadgeGenerator({
                 icon={<Download size={16} />}
                 className="w-full justify-center"
               >
-                {isGenerating ? "Génération du badge HD..." : "Télécharger mon badge carré (HD PNG)"}
+                {isGenerating ? "Génération du badge HD..." : "Télécharger mon badge J'y serai (HD PNG)"}
               </Button>
             )}
 

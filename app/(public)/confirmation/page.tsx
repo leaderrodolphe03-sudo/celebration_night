@@ -58,7 +58,7 @@ function ConfirmationContent() {
           Félicitations {name} !
         </h1>
         <p className="mt-3 text-sm sm:text-base text-cn-gray-300 font-body max-w-xl mx-auto">
-          Votre place pour CELEBRATION NIGHT est validée. Ajoutez dès maintenant votre photo ci-dessous pour personnaliser et télécharger votre badge officiel carré &laquo; J&apos;y serai &raquo;.
+          Votre place pour CELEBRATION NIGHT est validée. Ajoutez dès maintenant votre photo ci-dessous pour personnaliser et télécharger votre badge officiel &laquo; J&apos;y serai &raquo;.
         </p>
 
         {/* MODULE INTERACTIF : GÉNÉRATEUR DU BADGE AVEC SA PHOTO */}
@@ -66,7 +66,7 @@ function ConfirmationContent() {
           <div className="border-b border-white/10 pb-5 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-cn-gold-light block">
-                Pass Carré 1:1 &bull; WhatsApp Status &amp; Instagram Story
+                Badge J&apos;y serai 4:5 &bull; WhatsApp Status &amp; Instagram Story
               </span>
               <h2 className="font-heading text-2xl sm:text-3xl uppercase tracking-wide text-white mt-1 flex items-center gap-2">
                 <Camera size={24} className="text-cn-amber" />

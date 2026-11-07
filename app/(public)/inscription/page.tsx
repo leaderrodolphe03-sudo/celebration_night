@@ -164,7 +164,7 @@ export default function InscriptionPage() {
           </h1>
           <p className="mt-3 font-body text-sm sm:text-base text-[#5A4D41] max-w-xl mx-auto">
             {EVENT.name} &bull; {EVENT.dateLabel} à {EVENT.timeLabel}.<br />
-            Remplissez ce formulaire pour valider votre entrée gratuite. Dès confirmation, vous pourrez ajouter votre photo et générer votre badge officiel carré &laquo; J&apos;y serai &raquo;.
+            Remplissez ce formulaire pour valider votre entrée gratuite. Dès confirmation, vous pourrez ajouter votre photo et générer votre badge officiel &laquo; J&apos;y serai &raquo;.
           </p>
         </div>
 
@@ -401,7 +401,7 @@ export default function InscriptionPage() {
               </h3>
               <p className="text-xs text-[#5A4D41] mt-1 flex items-center gap-1.5">
                 <ShieldCheck size={14} className="text-emerald-600" />
-                Pass carré officiel avec QR Code unique généré immédiatement
+                Badge officiel personnalisé et billet générés immédiatement
               </p>
             </div>
 

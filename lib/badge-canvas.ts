@@ -1,5 +1,3 @@
-import QRCode from "qrcode";
-
 export interface BadgeData {
   fullName: string;
   ticketNumber: string;
@@ -47,40 +45,32 @@ function roundRect(
 }
 
 /**
- * Génère le badge officiel carré en format 1080x1080 pixels haute définition
+ * Génère le badge officiel Celebration Night au format HD 1080x1350 (ratio officiel 4:5)
+ * avec intégration de la photo du participant sous le masque officiel détouré,
  * et retourne le Data URL (PNG).
  */
 export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
   const canvas = document.createElement("canvas");
-  const SIZE = 1080;
-  canvas.width = SIZE;
-  canvas.height = SIZE;
+  const WIDTH = 1080;
+  const HEIGHT = 1350;
+  canvas.width = WIDTH;
+  canvas.height = HEIGHT;
   const ctx = canvas.getContext("2d");
 
   if (!ctx) {
     throw new Error("Impossible d'initialiser le contexte Canvas 2D.");
   }
 
-  // 1. Fond officiel Celebration Night (affiche officielle nettoyée)
-  try {
-    const bgImg = await loadImage("/images/badge_template_clean.png");
-    ctx.drawImage(bgImg, 0, 0, SIZE, SIZE);
-  } catch (err) {
-    console.warn("Échec du chargement du fond officiel, utilisation du fallback:", err);
-    const bgGrad = ctx.createLinearGradient(0, 0, SIZE, SIZE);
-    bgGrad.addColorStop(0, "#1F0A2E");
-    bgGrad.addColorStop(0.5, "#4A0E4E");
-    bgGrad.addColorStop(1, "#120520");
-    ctx.fillStyle = bgGrad;
-    ctx.fillRect(0, 0, SIZE, SIZE);
-  }
+  // 1. Fond sombre de base
+  ctx.fillStyle = "#120520";
+  ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-  // 2. Photo du participant (dans un cadre propre et léger, aligné avec l'affiche sous J'Y SERAI)
-  const frameX = 24;
-  const frameY = 180;
-  const frameW = 540;
-  const frameH = 672;
-  const radius = 22;
+  // 2. Zone photo du participant (avec 3px de bleed sous les bordures opaques)
+  const frameX = 58;
+  const frameY = 227;
+  const frameW = 487;
+  const frameH = 590;
+  const radius = 85;
 
   if (data.photoUrl) {
     try {
@@ -97,46 +87,47 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
       const y = frameY + (frameH - h) / 2;
       ctx.drawImage(userImg, x, y, w, h);
       ctx.restore();
-
-      // Cadre léger : contour fin blanc translucide
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.28)";
-      roundRect(ctx, frameX, frameY, frameW, frameH, radius);
-      ctx.stroke();
     } catch (err) {
       console.warn("Échec du chargement de la photo participant:", err);
     }
+  } else {
+    // Fond élégant en dégradé si pas de photo
+    const grad = ctx.createLinearGradient(frameX, frameY, frameX + frameW, frameY + frameH);
+    grad.addColorStop(0, "#2D0A4E");
+    grad.addColorStop(0.5, "#1A0630");
+    grad.addColorStop(1, "#0D0218");
+
+    ctx.save();
+    roundRect(ctx, frameX, frameY, frameW, frameH, radius);
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Initiale du participant
+    const initial = (data.fullName?.trim()?.[0] || "C").toUpperCase();
+    ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+    ctx.font = "bold 120px sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(initial, frameX + frameW / 2, frameY + frameH / 2 - 20);
+
+    ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+    ctx.font = "bold 22px sans-serif";
+    ctx.fillText("PARTICIPANT OFFICIEL", frameX + frameW / 2, frameY + frameH / 2 + 60);
+    ctx.restore();
   }
 
-  // 3. Calque de premier plan officiel : J'Y SERAI en 3D, bandeau date, logos et flyer au-dessus de la photo
+  // 3. Dessiner le template officiel du badge par-dessus (détouré sur la zone photo)
   try {
-    const fgImg = await loadImage("/images/badge_foreground.png");
-    ctx.drawImage(fgImg, 0, 0, SIZE, SIZE);
+    const fgImg = await loadImage("/images/badge_template_2026.png");
+    ctx.drawImage(fgImg, 0, 0, WIDTH, HEIGHT);
   } catch (err) {
-    console.warn("Échec du chargement du premier plan officiel:", err);
-  }
-
-  // 4. QR Code dynamique officiel sur la carte d'entrée (bas-droite)
-  // Coordonnées exactes : carte à X: 835..1047, Y: 815..1027, QR centré en (941, 921)
-  const qrSize = 176;
-  const qrX = 853;
-  const qrY = 833;
-  const tokenToEncode = data.qrToken || data.ticketNumber || "CN-2026-VALIDE";
-
-  try {
-    const qrDataUrl = await QRCode.toDataURL(tokenToEncode, {
-      errorCorrectionLevel: "M",
-      margin: 1,
-      width: qrSize,
-      color: {
-        dark: "#0F071A",
-        light: "#FFFFFF",
-      },
-    });
-    const qrImg = await loadImage(qrDataUrl);
-    ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
-  } catch (err) {
-    console.error("Erreur rendu QR code HD:", err);
+    console.warn("Échec du chargement du template officiel, essai du fallback:", err);
+    try {
+      const fallbackImg = await loadImage("/images/badge_foreground.png");
+      ctx.drawImage(fallbackImg, 0, 0, WIDTH, HEIGHT);
+    } catch (fallbackErr) {
+      console.error("Échec du chargement du fallback badge:", fallbackErr);
+    }
   }
 
   return canvas.toDataURL("image/png");
