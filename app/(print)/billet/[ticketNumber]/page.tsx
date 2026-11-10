@@ -15,6 +15,8 @@ import {
   ArrowLeft,
   CheckCircle2,
   Ticket as TicketIcon,
+  X,
+  Share2,
 } from "lucide-react";
 import { CelebrationNightLogo, HagiazoLogo } from "@/components/layout/Logos";
 
@@ -52,6 +54,9 @@ export default function TicketPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<TicketDetails | null>(null);
+  const [modalBadgeUrl, setModalBadgeUrl] = useState<string | null>(null);
+  const [badgeBlob, setBadgeBlob] = useState<Blob | null>(null);
+  const [isGeneratingBadge, setIsGeneratingBadge] = useState(false);
 
   useEffect(() => {
     if (!rawTicketNumber) return;
@@ -136,23 +141,35 @@ export default function TicketPage() {
         <div className="flex items-center gap-3">
           <button
             type="button"
+            disabled={isGeneratingBadge}
             onClick={async () => {
               try {
-                const { renderBadgeToDataUrl, downloadDataUrl } = await import("@/lib/badge-canvas");
-                const dataUrl = await renderBadgeToDataUrl({
-                  fullName: `${data.participant.firstName} ${data.participant.lastName}`,
+                setIsGeneratingBadge(true);
+                const { renderBadgeToBlob, saveOrShareBadgeFile } = await import("@/lib/badge-canvas");
+                const participantName = `${data.participant.firstName} ${data.participant.lastName}`.trim();
+                const blob = await renderBadgeToBlob({
+                  fullName: participantName,
                   ticketNumber: data.ticket.ticketNumber,
                   qrToken: data.ticket.ticketNumber,
                 });
-                downloadDataUrl(dataUrl, `badge-j-y-serai-${data.ticket.ticketNumber}.png`);
+                setBadgeBlob(blob);
+                const filename = `badge-j-y-serai-${data.ticket.ticketNumber.toLowerCase()}.png`;
+                const res = await saveOrShareBadgeFile(blob, filename, "Badge officiel — CELEBRATION NIGHT");
+                if (res.method === "modal") {
+                  setModalBadgeUrl(res.objectUrl);
+                }
               } catch (e) {
-                console.error(e);
+                console.error("Erreur téléchargement badge billet:", e);
+              } finally {
+                setIsGeneratingBadge(false);
               }
             }}
-            className="inline-flex items-center gap-2 rounded-lg border border-cn-gold/40 bg-cn-gold/10 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-cn-gold-light hover:bg-cn-gold/20 transition-colors whitespace-nowrap flex-nowrap"
+            className="inline-flex items-center gap-2 rounded-lg border border-cn-gold/40 bg-cn-gold/10 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-cn-gold-light hover:bg-cn-gold/20 transition-colors whitespace-nowrap flex-nowrap disabled:opacity-50"
           >
             <Download size={14} className="text-cn-gold shrink-0" />
-            <span className="whitespace-nowrap">Badge J&apos;y serai HD</span>
+            <span className="whitespace-nowrap">
+              {isGeneratingBadge ? "Génération HD..." : "Badge J'y serai HD"}
+            </span>
           </button>
 
           <button
@@ -311,6 +328,98 @@ export default function TicketPage() {
           </Link>.
         </p>
       </div>
+
+      {/* Modale d'enregistrement dédiée iPhone & Sauvegarde manuelle */}
+      {modalBadgeUrl && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="print:hidden fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
+          onClick={() => setModalBadgeUrl(null)}
+        >
+          <div
+            className="relative max-h-[92vh] w-full max-w-md overflow-y-auto rounded-3xl border border-cn-gold/30 bg-[#12071F] p-6 text-white shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Entête */}
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div>
+                <h3 className="font-heading text-xl uppercase tracking-wider text-white">
+                  Enregistrement du badge
+                </h3>
+                <p className="text-[11px] text-cn-gray-300">Format HD officiel • 1080 × 1350 px</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setModalBadgeUrl(null)}
+                className="rounded-full p-2 text-cn-gray-400 hover:bg-white/10 hover:text-white transition-colors"
+                aria-label="Fermer"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Corps */}
+            <div className="my-5 flex flex-col items-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={modalBadgeUrl}
+                alt="Badge officiel Celebration Night"
+                className="max-h-[52vh] w-auto rounded-2xl border border-white/15 shadow-2xl object-contain select-none touch-manipulation"
+              />
+
+              <div className="mt-4 w-full rounded-2xl border border-cn-gold/30 bg-cn-gold/10 p-4 text-center text-xs text-cn-gold-light">
+                <p className="font-semibold text-white uppercase tracking-wider text-[11px]">
+                  Consigne pour iPhone et iPad :
+                </p>
+                <p className="mt-1 leading-relaxed text-[#EADCC8]">
+                  Maintenez votre doigt appuyé sur le badge ci-dessus, puis choisissez{" "}
+                  <strong className="text-white">« Enregistrer dans Photos »</strong> dans le menu qui apparaît.
+                </p>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              {typeof navigator !== "undefined" && typeof navigator.share === "function" && (
+                <button
+                  type="button"
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cn-gold to-cn-amber py-3 px-4 text-xs font-bold uppercase tracking-wider text-black shadow-lg hover:brightness-110 transition-all"
+                  onClick={async () => {
+                    try {
+                      if (!badgeBlob) return;
+                      const file = new File(
+                        [badgeBlob],
+                        `badge-celebration-night-${data.ticket.ticketNumber.toLowerCase()}.png`,
+                        { type: "image/png" }
+                      );
+                      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        await navigator.share({
+                          files: [file],
+                          title: "Badge officiel — CELEBRATION NIGHT",
+                        });
+                      }
+                    } catch (e) {
+                      // Action annulée
+                    }
+                  }}
+                >
+                  <Share2 size={16} />
+                  <span>Partager l&apos;image</span>
+                </button>
+              )}
+
+              <button
+                type="button"
+                className="flex-1 inline-flex items-center justify-center rounded-xl border border-white/20 py-3 px-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/10 transition-colors"
+                onClick={() => setModalBadgeUrl(null)}
+              >
+                Fermer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

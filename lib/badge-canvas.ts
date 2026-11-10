@@ -15,7 +15,11 @@ export interface BadgeData {
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.crossOrigin = "anonymous";
+    // Ne définir crossOrigin que pour les requêtes HTTP/HTTPS distantes.
+    // Les Data URLs et chemins locaux ne doivent pas avoir crossOrigin sur Safari WebKit.
+    if (src.startsWith("http://") || src.startsWith("https://")) {
+      img.crossOrigin = "anonymous";
+    }
     img.onload = () => resolve(img);
     img.onerror = () => reject(new Error(`Impossible de charger l'image: ${src}`));
     img.src = src;
@@ -47,11 +51,9 @@ function roundRect(
 }
 
 /**
- * Génère le badge officiel Celebration Night au format HD 1080x1350 (ratio officiel 4:5)
- * avec intégration de la photo du participant sous le masque officiel détouré,
- * et retourne le Data URL (PNG).
+ * Génère le Canvas 2D du badge officiel Celebration Night au format HD 1080x1350.
  */
-export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
+export async function renderBadgeCanvas(data: BadgeData): Promise<HTMLCanvasElement> {
   const canvas = document.createElement("canvas");
   const WIDTH = 1080;
   const HEIGHT = 1350;
@@ -156,12 +158,106 @@ export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
     }
   }
 
+  return canvas;
+}
+
+/**
+ * Génère le badge officiel au format Data URL (PNG base64).
+ */
+export async function renderBadgeToDataUrl(data: BadgeData): Promise<string> {
+  const canvas = await renderBadgeCanvas(data);
   return canvas.toDataURL("image/png");
 }
 
+/**
+ * Génère le badge officiel au format Blob PNG (optimisé mémoire, idéal pour iOS et partages natifs).
+ */
+export async function renderBadgeToBlob(data: BadgeData): Promise<Blob> {
+  const canvas = await renderBadgeCanvas(data);
+  return new Promise<Blob>((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => {
+        if (blob) {
+          resolve(blob);
+        } else {
+          reject(new Error("Impossible de générer le fichier du badge."));
+        }
+      },
+      "image/png"
+    );
+  });
+}
+
+export interface SaveBadgeResult {
+  method: "shared" | "downloaded" | "modal";
+  objectUrl: string;
+}
 
 /**
- * Déclenche le téléchargement du Data URL PNG sur le navigateur client.
+ * Sauvegarde ou partage le badge de façon optimale selon la plateforme :
+ * - Sur iPhone/iOS & Android (support Web Share avec fichier) : ouvre la feuille native
+ *   permettant de toucher directement « Enregistrer l'image » (dans Photos) ou partager sur WhatsApp.
+ * - Sur ordinateur (Desktop) : déclenche le téléchargement immédiat du fichier PNG.
+ * - En secours : signale le besoin d'afficher la modale pour un enregistrement tactile par appui long.
+ */
+export async function saveOrShareBadgeFile(
+  blob: Blob,
+  filename: string,
+  title = "Badge J'y serai — CELEBRATION NIGHT"
+): Promise<SaveBadgeResult> {
+  const objectUrl = URL.createObjectURL(blob);
+
+  // Détection des appareils mobiles (iPhone, iPad, Android)
+  const isMobile =
+    typeof navigator !== "undefined" &&
+    (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
+
+  // 1. Sur Mobile : priorité à la feuille de partage native (permet d'enregistrer directement dans Photos sur iOS)
+  if (isMobile) {
+    try {
+      const file = new File([blob], filename, { type: "image/png" });
+      if (
+        typeof navigator.share === "function" &&
+        typeof navigator.canShare === "function" &&
+        navigator.canShare({ files: [file] })
+      ) {
+        await navigator.share({
+          files: [file],
+          title,
+          text: "Voici mon badge officiel pour CELEBRATION NIGHT !",
+        });
+        return { method: "shared", objectUrl };
+      }
+    } catch (err: any) {
+      if (err.name === "AbortError") {
+        return { method: "modal", objectUrl };
+      }
+      console.warn("Partage natif non abouti, bascule vers la modale:", err);
+      return { method: "modal", objectUrl };
+    }
+
+    // Si on est sur iPhone et que le partage natif n'est pas possible, ouvrir la vue d'appui long
+    return { method: "modal", objectUrl };
+  }
+
+  // 2. Sur Ordinateur : téléchargement direct classique
+  try {
+    const link = document.createElement("a");
+    link.href = objectUrl;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    return { method: "downloaded", objectUrl };
+  } catch (downloadErr) {
+    console.warn("Échec du téléchargement direct:", downloadErr);
+    return { method: "modal", objectUrl };
+  }
+}
+
+/**
+ * Déclenche le téléchargement du Data URL PNG sur le navigateur client (compatibilité descendante).
  */
 export function downloadDataUrl(dataUrl: string, filename: string) {
   const link = document.createElement("a");
